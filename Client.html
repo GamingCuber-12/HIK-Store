@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>HIK Store Live</title>
+<!-- 💡 LOGO FIX: Pointing to logo.png -->
+<link rel="icon" href="logo.png" type="image/png"> 
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ---------- base & polish ---------- */
+*{margin:0;padding:0;box-sizing:border-box;}
+html {scroll-behavior: smooth;}
+body{
+    font-family:'Montserrat',sans-serif;
+    background:#f0f2f5;
+    overflow-x:hidden;
+    cursor: none; /* Hide default cursor */
+}
+a, button, .cart, #toggleSidebarBtn, #modalMainImgContainer {cursor: none !important;}
+
+/* Custom Cursor (Blue: #0072ff) */
+#customCursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #0072ff; 
+    border-radius: 50%;
+    pointer-events: none;
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+    z-index: 10000;
+    mix-blend-mode: exclusion;
+    transform: translate(-50%, -50%);
+}
+#customCursor.link-hover {
+    width: 40px;
+    height: 40px;
+    background-color: #0072ff50; 
+    mix-blend-mode: normal;
+}
+#customCursor.hidden {opacity: 0;}
+
+#bgLayer{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;}
+.bubble{position:absolute;border-radius:50%;background:rgba(0,114,255,0.15);animation:bubbleMove 25s linear infinite;mix-blend-mode:screen;filter:blur(15px);}
+@keyframes bubbleMove{0%{transform:translateY(0);}100%{transform:translateY(-1200px);}}
+
+/* ---------- top bar ---------- */
+#topBar{position:fixed;top:0;left:0;width:100%;height:60px;background:rgba(255,255,255,0.95);backdrop-filter:blur(25px);display:flex;align-items:center;justify-content:space-between;padding:0 25px;z-index:15;box-shadow:0 5px 25px rgba(0,0,0,0.1);transition:.3s;}
+.leftZone{display:flex;align-items:center;gap:18px;}
+#toggleSidebarBtn{width:28px;height:22px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;}
+#toggleSidebarBtn div{height:3px;background:#0072ff;border-radius:2px;transition:.3s;}
+#toggleSidebarBtn.open div:nth-child(1){transform:translateY(9px) rotate(45deg);}
+#toggleSidebarBtn.open div:nth-child(2){opacity:0;}
+#toggleSidebarBtn.open div:nth-child(3){transform:translateY(-9px) rotate(-45deg);}
+.logoWrap{display:flex;align-items:center;gap:10px;font-weight:800;color:#0072ff;font-size:20px;}
+.logoWrap img { 
+    height: 42px; 
+    width: auto;
+    object-fit: contain;
+}
+.search{flex:1;margin:0 20px;display:flex;}
+.search input{flex:1;padding:8px 14px;border-radius:25px;border:1px solid #ccc;font-size:14px;transition:.2s;}
+.search button{padding:8px 16px;margin-left:8px;border-radius:25px;border:none;background:#0072ff;color:#fff;cursor:pointer;transition:.2s;box-shadow:0 0 12px #0072ff;}
+.search button:hover{background:#005bb5;}
+.cart{font-size:22px;color:#0072ff;position:relative;cursor:pointer;}
+.cart span{position:absolute;top:-8px;right:-8px;background:red;color:white;font-size:12px;padding:2px 6px;border-radius:50%;font-weight:700;transition:.15s;}
+
+/* ---------- sidebar ---------- */
+#sidebar{position:fixed;left:0;top:60px;width:220px;height:calc(100% - 60px);background:rgba(255,255,255,.8);backdrop-filter:blur(40px) saturate(180%);padding-top:20px;border-right:1px solid rgba(0,0,0,.1);z-index:10;overflow:auto;transition:.25s;}
+#sidebar.collapsed{transform:translateX(-240px);}
+#sidebar a{display:flex;align-items:center;padding:12px 20px;text-decoration:none;color:#000;font-weight:600;transition:.18s;}
+#sidebar a:hover{color:#0072ff;}
+
+/* ---------- banner ---------- */
+.banner{width:100%;overflow:hidden;background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;font-weight:800;font-size:18px;text-align:left;white-space:nowrap;padding:12px 0;margin-top:60px;border-radius:0 0 12px 12px;}
+.banner span{display:inline-block;padding-left:100%;animation:slide 18s linear infinite;}
+@keyframes slide{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
+
+/* ---------- main ---------- */
+main{
+    margin-left:220px;
+    padding-top:25px;
+    transition:.25s;
+    /* FIX: Removed min-height, display:flex, and flex-direction */
+}
+main.collapsed{margin-left:0;}
+.section{padding:60px 5vw;text-align:center;}
+.section:nth-child(even){background:#f9fbfd;border-radius:12px;margin:12px 0;}
+.section h2{font-size:30px;color:#222;margin-bottom:16px;font-weight:800;}
+/* FIX: Removed margin-top: auto */
+.contact {
+    /* No special margin needed, will now appear right after the checkout section */
+}
+
+
+/* ---------- grid / card ---------- */
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+    gap: 22px; 
+    overflow-x: hidden; 
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    justify-content: start;
+}
+.card{
+    background:rgba(255,255,255,.45);
+    backdrop-filter:blur(40px) saturate(200%);
+    border-radius:14px;
+    padding:12px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+    transition:.25s;
+    box-shadow:0 10px 30px rgba(0,0,0,.08); 
+}
+.card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 14px 40px rgba(0,0,0,.12);}
+.thumb{width:100%;height:150px;border-radius:10px;overflow:hidden;cursor:pointer; display: flex; align-items: center; justify-content: center; background-color: #f8f8f8;}
+.thumb img{
+    max-width:100%;
+    max-height:100%;
+    object-fit: contain;
+    transition:.3s;
+}
+.thumb img:hover{transform:scale(1.05);}
+.title{margin-top:10px;font-weight:700;color:#222;text-align:center;font-size:15px;}
+.price{margin-top:6px;font-weight:700;color:#0072ff;text-align:center;font-size:14px;}
+button{margin-top:10px;padding:8px 14px;border:none;border-radius:12px;background:#0072ff;color:#fff;cursor:pointer;font-weight:700;transition:.2s;
+    box-shadow:0 4px 15px #0072ff80;
+    font-size:14px;}
+button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072ffaa;}
+.hot-badge{position:absolute;top:10px;left:10px;background:red;color:white;font-size:12px;padding:4px 10px;border-radius:12px;font-weight:700;box-shadow:0 0 10px rgba(0,0,0,0.15);}
+
+/* cart remove */
+#cartGrid .remove-btn{position:absolute;top:50%;right:10px;transform:translateY(-50%);background:#ff4d4f;width:28px;height:28px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;}
+#cartGrid .remove-btn:hover{background:#c41d1d;transform:translateY(-50%) scale(1.15);}
+
+/* contact buttons spacing */
+.contact a{display:inline-block;margin:8px 14px;padding:10px 18px;background:rgba(255,255,255,.6);border-radius:18px;backdrop-filter:blur(40px);text-decoration:none;color:#000;font-weight:700;transition:.18s;font-size:14px;}
+.contact a:hover{transform:scale(1.04);background:rgba(255,255,255,.8);}
+
+/* categories spacing */
+.categories button{margin:10px 16px;padding:10px 20px;border-radius:25px;border:1px solid #0072ff;background:#fff;color:#0072ff;font-weight:700;cursor:pointer;transition:.18s;font-size:14px;}
+.categories button:hover, .categories button.active{
+    background:#0072ff;
+    color:#fff;
+    transform:scale(1.04);
+}
+
+/* ---------- modal ---------- */
+#productModal{position:fixed;top:0;left:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);backdrop-filter:blur(8px);z-index:9999;padding:20px;}
+#productModal .wrap{background:#fff;border-radius:14px;padding:20px;width:100%;max-width:1000px;display:flex;gap:20px;position:relative;box-shadow:0 15px 40px rgba(0,0,0,0.25);}
+#productModal #closeModal{position:absolute;top:12px;right:16px;font-size:26px;cursor:pointer;}
+#modalThumbs img{
+    width:72px;
+    height:72px;
+    border-radius:8px;
+    object-fit: contain;
+    cursor:pointer;
+    border:2px solid transparent;
+    background-color: #f8f8f8;
+}
+#modalThumbs img:hover{border-color:#0072ff; transform: scale(1.05);}
+@media (max-width:900px){#productModal .wrap{flex-direction:column;} .thumb{height:220px}}
+
+/* --- ZOOM STYLES --- */
+#modalMainImgContainer {
+    width: 100%;
+    height: 360px;
+    border-radius: 10px;
+    overflow: hidden; 
+    position: relative;
+    cursor: zoom-in;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f8f8;
+}
+#modalMainImg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.1s ease-out; 
+    transform-origin: center center;
+}
+/* ------------------------ */
+
+/* ---------- AI assistant (Blue: #0072ff) ---------- */
+#aiWidget{position:fixed;bottom:20px;right:20px;width:64px;height:64px;border-radius:16px;background:#0072ff;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;box-shadow:0 12px 30px rgba(0,0,0,0.18);}
+#aiPanel{position:fixed;bottom:100px;right:20px;width:340px;max-height:60vh;background:#fff;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,0.2);display:none;flex-direction:column;overflow:hidden;z-index:9999;}
+#aiPanel header{background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;padding:12px;font-weight:800;}
+#aiPanel .messages{padding:12px;flex:1;overflow:auto;}
+.ai-msg{margin-bottom:10px;padding:8px 10px;border-radius:10px;max-width:85%;line-height:1.4;}
+.ai-msg.me{background:#e8f0ff;margin-left:auto;}
+.ai-msg.bot{background:#f3f3f3;}
+#aiPanel footer{display:flex;padding:10px;gap:8px;border-top:1px solid #eee;}
+#aiPanel input{flex:1;padding:8px;border-radius:8px;border:1px solid #ddd;}
+#aiPanel button{padding:8px 10px;border-radius:8px;background:#0072ff;color:#fff;border:none;cursor:pointer;}
+
+/* ---------- CHECKOUT FORM STYLES ---------- */
+.checkout-container { max-width: 500px; margin: auto; padding: 25px; border: 1px solid #e0e0e0; border-radius: 12px; background: white; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.08);}
+.checkout-container label { display: block; margin-bottom: 5px; font-weight: 700; color: #333; font-size: 14px;}
+.checkout-container input[type="text"], 
+.checkout-container input[type="email"], 
+.checkout-container input[type="number"],
+.checkout-container input[type="tel"] { 
+    width: 100%; 
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+.checkout-container button[type="submit"] {
+    background-color: #28a745; 
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+}
+.checkout-container button[type="submit"]:hover { background-color: #1e7e34; }
+.checkout-container #backToCartBtn { 
+    background:#6c757d !important; 
+    color:#fff !important; 
+    box-shadow: none !important; 
+    margin-left: 10px; 
+    padding: 12px 18px;
+}
+.checkout-container #backToCartBtn:hover { background: #5a6268 !important; }
+
+/* Message box for payment feedback */
+#paymentFeedback {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-align: center;
+    display: none;
+    line-height: 1.4;
+}
+.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+/* ---------- Notification Styles ---------- */
+#notification {
+    position: fixed;
+    top: 0px; /* Start hidden above the viewport */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #0072ff;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    font-weight: 600;
+    font-size: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease-out;
+    z-index: 10000; /* Above everything else */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+#notification.show {
+    top: 60px; /* Slides down to just below the top bar */
+    opacity: 1;
+    visibility: visible;
+}
+</style>
+</head>
+<body>
+
+<div id="customCursor"></div>
+<div id="bgLayer"></div>
+
+<div id="notification">
+    <i class="fas fa-check-circle"></i> Item added to cart!
+</div>
+
+<div id="topBar">
+  <div class="leftZone">
+    <div id="toggleSidebarBtn"><div></div><div></div><div></div></div>
+
+    <div class="logoWrap" title="HIK Store">
+      <!-- 💡 LOGO FIX: Pointing to logo.png -->
+      <img src="logo.png" alt="HIK Store Logo"> 
+    </div>
+  </div>
+
+  <div class="search"><input id="searchInput" type="text" placeholder="Search products..."><button id="searchBtn">Search</button></div>
+  <div class="cart" id="cartBtn"><i class="fas fa-shopping-cart"></i><span id="cartCount">0</span></div>
+</div>
+
+<div id="sidebar">
+  <a href="#products" class="nav-link"><i class="fas fa-box-open" style="width:20px;text-align:center"></i> Products</a>
+  <a href="#featuredOffers" class="nav-link"><i class="fas fa-star" style="width:20px;text-align:center"></i> Featured Offers</a>
+  <a href="#categories" class="nav-link"><i class="fas fa-th-large" style="width:20px;text-align:center"></i> Categories</a>
+  <a href="#cart" class="nav-link"><i class="fas fa-shopping-cart" style="width:20px;text-align:center"></i> Cart</a>
+  <a href="#contact" class="nav-link"><i class="fas fa-phone" style="width:20px;text-align:center"></i> Contact</a>
+</div>
+
+<div class="banner"><span>🔥 **MAINTENANCE COMPLETE** - We're back! 50% OFF on select items! Limited time only! 🔥</span></div>
+
+<main id="mainContent">
+  <section class="section" id="products">
+    <!-- 💡 TITLE FIX: This title will be changed by JavaScript -->
+    <h2 id="products-title">All Products (50 Items)</h2>
+    <div class="grid" id="productGrid"></div>
+  </section>
+
+  <section class="section" id="featuredOffers">
+    <h2>Featured Offers (Top 10 Deals)</h2>
+    <div class="grid" id="featuredGrid"></div>
+  </section>
+
+  <section class="section categories" id="categories">
+    <h2>Categories</h2>
+    <!-- 💡 CATEGORY BUTTONS: Added 'All' and onclick events -->
+    <button class="category-btn" onclick="filterProducts('All')">All</button>
+    <button class="category-btn" onclick="filterProducts('Electronics')">Electronics</button>
+    <button class="category-btn" onclick="filterProducts('Clothing')">Clothing</button>
+    <button class="category-btn" onclick="filterProducts('Home & Kitchen')">Home & Kitchen</button>
+    <button class="category-btn" onclick="filterProducts('Gaming')">Gaming</button>
+    <button class="category-btn" onclick="filterProducts('Books')">Books</button>
+  </section>
+
+  <section class="section" id="cart">
+    <h2>Your Cart</h2>
+    <div class="grid" id="cartGrid"></div>
+    <div style="margin-top:12px; font-size: 20px; font-weight: 800;">Total: AED <span id="cartTotal">0.00</span></div>
+    <div id="checkoutRow">
+      <button id="goToCheckoutBtn" style="background:#0072ff;color:#fff;padding:12px 24px;border-radius:12px;border:none;cursor:pointer;font-weight:800;box-shadow:0 6px 20px rgba(0,0,0,0.12); margin-top:12px;">Proceed to Checkout</button>
+    </div>
+  </section>
+
+  <section class="section" id="checkoutPage" style="background:none; display: none;">
+    <h2>Complete Your Purchase</h2>
+    <div class="checkout-container">
+      <!-- 💡 FORMSPREE URL UPDATED -->
+      <form id="paymentForm" action="https://formspree.io/f/movyankj" method="POST">
+        <input type="hidden" name="_subject" value="New HIK Store Order!" />
+
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="phone">Phone Number (For Delivery):</label>
+        <input type="tel" id="phone" name="phone_number" required>
+
+        <h3 style="margin: 20px 0 10px; font-size: 18px; color: #0072ff;">Shipping Address</h3>
+        
+        <label for="address">Street Address:</label>
+        <input type="text" id="address" name="shipping_address" required>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" value="UAE" required>
+        
+        <label for="zip">Postal/Zip Code:</label>
+        <input type="text" id="zip" name="postal_code" required>
+
+        <h3 style="margin: 20px 0 10px; font-size: 18px; color: #0072ff;">Payment (Simulation)</h3>
+
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" name="card_number" pattern="[0-9]{13,16}" title="Enter a valid credit card number (13-16 digits)" required>
+
+        <label for="expiryDate">Expiry Date (MM/YY):</label>
+        <input type="text" id="expiryDate" name="expiryDate" pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" placeholder="MM/YY" required>
+
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" name="cvv" pattern="[0-9]{3,4}" required>
+        
+        <div id="paymentFeedback" style="display:none;"></div>
+
+        <button type="submit" id="payment-button">Confirm Order & Pay AED <span id="paymentTotal">0.00</span></button>
+        <button type="button" id="backToCartBtn">Back to Cart</button>
+      </form>
+      <div style="margin-top: 15px; font-size: 14px; text-align: center; color: #666;">
+        *This is a demo checkout. Order details will be emailed to HIK Store via Formspree.*
+      </div>
+    </div>
+  </section>
+  <section class="section contact" id="contact">
+    <h2>Contact Us</h2>
+    <a href="https://wa.me/0000000000" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a href="#" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+    <a href="#" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+  </section>
+</main>
+
+<div id="productModal">
+  <div class="wrap" role="dialog" aria-modal="true">
+    <span id="closeModal">×</span>
+    <div style="flex:1">
+      <div id="modalMainImgContainer">          <img id="modalMainImg" src="" alt="Product Image" />
+      </div>
+      <div id="modalThumbs" style="display:flex;gap:10px;margin-top:12px;overflow-x:auto"></div>
+      
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <h2 id="modalTitle"></h2>
+      <div id="modalPrice" style="color:#0072ff;font-weight:800;font-size:22px;margin-bottom:12px;"></div>
+      <p id="modalDesc" style="margin-bottom:18px;color:#333;line-height:1.45"></p>
+      <div style="display:flex;gap:12px;align-items:center">
+        <button id="modalBuy" style="padding:12px 18px;font-size:16px;border-radius:12px;background:#0072ff;color:#fff;cursor:pointer;box-shadow:0 0 18px #0072ff80">Add to Cart</button>
+        <button id="modalBack" style="padding:10px 14px;border-radius:12px;border:1px solid #ccc;background:#fff;cursor:pointer">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="aiWidget" title="Assistant">🤖</div>
+<div id="aiPanel" aria-hidden="true">
+  <header>HIK Assistant</header>
+  <div class="messages" id="aiMessages">
+    <div class="ai-msg bot">Hi! I'm the HIK Assistant. Ask me about products, shipping, returns, or your current cart total.</div>
+  </div>
+  <footer>
+    <input id="aiInput" placeholder="Ask something..." />
+    <button id="aiSend">Send</button>
+  </footer>
+</div>
+
+<script>
+/* ---------- START JAVASCRIPT LOGIC (Client-Side Only) ---------- */
+
+/* ---------- custom cursor logic ---------- */
+const customCursor = document.getElementById('customCursor');
+document.addEventListener('mousemove', (e) => {
+    customCursor.style.left = e.clientX + 'px';
+    customCursor.style.top = e.clientY + 'px';
+});
+
+document.querySelectorAll('a, button, .cart, #toggleSidebarBtn, .thumb img, #modalMainImgContainer, #closeModal, #modalBuy, #modalBack, #searchBtn, input, .nav-link').forEach(el => {
+    el.addEventListener('mouseenter', () => customCursor.classList.add('link-hover'));
+    el.addEventListener('mouseleave', () => customCursor.classList.remove('link-hover'));
+});
+
+/* ---------- sidebar toggle and navigation ---------- */
+const sidebar = document.getElementById('sidebar');
+const toggleBtn = document.getElementById('toggleSidebarBtn');
+const main = document.getElementById('mainContent');
+const sections = document.querySelectorAll('.section');
+
+toggleBtn.onclick = () => { sidebar.classList.toggle('collapsed'); main.classList.toggle('collapsed'); toggleBtn.classList.toggle('open'); };
+
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        sections.forEach(sec => { sec.style.display = 'block'; });
+        document.getElementById('checkoutPage').style.display = 'none'; 
+    });
+});
+document.getElementById('cartBtn').onclick = () => {
+    sections.forEach(sec => { sec.style.display = 'block'; });
+    document.getElementById('checkoutPage').style.display = 'none'; 
+    document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
+};
+
+
+/* ---------- bubbles ---------- */
+const bg = document.getElementById('bgLayer'), bArray = [];
+function updateBgHeight(){ bg.style.height = document.body.scrollHeight + 'px'; }
+window.addEventListener('resize', updateBgHeight);
+for (let i=0;i<28;i++){ let b=document.createElement('div'); b.className='bubble'; let s=Math.random()*60+30; b.style.width=b.style.height=s+'px'; b.style.left=Math.random()*95+'vw'; b.style.top=Math.random()*document.body.scrollHeight+'px'; bg.appendChild(b); bArray.push({el:b,x:(Math.random()*0.12-0.06),y:(Math.random()*0.12-0.06)}); }
+(function animateBubbles(){ 
+    bArray.forEach(bu=>{ 
+        let l=parseFloat(bu.el.style.left), t=parseFloat(bu.el.style.top); 
+        l+=bu.x; 
+        t+=bu.y; 
+        if(l>95||l<0)bu.x*=-1; 
+        if(t>document.body.scrollHeight||t<0)bu.y*=-1; 
+        bu.el.style.left = l + 'vw'; 
+        bu.el.style.top = t + 'px'; 
+    }); 
+    requestAnimationFrame(animateBubbles); 
+})();
+
+/* ---------- cart logic (FIXED) ---------- */
+let cart = [];
+// Helper to retrieve cart total element correctly
+function getCartTotalElement() {
+    return document.getElementById('cartTotal');
+}
+
+// ** BUG FIX: Safely render cart details to prevent crashes on checkout page **
+function renderCart(){
+    const cartGrid = document.getElementById('cartGrid');
+    const cartCountElement = document.getElementById('cartCount');
+    const cartTotalElement = document.getElementById('cartTotal');
+    const paymentTotalElement = document.getElementById('paymentTotal');
+    
+    // Clear the cart display only if the container exists
+    if (cartGrid) {
+        cartGrid.innerHTML = ''; 
+    }
+    
+    let total = 0;
+    cart.forEach((it, idx) => {
+        total += it.price;
+        const d = document.createElement('div'); d.className='card';
+        d.innerHTML = `<div class="title">${it.title}</div><div class="price">AED ${it.price.toFixed(2)}</div>`;
+        
+        if (cartGrid) { // Only append if the cart grid exists on the current page
+             const btn = document.createElement('button'); btn.className='remove-btn'; btn.innerHTML='&times;';
+             // Apply necessary styles for the remove button
+             btn.style.position = 'absolute'; btn.style.top = '10px'; btn.style.right = '10px';
+             btn.style.width = '28px'; btn.style.height = '28px'; btn.style.padding = '0';
+             
+             btn.onclick = ()=>{ cart.splice(idx,1); renderCart(); };
+             d.appendChild(btn); 
+            cartGrid.appendChild(d);
+        }
+    });
+    
+    // Safely update elements only if they exist (Prevents the crash)
+    if (cartCountElement) {
+        cartCountElement.innerText = cart.length;
+    }
+    if (cartTotalElement) {
+        cartTotalElement.innerText = total.toFixed(2);
+    }
+    if (paymentTotalElement) {
+        paymentTotalElement.innerText = total.toFixed(2); 
+    }
+}
+
+/* --- ZOOM HANDLER --- */
+const modalImage = document.getElementById('modalMainImg');
+const modalImageContainer = document.getElementById('modalMainImgContainer');
+
+function handleZoom(e) {
+    const { left, top, width, height } = modalImageContainer.getBoundingClientRect();
+    const x = (e.clientX - left) / width; 
+    const y = (e.clientY - top) / height; 
+    
+    const originX = x * 100;
+    const originY = y * 100;
+    
+    const scaleFactor = 2.5; 
+    modalImage.style.transformOrigin = `${originX}% ${originY}%`;
+    modalImage.style.transform = `scale(${scaleFactor})`;
+}
+
+function resetZoom() {
+    modalImage.style.transform = 'scale(1)';
+    modalImage.style.transformOrigin = 'center center';
+}
+
+modalImageContainer.addEventListener('mousemove', handleZoom);
+modalImageContainer.addEventListener('mouseleave', resetZoom);
+/* ------------------------ */
+
+/* ---------- Notification Functionality (FIXED) ---------- */
+const notification = document.getElementById('notification');
+const notificationQueue = [];
+let isShowing = false;
+
+function processNotificationQueue() {
+    if (notificationQueue.length === 0 || isShowing) return;
+
+    isShowing = true;
+    const { message, duration } = notificationQueue.shift();
+    
+    // Set message and show
+    notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+    notification.classList.add('show');
+
+    // Hide after duration
+    setTimeout(() => {
+        notification.classList.remove('show');
+        // Wait for CSS transition (0.5s) before processing next item
+        setTimeout(() => {
+            isShowing = false;
+            processNotificationQueue();
+        }, 500); 
+    }, duration);
+}
+
+function showNotification(message = "Item added to cart!", duration = 2000) {
+    notificationQueue.push({ message, duration });
+    processNotificationQueue();
+}
+/* -------------------------------------------------------- */
+
+/* ---------- product modal (STATIC) ---------- */
+const modal = document.getElementById('productModal');
+function openProductModal(title, price, img, desc){
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalPrice').innerText = 'AED ' + parseFloat(price).toFixed(2);
+    document.getElementById('modalMainImg').src = img; 
+    document.getElementById('modalDesc').innerText = desc || 'Premium product. High quality and customer-approved.';
+    resetZoom();
+    
+    const thumbs = document.getElementById('modalThumbs'); thumbs.innerHTML='';
+    for (let i=0;i<4;i++){
+        const t = document.createElement('img'); 
+        t.src = img; 
+        t.onclick = ()=>{ document.getElementById('modalMainImg').src = t.src; resetZoom(); };
+        thumbs.appendChild(t);
+    }
+    // buy handler
+    document.getElementById('modalBuy').onclick = ()=>{ 
+        const item = productData.find(p => p.title.includes(title.replace(' (HOT DEAL)', '')));
+        const finalPrice = title.includes('(HOT DEAL)') ? item.price * 0.85 : item.price;
+
+        cart.push({title: item.title, price: finalPrice}); 
+        renderCart(); 
+        showNotification(`${title} added to cart!`); // Show notification
+    };
+    // show
+    modal.style.display = 'flex';
+}
+document.getElementById('closeModal').onclick = ()=>{ modal.style.display='none'; };
+document.getElementById('modalBack').onclick = ()=>{ modal.style.display='none'; };
+modal.addEventListener('click', (e)=>{ if (e.target === modal) modal.style.display='none'; });
+
+/* ---------- product data (STATIC) ---------- */
+const AED_CONVERSION_RATE = 3.67; 
+
+const productDataUSD = [
+    // --- Unique Products 1-10 (Initial Trending Gear) ---
+    { id:1, title: 'Meta Quest 3 512GB VR Headset', desc: 'Advanced mixed reality headset with pancake lenses and 512GB storage. Offers enhanced processing power for seamless VR gaming. Model: MQ3-512.', price: 649.99, imageUrl: 'product_01.jpg', category: 'Gaming' },
+    { id:2, title: 'Dyson Zone Noise-Cancelling Headphones', desc: 'High-fidelity audio headphones featuring advanced noise cancellation and a detachable visor that projects purified air.', price: 929.00, imageUrl: 'product_02.jpg', category: 'Electronics' },
+    { id:3, title: 'Beats Studio Buds + (Transparent Edition)', desc: 'True wireless noise-cancelling earbuds with a unique transparent casing. Enhanced acoustic platform delivers powerful sound. Model: BSBPT.', price: 179.99, imageUrl: 'product_03.jpg', category: 'Electronics' },
+    { id:4, title: 'Nothing Phone (2) 5G 512GB', desc: 'Unique smartphone featuring the iconic transparent Glyph Interface LED design on the back. Powered by Snapdragon 8+ Gen 1. Model: Phone 2.', price: 799.00, imageUrl: 'product_04.jpg', category: 'Electronics' },
+    { id:5, title: 'GoPro HERO12 Black Action Camera', desc: 'The latest GoPro featuring 5.3K video resolution, improved HyperSmooth 6.0 video stabilization, and extended battery life. Model: HERO12.', price: 449.99, imageUrl: 'product_05.jpg', category: 'Electronics' },
+    { id:6, title: 'Anker Solix F3800 Portable Power Station', desc: 'Massive capacity (3.84kWh) power station with expandable battery packs. Features 6,000W AC output, perfect for home backup. Model: F3800.', price: 3499.00, imageUrl: 'product_06.jpg', category: 'Electronics' },
+    { id:7, title: 'Logitech G PRO X TKL LIGHTSPEED Keyboard', desc: 'Tournament-grade tenkeyless gaming keyboard with LIGHTSPEED wireless technology. Features tactile mechanical switches. Model: G Pro X TKL.', price: 199.99, imageUrl: 'product_07.jpg', category: 'Gaming' },
+    { id:8, title: 'Nanoleaf Lines Modular Lighting Kit (9 Pcs)', desc: 'Backlit smart LED light bars that snap together to create stunning geometric designs. Control with the Nanoleaf App and voice. Model: NL42.', price: 199.00, imageUrl: 'product_08.jpg', category: 'Electronics' },
+    { id:9, title: 'Kindle Scribe Premium Pen Edition', desc: 'The first Kindle for reading and writing. Features a massive 10.2" Paperwhite display and the Premium Pen. Model: Scribe.', price: 389.99, imageUrl: 'product_09.jpg', category: 'Books' },
+    { id:10, title: 'Shure MV7X Podcast Microphone (XLR)', desc: 'Professional dynamic microphone with a hybrid USB/XLR output, optimized for podcasting and vocal recording. Model: MV7X.', price: 199.00, imageUrl: 'product_10.jpg', category: 'Electronics' },
+    // --- Unique Products 11-20 ---
+    { id:11, title: 'Google Pixel Watch 2 (LTE)', desc: 'Smartwatch featuring advanced health sensors, Snapdragon W5+ Gen 1 chip, and 24-hour battery life. Built-in Google apps and Fitbit integration. Model: PW2.', price: 399.00, imageUrl: 'product_11.jpg', category: 'Electronics' },
+    { id:12, title: 'Twelve South Curve Flex Laptop Stand', desc: 'Premium adjustable desktop stand for MacBooks and Laptops. Folds flat for travel and elevates screen height up to 13 inches for better ergonomics. Model: Curve Flex.', price: 79.99, imageUrl: 'product_12.jpg', category: 'Electronics' },
+    { id:13, title: 'Razer BlackWidow V4 75% Keyboard', desc: 'Compact hot-swappable mechanical gaming keyboard with 75% layout, hybrid foam and metal casing, and Razer Yellow switches. Model: V4 75%.', price: 189.99, imageUrl: 'product_13.jpg', category: 'Gaming' },
+    { id:14, title: 'Elgato Stream Deck Plus', desc: 'A production console with 8 LCD keys, 4 push encoders, and a touch strip for controlling audio and video software during live streams and content creation. Model: SD+.', price: 229.00, imageUrl: 'product_14.jpg', category: 'Electronics' },
+    { id:15, title: 'Samsung T7 Shield Portable SSD 2TB', desc: 'Extremely durable external SSD with rubberized exterior and IP65 dust and water resistance. Read/write speeds up to 1,050/1,000 MB/s. Ideal for field work. Model: T7S.', price: 149.99, imageUrl: 'product_15.jpg', category: 'Electronics' },
+    { id:16, title: 'Sony WH-1000XM5 Noise Cancelling Headphones', desc: 'Industry-leading noise cancellation powered by two processors and four microphones per earcup. Exceptional call quality and soft-fit leather design. Model: XM5.', price: 399.00, imageUrl: 'product_16.jpg', category: 'Electronics' },
+    { id:17, title: 'Wacom Cintiq 16 Drawing Tablet', desc: 'Creative pen display offering a 15.6-inch full HD resolution, 72% NTSC color gamut, and the highly sensitive Wacom Pro Pen 2 for digital artists. Model: Cintiq 16.', price: 599.00, imageUrl: 'product_17.jpg', category: 'Electronics' },
+    { id:18, title: 'Philips Hue Starter Kit (E27, 3 Bulbs)', desc: 'Smart lighting kit including 3 color ambiance bulbs and a Hue Bridge. Control lights wirelessly, set schedules, and sync colors with movies and music. Model: Hue E27.', price: 159.00, imageUrl: 'product_18.jpg', category: 'Home & Kitchen' },
+    { id:19, title: 'DJI Mini 3 Pro Drone', desc: 'Lightweight and powerful mini camera drone (under 249g) with tri-directional obstacle sensing and 4K HDR video capability. Perfect for travel photography. Model: Mini 3 Pro.', price: 759.00, imageUrl: 'product_19.jpg', category: 'Electronics' },
+    { id:20, title: 'Ooni Karu 12 Multi-Fuel Pizza Oven', desc: 'Portable pizza oven capable of reaching 950°F (500°C) in 15 minutes. Cooks fresh, stone-baked pizza in 60 seconds. Fuelled by wood or charcoal (or gas with adapter).', price: 349.00, imageUrl: 'product_20.jpg', category: 'Home & Kitchen' },
+    
+    // --- Unique Products 21-30 ---
+    { id:21, title: 'Anker 737 Power Bank (PowerCore 24K)', desc: '24,000mAh Power Bank with 140W 2-way fast charging. Smart digital display shows power input and output.', price: 149.99, imageUrl: 'product_21.jpg', category: 'Electronics' },
+    { id:22, title: 'Canon EOS R8 Full-Frame Camera', desc: 'Lightweight full-frame mirrorless camera with 24.2 MP sensor, 4K 60p video, and Dual Pixel CMOS AF II.', price: 1499.00, imageUrl: 'product_22.jpg', category: 'Electronics' },
+    { id:23, title: 'Lian Li O11 Dynamic EVO Case', desc: 'Mid-tower ATX case with reversible design and tempered glass panels. Optimized for custom water cooling loops.', price: 169.99, imageUrl: 'product_23.jpg', category: 'Gaming' },
+    { id:24, title: 'Audio-Technica AT2020 Mic', desc: 'Studio condenser microphone, ideal for home studio recording and streaming. High SPL handling.', price: 99.00, imageUrl: 'product_24.jpg', category: 'Electronics' },
+    { id:25, title: 'COSORI Pro II Air Fryer Oven', desc: '5.8-Quart smart air fryer with 12 customizable functions and app control via VeSync.', price: 129.99, imageUrl: 'product_25.jpg', category: 'Home & Kitchen' },
+    { id:26, title: 'Fitbit Charge 6 Fitness Tracker', desc: 'Advanced fitness tracker with Google apps, built-in GPS, and 7-day battery life. Includes 6 months of Fitbit Premium.', price: 159.95, imageUrl: 'product_26.jpg', category: 'Electronics' },
+    { id:27, title: 'North Face Borealis Backpack', desc: 'Classic 28-liter backpack with a redesigned FlexVent suspension system, padded laptop sleeve, and external bungee-compression system.', price: 99.00, imageUrl: 'product_27.jpg', category: 'Clothing' },
+    { id:28, title: 'Ray-Ban Meta Smart Glasses (Wayfarer)', desc: 'Smart glasses with an integrated 12 MP camera, open-ear audio, and AI assistant. Capture photos and videos hands-free.', price: 299.00, imageUrl: 'product_28.jpg', category: 'Electronics' },
+    { id:29, title: 'TP-Link Tapo Smart Plug Mini (4-Pack)', desc: 'Wi-Fi smart plugs that work with Alexa and Google Home. Control any appliance from your phone, no hub required.', price: 39.99, imageUrl: 'product_29.jpg', category: 'Home & Kitchen' },
+    { id:30, title: 'Herman Miller Aeron Chair (Size B)', desc: 'Iconic ergonomic office chair with PostureFit SL support, fully adjustable arms, and breathable pellicle mesh.', price: 1845.00, imageUrl: 'product_30.jpg', category: 'Home & Kitchen' },
+
+    // --- Unique Products 31-40 ---
+    { id:31, title: 'Sony Alpha a6700 APS-C Camera', desc: 'Powerful APS-C camera with 26MP sensor, AI-powered autofocus from the a7R V, and 4K 120p video recording.', price: 1399.00, imageUrl: 'product_31.jpg', category: 'Electronics' },
+    { id:32, title: 'Samsung ViewFinity S9 5K Monitor', desc: '27-inch 5K (5120x2880) monitor designed for creative professionals. Matte display, 99% DCI-P3, and Thunderbolt 4 connectivity.', price: 1599.99, imageUrl: 'product_32.jpg', category: 'Electronics' },
+    { id:33, title: 'Lego Icons Eiffel Tower Set', desc: 'Massive 10,001-piece Lego set for adults. Stands nearly 5 feet (149 cm) tall when built, the tallest Lego set to date.', price: 629.99, imageUrl: 'product_33.jpg', category: 'Gaming' },
+    { id:34, title: 'U-Turn Audio Orbit Plus Turntable', desc: 'High-performance turntable with an acrylic platter and Ortofon OM5E cartridge. Delivers clear, dynamic sound for vinyl lovers.', price: 399.00, imageUrl: 'product_34.jpg', category: 'Electronics' },
+    { id:35, title: 'Arc\'teryx Beta AR Jacket (Men\'s)', desc: 'Highly versatile, waterproof, and breathable GORE-TEX Pro jacket. Designed as an all-around mountain shell. Color: Black.', price: 600.00, imageUrl: 'product_35.jpg', category: 'Clothing' },
+    { id:36, title: 'Sonos Arc Premium Smart Soundbar', desc: 'Bring all your entertainment to life with the realistic sound of Arc, featuring Dolby Atmos. Control it with your remote, voice, and the Sonos app.', price: 899.00, imageUrl: 'product_36.jpg', category: 'Electronics' },
+    { id:37, title: 'Nixplay 10.1 inch Smart Photo Frame', desc: 'Wi-Fi digital photo frame with HD display. Share photos and videos instantly from your phone to the frame. Perfect gift for family.', price: 179.99, imageUrl: 'product_37.jpg', category: 'Electronics' },
+    { id:38, title: 'Yeti Tundra 45 Cooler', desc: 'Virtually indestructible hard cooler with PermaFrost Insulation. Keeps ice for days. Holds up to 26 cans.', price: 300.00, imageUrl: 'product_38.jpg', category: 'Home & Kitchen' },
+    { id:39, title: 'SteelSeries Apex Pro TKL Keyboard', desc: 'The world’s fastest TKL keyboard with OmniPoint 2.0 adjustable switches, offering 20x faster actuation and 11x faster response.', price: 189.99, imageUrl: 'product_39.jpg', category: 'Gaming' },
+    { id:40, title: 'The Dune Saga 6-Book Boxed Set', desc: 'The complete Dune Chronicles by Frank Herbert in a beautiful paperback boxed set, including Dune, Dune Messiah, and Children of Dune.', price: 99.00, imageUrl: 'product_40.jpg', category: 'Books' },
+    
+    // --- Unique Products 41-50 ---
+    { id:41, title: 'Apple AirTag (4 Pack)', desc: 'Keep track of and find your items alongside friends and devices in the Find My app. Simple one-tap setup instantly connects AirTag.', price: 99.00, imageUrl: 'product_41.jpg', category: 'Electronics' },
+    { id:42, title: 'Logitech G502 X Plus Wireless Mouse', desc: 'A gaming icon, reinvented. Features hybrid optical-mechanical switches, LIGHTSPEED wireless, and all-new LIGHTSYNC RGB.', price: 159.99, imageUrl: 'product_42.jpg', category: 'Gaming' },
+    { id:43, title: 'Breville "the Barista Express" Espresso Machine', desc: 'Create third-wave specialty coffee at home. Integrated grinder, precise espresso extraction, and manual milk texturing.', price: 749.95, imageUrl: 'product_43.jpg', category: 'Home & Kitchen' },
+    { id:44, title: 'Lululemon ABC Classic-Fit Pant', desc: 'Utilizes Warpstreme™ fabric for all-day comfort and performance. Classic 5-pocket design that looks like a casual pant, feels like athletic wear.', price: 128.00, imageUrl: 'product_44.jpg', category: 'Clothing' },
+    { id:45, title: 'Kindle Paperwhite Signature Edition (32 GB)', desc: 'Features a 6.8” display, wireless charging, an auto-adjusting front light, and 32 GB of storage.', price: 189.99, imageUrl: 'product_45.jpg', category: 'Books' },
+    { id:46, title: 'Xiaomi Smart Standing Fan 2 Pro', desc: 'Wireless and portable fan with 7+5 wing-shaped blades for a softer, natural breeze. 100-level speed control via the app.', price: 149.00, imageUrl: 'product_46.jpg', category: 'Home & Kitchen' },
+    { id:47, title: 'Sony ZV-E10 APS-C Vlogging Camera', desc: 'Interchangeable-lens vlogging camera with a large APS-C sensor, built-in mic, and features like Product Showcase Setting.', price: 799.99, imageUrl: 'product_47.jpg', category: 'Electronics' },
+    { id:48, title: 'Patagonia Better Sweater Fleece Jacket', desc: 'A warm, low-bulk full-zip jacket made of 100% recycled polyester fleece. Fair Trade Certified™ sewn.', price: 159.00, imageUrl: 'product_48.jpg', category: 'Clothing' },
+    { id:49, title: 'Elgato Key Light Air', desc: 'Professional 1400-lumen LED panel with multi-layer diffusion technology. Control brightness and color temperature via the app.', price: 129.99, imageUrl: 'product_49.jpg', category: 'Electronics' },
+    { id:50, title: 'AnkerMake M5 3D Printer', desc: 'High-speed 3D printer with 500 mm/s printing speed, built-in AI camera for error detection, and easy assembly.', price: 799.00, imageUrl: 'product_50.jpg', category: 'Electronics' }
+];
+
+// Convert prices to AED
+const productData = productDataUSD.map(p => ({
+    ...p,
+    price: p.price * AED_CONVERSION_RATE 
+}));
+
+/* ---------- card generation (STATIC) ---------- */
+const PLACEHOLDER_IMG_FALLBACK = "https://via.placeholder.com/220x150/0072ff/ffffff?text=Image+Missing"; 
+
+function addCard(grid, title, price, img, isHot=false, desc){
+    const c = document.createElement('div'); c.className = 'card';
+    c.innerHTML = `<div class="thumb"><img src="${img}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG_FALLBACK}';" alt="${title}"></div><div class="title">${title}</div><div class="price">AED ${parseFloat(price).toFixed(2)}</div><button>Add</button>`;
+    
+    // add to cart button
+    c.querySelector('button').onclick = ()=>{ 
+        // Finds the original product data based on the title
+        const cleanTitle = title.replace(' (HOT DEAL)', '');
+        const item = productData.find(p => p.title === cleanTitle);
+        // Apply discount if it's a hot deal
+        const finalPrice = isHot ? item.price * 0.85 : item.price;
+
+        cart.push({title: item.title, price: finalPrice}); 
+        renderCart(); 
+        showNotification(`${title} added to cart!`); // Show notification
+    };
+    // open modal on image
+    c.querySelector('.thumb').onclick = ()=>{ openProductModal(title, price, img, desc || 'High quality item.'); };
+    if (isHot) { const hb = document.createElement('div'); hb.className='hot-badge'; hb.innerText='HOT'; c.appendChild(hb); }
+    grid.appendChild(c);
+}
+
+/* 💡 CATEGORY FILTER FUNCTION 💡 */
+function filterProducts(category) {
+    const productGrid = document.getElementById('productGrid');
+    const featuredSection = document.getElementById('featuredOffers');
+    const productsTitle = document.getElementById('products-title');
+    productGrid.innerHTML = ''; // Clear the grid
+    
+    // Get all category buttons and reset their styles
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    let filteredData;
+    
+    if (category === 'All') {
+        filteredData = productData;
+        document.querySelector('.category-btn[onclick="filterProducts(\'All\')"]').classList.add('active');
+        featuredSection.style.display = 'block'; // Show featured section
+        productsTitle.innerText = 'All Products (50 Items)'; // Reset title
+    } else {
+        filteredData = productData.filter(p => p.category === category);
+        // Add active class to the clicked button
+        document.querySelector(`.category-btn[onclick="filterProducts('${category}')"]`).classList.add('active');
+        featuredSection.style.display = 'none'; // Hide featured section
+        productsTitle.innerText = category; // Set title to category name
+    }
+    
+    // Re-populate the grid with filtered products
+    filteredData.forEach(product => {
+        // Check if this product is also a "hot deal" (first 10)
+        const isHot = productData.indexOf(product) < 10;
+        const price = isHot ? product.price * 0.85 : product.price;
+        const title = isHot ? product.title + ' (HOT DEAL)' : product.title;
+        
+        addCard(productGrid, title, price, product.imageUrl, isHot, product.desc);
+    });
+}
+
+// Populate product grids on load
+window.onload = () => {
+    updateBgHeight(); // Make sure bubbles cover the page height
+    
+    const productGrid = document.getElementById('productGrid');
+    const featuredGrid = document.getElementById('featuredGrid');
+
+    // Display ALL 50 unique products in the main grid
+    productData.forEach(product => {
+        // We find the 'isHot' status from the original array (first 10 items)
+        const isHot = productData.indexOf(product) < 10;
+        const price = isHot ? product.price * 0.85 : product.price;
+        const title = isHot ? product.title + ' (HOT DEAL)' : product.title;
+        addCard(productGrid, title, price, product.imageUrl, isHot, product.desc);
+    });
+
+    // Display "Hot" products (first 10) as featured deals
+    productData.slice(0, 10).forEach(product => { 
+        const hotPrice = (product.price * 0.85); 
+        addCard(featuredGrid, product.title + ' (HOT DEAL)', hotPrice, product.imageUrl, true, product.desc + ' Limited time offer!');
+    });
+    
+    // Set the "All" button as active by default
+    document.querySelector('.category-btn[onclick="filterProducts(\'All\')"]').classList.add('active');
+    
+    renderCart(); // Initial load of cart data
+};
+
+
+/* ---------- featured drag + auto-slide (no change) ---------- */
+let isDown=false, startX, scrollLeft;
+const featuredGrid = document.getElementById('featuredGrid');
+featuredGrid.addEventListener('mousedown', (e)=>{ isDown=true; startX=e.pageX - featuredGrid.offsetLeft; scrollLeft = featuredGrid.scrollLeft;});
+featuredGrid.addEventListener('mouseleave', ()=>{ isDown=false; });
+featuredGrid.addEventListener('mouseup', ()=>{ isDown=false; });
+featuredGrid.addEventListener('mousemove', (e)=>{ if(!isDown) return; e.preventDefault(); featuredGrid.scrollLeft = scrollLeft - (e.pageX - startX) * 2; });
+featuredGrid.addEventListener('touchstart', (e)=>{ startX = e.touches[0].pageX - featuredGrid.offsetLeft; scrollLeft = featuredGrid.scrollLeft; });
+featuredGrid.addEventListener('touchmove', (e)=>{ featuredGrid.scrollLeft = scrollLeft - (e.touches[0].pageX - startX) * 2; });
+
+/* ---------- search (no change) ---------- */
+document.getElementById('searchBtn').onclick = ()=>{
+    const val = document.getElementById('searchInput').value.toLowerCase().trim();
+    // When searching, filter ALL products, not just the current category
+    filterProducts('All'); // First, reset to show all products
+    
+    // Now, hide the ones that don't match the search
+    document.querySelectorAll('#productGrid .card').forEach(c=>{ 
+        if (!c.querySelector('.title').innerText.toLowerCase().includes(val)) {
+            c.style.display = 'none';
+        } else {
+            c.style.display = 'flex';
+        }
+    });
+    // Hide featured offers during a search
+    document.getElementById('featuredOffers').style.display = 'none';
+    document.getElementById('products-title').innerText = `Search results for "${val}"`;
+};
+
+
+/* ---------- Checkout Button Logic (STATIC) ---------- */
+document.getElementById('goToCheckoutBtn').onclick = () => {
+    if (cart.length === 0) {
+        pushMsg("Your cart is empty! Please add items before checking out.", 'bot');
+        showNotification("Your cart is empty! Please add items before checking out.", 3000); 
+        return;
+    }
+    // Update the total payment amount before hiding
+    renderCart();
+    
+    // Hide all standard sections
+    sections.forEach(sec => { sec.style.display = 'none'; });
+
+    // Show only the checkout section
+    document.getElementById('checkoutPage').style.display = 'block';
+    document.getElementById('checkoutPage').scrollIntoView({ behavior: 'smooth' });
+};
+
+/* ---------- Back Button Logic ---------- */
+document.getElementById('backToCartBtn').onclick = () => {
+    sections.forEach(sec => { sec.style.display = 'block'; });
+    document.getElementById('checkoutPage').style.display = 'none';
+    document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
+};
+
+/* ---------- Payment Form Submission (Using Formspree to Capture Data) ---------- */
+document.getElementById('paymentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const totalAmount = parseFloat(getCartTotalElement().innerText);
+    const feedbackDiv = document.getElementById('paymentFeedback');
+    const paymentButton = document.getElementById('payment-button');
+
+    if (cart.length === 0 || !form.checkValidity()) {
+        feedbackDiv.style.display = 'block';
+        feedbackDiv.className = 'error';
+        feedbackDiv.innerHTML = '❌ Please fill out all details and ensure your cart is not empty.';
+        form.reportValidity();
+        return;
+    }
+    
+    // --- STEP 1: GATHER CART DATA FOR TRANSMISSION ---
+    const cartData = JSON.stringify(cart.map(item => ({
+        product: item.title,
+        price: `AED ${item.price.toFixed(2)}`
+    })));
+
+    // --- STEP 2: CREATE A HIDDEN FIELD TO INCLUDE ORDER DETAILS ---
+    let cartInput = document.getElementById('_cartSummary');
+    if (!cartInput) {
+        cartInput = document.createElement('input');
+        cartInput.type = 'hidden';
+        cartInput.name = 'Products_Ordered'; 
+        cartInput.id = '_cartSummary';
+        form.appendChild(cartInput);
+    }
+    // Set the value: Total price plus the JSON list of items
+    cartInput.value = `TOTAL: AED ${totalAmount.toFixed(2)}. Items: ${cartData}`;
+    
+    // --- STEP 3: SIMULATE PAYMENT SUCCESS BEFORE SUBMITTING DATA ---
+    paymentButton.disabled = true;
+    paymentButton.innerHTML = '💳 Processing (Demo)...';
+    feedbackDiv.style.display = 'block';
+    feedbackDiv.className = 'error';
+    feedbackDiv.innerHTML = 'Simulating payment success...';
+
+    // Simulate payment process (2-second delay)
+    setTimeout(() => {
+        // Show success message to the customer 
+        feedbackDiv.className = 'success';
+        feedbackDiv.innerHTML = `<i class="fas fa-check-circle"></i> **Payment Processed!** Forwarding order details...`;
+
+        // Clear the cart for the customer immediately
+        cart = [];
+        renderCart();
+        form.style.opacity = 0.5;
+
+        // *** STEP 4: SUBMIT THE FORM TO FORMSPREE ***
+        form.submit();
+        
+        // Wait a moment and then give final message
+        setTimeout(() => {
+             feedbackDiv.innerHTML = `<i class="fas fa-check-circle"></i> **Order Confirmed!** You will receive a copy of your order via email shortly.`;
+        }, 1000);
+        
+    }, 2000); 
+});
+
+
+/* ---------- AI assistant widget (STATIC) ---------- */
+const aiWidget = document.getElementById('aiWidget');
+const aiPanel = document.getElementById('aiPanel');
+const aiMessages = document.getElementById('aiMessages');
+const aiInput = document.getElementById('aiInput');
+const aiSend = document.getElementById('aiSend');
+aiWidget.onclick = ()=>{ aiPanel.style.display = aiPanel.style.display === 'flex' ? 'none' : 'flex'; aiPanel.setAttribute('aria-hidden', aiPanel.style.display === 'none'); };
+function pushMsg(txt, who='bot'){ const d = document.createElement('div'); d.className = 'ai-msg ' + (who==='me' ? 'me' : 'bot'); d.innerHTML = txt; aiMessages.appendChild(d); aiMessages.scrollTop = aiMessages.scrollHeight; }
+
+function autoReply(userText){
+    const t = userText.toLowerCase();
+    
+    // 1. Cart Status and Total
+    if (t.includes('cart') || t.includes('total') || t.includes('checkout')) {
+        if (cart.length === 0) {
+            pushMsg("Your cart is currently **empty**. Why not add an item like the 'Meta Quest 3' to get started?", 'bot');
+        } else {
+            const total = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+            const items = cart.length === 1 ? '1 item' : `${cart.length} items`;
+            pushMsg(`You have **${items}** in your cart, for a total of **AED ${total}**. You can proceed to checkout directly!`, 'bot');
+        }
+        return;
+    }
+
+    // 2. Product Search & Lookup 
+    let productMatch = productData.find(p => 
+        t.includes(p.title.toLowerCase()) || 
+        (p.category && t.includes(p.category.toLowerCase())) ||
+        t.includes('dyson') || t.includes('quest 3')
+    );
+    
+    if (t.includes('expensive')) {
+        let maxProduct = productData.reduce((prev, current) => (prev.price > current.price) ? prev : current);
+        pushMsg(`Our most premium item is the **${maxProduct.title}** at **AED ${maxProduct.price.toFixed(2)}**.`);
+        return;
+    } 
+    if (t.includes('cheap')) {
+        let minProduct = productData.reduce((prev, current) => (prev.price < current.price) ? prev : current);
+        pushMsg(`Our best value item is the **${minProduct.title}** for only **AED ${minProduct.price.toFixed(2)}**.`);
+        return;
+    }
+    
+    if (productMatch) {
+        // Determine if it is a hot deal
+        const isHotDeal = productData.indexOf(productMatch) < 10 && (t.includes('deal') || t.includes('hot'));
+        const price = isHotDeal ? (productMatch.price * 0.85).toFixed(2) : productMatch.price.toFixed(2);
+        const title = isHotDeal ? productMatch.title + ' (Hot Deal)' : productMatch.title;
+        
+        pushMsg(`I found the **${title}**! It's available for **AED ${price}**. *Key detail: ${productMatch.desc.substring(0, 80)}...*`);
+        return;
+    }
+
+    // 3. General Help and Policy
+    if (t.includes('ship') || t.includes('delivery')) {
+        pushMsg('Standard shipping takes **5-12 business days**. Express options are available at checkout.');
+        return;
+    }
+    
+    if (t.includes('return') || t.includes('refund')) {
+        pushMsg('We offer a **30-day no-hassle return policy**. Products must be in original condition.');
+        return;
+    }
+    
+    if (t.includes('maintenance')) {
+        pushMsg('The maintenance is **complete**! All systems are online and all discounts are fully active. Shop worry-free!');
+        return;
+    }
+    
+    // 4. Default / Fallback
+    pushMsg("I'm HIK Assistant! Try asking me about 'shipping', 'returns', the 'most expensive' item, or your current 'cart total'.");
+}
+
+
+aiSend.onclick = ()=>{ const v = aiInput.value.trim(); if(!v) return; pushMsg(v,'me'); aiInput.value=''; setTimeout(()=>{ autoReply(v); }, 450); };
+aiInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && aiInput.value.trim()){ 
+    const v = aiInput.value;
+    pushMsg(v,'me'); 
+    aiInput.value=''; 
+    setTimeout(()=>{ autoReply(v); }, 450); 
+    e.preventDefault(); 
+}});
+</script>
+</body>
+</html>
