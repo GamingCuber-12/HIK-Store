@@ -275,6 +275,9 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
     opacity: 1;
     visibility: visible;
 }
+
+/* Honeypot field */
+.hidden { display: none !important; }
 </style>
 </head>
 <body>
@@ -346,13 +349,17 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
     <h2>Complete Your Purchase</h2>
     <div class="checkout-container">
       
-      <!-- ⭐️ UPDATED: Web3Forms Integration ⭐️ -->
+      <!-- ⭐️ UPDATED: Web3Forms Integration with Security Features ⭐️ -->
       <form id="paymentForm" action="https://api.web3forms.com/submit" method="POST">
         
         <!-- Web3Forms Required Fields -->
         <input type="hidden" name="access_key" value="ce841447-3e77-452b-a334-14ede39df8ef">
         <input type="hidden" name="subject" value="New HIK Store Order!" />
         <input type="hidden" name="from_name" value="HIK Store" />
+        <input type="hidden" name="redirect" value="https://web3forms.com/success" />
+        
+        <!-- Honeypot Spam Protection -->
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
         
         <!-- Field for the cart summary will be added by JavaScript -->
 
@@ -855,7 +862,7 @@ document.getElementById('backToCartBtn').onclick = () => {
     document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
 };
 
-/* ---------- Payment Form Submission (Using Web3Forms to Capture Data) ---------- */
+/* ---------- Payment Form Submission (Using Web3Forms AJAX) ---------- */
 document.getElementById('paymentForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -864,7 +871,7 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
     const feedbackDiv = document.getElementById('paymentFeedback');
     const paymentButton = document.getElementById('payment-button');
 
-    // Added to also check for your added fields
+    // Validation
     if (cart.length === 0 || !document.getElementById('name').value || !document.getElementById('email').value || !document.getElementById('address').value) {
         feedbackDiv.style.display = 'block';
         feedbackDiv.className = 'error';
@@ -879,17 +886,9 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
         price: `AED ${item.price.toFixed(2)}`
     })));
 
-    // --- STEP 2: CREATE A HIDDEN FIELD TO INCLUDE ORDER DETAILS ---
-    let cartInput = document.getElementById('_cartSummary');
-    if (!cartInput) {
-        cartInput = document.createElement('input');
-        cartInput.type = 'hidden';
-        cartInput.name = 'order_details'; 
-        cartInput.id = '_cartSummary';
-        form.appendChild(cartInput);
-    }
-    // Set the value: Total price plus the JSON list of items
-    cartInput.value = `TOTAL: AED ${totalAmount.toFixed(2)}. Items: ${cartData}`;
+    // --- STEP 2: CREATE FORM DATA ---
+    const formData = new FormData(form);
+    formData.append('order_details', `TOTAL: AED ${totalAmount.toFixed(2)}. Items: ${cartData}`);
     
     // --- STEP 3: SIMULATE PAYMENT SUCCESS BEFORE SUBMITTING DATA ---
     paymentButton.disabled = true;
@@ -909,14 +908,24 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
         renderCart();
         form.style.opacity = 0.5;
 
-        // *** STEP 4: SUBMIT THE FORM TO WEB3FORMS ***
-        // Web3Forms will handle the email delivery automatically
-        form.submit();
-        
-        // Wait a moment and then give final message
-        setTimeout(() => {
-             feedbackDiv.innerHTML = `<i class="fas fa-check-circle"></i> **Order Confirmed!** You will receive a copy of your order via email shortly.`;
-        }, 1000);
+        // *** STEP 4: SUBMIT THE FORM TO WEB3FORMS VIA AJAX ***
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                feedbackDiv.innerHTML = `<i class="fas fa-check-circle"></i> **Order Confirmed!** You will receive a copy of your order via email shortly.`;
+            } else {
+                feedbackDiv.className = 'error';
+                feedbackDiv.innerHTML = `❌ Form submission failed: ${data.message}. However, your order has been processed locally.`;
+            }
+        })
+        .catch(error => {
+            feedbackDiv.className = 'error';
+            feedbackDiv.innerHTML = `❌ Network error: ${error.message}. However, your order has been processed locally.`;
+        });
         
     }, 2000); 
 });
