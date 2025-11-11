@@ -3,10 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>HIK Store Live</title>
-<!-- 💡 LOGO FIX: Pointing to logo.png -->
+<title>HIK Store</title>
 <link rel="icon" href="logo.png" type="image/png"> 
-
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -17,30 +15,8 @@ body{
     font-family:'Montserrat',sans-serif;
     background:#f0f2f5;
     overflow-x:hidden;
-    cursor: none; /* Hide default cursor */
 }
-a, button, .cart, #toggleSidebarBtn, #modalMainImgContainer {cursor: none !important;}
-
-/* Custom Cursor (Blue: #0072ff) */
-#customCursor {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #0072ff; 
-    border-radius: 50%;
-    pointer-events: none;
-    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
-    z-index: 10000;
-    mix-blend-mode: exclusion;
-    transform: translate(-50%, -50%);
-}
-#customCursor.link-hover {
-    width: 40px;
-    height: 40px;
-    background-color: #0072ff50; 
-    mix-blend-mode: normal;
-}
-#customCursor.hidden {opacity: 0;}
+a, button, .cart, #toggleSidebarBtn, #modalMainImgContainer {cursor: pointer;}
 
 #bgLayer{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;}
 .bubble{position:absolute;border-radius:50%;background:rgba(0,114,255,0.15);animation:bubbleMove 25s linear infinite;mix-blend-mode:screen;filter:blur(15px);}
@@ -83,17 +59,44 @@ main{
     margin-left:220px;
     padding-top:25px;
     transition:.25s;
-    /* FIX: Removed min-height, display:flex, and flex-direction */
 }
 main.collapsed{margin-left:0;}
 .section{padding:60px 5vw;text-align:center;}
 .section:nth-child(even){background:#f9fbfd;border-radius:12px;margin:12px 0;}
 .section h2{font-size:30px;color:#222;margin-bottom:16px;font-weight:800;}
-/* FIX: Removed margin-top: auto */
-.contact {
-    /* No special margin needed, will now appear right after the checkout section */
-}
 
+/* Trust Badges */
+.trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+.trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: #555;
+}
+.trust-badge i {color: #0072ff; font-size: 1.2em;}
+
+/* Product Features */
+.product-features {display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:20px;margin:30px 0;}
+.feature {text-align:center;padding:20px;}
+.feature i {font-size:2.5em;color:#0072ff;margin-bottom:15px;}
+.feature h3 {margin-bottom:10px;color:#333;}
+
+/* Testimonials */
+.testimonials {background:linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);padding:60px 5vw;}
+.testimonial-grid {display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:30px;margin-top:40px;}
+.testimonial {background:white;padding:30px;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,0.1);}
+.testimonial-content {font-style:italic;margin-bottom:20px;color:#555;}
+.testimonial-author {display:flex;align-items:center;gap:15px;}
+.testimonial-author img {width:50px;height:50px;border-radius:50%;object-fit:cover; background:#0072ff;}
+.author-info h4 {margin:0;color:#333;}
+.author-info p {margin:0;color:#666;font-size:0.9em;}
 
 /* ---------- grid / card ---------- */
 .grid{
@@ -135,8 +138,8 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 .hot-badge{position:absolute;top:10px;left:10px;background:red;color:white;font-size:12px;padding:4px 10px;border-radius:12px;font-weight:700;box-shadow:0 0 10px rgba(0,0,0,0.15);}
 
 /* cart remove */
-#cartGrid .remove-btn{position:absolute;top:50%;right:10px;transform:translateY(-50%);background:#ff4d4f;width:28px;height:28px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;}
-#cartGrid .remove-btn:hover{background:#c41d1d;transform:translateY(-50%) scale(1.15);}
+#cartGrid .remove-btn{position:absolute;top:10px;right:10px;background:#ff4d4f;width:28px;height:28px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;}
+#cartGrid .remove-btn:hover{background:#c41d1d;transform:scale(1.15);}
 
 /* contact buttons spacing */
 .contact a{display:inline-block;margin:8px 14px;padding:10px 18px;background:rgba(255,255,255,.6);border-radius:18px;backdrop-filter:blur(40px);text-decoration:none;color:#000;font-weight:700;transition:.18s;font-size:14px;}
@@ -188,7 +191,7 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 }
 /* ------------------------ */
 
-/* ---------- AI assistant (Blue: #0072ff) ---------- */
+/* ---------- AI assistant ---------- */
 #aiWidget{position:fixed;bottom:20px;right:20px;width:64px;height:64px;border-radius:16px;background:#0072ff;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;box-shadow:0 12px 30px rgba(0,0,0,0.18);}
 #aiPanel{position:fixed;bottom:100px;right:20px;width:340px;max-height:60vh;background:#fff;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,0.2);display:none;flex-direction:column;overflow:hidden;z-index:9999;}
 #aiPanel header{background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;padding:12px;font-weight:800;}
@@ -207,7 +210,7 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 .checkout-container input[type="email"], 
 .checkout-container input[type="number"],
 .checkout-container input[type="tel"],
-.checkout-container textarea { /* Added textarea style */
+.checkout-container textarea {
     width: 100%; 
     padding: 10px;
     margin-bottom: 15px;
@@ -252,26 +255,26 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 /* ---------- Notification Styles ---------- */
 #notification {
     position: fixed;
-    top: 0px; /* Start hidden above the viewport */
+    top: 0px;
     left: 50%;
     transform: translateX(-50%);
     background-color: #0072ff;
     color: white;
     padding: 12px 25px;
-    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+    border-radius: 0 0 10px 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     font-weight: 600;
     font-size: 16px;
     opacity: 0;
     visibility: hidden;
     transition: all 0.5s ease-out;
-    z-index: 10000; /* Above everything else */
+    z-index: 10000;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 #notification.show {
-    top: 60px; /* Slides down to just below the top bar */
+    top: 60px;
     opacity: 1;
     visibility: visible;
 }
@@ -282,7 +285,6 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 </head>
 <body>
 
-<div id="customCursor"></div>
 <div id="bgLayer"></div>
 
 <div id="notification">
@@ -294,7 +296,6 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
     <div id="toggleSidebarBtn"><div></div><div></div><div></div></div>
 
     <div class="logoWrap" title="HIK Store">
-      <!-- 💡 LOGO FIX: Pointing to logo.png -->
       <img src="logo.png" alt="HIK Store Logo"> 
     </div>
   </div>
@@ -307,6 +308,7 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
   <a href="#products" class="nav-link"><i class="fas fa-box-open" style="width:20px;text-align:center"></i> Products</a>
   <a href="#featuredOffers" class="nav-link"><i class="fas fa-star" style="width:20px;text-align:center"></i> Featured Offers</a>
   <a href="#categories" class="nav-link"><i class="fas fa-th-large" style="width:20px;text-align:center"></i> Categories</a>
+  <a href="#testimonials" class="nav-link"><i class="fas fa-comment" style="width:20px;text-align:center"></i> Testimonials</a>
   <a href="#cart" class="nav-link"><i class="fas fa-shopping-cart" style="width:20px;text-align:center"></i> Cart</a>
   <a href="#contact" class="nav-link"><i class="fas fa-phone" style="width:20px;text-align:center"></i> Contact</a>
 </div>
@@ -314,8 +316,54 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 <div class="banner"><span>🔥 **MAINTENANCE COMPLETE** - We're back! 50% OFF on select items! Limited time only! 🔥</span></div>
 
 <main id="mainContent">
+  <!-- Trust Badges -->
+  <div class="trust-badges">
+    <div class="trust-badge">
+      <i class="fas fa-shipping-fast"></i>
+      <span>Fast Delivery</span>
+    </div>
+    <div class="trust-badge">
+      <i class="fas fa-certificate"></i>
+      <span>Authentic Products</span>
+    </div>
+    <div class="trust-badge">
+      <i class="fas fa-lock"></i>
+      <span>Secure Payment</span>
+    </div>
+    <div class="trust-badge">
+      <i class="fas fa-tags"></i>
+      <span>Best Prices</span>
+    </div>
+  </div>
+
+  <!-- Product Features -->
+  <section class="section">
+    <h2>Why Choose HIK Store?</h2>
+    <div class="product-features">
+      <div class="feature">
+        <i class="fas fa-shipping-fast"></i>
+        <h3>Fast Delivery</h3>
+        <p>Same-day delivery available in Dubai & Abu Dhabi</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-certificate"></i>
+        <h3>Authentic Products</h3>
+        <p>100% genuine products with manufacturer warranty</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-lock"></i>
+        <h3>Secure Payment</h3>
+        <p>SSL encrypted payments for your safety</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-tags"></i>
+        <h3>Best Prices</h3>
+        <p>Price match guarantee on all products</p>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="products">
-    <!-- 💡 TITLE FIX: This title will be changed by JavaScript -->
     <h2 id="products-title">All Products (50 Items)</h2>
     <div class="grid" id="productGrid"></div>
   </section>
@@ -327,13 +375,55 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 
   <section class="section categories" id="categories">
     <h2>Categories</h2>
-    <!-- 💡 CATEGORY BUTTONS: Added 'All' and onclick events -->
     <button class="category-btn" onclick="filterProducts('All')">All</button>
     <button class="category-btn" onclick="filterProducts('Electronics')">Electronics</button>
     <button class="category-btn" onclick="filterProducts('Clothing')">Clothing</button>
     <button class="category-btn" onclick="filterProducts('Home & Kitchen')">Home & Kitchen</button>
     <button class="category-btn" onclick="filterProducts('Gaming')">Gaming</button>
     <button class="category-btn" onclick="filterProducts('Books')">Books</button>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section testimonials" id="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <div class="testimonial-content">
+          "Amazing service! My VR headset arrived the same day. The quality is outstanding and the price was unbeatable."
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="width:50px;height:50px;border-radius:50%;background:#0072ff;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;">SM</div>
+          <div class="author-info">
+            <h4>Sarah M.</h4>
+            <p>Dubai</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-content">
+          "Best electronics store in UAE. Their customer support helped me choose the perfect laptop for my needs."
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="width:50px;height:50px;border-radius:50%;background:#28a745;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;">AR</div>
+          <div class="author-info">
+            <h4>Ahmed R.</h4>
+            <p>Abu Dhabi</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-content">
+          "Fast shipping and genuine products. I've purchased multiple gadgets and always had a great experience."
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="width:50px;height:50px;border-radius:50%;background:#dc3545;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;">LK</div>
+          <div class="author-info">
+            <h4>Lina K.</h4>
+            <p>Sharjah</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="section" id="cart">
@@ -348,20 +438,11 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
   <section class="section" id="checkoutPage" style="background:none; display: none;">
     <h2>Complete Your Purchase</h2>
     <div class="checkout-container">
-      
-      <!-- ⭐️ UPDATED: Web3Forms Integration with Security Features ⭐️ -->
       <form id="paymentForm" action="https://api.web3forms.com/submit" method="POST">
-        
-        <!-- Web3Forms Required Fields -->
         <input type="hidden" name="access_key" value="ce841447-3e77-452b-a334-14ede39df8ef">
         <input type="hidden" name="subject" value="New HIK Store Order!" />
         <input type="hidden" name="from_name" value="HIK Store" />
-        <input type="hidden" name="redirect" value="https://web3forms.com/success" />
-        
-        <!-- Honeypot Spam Protection -->
         <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-        
-        <!-- Field for the cart summary will be added by JavaScript -->
 
         <label for="name">Full Name:</label>
         <input type="text" id="name" name="name" required>
@@ -405,7 +486,6 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
         <button type="submit" id="payment-button">Confirm Order & Pay AED <span id="paymentTotal">0.00</span></button>
         <button type="button" id="backToCartBtn">Back to Cart</button>
       </form>
-      <!-- ⭐️ END UPDATED WEB3FORMS BLOCK ⭐️ -->
       
       <div style="margin-top: 15px; font-size: 14px; text-align: center; color: #666;">
         *This is a demo checkout. Order details will be emailed via Web3Forms.*
@@ -435,7 +515,6 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
       <p id="modalDesc" style="margin-bottom:18px;color:#333;line-height:1.45"></p>
       <div style="display:flex;gap:12px;align-items:center">
         <button id="modalBuy" style="padding:12px 18px;font-size:16px;border-radius:12px;background:#0072ff;color:#fff;cursor:pointer;box-shadow:0 0 18px #0072ff80">Add to Cart</button>
-        <button id="modalBack" style="padding:10px 14px;border-radius:12px;border:1px solid #ccc;background:#fff;cursor:pointer">Back</button>
       </div>
     </div>
   </div>
@@ -454,19 +533,7 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 </div>
 
 <script>
-/* ---------- START JAVASCRIPT LOGIC (Client-Side Only) ---------- */
-
-/* ---------- custom cursor logic ---------- */
-const customCursor = document.getElementById('customCursor');
-document.addEventListener('mousemove', (e) => {
-    customCursor.style.left = e.clientX + 'px';
-    customCursor.style.top = e.clientY + 'px';
-});
-
-document.querySelectorAll('a, button, .cart, #toggleSidebarBtn, .thumb img, #modalMainImgContainer, #closeModal, #modalBuy, #modalBack, #searchBtn, input, .nav-link').forEach(el => {
-    el.addEventListener('mouseenter', () => customCursor.classList.add('link-hover'));
-    el.addEventListener('mouseleave', () => customCursor.classList.remove('link-hover'));
-});
+/* ---------- START JAVASCRIPT LOGIC ---------- */
 
 /* ---------- sidebar toggle and navigation ---------- */
 const sidebar = document.getElementById('sidebar');
@@ -474,7 +541,11 @@ const toggleBtn = document.getElementById('toggleSidebarBtn');
 const main = document.getElementById('mainContent');
 const sections = document.querySelectorAll('.section');
 
-toggleBtn.onclick = () => { sidebar.classList.toggle('collapsed'); main.classList.toggle('collapsed'); toggleBtn.classList.toggle('open'); };
+toggleBtn.onclick = () => { 
+    sidebar.classList.toggle('collapsed'); 
+    main.classList.toggle('collapsed'); 
+    toggleBtn.classList.toggle('open'); 
+};
 
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
@@ -487,7 +558,6 @@ document.getElementById('cartBtn').onclick = () => {
     document.getElementById('checkoutPage').style.display = 'none'; 
     document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
 };
-
 
 /* ---------- bubbles ---------- */
 const bg = document.getElementById('bgLayer'), bArray = [];
@@ -507,21 +577,18 @@ for (let i=0;i<28;i++){ let b=document.createElement('div'); b.className='bubble
     requestAnimationFrame(animateBubbles); 
 })();
 
-/* ---------- cart logic (FIXED) ---------- */
+/* ---------- cart logic ---------- */
 let cart = [];
-// Helper to retrieve cart total element correctly
 function getCartTotalElement() {
     return document.getElementById('cartTotal');
 }
 
-// ** BUG FIX: Safely render cart details to prevent crashes on checkout page **
 function renderCart(){
     const cartGrid = document.getElementById('cartGrid');
     const cartCountElement = document.getElementById('cartCount');
     const cartTotalElement = document.getElementById('cartTotal');
     const paymentTotalElement = document.getElementById('paymentTotal');
     
-    // Clear the cart display only if the container exists
     if (cartGrid) {
         cartGrid.innerHTML = ''; 
     }
@@ -532,9 +599,8 @@ function renderCart(){
         const d = document.createElement('div'); d.className='card';
         d.innerHTML = `<div class="title">${it.title}</div><div class="price">AED ${it.price.toFixed(2)}</div>`;
         
-        if (cartGrid) { // Only append if the cart grid exists on the current page
+        if (cartGrid) {
              const btn = document.createElement('button'); btn.className='remove-btn'; btn.innerHTML='&times;';
-             // Apply necessary styles for the remove button
              btn.style.position = 'absolute'; btn.style.top = '10px'; btn.style.right = '10px';
              btn.style.width = '28px'; btn.style.height = '28px'; btn.style.padding = '0';
              
@@ -544,7 +610,6 @@ function renderCart(){
         }
     });
     
-    // Safely update elements only if they exist (Prevents the crash)
     if (cartCountElement) {
         cartCountElement.innerText = cart.length;
     }
@@ -580,9 +645,8 @@ function resetZoom() {
 
 modalImageContainer.addEventListener('mousemove', handleZoom);
 modalImageContainer.addEventListener('mouseleave', resetZoom);
-/* ------------------------ */
 
-/* ---------- Notification Functionality (FIXED) ---------- */
+/* ---------- Notification Functionality ---------- */
 const notification = document.getElementById('notification');
 const notificationQueue = [];
 let isShowing = false;
@@ -593,14 +657,11 @@ function processNotificationQueue() {
     isShowing = true;
     const { message, duration } = notificationQueue.shift();
     
-    // Set message and show
     notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
     notification.classList.add('show');
 
-    // Hide after duration
     setTimeout(() => {
         notification.classList.remove('show');
-        // Wait for CSS transition (0.5s) before processing next item
         setTimeout(() => {
             isShowing = false;
             processNotificationQueue();
@@ -612,9 +673,8 @@ function showNotification(message = "Item added to cart!", duration = 2000) {
     notificationQueue.push({ message, duration });
     processNotificationQueue();
 }
-/* -------------------------------------------------------- */
 
-/* ---------- product modal (STATIC) ---------- */
+/* ---------- product modal ---------- */
 const modal = document.getElementById('productModal');
 function openProductModal(title, price, img, desc){
     document.getElementById('modalTitle').innerText = title;
@@ -630,27 +690,25 @@ function openProductModal(title, price, img, desc){
         t.onclick = ()=>{ document.getElementById('modalMainImg').src = t.src; resetZoom(); };
         thumbs.appendChild(t);
     }
-    // buy handler
+    
     document.getElementById('modalBuy').onclick = ()=>{ 
         const item = productData.find(p => p.title.includes(title.replace(' (HOT DEAL)', '')));
         const finalPrice = title.includes('(HOT DEAL)') ? item.price * 0.85 : item.price;
 
         cart.push({title: item.title, price: finalPrice}); 
         renderCart(); 
-        showNotification(`${title} added to cart!`); // Show notification
+        showNotification(`${title} added to cart!`);
     };
-    // show
+    
     modal.style.display = 'flex';
 }
 document.getElementById('closeModal').onclick = ()=>{ modal.style.display='none'; };
-document.getElementById('modalBack').onclick = ()=>{ modal.style.display='none'; };
 modal.addEventListener('click', (e)=>{ if (e.target === modal) modal.style.display='none'; });
 
-/* ---------- product data (STATIC) ---------- */
+/* ---------- ALL 50 PRODUCTS DATA ---------- */
 const AED_CONVERSION_RATE = 3.67; 
 
 const productDataUSD = [
-    // --- Unique Products 1-10 (Initial Trending Gear) ---
     { id:1, title: 'Meta Quest 3 512GB VR Headset', desc: 'Advanced mixed reality headset with pancake lenses and 512GB storage. Offers enhanced processing power for seamless VR gaming. Model: MQ3-512.', price: 649.99, imageUrl: 'product_01.jpg', category: 'Gaming' },
     { id:2, title: 'Dyson Zone Noise-Cancelling Headphones', desc: 'High-fidelity audio headphones featuring advanced noise cancellation and a detachable visor that projects purified air.', price: 929.00, imageUrl: 'product_02.jpg', category: 'Electronics' },
     { id:3, title: 'Beats Studio Buds + (Transparent Edition)', desc: 'True wireless noise-cancelling earbuds with a unique transparent casing. Enhanced acoustic platform delivers powerful sound. Model: BSBPT.', price: 179.99, imageUrl: 'product_03.jpg', category: 'Electronics' },
@@ -661,7 +719,6 @@ const productDataUSD = [
     { id:8, title: 'Nanoleaf Lines Modular Lighting Kit (9 Pcs)', desc: 'Backlit smart LED light bars that snap together to create stunning geometric designs. Control with the Nanoleaf App and voice. Model: NL42.', price: 199.00, imageUrl: 'product_08.jpg', category: 'Electronics' },
     { id:9, title: 'Kindle Scribe Premium Pen Edition', desc: 'The first Kindle for reading and writing. Features a massive 10.2" Paperwhite display and the Premium Pen. Model: Scribe.', price: 389.99, imageUrl: 'product_09.jpg', category: 'Books' },
     { id:10, title: 'Shure MV7X Podcast Microphone (XLR)', desc: 'Professional dynamic microphone with a hybrid USB/XLR output, optimized for podcasting and vocal recording. Model: MV7X.', price: 199.00, imageUrl: 'product_10.jpg', category: 'Electronics' },
-    // --- Unique Products 11-20 ---
     { id:11, title: 'Google Pixel Watch 2 (LTE)', desc: 'Smartwatch featuring advanced health sensors, Snapdragon W5+ Gen 1 chip, and 24-hour battery life. Built-in Google apps and Fitbit integration. Model: PW2.', price: 399.00, imageUrl: 'product_11.jpg', category: 'Electronics' },
     { id:12, title: 'Twelve South Curve Flex Laptop Stand', desc: 'Premium adjustable desktop stand for MacBooks and Laptops. Folds flat for travel and elevates screen height up to 13 inches for better ergonomics. Model: Curve Flex.', price: 79.99, imageUrl: 'product_12.jpg', category: 'Electronics' },
     { id:13, title: 'Razer BlackWidow V4 75% Keyboard', desc: 'Compact hot-swappable mechanical gaming keyboard with 75% layout, hybrid foam and metal casing, and Razer Yellow switches. Model: V4 75%.', price: 189.99, imageUrl: 'product_13.jpg', category: 'Gaming' },
@@ -672,8 +729,6 @@ const productDataUSD = [
     { id:18, title: 'Philips Hue Starter Kit (E27, 3 Bulbs)', desc: 'Smart lighting kit including 3 color ambiance bulbs and a Hue Bridge. Control lights wirelessly, set schedules, and sync colors with movies and music. Model: Hue E27.', price: 159.00, imageUrl: 'product_18.jpg', category: 'Home & Kitchen' },
     { id:19, title: 'DJI Mini 3 Pro Drone', desc: 'Lightweight and powerful mini camera drone (under 249g) with tri-directional obstacle sensing and 4K HDR video capability. Perfect for travel photography. Model: Mini 3 Pro.', price: 759.00, imageUrl: 'product_19.jpg', category: 'Electronics' },
     { id:20, title: 'Ooni Karu 12 Multi-Fuel Pizza Oven', desc: 'Portable pizza oven capable of reaching 950°F (500°C) in 15 minutes. Cooks fresh, stone-baked pizza in 60 seconds. Fuelled by wood or charcoal (or gas with adapter).', price: 349.00, imageUrl: 'product_20.jpg', category: 'Home & Kitchen' },
-    
-    // --- Unique Products 21-30 ---
     { id:21, title: 'Anker 737 Power Bank (PowerCore 24K)', desc: '24,000mAh Power Bank with 140W 2-way fast charging. Smart digital display shows power input and output.', price: 149.99, imageUrl: 'product_21.jpg', category: 'Electronics' },
     { id:22, title: 'Canon EOS R8 Full-Frame Camera', desc: 'Lightweight full-frame mirrorless camera with 24.2 MP sensor, 4K 60p video, and Dual Pixel CMOS AF II.', price: 1499.00, imageUrl: 'product_22.jpg', category: 'Electronics' },
     { id:23, title: 'Lian Li O11 Dynamic EVO Case', desc: 'Mid-tower ATX case with reversible design and tempered glass panels. Optimized for custom water cooling loops.', price: 169.99, imageUrl: 'product_23.jpg', category: 'Gaming' },
@@ -684,8 +739,6 @@ const productDataUSD = [
     { id:28, title: 'Ray-Ban Meta Smart Glasses (Wayfarer)', desc: 'Smart glasses with an integrated 12 MP camera, open-ear audio, and AI assistant. Capture photos and videos hands-free. Model: Wayfarer.', price: 299.00, imageUrl: 'product_28.jpg', category: 'Electronics' },
     { id:29, title: 'TP-Link Tapo Smart Plug Mini (4-Pack)', desc: 'Wi-Fi smart plugs that work with Alexa and Google Home. Control any appliance from your phone, no hub required.', price: 39.99, imageUrl: 'product_29.jpg', category: 'Home & Kitchen' },
     { id:30, title: 'Herman Miller Aeron Chair (Size B)', desc: 'Iconic ergonomic office chair with PostureFit SL support, fully adjustable arms, and breathable pellicle mesh.', price: 1845.00, imageUrl: 'product_30.jpg', category: 'Home & Kitchen' },
-
-    // --- Unique Products 31-40 ---
     { id:31, title: 'Sony Alpha a6700 APS-C Camera', desc: 'Powerful APS-C camera with 26MP sensor, AI-powered autofocus from the a7R V, and 4K 120p video recording.', price: 1399.00, imageUrl: 'product_31.jpg', category: 'Electronics' },
     { id:32, title: 'Samsung ViewFinity S9 5K Monitor', desc: '27-inch 5K (5120x2880) monitor designed for creative professionals. Matte display, 99% DCI-P3, and Thunderbolt 4 connectivity. Model: S9.', price: 1599.99, imageUrl: 'product_32.jpg', category: 'Electronics' },
     { id:33, title: 'Lego Icons Eiffel Tower Set', desc: 'Massive 10,001-piece Lego set for adults. Stands nearly 5 feet (149 cm) tall when built, the tallest Lego set to date.', price: 629.99, imageUrl: 'product_33.jpg', category: 'Gaming' },
@@ -696,8 +749,6 @@ const productDataUSD = [
     { id:38, title: 'Yeti Tundra 45 Cooler', desc: 'Virtually indestructible hard cooler with PermaFrost Insulation. Keeps ice for days. Holds up to 26 cans.', price: 300.00, imageUrl: 'product_38.jpg', category: 'Home & Kitchen' },
     { id:39, title: 'SteelSeries Apex Pro TKL Keyboard', desc: 'The world\'s fastest TKL keyboard with OmniPoint 2.0 adjustable switches, offering 20x faster actuation and 11x faster response.', price: 189.99, imageUrl: 'product_39.jpg', category: 'Gaming' },
     { id:40, title: 'The Dune Saga 6-Book Boxed Set', desc: 'The complete Dune Chronicles by Frank Herbert in a beautiful paperback boxed set, including Dune, Dune Messiah, and Children of Dune.', price: 99.00, imageUrl: 'product_40.jpg', category: 'Books' },
-    
-    // --- Unique Products 41-50 ---
     { id:41, title: 'Apple AirTag (4 Pack)', desc: 'Keep track of and find your items alongside friends and devices in the Find My app. Simple one-tap setup instantly connects AirTag.', price: 99.00, imageUrl: 'product_41.jpg', category: 'Electronics' },
     { id:42, title: 'Logitech G502 X Plus Wireless Mouse', desc: 'A gaming icon, reinvented. Features hybrid optical-mechanical switches, LIGHTSPEED wireless, and all-new LIGHTSYNC RGB.', price: 159.99, imageUrl: 'product_42.jpg', category: 'Gaming' },
     { id:43, title: 'Breville "the Barista Express" Espresso Machine', desc: 'Create third-wave specialty coffee at home. Integrated grinder, precise espresso extraction, and manual milk texturing.', price: 749.95, imageUrl: 'product_43.jpg', category: 'Home & Kitchen' },
@@ -716,26 +767,23 @@ const productData = productDataUSD.map(p => ({
     price: p.price * AED_CONVERSION_RATE 
 }));
 
-/* ---------- card generation (STATIC) ---------- */
+/* ---------- card generation ---------- */
 const PLACEHOLDER_IMG_FALLBACK = "https://via.placeholder.com/220x150/0072ff/ffffff?text=Image+Missing"; 
 
 function addCard(grid, title, price, img, isHot=false, desc){
     const c = document.createElement('div'); c.className = 'card';
     c.innerHTML = `<div class="thumb"><img src="${img}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG_FALLBACK}';" alt="${title}"></div><div class="title">${title}</div><div class="price">AED ${parseFloat(price).toFixed(2)}</div><button>Add</button>`;
     
-    // add to cart button
     c.querySelector('button').onclick = ()=>{ 
-        // Finds the original product data based on the title
         const cleanTitle = title.replace(' (HOT DEAL)', '');
         const item = productData.find(p => p.title === cleanTitle);
-        // Apply discount if it's a hot deal
         const finalPrice = isHot ? item.price * 0.85 : item.price;
 
         cart.push({title: item.title, price: finalPrice}); 
         renderCart(); 
-        showNotification(`${title} added to cart!`); // Show notification
+        showNotification(`${title} added to cart!`);
     };
-    // open modal on image
+    
     c.querySelector('.thumb').onclick = ()=>{ openProductModal(title, price, img, desc || 'High quality item.'); };
     if (isHot) { const hb = document.createElement('div'); hb.className='hot-badge'; hb.innerText='HOT'; c.appendChild(hb); }
     grid.appendChild(c);
@@ -746,9 +794,8 @@ function filterProducts(category) {
     const productGrid = document.getElementById('productGrid');
     const featuredSection = document.getElementById('featuredOffers');
     const productsTitle = document.getElementById('products-title');
-    productGrid.innerHTML = ''; // Clear the grid
+    productGrid.innerHTML = '';
     
-    // Get all category buttons and reset their styles
     const buttons = document.querySelectorAll('.category-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
     
@@ -757,19 +804,16 @@ function filterProducts(category) {
     if (category === 'All') {
         filteredData = productData;
         document.querySelector('.category-btn[onclick="filterProducts(\'All\')"]').classList.add('active');
-        featuredSection.style.display = 'block'; // Show featured section
-        productsTitle.innerText = 'All Products (50 Items)'; // Reset title
+        featuredSection.style.display = 'block';
+        productsTitle.innerText = 'All Products (50 Items)';
     } else {
         filteredData = productData.filter(p => p.category === category);
-        // Add active class to the clicked button
         document.querySelector(`.category-btn[onclick="filterProducts('${category}')"]`).classList.add('active');
-        featuredSection.style.display = 'none'; // Hide featured section
-        productsTitle.innerText = category; // Set title to category name
+        featuredSection.style.display = 'none';
+        productsTitle.innerText = category;
     }
     
-    // Re-populate the grid with filtered products
     filteredData.forEach(product => {
-        // Check if this product is also a "hot deal" (first 10)
         const isHot = productData.indexOf(product) < 10;
         const price = isHot ? product.price * 0.85 : product.price;
         const title = isHot ? product.title + ' (HOT DEAL)' : product.title;
@@ -780,34 +824,30 @@ function filterProducts(category) {
 
 // Populate product grids on load
 window.onload = () => {
-    updateBgHeight(); // Make sure bubbles cover the page height
+    updateBgHeight();
     
     const productGrid = document.getElementById('productGrid');
     const featuredGrid = document.getElementById('featuredGrid');
 
-    // Display ALL 50 unique products in the main grid
+    // Display ALL 50 products
     productData.forEach(product => {
-        // We find the 'isHot' status from the original array (first 10 items)
         const isHot = productData.indexOf(product) < 10;
         const price = isHot ? product.price * 0.85 : product.price;
         const title = isHot ? product.title + ' (HOT DEAL)' : product.title;
         addCard(productGrid, title, price, product.imageUrl, isHot, product.desc);
     });
 
-    // Display "Hot" products (first 10) as featured deals
+    // Display featured deals
     productData.slice(0, 10).forEach(product => { 
         const hotPrice = (product.price * 0.85); 
         addCard(featuredGrid, product.title + ' (HOT DEAL)', hotPrice, product.imageUrl, true, product.desc + ' Limited time offer!');
     });
     
-    // Set the "All" button as active by default
     document.querySelector('.category-btn[onclick="filterProducts(\'All\')"]').classList.add('active');
-    
-    renderCart(); // Initial load of cart data
+    renderCart();
 };
 
-
-/* ---------- featured drag + auto-slide (no change) ---------- */
+/* ---------- featured drag + auto-slide ---------- */
 let isDown=false, startX, scrollLeft;
 const featuredGrid = document.getElementById('featuredGrid');
 featuredGrid.addEventListener('mousedown', (e)=>{ isDown=true; startX=e.pageX - featuredGrid.offsetLeft; scrollLeft = featuredGrid.scrollLeft;});
@@ -817,13 +857,11 @@ featuredGrid.addEventListener('mousemove', (e)=>{ if(!isDown) return; e.preventD
 featuredGrid.addEventListener('touchstart', (e)=>{ startX = e.touches[0].pageX - featuredGrid.offsetLeft; scrollLeft = featuredGrid.scrollLeft; });
 featuredGrid.addEventListener('touchmove', (e)=>{ featuredGrid.scrollLeft = scrollLeft - (e.touches[0].pageX - startX) * 2; });
 
-/* ---------- search (no change) ---------- */
+/* ---------- search ---------- */
 document.getElementById('searchBtn').onclick = ()=>{
     const val = document.getElementById('searchInput').value.toLowerCase().trim();
-    // When searching, filter ALL products, not just the current category
-    filterProducts('All'); // First, reset to show all products
+    filterProducts('All');
     
-    // Now, hide the ones that don't match the search
     document.querySelectorAll('#productGrid .card').forEach(c=>{ 
         if (!c.querySelector('.title').innerText.toLowerCase().includes(val)) {
             c.style.display = 'none';
@@ -831,26 +869,20 @@ document.getElementById('searchBtn').onclick = ()=>{
             c.style.display = 'flex';
         }
     });
-    // Hide featured offers during a search
     document.getElementById('featuredOffers').style.display = 'none';
     document.getElementById('products-title').innerText = `Search results for "${val}"`;
 };
 
-
-/* ---------- Checkout Button Logic (STATIC) ---------- */
+/* ---------- Checkout Button Logic ---------- */
 document.getElementById('goToCheckoutBtn').onclick = () => {
     if (cart.length === 0) {
         pushMsg("Your cart is empty! Please add items before checking out.", 'bot');
         showNotification("Your cart is empty! Please add items before checking out.", 3000); 
         return;
     }
-    // Update the total payment amount before hiding
     renderCart();
     
-    // Hide all standard sections
     sections.forEach(sec => { sec.style.display = 'none'; });
-
-    // Show only the checkout section
     document.getElementById('checkoutPage').style.display = 'block';
     document.getElementById('checkoutPage').scrollIntoView({ behavior: 'smooth' });
 };
@@ -862,7 +894,7 @@ document.getElementById('backToCartBtn').onclick = () => {
     document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
 };
 
-/* ---------- Payment Form Submission (Using Web3Forms AJAX) ---------- */
+/* ---------- Payment Form Submission ---------- */
 document.getElementById('paymentForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -871,7 +903,6 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
     const feedbackDiv = document.getElementById('paymentFeedback');
     const paymentButton = document.getElementById('payment-button');
 
-    // Validation
     if (cart.length === 0 || !document.getElementById('name').value || !document.getElementById('email').value || !document.getElementById('address').value) {
         feedbackDiv.style.display = 'block';
         feedbackDiv.className = 'error';
@@ -880,58 +911,45 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
         return;
     }
     
-    // --- STEP 1: GATHER CART DATA FOR TRANSMISSION ---
     const cartData = JSON.stringify(cart.map(item => ({
         product: item.title,
         price: `AED ${item.price.toFixed(2)}`
     })));
 
-    // --- STEP 2: CREATE FORM DATA ---
-    const formData = new FormData(form);
-    formData.append('order_details', `TOTAL: AED ${totalAmount.toFixed(2)}. Items: ${cartData}`);
+    let cartInput = document.getElementById('_cartSummary');
+    if (!cartInput) {
+        cartInput = document.createElement('input');
+        cartInput.type = 'hidden';
+        cartInput.name = 'order_details'; 
+        cartInput.id = '_cartSummary';
+        form.appendChild(cartInput);
+    }
+    cartInput.value = `TOTAL: AED ${totalAmount.toFixed(2)}. Items: ${cartData}`;
     
-    // --- STEP 3: SIMULATE PAYMENT SUCCESS BEFORE SUBMITTING DATA ---
     paymentButton.disabled = true;
     paymentButton.innerHTML = '💳 Processing (Demo)...';
     feedbackDiv.style.display = 'block';
     feedbackDiv.className = 'error';
     feedbackDiv.innerHTML = 'Simulating payment success...';
 
-    // Simulate payment process (2-second delay)
     setTimeout(() => {
-        // Show success message to the customer 
         feedbackDiv.className = 'success';
         feedbackDiv.innerHTML = `<i class="fas fa-check-circle"></i> **Payment Processed!** Forwarding order details...`;
 
-        // Clear the cart for the customer immediately
         cart = [];
         renderCart();
         form.style.opacity = 0.5;
 
-        // *** STEP 4: SUBMIT THE FORM TO WEB3FORMS VIA AJAX ***
-        fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                feedbackDiv.innerHTML = `<i class="fas fa-check-circle"></i> **Order Confirmed!** You will receive a copy of your order via email shortly.`;
-            } else {
-                feedbackDiv.className = 'error';
-                feedbackDiv.innerHTML = `❌ Form submission failed: ${data.message}. However, your order has been processed locally.`;
-            }
-        })
-        .catch(error => {
-            feedbackDiv.className = 'error';
-            feedbackDiv.innerHTML = `❌ Network error: ${error.message}. However, your order has been processed locally.`;
-        });
+        form.submit();
+        
+        setTimeout(() => {
+             feedbackDiv.innerHTML = `<i class="fas fa-check-circle"></i> **Order Confirmed!** You will receive a copy of your order via email shortly.`;
+        }, 1000);
         
     }, 2000); 
 });
 
-
-/* ---------- AI assistant widget (STATIC) ---------- */
+/* ---------- AI assistant widget ---------- */
 const aiWidget = document.getElementById('aiWidget');
 const aiPanel = document.getElementById('aiPanel');
 const aiMessages = document.getElementById('aiMessages');
@@ -943,7 +961,6 @@ function pushMsg(txt, who='bot'){ const d = document.createElement('div'); d.cla
 function autoReply(userText){
     const t = userText.toLowerCase();
     
-    // 1. Cart Status and Total
     if (t.includes('cart') || t.includes('total') || t.includes('checkout')) {
         if (cart.length === 0) {
             pushMsg("Your cart is currently **empty**. Why not add an item like the 'Meta Quest 3' to get started?", 'bot');
@@ -955,7 +972,6 @@ function autoReply(userText){
         return;
     }
 
-    // 2. Product Search & Lookup 
     let productMatch = productData.find(p => 
         t.includes(p.title.toLowerCase()) || 
         (p.category && t.includes(p.category.toLowerCase())) ||
@@ -974,7 +990,6 @@ function autoReply(userText){
     }
     
     if (productMatch) {
-        // Determine if it is a hot deal
         const isHotDeal = productData.indexOf(productMatch) < 10 && (t.includes('deal') || t.includes('hot'));
         const price = isHotDeal ? (productMatch.price * 0.85).toFixed(2) : productMatch.price.toFixed(2);
         const title = isHotDeal ? productMatch.title + ' (Hot Deal)' : productMatch.title;
@@ -983,7 +998,6 @@ function autoReply(userText){
         return;
     }
 
-    // 3. General Help and Policy
     if (t.includes('ship') || t.includes('delivery')) {
         pushMsg('Standard shipping takes **5-12 business days**. Express options are available at checkout.');
         return;
@@ -999,10 +1013,8 @@ function autoReply(userText){
         return;
     }
     
-    // 4. Default / Fallback
     pushMsg("I'm HIK Assistant! Try asking me about 'shipping', 'returns', the 'most expensive' item, or your current 'cart total'.");
 }
-
 
 aiSend.onclick = ()=>{ const v = aiInput.value.trim(); if(!v) return; pushMsg(v,'me'); aiInput.value=''; setTimeout(()=>{ autoReply(v); }, 450); };
 aiInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && aiInput.value.trim()){ 
