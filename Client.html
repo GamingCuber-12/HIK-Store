@@ -201,7 +201,7 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 #aiPanel button{padding:8px 10px;border-radius:8px;background:#0072ff;color:#fff;border:none;cursor:pointer;}
 
 /* ---------- CHECKOUT FORM STYLES ---------- */
-.checkout-container { max-width: 500px; margin: auto; padding: 25px; border: 1px solid #e0e0e0; border-radius: 12px; background: white; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.08);}
+.checkout-container { max-width: 500px; margin: auto; padding: 25px; border: 1px solid #e0e0e0; border-radius: 12px; background: white; text-align: left; box-shadow:0 10px 30px rgba(0,0,0,0.08);}
 .checkout-container label { display: block; margin-bottom: 5px; font-weight: 700; color: #333; font-size: 14px;}
 .checkout-container input[type="text"], 
 .checkout-container input[type="email"], 
@@ -346,13 +346,13 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
     <h2>Complete Your Purchase</h2>
     <div class="checkout-container">
       
-      <!-- ⭐️ START NEW FORMSUBMIT BLOCK ⭐️ -->
-      <form id="paymentForm" action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST">
+      <!-- ⭐️ UPDATED: Web3Forms Integration ⭐️ -->
+      <form id="paymentForm" action="https://api.web3forms.com/submit" method="POST">
         
-        <!-- FormSubmit doesn't use an access key, but rather the email in the action URL. -->
-        <!-- You MUST change YOUR_EMAIL_HERE to a valid email to receive orders. -->
-        <input type="hidden" name="_captcha" value="false"> 
-        <input type="hidden" name="_subject" value="New HIK Store Order!" />
+        <!-- Web3Forms Required Fields -->
+        <input type="hidden" name="access_key" value="ce841447-3e77-452b-a334-14ede39df8ef">
+        <input type="hidden" name="subject" value="New HIK Store Order!" />
+        <input type="hidden" name="from_name" value="HIK Store" />
         
         <!-- Field for the cart summary will be added by JavaScript -->
 
@@ -363,12 +363,12 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
         <input type="email" id="email" name="email" required>
         
         <label for="phone">Phone Number (For Delivery):</label>
-        <input type="tel" id="phone" name="phone_number" required>
+        <input type="tel" id="phone" name="phone" required>
 
         <h3 style="margin: 20px 0 10px; font-size: 18px; color: #0072ff;">Shipping Address</h3>
         
         <label for="address">Street Address:</label>
-        <input type="text" id="address" name="shipping_address" required>
+        <input type="text" id="address" name="address" required>
 
         <label for="city">City:</label>
         <input type="text" id="city" name="city" required>
@@ -377,7 +377,7 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
         <input type="text" id="country" name="country" value="UAE" required>
         
         <label for="zip">Postal/Zip Code:</label>
-        <input type="text" id="zip" name="postal_code" required>
+        <input type="text" id="zip" name="zip" required>
 
         <h3 style="margin: 20px 0 10px; font-size: 18px; color: #0072ff;">Payment (Simulation)</h3>
 
@@ -385,7 +385,7 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
         <input type="text" id="cardNumber" name="card_number" pattern="[0-9]{13,16}" title="Enter a valid credit card number (13-16 digits)" required>
 
         <label for="expiryDate">Expiry Date (MM/YY):</label>
-        <input type="text" id="expiryDate" name="expiryDate" pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" placeholder="MM/YY" required>
+        <input type="text" id="expiryDate" name="expiry_date" pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" placeholder="MM/YY" required>
 
         <label for="cvv">CVV:</label>
         <input type="text" id="cvv" name="cvv" pattern="[0-9]{3,4}" required>
@@ -398,10 +398,10 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
         <button type="submit" id="payment-button">Confirm Order & Pay AED <span id="paymentTotal">0.00</span></button>
         <button type="button" id="backToCartBtn">Back to Cart</button>
       </form>
-      <!-- ⭐️ END NEW FORMSUBMIT BLOCK ⭐️ -->
+      <!-- ⭐️ END UPDATED WEB3FORMS BLOCK ⭐️ -->
       
       <div style="margin-top: 15px; font-size: 14px; text-align: center; color: #666;">
-        *This is a demo checkout. Order details will be emailed via FormSubmit.*
+        *This is a demo checkout. Order details will be emailed via Web3Forms.*
       </div>
     </div>
   </section>
@@ -687,7 +687,7 @@ const productDataUSD = [
     { id:36, title: 'Sonos Arc Premium Smart Soundbar', desc: 'Bring all your entertainment to life with the realistic sound of Arc, featuring Dolby Atmos. Control it with your remote, voice, and the Sonos app.', price: 899.00, imageUrl: 'product_36.jpg', category: 'Electronics' },
     { id:37, title: 'Nixplay 10.1 inch Smart Photo Frame', desc: 'Wi-Fi digital photo frame with HD display. Share photos and videos instantly from your phone to the frame. Perfect gift for family.', price: 179.99, imageUrl: 'product_37.jpg', category: 'Electronics' },
     { id:38, title: 'Yeti Tundra 45 Cooler', desc: 'Virtually indestructible hard cooler with PermaFrost Insulation. Keeps ice for days. Holds up to 26 cans.', price: 300.00, imageUrl: 'product_38.jpg', category: 'Home & Kitchen' },
-    { id:39, title: 'SteelSeries Apex Pro TKL Keyboard', desc: 'The world’s fastest TKL keyboard with OmniPoint 2.0 adjustable switches, offering 20x faster actuation and 11x faster response.', price: 189.99, imageUrl: 'product_39.jpg', category: 'Gaming' },
+    { id:39, title: 'SteelSeries Apex Pro TKL Keyboard', desc: 'The world\'s fastest TKL keyboard with OmniPoint 2.0 adjustable switches, offering 20x faster actuation and 11x faster response.', price: 189.99, imageUrl: 'product_39.jpg', category: 'Gaming' },
     { id:40, title: 'The Dune Saga 6-Book Boxed Set', desc: 'The complete Dune Chronicles by Frank Herbert in a beautiful paperback boxed set, including Dune, Dune Messiah, and Children of Dune.', price: 99.00, imageUrl: 'product_40.jpg', category: 'Books' },
     
     // --- Unique Products 41-50 ---
@@ -855,7 +855,7 @@ document.getElementById('backToCartBtn').onclick = () => {
     document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
 };
 
-/* ---------- Payment Form Submission (Using FormSubmit to Capture Data) ---------- */
+/* ---------- Payment Form Submission (Using Web3Forms to Capture Data) ---------- */
 document.getElementById('paymentForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -884,7 +884,7 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
     if (!cartInput) {
         cartInput = document.createElement('input');
         cartInput.type = 'hidden';
-        cartInput.name = 'Products_Ordered'; 
+        cartInput.name = 'order_details'; 
         cartInput.id = '_cartSummary';
         form.appendChild(cartInput);
     }
@@ -909,15 +909,8 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
         renderCart();
         form.style.opacity = 0.5;
 
-        // *** STEP 4: SUBMIT THE FORM TO FORMSUBMIT ***
-        // FormSubmit also supports an optional hidden field for redirecting after submission
-        const redirectInput = document.createElement('input');
-        redirectInput.type = 'hidden';
-        redirectInput.name = '_next';
-        // You can change this to your thank you page URL if you have one
-        redirectInput.value = window.location.href; 
-        form.appendChild(redirectInput);
-        
+        // *** STEP 4: SUBMIT THE FORM TO WEB3FORMS ***
+        // Web3Forms will handle the email delivery automatically
         form.submit();
         
         // Wait a moment and then give final message
