@@ -138,7 +138,7 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 .hot-badge{position:absolute;top:10px;left:10px;background:red;color:white;font-size:12px;padding:4px 10px;border-radius:12px;font-weight:700;box-shadow:0 0 10px rgba(0,0,0,0.15);}
 
 /* cart remove */
-#cartGrid .remove-btn{position:absolute;top:10px;right:10px;background:#ff4d4f;width:28px;height:28px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;}
+#cartGrid .remove-btn{position:absolute;top:10px;right:10px;background:#ff4d4f;width:28px;height=28px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;}
 #cartGrid .remove-btn:hover{background:#c41d1d;transform:scale(1.15);}
 
 /* contact buttons spacing */
@@ -192,7 +192,7 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
 /* ------------------------ */
 
 /* ---------- AI assistant ---------- */
-#aiWidget{position:fixed;bottom:20px;right:20px;width:64px;height:64px;border-radius:16px;background:#0072ff;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;box-shadow:0 12px 30px rgba(0,0,0,0.18);}
+#aiWidget{position:fixed;bottom:20px;right:20px;width:64px;height=64px;border-radius:16px;background:#0072ff;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;box-shadow:0 12px 30px rgba(0,0,0,0.18);}
 #aiPanel{position:fixed;bottom:100px;right:20px;width:340px;max-height:60vh;background:#fff;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,0.2);display:none;flex-direction:column;overflow:hidden;z-index:9999;}
 #aiPanel header{background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;padding:12px;font-weight:800;}
 #aiPanel .messages{padding:12px;flex:1;overflow:auto;}
@@ -451,6 +451,9 @@ button:hover{background:#005bb5;transform:scale(1.04);box-shadow:0 0 15px #0072f
         
         <label for="message">Order Message:</label>
         <textarea id="message" name="message" rows="4" required>I would like to place an order from HIK Store</textarea>
+        
+        <!-- Hidden field to store cart items -->
+        <input type="hidden" id="cartItems" name="cart_items" value="">
         
         <div id="paymentFeedback" style="display:none;"></div>
 
@@ -872,6 +875,20 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
     const form = e.target;
     const feedbackDiv = document.getElementById('paymentFeedback');
     const paymentButton = document.getElementById('payment-button');
+
+    // Get the current message from the textarea
+    let userMessage = document.getElementById('message').value;
+
+    // Create cart summary
+    const cartSummary = cart.map(item => `${item.title} - AED ${item.price.toFixed(2)}`).join('\n');
+    const totalAmount = parseFloat(getCartTotalElement().innerText);
+    const orderDetails = `--- ORDER DETAILS ---\n${cartSummary}\nTotal: AED ${totalAmount.toFixed(2)}`;
+
+    // Update the message with the order details
+    document.getElementById('message').value = userMessage + "\n\n" + orderDetails;
+
+    // Also set the hidden cart items field
+    document.getElementById('cartItems').value = cartSummary;
 
     // Show processing message
     paymentButton.disabled = true;
