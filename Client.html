@@ -13,8 +13,10 @@
             --primary: #0066FF;
             --primary-dark: #0052D4;
             --primary-light: #3391FF;
+            --primary-ultralight: #E6F0FF;
             --accent: #FF3366;
             --accent-dark: #E62E5C;
+            --accent-light: #FF6699;
             --text: #1A1D29;
             --text-light: #6B7280;
             --text-lighter: #9CA3AF;
@@ -30,6 +32,8 @@
             --radius-lg: 16px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            --gradient-offer: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
         }
 
         * {
@@ -48,6 +52,78 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ---------- ENHANCED ANIMATED BACKGROUND BUBBLES ---------- */
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.15) 0%, rgba(51, 145, 255, 0.08) 100%);
+            filter: blur(5px);
+            animation: floatBubble 20s infinite ease-in-out;
+            box-shadow: 
+                0 0 20px rgba(0, 102, 255, 0.1),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .bubble:nth-child(odd) {
+            background: linear-gradient(135deg, rgba(51, 145, 255, 0.12) 0%, rgba(0, 102, 255, 0.06) 100%);
+            animation-duration: 25s;
+            animation-delay: -5s;
+        }
+
+        .bubble:nth-child(3n) {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.08) 0%, rgba(51, 145, 255, 0.15) 100%);
+            animation-duration: 30s;
+            animation-delay: -10s;
+        }
+
+        .bubble:nth-child(4n) {
+            background: linear-gradient(135deg, rgba(255, 51, 102, 0.1) 0%, rgba(255, 102, 153, 0.05) 100%);
+            animation-duration: 22s;
+            animation-delay: -7s;
+        }
+
+        .bubble:nth-child(5n) {
+            background: linear-gradient(135deg, rgba(102, 255, 204, 0.1) 0%, rgba(153, 255, 204, 0.05) 100%);
+            animation-duration: 28s;
+            animation-delay: -12s;
+        }
+
+        @keyframes floatBubble {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 0.7;
+            }
+            25% {
+                transform: translate(20px, -40px) rotate(90deg) scale(1.1);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translate(-15px, -70px) rotate(180deg) scale(0.9);
+                opacity: 0.6;
+            }
+            75% {
+                transform: translate(25px, -30px) rotate(270deg) scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        /* Glow effect for selected elements */
+        .glow {
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
         }
 
         /* ---------- ENHANCED ANIMATIONS ---------- */
@@ -82,6 +158,98 @@
             100% { background-position: 1000px 0; }
         }
 
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translate3d(0,0,0);
+            }
+            40%, 43% {
+                transform: translate3d(0,-15px,0);
+            }
+            70% {
+                transform: translate3d(0,-7px,0);
+            }
+            90% {
+                transform: translate3d(0,-3px,0);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         /* ---------- MODERN TOP BAR ---------- */
         #topBar {
             position: fixed;
@@ -101,7 +269,7 @@
 
         #topBar.scrolled {
             height: 70px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
@@ -114,6 +282,7 @@
             font-size: 24px;
             color: var(--primary);
             text-decoration: none;
+            animation: fadeInLeft 0.8s ease-out;
         }
 
         .logoWrap img {
@@ -262,6 +431,7 @@
             flex-direction: column;
             gap: 4px;
             cursor: pointer;
+            padding: 8px;
         }
 
         .mobile-menu-btn div {
@@ -271,10 +441,97 @@
             transition: var(--transition);
         }
 
+        .mobile-menu-btn.active div:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-btn.active div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: var(--shadow-lg);
+            z-index: 99;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: var(--transition);
+            display: none;
+            flex-direction: column;
+            padding: 20px 5%;
+        }
+
+        .mobile-nav.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav a {
+            padding: 15px 0;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .mobile-nav a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: none;
+        }
+
+        /* ---------- PROMO BANNER ---------- */
+        .promo-banner {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: white;
+            padding: 12px 5%;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .promo-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .promo-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .promo-content i {
+            animation: bounce 2s infinite;
+        }
+
         /* ---------- HERO SECTION ---------- */
         .hero {
-            margin-top: 80px;
-            padding: 100px 5% 80px;
+            padding: 120px 5% 100px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             position: relative;
@@ -363,15 +620,15 @@
 
         /* ---------- TRUST BADGES ---------- */
         .trust-section {
-            padding: 60px 5%;
+            padding: 80px 5%;
             background: white;
+            position: relative;
         }
 
         .trust-badges {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -383,12 +640,15 @@
             gap: 12px;
             text-align: center;
             transition: var(--transition);
-            padding: 20px;
-            border-radius: var(--radius);
+            padding: 30px 20px;
+            border-radius: var(--radius-lg);
+            background: var(--bg-light);
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .trust-badge:hover {
             transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
         }
 
         .trust-badge i {
@@ -402,6 +662,7 @@
         .trust-badge span {
             font-weight: 600;
             color: var(--text);
+            font-size: 18px;
         }
 
         .trust-badge p {
@@ -413,6 +674,7 @@
         /* ---------- FEATURED PRODUCTS ---------- */
         .section {
             padding: 100px 5%;
+            position: relative;
         }
 
         .section-header {
@@ -436,9 +698,9 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -450,11 +712,14 @@
             transition: var(--transition);
             position: relative;
             cursor: pointer;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            animation: zoomIn 0.6s ease-out;
         }
 
         .product-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-xl);
+            border-color: var(--primary-light);
         }
 
         .product-badges {
@@ -491,9 +756,14 @@
             color: white;
         }
 
+        .badge-sale {
+            background: #8B5CF6;
+            color: white;
+        }
+
         .product-image {
-            height: 220px;
-            background: var(--bg-light);
+            height: 240px;
+            background: var(--primary-ultralight);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -637,6 +907,7 @@
             overflow-y: auto;
             position: relative;
             animation: fadeInUp 0.3s ease-out;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
         .modal-close {
@@ -668,7 +939,7 @@
 
         .modal-image {
             height: 400px;
-            background: var(--bg-light);
+            background: var(--primary-ultralight);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -819,11 +1090,14 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
             cursor: pointer;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            animation: zoomIn 0.6s ease-out;
         }
 
         .category-card:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
         }
 
         .category-icon {
@@ -846,7 +1120,7 @@
 
         /* ---------- FEATURES SECTION ---------- */
         .features {
-            background: var(--bg-light);
+            background: white;
         }
 
         .features-grid {
@@ -858,17 +1132,20 @@
         }
 
         .feature-card {
-            background: white;
+            background: var(--bg-light);
             padding: 40px 30px;
             border-radius: var(--radius-lg);
             text-align: center;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            animation: zoomIn 0.6s ease-out;
         }
 
         .feature-card:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
         }
 
         .feature-icon {
@@ -895,37 +1172,57 @@
             line-height: 1.6;
         }
 
-        /* ---------- TESTIMONIALS ---------- */
+        /* ---------- TESTIMONIALS CAROUSEL ---------- */
         .testimonials {
-            background: white;
+            background: var(--bg-light);
+            position: relative;
+            overflow: hidden;
         }
 
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+        .testimonials-container {
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonials-carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+            overflow: hidden;
         }
 
         .testimonial-card {
-            background: var(--bg-light);
-            padding: 30px;
+            background: white;
+            padding: 40px;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow);
             transition: var(--transition);
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            min-width: 100%;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .testimonial-content {
             font-style: italic;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: var(--text);
             line-height: 1.6;
+            font-size: 18px;
+            position: relative;
+        }
+
+        .testimonial-content::before {
+            content: '"';
+            font-size: 60px;
+            color: var(--primary-light);
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            opacity: 0.3;
+            font-family: Georgia, serif;
         }
 
         .testimonial-author {
@@ -935,15 +1232,16 @@
         }
 
         .author-avatar {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 700;
+            font-size: 20px;
         }
 
         .author-info h4 {
@@ -956,9 +1254,130 @@
             font-size: 14px;
         }
 
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .carousel-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 18px;
+            color: var(--text);
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .carousel-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* ---------- SPECIAL OFFERS BANNER ---------- */
+        .offers-banner {
+            background: var(--gradient-offer);
+            color: white;
+            padding: 80px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offers-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .offers-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: zoomIn 0.8s ease-out;
+        }
+
+        .offers-content h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .offers-content p {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: var(--radius);
+            min-width: 100px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            font-weight: 600;
+        }
+
         /* ---------- CART & CHECKOUT ---------- */
         .cart-section {
-            background: var(--bg-light);
+            background: white;
         }
 
         .cart-container {
@@ -968,11 +1387,13 @@
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow);
             overflow: hidden;
+            border: 1px solid rgba(0, 102, 255, 0.1);
         }
 
         .cart-header {
             padding: 30px;
             border-bottom: 1px solid var(--border);
+            background: var(--bg-light);
         }
 
         .cart-items {
@@ -993,7 +1414,7 @@
         .cart-item-image {
             width: 100px;
             height: 100px;
-            background: var(--bg-light);
+            background: var(--primary-ultralight);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -1091,11 +1512,13 @@
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow);
             overflow: hidden;
+            border: 1px solid rgba(0, 102, 255, 0.1);
         }
 
         .checkout-header {
             padding: 30px;
             border-bottom: 1px solid var(--border);
+            background: var(--bg-light);
         }
 
         .checkout-form {
@@ -1182,6 +1605,7 @@
             padding: 20px;
             border-radius: var(--radius);
             margin-top: 30px;
+            border: 1px solid var(--border);
         }
 
         .order-summary h3 {
@@ -1218,6 +1642,7 @@
             background: var(--bg-dark);
             color: white;
             padding: 80px 5% 40px;
+            position: relative;
         }
 
         .footer-content {
@@ -1262,6 +1687,37 @@
             text-align: center;
             color: rgba(255, 255, 255, 0.6);
             font-size: 14px;
+        }
+
+        /* ---------- BACK TO TOP BUTTON ---------- */
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 99;
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
         }
 
         /* ---------- WHATSAPP WIDGET ---------- */
@@ -1333,6 +1789,16 @@
         }
 
         /* ---------- RESPONSIVE STYLES ---------- */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
         @media (max-width: 1024px) {
             .hero h1 {
                 font-size: 2.8rem;
@@ -1364,16 +1830,24 @@
                 display: none;
             }
             
+            .mobile-nav {
+                display: flex;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+            
+            .hero {
+                padding: 100px 5% 80px;
+            }
+            
             .hero h1 {
                 font-size: 2.2rem;
             }
             
             .hero p {
                 font-size: 1.1rem;
-            }
-            
-            .search-bar input {
-                width: 200px;
             }
             
             .section-header h2 {
@@ -1383,6 +1857,44 @@
             .form-row {
                 flex-direction: column;
                 gap: 0;
+            }
+            
+            .trust-badges {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .bubble {
+                animation-duration: 15s;
+            }
+            
+            .offers-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .countdown {
+                gap: 10px;
+            }
+            
+            .countdown-item {
+                min-width: 80px;
+                padding: 15px;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+            
+            .back-to-top {
+                bottom: 90px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
             }
         }
 
@@ -1404,10 +1916,6 @@
                 width: 100%;
                 max-width: 280px;
                 justify-content: center;
-            }
-            
-            .search-bar {
-                display: none;
             }
             
             .section {
@@ -1444,10 +1952,129 @@
             .checkout-actions {
                 flex-direction: column;
             }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .whatsapp-widget {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            
+            .bubble {
+                animation-duration: 12s;
+            }
+            
+            .offers-content h2 {
+                font-size: 2rem;
+            }
+            
+            .countdown {
+                flex-wrap: wrap;
+            }
+            
+            .countdown-item {
+                min-width: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .trust-badge {
+                padding: 20px 15px;
+            }
+            
+            .feature-card {
+                padding: 30px 20px;
+            }
+            
+            .notification {
+                right: 15px;
+                left: 15px;
+                max-width: none;
+            }
+            
+            .bubble {
+                animation-duration: 10s;
+            }
+            
+            .offers-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .countdown-item {
+                min-width: 60px;
+                padding: 10px;
+            }
+            
+            .countdown-value {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 1.4rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.6rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .btn-add-cart {
+                width: 100%;
+            }
+            
+            .countdown {
+                gap: 5px;
+            }
+            
+            .countdown-item {
+                min-width: 55px;
+                padding: 8px;
+            }
+            
+            .countdown-value {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background Bubbles -->
+    <div class="bubbles" id="bubbles"></div>
+
     <!-- Top Navigation Bar -->
     <header id="topBar">
         <a href="#" class="logoWrap">
@@ -1479,13 +2106,31 @@
                 <span class="cart-count">0</span>
             </div>
             
-            <div class="mobile-menu-btn">
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
                 <div></div>
                 <div></div>
                 <div></div>
             </div>
         </div>
     </header>
+
+    <!-- Promo Banner -->
+    <div class="promo-banner">
+        <div class="promo-content">
+            <i class="fas fa-gift"></i>
+            <span>FREE SHIPPING on orders over AED 50 | Use code: HIK10 for 10% off</span>
+            <i class="fas fa-gift"></i>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="#products">Products</a>
+        <a href="#categories">Categories</a>
+        <a href="#features">Features</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#cart">Cart</a>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1590,6 +2235,36 @@
         </div>
     </section>
 
+    <!-- Special Offers Banner -->
+    <section class="offers-banner">
+        <div class="offers-content">
+            <h2>Limited Time Offer</h2>
+            <p>Get up to 50% off on selected items. Offer ends soon!</p>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="minutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+            <a href="#products" class="btn btn-primary">
+                <i class="fas fa-bolt"></i>
+                Shop Now
+            </a>
+        </div>
+    </section>
+
     <!-- Features Section -->
     <section class="section features" id="features">
         <div class="section-header">
@@ -1624,51 +2299,29 @@
         </div>
     </section>
 
-    <!-- Testimonials -->
+    <!-- Testimonials Carousel -->
     <section class="section testimonials" id="testimonials">
         <div class="section-header">
             <h2>What Our Customers Say</h2>
             <p>Don't just take our word for it - hear from our satisfied customers</p>
         </div>
         
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-content">
-                    "The quality of products and speed of delivery exceeded my expectations. Will definitely shop here again!"
-                </div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">SM</div>
-                    <div class="author-info">
-                        <h4>Sarah M.</h4>
-                        <p>Dubai</p>
-                    </div>
-                </div>
+        <div class="testimonials-container">
+            <div class="testimonials-carousel" id="testimonialsCarousel">
+                <!-- Testimonials will be dynamically inserted here -->
             </div>
             
-            <div class="testimonial-card">
-                <div class="testimonial-content">
-                    "Best customer service I've experienced. They helped me choose the perfect laptop for my needs."
-                </div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">AR</div>
-                    <div class="author-info">
-                        <h4>Ahmed R.</h4>
-                        <p>Abu Dhabi</p>
-                    </div>
-                </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn" id="prevTestimonial">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn" id="nextTestimonial">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
             
-            <div class="testimonial-card">
-                <div class="testimonial-content">
-                    "Fast shipping and genuine products. I've purchased multiple items and always had a great experience."
-                </div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">LK</div>
-                    <div class="author-info">
-                        <h4>Lina K.</h4>
-                        <p>Sharjah</p>
-                    </div>
-                </div>
+            <div class="carousel-dots" id="testimonialDots">
+                <!-- Dots will be dynamically inserted here -->
             </div>
         </div>
     </section>
@@ -1715,7 +2368,7 @@
             </div>
             
             <form class="checkout-form" id="paymentForm" action="https://api.web3forms.com/submit" method="POST">
-                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+                <input type="hidden" name="access_key" value="ce841447-3e77-452b-a334-14ede39df8ef">
                 <input type="hidden" name="subject" value="New Order from HIK Store">
                 <input type="hidden" name="from_name" value="HIK Store">
                 <input type="hidden" name="order_details" id="orderDetails">
@@ -1910,6 +2563,11 @@
         </div>
     </div>
 
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
     <!-- WhatsApp Widget -->
     <div class="whatsapp-widget">
         <i class="fab fa-whatsapp"></i>
@@ -1922,6 +2580,34 @@
     </div>
 
     <script>
+        // Create animated background bubbles
+        function createBubbles() {
+            const bubblesContainer = document.getElementById('bubbles');
+            const bubbleCount = window.innerWidth < 768 ? 15 : 25;
+            
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                
+                // Random size between 50px and 200px
+                const size = Math.random() * 150 + 50;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                
+                // Random position
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay and duration
+                const delay = Math.random() * 20;
+                const duration = Math.random() * 10 + 15;
+                bubble.style.animationDelay = `${delay}s`;
+                bubble.style.animationDuration = `${duration}s`;
+                
+                bubblesContainer.appendChild(bubble);
+            }
+        }
+
         // All 50 products data with descriptions
         const products = [
             { 
@@ -2094,46 +2780,726 @@
                     "Includes adjustable desk stand"
                 ]
             },
-            { id: 11, title: "Google Pixel Watch 2 (LTE)", category: "Electronics", price: 399.00, originalPrice: 449.00, image: "product_11.jpg", badge: "", description: "The latest Google Pixel Watch with LTE connectivity and advanced health tracking.", features: ["LTE connectivity for calls and streaming", "Advanced health tracking with Fitbit", "24+ hour battery life", "Premium stainless steel design", "Wear OS with Google Assistant"] },
-            { id: 12, title: "Twelve South Curve Flex Laptop Stand", category: "Electronics", price: 79.99, originalPrice: 99.99, image: "product_12.jpg", badge: "", description: "Adjustable laptop stand for ergonomic computing and improved posture.", features: ["Fully adjustable height and angle", "Aluminum construction with silicone pads", "Folds flat for easy transport", "Compatible with most laptops", "Improves airflow and cooling"] },
-            { id: 13, title: "Razer BlackWidow V4 75% Keyboard", category: "Gaming", price: 189.99, originalPrice: 219.99, image: "product_13.jpg", badge: "trending", description: "Compact 75% gaming keyboard with Razer mechanical switches and RGB lighting.", features: ["Razer Green mechanical switches", "75% form factor saves desk space", "Doubleshot PBT keycaps", "Razer Chroma RGB lighting", "Programmable macro keys"] },
-            { id: 14, title: "Elgato Stream Deck Plus", category: "Electronics", price: 229.00, originalPrice: 279.00, image: "product_14.jpg", badge: "hot", description: "Advanced stream controller with LCD keys and touch strip for content creators.", features: ["8 customizable LCD keys", "Touch strip for precise control", "Integrated dials for adjustment", "Works with OBS, Twitch, and more", "Premium aluminum construction"] },
-            { id: 15, title: "Samsung T7 Shield Portable SSD 2TB", category: "Electronics", price: 149.99, originalPrice: 179.99, image: "product_15.jpg", badge: "", description: "Rugged portable SSD with fast transfer speeds and durability for on-the-go use.", features: ["Up to 1,050MB/s read speeds", "IP65 rated for water and dust resistance", "Shock resistant up to 3 meters", "Compact and lightweight design", "USB 3.2 Gen 2 compatibility"] },
-            { id: 16, title: "Sony WH-1000XM5 Noise Cancelling Headphones", category: "Electronics", price: 399.00, originalPrice: 449.00, image: "product_16.jpg", badge: "trending", description: "Industry-leading noise cancellation with exceptional sound quality and comfort.", features: ["Industry-leading noise cancellation", "30-hour battery life with quick charge", "Touch sensor controls", "Speak-to-chat technology", "Premium comfort with soft fit leather"] },
-            { id: 17, title: "Wacom Cintiq 16 Drawing Tablet", category: "Electronics", price: 599.00, originalPrice: 699.00, image: "product_17.jpg", badge: "", description: "Creative pen display for digital artists with high color accuracy and natural drawing experience.", features: ["15.6-inch Full HD display", "Natural pen-on-paper feeling", "8192 pressure levels", "Pre-calibrated for color accuracy", "Ergonomic stand included"] },
-            { id: 18, title: "Philips Hue Starter Kit (E27, 3 Bulbs)", category: "Home & Kitchen", price: 159.00, originalPrice: 199.00, image: "product_18.jpg", badge: "hot", description: "Smart lighting starter kit with color-changing bulbs and bridge for home automation.", features: ["16 million colors to choose from", "Works with Alexa, Google Assistant, Apple HomeKit", "Wireless control via smartphone", "Create schedules and routines", "Energy-efficient LED technology"] },
-            { id: 19, title: "DJI Mini 3 Pro Drone", category: "Electronics", price: 759.00, originalPrice: 899.00, image: "product_19.jpg", badge: "trending", description: "Compact drone with professional features, 4K video, and obstacle avoidance.", features: ["4K/60fps HDR video", "Obstacle sensing in three directions", "34-minute max flight time", "Weighs under 249g", "Vertical shooting capability"] },
-            { id: 20, title: "Ooni Karu 12 Multi-Fuel Pizza Oven", category: "Home & Kitchen", price: 349.00, originalPrice: 399.00, image: "product_20.jpg", badge: "", description: "Portable pizza oven that reaches 950°F in minutes for authentic wood-fired pizza.", features: ["Reaches 950°F in 15 minutes", "Works with wood, charcoal, or gas", "Cooks pizza in 60 seconds", "Portable design with carry case", "Temperature gauge included"] },
-            { id: 21, title: "Anker 737 Power Bank (PowerCore 24K)", category: "Electronics", price: 149.99, originalPrice: 179.99, image: "product_21.jpg", badge: "", description: "High-capacity power bank with 140W output for laptops and fast charging for phones.", features: ["24,000mAh capacity", "140W max output", "Power Delivery 3.1", "Digital display for battery level", "Charges laptop, tablet, and phone simultaneously"] },
-            { id: 22, title: "Canon EOS R8 Full-Frame Camera", category: "Electronics", price: 1499.00, originalPrice: 1699.00, image: "product_22.jpg", badge: "hot", description: "Lightweight full-frame mirrorless camera with advanced autofocus and 4K video.", features: ["24.2MP full-frame sensor", "Dual Pixel CMOS AF II", "4K/60p video recording", "40fps electronic shutter", "Compact and lightweight body"] },
-            { id: 23, title: "Lian Li O11 Dynamic EVO Case", category: "Gaming", price: 169.99, originalPrice: 199.99, image: "product_23.jpg", badge: "", description: "Modular PC case with reversible design and excellent airflow for high-performance builds.", features: ["Reversible design", "Dual chamber layout", "Tempered glass panels", "Support for multiple radiators", "Tool-free installation"] },
-            { id: 24, title: "Audio-Technica AT2020 Mic", category: "Electronics", price: 99.00, originalPrice: 129.00, image: "product_24.jpg", badge: "trending", description: "Cardioid condenser microphone with high-quality sound for vocals and instruments.", features: ["Cardioid polar pattern", "Custom-engineered diaphragm", "Wide dynamic range", "Low self-noise", "Includes pivoting stand mount"] },
-            { id: 25, title: "COSORI Pro II Air Fryer Oven", category: "Home & Kitchen", price: 129.99, originalPrice: 159.99, image: "product_25.jpg", badge: "hot", description: "Versatile air fryer oven with 13 cooking functions and smart controls.", features: ["13-in-1 cooking functions", "5.8QT capacity", "Smart control via app", "100 preset recipes", "Dishwasher-safe parts"] },
-            { id: 26, title: "Fitbit Charge 6 Fitness Tracker", category: "Electronics", price: 159.95, originalPrice: 199.95, image: "product_26.jpg", badge: "", description: "Advanced fitness tracker with GPS, heart rate monitoring, and Google apps.", features: ["Built-in GPS", "24/7 heart rate tracking", "7-day battery life", "Google Maps and Wallet", "40+ exercise modes"] },
-            { id: 27, title: "North Face Borealis Backpack", category: "Clothing", price: 99.00, originalPrice: 129.00, image: "product_27.jpg", badge: "trending", description: "Durable everyday backpack with FlexVent suspension system for comfort.", features: ["FlexVent suspension system", "28L capacity", "Laptop sleeve fits 15\" devices", "Multiple organizational pockets", "Made from recycled materials"] },
-            { id: 28, title: "Ray-Ban Meta Smart Glasses (Wayfarer)", category: "Electronics", price: 299.00, originalPrice: 349.00, image: "product_28.jpg", badge: "", description: "Smart glasses with built-in cameras, speakers, and Meta AI integration.", features: ["Built-in 12MP camera", "Open-ear audio", "Meta AI integration", "Up to 6 hours of battery", "Classic Wayfarer design"] },
-            { id: 29, title: "TP-Link Tapo Smart Plug Mini (4-Pack)", category: "Home & Kitchen", price: 39.99, originalPrice: 59.99, image: "product_29.jpg", badge: "", description: "Wi-Fi smart plugs for home automation, voice control, and energy monitoring.", features: ["Voice control with Alexa/Google", "Remote control via app", "Energy monitoring", "Schedule and timer functions", "Compact design"] },
-            { id: 30, title: "Herman Miller Aeron Chair (Size B)", category: "Home & Kitchen", price: 1845.00, originalPrice: null, image: "product_30.jpg", badge: "", description: "Ergonomic office chair with PostureFit SL support and breathable mesh.", features: ["PostureFit SL support", "Breathable Pellicle mesh", "Fully adjustable arms", "Tilt limiter and tension control", "12-year warranty"] },
-            { id: 31, title: "Sony Alpha a6700 APS-C Camera", category: "Electronics", price: 1399.00, originalPrice: 1599.00, image: "product_31.jpg", badge: "hot", description: "Advanced APS-C mirrorless camera with AI processing and 4K video.", features: ["26MP APS-C sensor", "AI-powered autofocus", "4K/120p video", "5-axis in-body stabilization", "Real-time tracking"] },
-            { id: 32, title: "Samsung ViewFinity S9 5K Monitor", category: "Electronics", price: 1599.99, originalPrice: 1899.99, image: "product_32.jpg", badge: "", description: "27-inch 5K monitor with Thunderbolt 4 and color accuracy for creative work.", features: ["27-inch 5K display", "Thunderbolt 4 connectivity", "99% DCI-P3 color gamut", "Matte display with anti-reflection", "Height adjustable stand"] },
-            { id: 33, title: "Lego Icons Eiffel Tower Set", category: "Gaming", price: 629.99, originalPrice: 699.99, image: "product_33.jpg", badge: "trending", description: "Massive 10,001-piece LEGO set recreating the iconic Eiffel Tower.", features: ["10,001 pieces", "Over 4 feet (1.49m) tall", "Authentic details and colors", "Collector's booklet included", "Display stand with plaque"] },
-            { id: 34, title: "U-Turn Audio Orbit Plus Turntable", category: "Electronics", price: 399.00, originalPrice: 499.00, image: "product_34.jpg", badge: "", description: "High-quality belt-drive turntable with built-in phono preamp and Ortofon cartridge.", features: ["Belt-drive operation", "Built-in phono preamp", "Ortofon OM5E cartridge", "MDF plinth with vibration damping", "Manual operation for pure sound"] },
-            { id: 35, title: "Arc'teryx Beta AR Jacket (Men's)", category: "Clothing", price: 600.00, originalPrice: 750.00, image: "product_35.jpg", badge: "hot", description: "Technical shell jacket with GORE-TEX PRO for maximum weather protection.", features: ["GORE-TEX PRO construction", "StormHood compatible", "Pit zips for ventilation", "Watertight zippers", "Articulated patterning for mobility"] },
-            { id: 36, title: "Sonos Arc Premium Smart Soundbar", category: "Electronics", price: 899.00, originalPrice: 1099.00, image: "product_36.jpg", badge: "", description: "Premium soundbar with Dolby Atmos, voice control, and room-filling sound.", features: ["Dolby Atmos support", "11 high-performance drivers", "Voice control with Alexa/Google", "Trueplay room tuning", "Works with Sonos ecosystem"] },
-            { id: 37, title: "Nixplay 10.1 inch Smart Photo Frame", category: "Electronics", price: 179.99, originalPrice: 229.99, image: "product_37.jpg", badge: "trending", description: "Wi-Fi connected digital photo frame with cloud storage and remote sharing.", features: ["10.1-inch IPS display", "Wi-Fi connectivity", "Cloud storage for photos", "Remote sharing via app", "Motion sensor for energy saving"] },
-            { id: 38, title: "Yeti Tundra 45 Cooler", category: "Home & Kitchen", price: 300.00, originalPrice: 350.00, image: "product_38.jpg", badge: "", description: "Roto-molded cooler with FatWall design and PermaFrost insulation.", features: ["Roto-molded construction", "FatWall design", "PermaFrost insulation", "T-Rex lid latches", "Bear-resistant certification"] },
-            { id: 39, title: "SteelSeries Apex Pro TKL Keyboard", category: "Gaming", price: 189.99, originalPrice: 229.99, image: "product_39.jpg", badge: "hot", description: "Tenkeyless mechanical keyboard with adjustable actuation and OLED display.", features: ["Adjustable actuation (0.4mm-3.6mm)", "OmniPoint 2.0 switches", "OLED smart display", "Aircraft-grade aluminum frame", "Magnetic wrist rest"] },
-            { id: 40, title: "The Dune Saga 6-Book Boxed Set", category: "Books", price: 99.00, originalPrice: 129.00, image: "product_40.jpg", badge: "", description: "Complete collection of Frank Herbert's epic Dune saga in a premium boxed set.", features: ["All 6 original Dune novels", "Premium hardcover editions", "Exclusive box design", "New introductions and afterwords", "Collector's item"] },
-            { id: 41, title: "Apple AirTag (4 Pack)", category: "Electronics", price: 99.00, originalPrice: 119.00, image: "product_41.jpg", badge: "trending", description: "Tracking devices that help you keep track of and find your everyday items.", features: ["Precision Finding with iPhone 11+", "Replaceable battery", "Water and dust resistant", "Private and secure tracking", "Built-in speaker"] },
-            { id: 42, title: "Logitech G502 X Plus Wireless Mouse", category: "Gaming", price: 159.99, originalPrice: 199.99, image: "product_42.jpg", badge: "", description: "Lightweight wireless gaming mouse with LIGHTSPEED and LIGHTSYNC RGB.", features: ["LIGHTSPEED wireless", "LIGHTSYNC RGB lighting", "HERO 25K sensor", "LIGHTFORCE hybrid switches", "13 programmable buttons"] },
-            { id: 43, title: "Breville 'the Barista Express' Espresso Machine", category: "Home & Kitchen", price: 749.95, originalPrice: 899.95, image: "product_43.jpg", badge: "hot", description: "Semi-automatic espresso machine with built-in grinder and steam wand.", features: ["Built-in conical burr grinder", "15-bar Italian pump", "ThermoJet heating system", "Milk frothing wand", "Pre-infusion function"] },
-            { id: 44, title: "Lululemon ABC Classic-Fit Pant", category: "Clothing", price: 128.00, originalPrice: 148.00, image: "product_44.jpg", badge: "trending", description: "Versatile pants with Warpstreme fabric that moves and feels like cotton.", features: ["Warpstreme fabric technology", "ABC (Anti-Ball Crushing) design", "Four-way stretch", "Multiple pockets", "Available in multiple colors"] },
-            { id: 45, title: "Kindle Paperwhite Signature Edition (32 GB)", category: "Books", price: 189.99, originalPrice: 229.99, image: "product_45.jpg", badge: "", description: "Premium e-reader with auto-adjusting light, wireless charging, and no ads.", features: ["6.8-inch glare-free display", "Auto-adjusting front light", "Wireless charging", "32 GB storage", "Waterproof (IPX8)"] },
-            { id: 46, title: "Xiaomi Smart Standing Fan 2 Pro", category: "Home & Kitchen", price: 149.00, originalPrice: 199.00, image: "product_46.jpg", badge: "", description: "Smart fan with voice control, natural wind simulation, and 140° oscillation.", features: ["Voice control with Alexa/Google", "Natural wind simulation", "140° wide oscillation", "Bladeless design for safety", "App control and scheduling"] },
-            { id: 47, title: "Sony ZV-E10 APS-C Vlogging Camera", category: "Electronics", price: 799.99, originalPrice: 899.99, image: "product_47.jpg", badge: "hot", description: "Compact vlogging camera with 4K video, real-time eye AF, and directional mic.", features: ["24.2MP APS-C sensor", "Real-time Eye AF", "4K video recording", "Product Showcase Setting", "Directional 3-capsule mic"] },
-            { id: 48, title: "Patagonia Better Sweater Fleece Jacket", category: "Clothing", price: 159.00, originalPrice: 199.00, image: "product_48.jpg", badge: "", description: "Versatile fleece jacket made from recycled materials with a clean, technical style.", features: ["Made from recycled polyester", "Low-profile nylon shell", "Two zippered handwarmer pockets", "Raglan sleeves", "Available in multiple colors"] },
-            { id: 49, title: "Elgato Key Light Air", category: "Electronics", price: 129.99, originalPrice: 159.99, image: "product_49.jpg", badge: "trending", description: "Compact LED studio light with adjustable brightness and color temperature.", features: ["2800-7000K color temperature", "Adjustable brightness", "Wi-Fi control via app", "Magnetic desk clamp", "Frosted glass diffusion"] },
-            { id: 50, title: "AnkerMake M5 3D Printer", category: "Electronics", price: 799.00, originalPrice: 999.00, image: "product_50.jpg", badge: "", description: "High-speed 3D printer with AI camera monitoring and easy setup.", features: ["Print speeds up to 500 mm/s", "AI-powered camera monitoring", "Auto-leveling bed", "All-metal hotend", "Compatible with multiple filaments"] }
+            { 
+                id: 11, 
+                title: "Sony WH-1000XM5 Wireless Headphones", 
+                category: "Electronics", 
+                price: 399.99, 
+                originalPrice: 449.99, 
+                image: "product_11.jpg", 
+                badge: "hot",
+                description: "Industry-leading noise cancellation with exceptional sound quality and all-day comfort.",
+                features: [
+                    "Industry-leading noise cancellation",
+                    "30-hour battery life with quick charging",
+                    "Crystal clear hands-free calling",
+                    "Ultra-comfortable lightweight design",
+                    "Touch sensor controls for easy operation"
+                ]
+            },
+            { 
+                id: 12, 
+                title: "Apple MacBook Pro 16-inch M2 Max", 
+                category: "Electronics", 
+                price: 3499.00, 
+                originalPrice: 3899.00, 
+                image: "product_12.jpg", 
+                badge: "trending",
+                description: "Supercharged by M2 Max, the MacBook Pro delivers exceptional performance for pro workflows.",
+                features: [
+                    "M2 Max chip with 12-core CPU and 38-core GPU",
+                    "16.2-inch Liquid Retina XDR display",
+                    "Up to 96GB unified memory",
+                    "Up to 22 hours of battery life",
+                    "Advanced camera and audio system"
+                ]
+            },
+            { 
+                id: 13, 
+                title: "Samsung Odyssey G9 Gaming Monitor", 
+                category: "Gaming", 
+                price: 1299.99, 
+                originalPrice: 1499.99, 
+                image: "product_13.jpg", 
+                badge: "sale",
+                description: "49-inch Dual QHD gaming monitor with 240Hz refresh rate and 1ms response time.",
+                features: [
+                    "49-inch Dual QHD (5120x1440) display",
+                    "240Hz refresh rate and 1ms response time",
+                    "QLED technology with HDR1000",
+                    "NVIDIA G-SYNC and FreeSync Premium Pro",
+                    "Infinity Core lighting and futuristic design"
+                ]
+            },
+            { 
+                id: 14, 
+                title: "Nintendo Switch OLED Model", 
+                category: "Gaming", 
+                price: 349.99, 
+                originalPrice: 399.99, 
+                image: "product_14.jpg", 
+                badge: "",
+                description: "Nintendo Switch system with a vibrant 7-inch OLED screen, wide adjustable stand, and enhanced audio.",
+                features: [
+                    "7-inch OLED screen with vibrant colors",
+                    "Wide adjustable stand for tabletop mode",
+                    "64GB internal storage",
+                    "Enhanced audio for handheld and tabletop play",
+                    "Includes dock with wired LAN port"
+                ]
+            },
+            { 
+                id: 15, 
+                title: "DJI Mini 3 Pro Drone", 
+                category: "Electronics", 
+                price: 759.00, 
+                originalPrice: 899.00, 
+                image: "product_15.jpg", 
+                badge: "hot",
+                description: "Ultra-lightweight camera drone with advanced features and obstacle sensing.",
+                features: [
+                    "Ultra-lightweight under 249g",
+                    "4K/60fps video and 48MP photos",
+                    "Tri-directional obstacle sensing",
+                    "34-minute max flight time",
+                    "True vertical shooting for social media"
+                ]
+            },
+            { 
+                id: 16, 
+                title: "Apple AirPods Pro (2nd Generation)", 
+                category: "Electronics", 
+                price: 249.99, 
+                originalPrice: 299.99, 
+                image: "product_16.jpg", 
+                badge: "trending",
+                description: "Active Noise Cancellation, Adaptive Transparency, and Personalized Spatial Audio.",
+                features: [
+                    "Active Noise Cancellation with 2x better performance",
+                    "Adaptive Transparency mode",
+                    "Personalized Spatial Audio with dynamic head tracking",
+                    "Touch control on the stem",
+                    "Up to 6 hours of listening time with ANC"
+                ]
+            },
+            { 
+                id: 17, 
+                title: "PlayStation 5 Console", 
+                category: "Gaming", 
+                price: 499.99, 
+                originalPrice: null, 
+                image: "product_17.jpg", 
+                badge: "hot",
+                description: "Next-gen gaming with lightning-fast loading, haptic feedback, and 3D Audio.",
+                features: [
+                    "Lightning-fast loading with SSD",
+                    "Haptic feedback and adaptive triggers",
+                    "3D Audio technology",
+                    "4K/120fps gaming capability",
+                    "Backward compatibility with PS4 games"
+                ]
+            },
+            { 
+                id: 18, 
+                title: "iPad Pro 12.9-inch M2 Chip", 
+                category: "Electronics", 
+                price: 1099.00, 
+                originalPrice: 1299.00, 
+                image: "product_18.jpg", 
+                badge: "sale",
+                description: "Supercharged by the M2 chip with a stunning Liquid Retina XDR display.",
+                features: [
+                    "M2 chip with 8-core CPU and 10-core GPU",
+                    "12.9-inch Liquid Retina XDR display",
+                    "Pro camera system with LiDAR Scanner",
+                    "Thunderbolt port for fast connectivity",
+                    "All-day battery life"
+                ]
+            },
+            { 
+                id: 19, 
+                title: "Razer Blade 15 Gaming Laptop", 
+                category: "Gaming", 
+                price: 2499.99, 
+                originalPrice: 2799.99, 
+                image: "product_19.jpg", 
+                badge: "",
+                description: "The ultimate gaming laptop with NVIDIA GeForce RTX graphics and Intel Core i7 processor.",
+                features: [
+                    "NVIDIA GeForce RTX 4070 graphics",
+                    "12th Gen Intel Core i7 processor",
+                    "15.6-inch QHD 240Hz display",
+                    "CNC aluminum unibody",
+                    "Per-key RGB lighting with Razer Chroma"
+                ]
+            },
+            { 
+                id: 20, 
+                title: "Bose QuietComfort Ultra Headphones", 
+                category: "Electronics", 
+                price: 429.00, 
+                originalPrice: 499.00, 
+                image: "product_20.jpg", 
+                badge: "new",
+                description: "Premium noise-cancelling headphones with immersive audio and all-day comfort.",
+                features: [
+                    "World-class noise cancellation",
+                    "Immersive Audio with spatial sound",
+                    "Up to 24 hours of battery life",
+                    "Comfortable fit for all-day wear",
+                    "Touch controls and voice assistant access"
+                ]
+            },
+            { 
+                id: 21, 
+                title: "Xbox Series X Console", 
+                category: "Gaming", 
+                price: 499.99, 
+                originalPrice: null, 
+                image: "product_21.jpg", 
+                badge: "hot",
+                description: "Next-gen performance with 12 teraflops of power and true 4K gaming.",
+                features: [
+                    "12 teraflops of processing power",
+                    "True 4K gaming up to 120fps",
+                    "1TB custom SSD",
+                    "Backward compatibility",
+                    "Quick Resume for multiple games"
+                ]
+            },
+            { 
+                id: 22, 
+                title: "Samsung Galaxy Z Fold5", 
+                category: "Electronics", 
+                price: 1799.99, 
+                originalPrice: 1999.99, 
+                image: "product_22.jpg", 
+                badge: "trending",
+                description: "The ultimate foldable smartphone with a large 7.6-inch display and S Pen support.",
+                features: [
+                    "7.6-inch Main Screen when unfolded",
+                    "S Pen Fold Edition support",
+                    "Snapdragon 8 Gen 2 for Galaxy",
+                    "Dual App View and App Continuity",
+                    "IPX8 water resistance"
+                ]
+            },
+            { 
+                id: 23, 
+                title: "Canon EOS R5 Mirrorless Camera", 
+                category: "Electronics", 
+                price: 3899.00, 
+                originalPrice: 4299.00, 
+                image: "product_23.jpg", 
+                badge: "sale",
+                description: "Professional full-frame mirrorless camera with 8K video and 45MP stills.",
+                features: [
+                    "45MP full-frame CMOS sensor",
+                    "8K RAW video recording",
+                    "Dual Pixel CMOS AF II with animal detection",
+                    "In-body image stabilization up to 8 stops",
+                    "Dual memory card slots (CFexpress & SD)"
+                ]
+            },
+            { 
+                id: 24, 
+                title: "Apple Watch Ultra 2", 
+                category: "Electronics", 
+                price: 799.00, 
+                originalPrice: 899.00, 
+                image: "product_24.jpg", 
+                badge: "new",
+                description: "The most rugged and capable Apple Watch with advanced fitness and outdoor features.",
+                features: [
+                    "49mm titanium case with flat sapphire crystal",
+                    "Dual-frequency GPS for precision",
+                    "Depth gauge with water temperature sensor",
+                    "Action button for quick access to functions",
+                    "Up to 36 hours of battery life"
+                ]
+            },
+            { 
+                id: 25, 
+                title: "LG C3 65-inch OLED TV", 
+                category: "Electronics", 
+                price: 1899.99, 
+                originalPrice: 2199.99, 
+                image: "product_25.jpg", 
+                badge: "sale",
+                description: "Brilliant 4K OLED TV with AI-powered picture and sound for an immersive experience.",
+                features: [
+                    "65-inch 4K OLED evo display",
+                    "α9 Gen6 AI Processor 4K",
+                    "Dolby Vision and Dolby Atmos",
+                    "webOS smart platform",
+                    "Game Optimizer with NVIDIA G-SYNC"
+                ]
+            },
+            { 
+                id: 26, 
+                title: "SteelSeries Arctis Nova Pro Wireless", 
+                category: "Gaming", 
+                price: 349.99, 
+                originalPrice: 399.99, 
+                image: "product_26.jpg", 
+                badge: "",
+                description: "Premium gaming headset with dual wireless technology and active noise cancellation.",
+                features: [
+                    "Dual wireless (2.4GHz + Bluetooth)",
+                    "Active Noise Cancellation",
+                    "Sonar Software with personalized sound",
+                    "ClearCast Gen 2 AI-powered mic",
+                    "Hot-swappable batteries"
+                ]
+            },
+            { 
+                id: 27, 
+                title: "Google Pixel 8 Pro", 
+                category: "Electronics", 
+                price: 999.00, 
+                originalPrice: 1099.00, 
+                image: "product_27.jpg", 
+                badge: "trending",
+                description: "The most powerful Pixel yet, with an advanced camera system and Google AI.",
+                features: [
+                    "6.7-inch Super Actua display",
+                    "Triple rear camera system with telephoto",
+                    "Google Tensor G3 processor",
+                    "7 years of OS and security updates",
+                    "Magic Editor and Best Take photo features"
+                ]
+            },
+            { 
+                id: 28, 
+                title: "ASUS ROG Strix Scar 17", 
+                category: "Gaming", 
+                price: 2999.99, 
+                originalPrice: 3299.99, 
+                image: "product_28.jpg", 
+                badge: "hot",
+                description: "Extreme gaming laptop with Intel Core i9 and NVIDIA GeForce RTX 4090.",
+                features: [
+                    "Intel Core i9-13980HX processor",
+                    "NVIDIA GeForce RTX 4090 graphics",
+                    "17.3-inch QHD 240Hz display",
+                    "ROG Intelligent Cooling with liquid metal",
+                    "Per-key RGB keyboard"
+                ]
+            },
+            { 
+                id: 29, 
+                title: "Bose Smart Soundbar 900", 
+                category: "Electronics", 
+                price: 899.99, 
+                originalPrice: 999.99, 
+                image: "product_29.jpg", 
+                badge: "",
+                description: "Premium soundbar with Dolby Atmos and built-in voice assistants.",
+                features: [
+                    "Dolby Atmos with Bose TrueSpace",
+                    "Built-in Amazon Alexa and Google Assistant",
+                    "Wi-Fi and Bluetooth connectivity",
+                    "HDMI eARC support",
+                    "PhaseGuide technology for immersive sound"
+                ]
+            },
+            { 
+                id: 30, 
+                title: "Valve Steam Deck 512GB", 
+                category: "Gaming", 
+                price: 649.99, 
+                originalPrice: 699.99, 
+                image: "product_30.jpg", 
+                badge: "trending",
+                description: "Portable gaming PC that lets you take your entire Steam library anywhere.",
+                features: [
+                    "7-inch touchscreen display",
+                    "Custom AMD APU with RDNA 2 graphics",
+                    "512GB high-speed NVMe SSD",
+                    "Controls designed for Steam games",
+                    "Runs your entire Steam library"
+                ]
+            },
+            { 
+                id: 31, 
+                title: "Sony A7IV Mirrorless Camera", 
+                category: "Electronics", 
+                price: 2499.00, 
+                originalPrice: 2799.00, 
+                image: "product_31.jpg", 
+                badge: "sale",
+                description: "Full-frame hybrid camera with 33MP sensor and 4K 60p video.",
+                features: [
+                    "33MP full-frame Exmor R CMOS sensor",
+                    "4K 60p video recording",
+                    "Real-time Eye AF for humans and animals",
+                    "5-axis in-body image stabilization",
+                    "10fps continuous shooting"
+                ]
+            },
+            { 
+                id: 32, 
+                title: "Alienware AW3423DW Monitor", 
+                category: "Gaming", 
+                price: 1299.99, 
+                originalPrice: 1499.99, 
+                image: "product_32.jpg", 
+                badge: "hot",
+                description: "34-inch QD-OLED gaming monitor with 175Hz refresh rate and true HDR.",
+                features: [
+                    "34-inch QD-OLED curved display",
+                    "175Hz refresh rate with 0.1ms response",
+                    "Quantum Dot technology with infinite contrast",
+                    "NVIDIA G-SYNC Ultimate",
+                    "AlienFX customizable lighting"
+                ]
+            },
+            { 
+                id: 33, 
+                title: "Garmin Fenix 7X Solar", 
+                category: "Electronics", 
+                price: 899.99, 
+                originalPrice: 999.99, 
+                image: "product_33.jpg", 
+                badge: "",
+                description: "Premium multisport GPS watch with solar charging and advanced training metrics.",
+                features: [
+                    "Power Glass solar charging lens",
+                    "Up to 37 days battery life in smartwatch mode",
+                    "Advanced training metrics and recovery time",
+                    "TopoActive maps and ski resort data",
+                    "Pulse Ox and heart rate monitoring"
+                ]
+            },
+            { 
+                id: 34, 
+                title: "Microsoft Surface Laptop Studio", 
+                category: "Electronics", 
+                price: 2099.00, 
+                originalPrice: 2299.00, 
+                image: "product_34.jpg", 
+                badge: "trending",
+                description: "Versatile laptop that transforms from laptop to stage to studio.",
+                features: [
+                    "14.4-inch PixelSense Flow touch display",
+                    "11th Gen Intel Core H35 processor",
+                    "NVIDIA GeForce RTX 3050 Ti graphics",
+                    "Dynamic woven hinge for multiple modes",
+                    "Compatible with Surface Slim Pen 2"
+                ]
+            },
+            { 
+                id: 35, 
+                title: "HyperX Cloud III Wireless Headset", 
+                category: "Gaming", 
+                price: 149.99, 
+                originalPrice: 179.99, 
+                image: "product_35.jpg", 
+                badge: "new",
+                description: "Wireless gaming headset with DTS Headphone:X spatial audio and 120-hour battery.",
+                features: [
+                    "2.4GHz wireless with 120-hour battery",
+                    "DTS Headphone:X spatial audio",
+                    "53mm angled drivers for precise audio",
+                    "Noise-cancelling detachable microphone",
+                    "Durable aluminum frame with premium leatherette"
+                ]
+            },
+            { 
+                id: 36, 
+                title: "Fitbit Charge 6", 
+                category: "Electronics", 
+                price: 159.95, 
+                originalPrice: 179.95, 
+                image: "product_36.jpg", 
+                badge: "",
+                description: "Advanced fitness tracker with Google apps and 7-day battery life.",
+                features: [
+                    "Google Maps, Wallet, and YouTube Music",
+                    "7-day battery life",
+                    "Active Zone Minutes with heart rate tracking",
+                    "Built-in GPS for outdoor workouts",
+                    "Daily Readiness Score and Sleep Stages"
+                ]
+            },
+            { 
+                id: 37, 
+                title: "Razer BlackWidow V4 Pro", 
+                category: "Gaming", 
+                price: 199.99, 
+                originalPrice: 229.99, 
+                image: "product_37.jpg", 
+                badge: "hot",
+                description: "Mechanical gaming keyboard with Razer Green switches and multi-function dial.",
+                features: [
+                    "Razer Mechanical Switches (Green)",
+                    "Multi-function dial with 4 programmable buttons",
+                    "Doubleshot ABS keycaps",
+                    "Razer Chroma RGB with underglow",
+                    "Plush leatherette wrist rest"
+                ]
+            },
+            { 
+                id: 38, 
+                title: "JBL Flip 6 Portable Speaker", 
+                category: "Electronics", 
+                price: 129.95, 
+                originalPrice: 149.95, 
+                image: "product_38.jpg", 
+                badge: "",
+                description: "Waterproof portable Bluetooth speaker with powerful sound and PartyBoost.",
+                features: [
+                    "IP67 waterproof and dustproof",
+                    "PartyBoost to pair multiple speakers",
+                    "12 hours of playtime",
+                    "Dual passive radiators for powerful bass",
+                    "Available in multiple colors"
+                ]
+            },
+            { 
+                id: 39, 
+                title: "Logitech MX Master 3S Mouse", 
+                category: "Electronics", 
+                price: 99.99, 
+                originalPrice: 119.99, 
+                image: "product_39.jpg", 
+                badge: "trending",
+                description: "Advanced wireless mouse designed for creativity and productivity.",
+                features: [
+                    "8K DPI optical sensor with quiet clicks",
+                    "MagSpeed electromagnetic scrolling",
+                    "Flow cross-computer control",
+                    "Customizable buttons and gestures",
+                    "70-day battery life with USB-C charging"
+                ]
+            },
+            { 
+                id: 40, 
+                title: "Anker 737 Power Bank", 
+                category: "Electronics", 
+                price: 149.99, 
+                originalPrice: 179.99, 
+                image: "product_40.jpg", 
+                badge: "sale",
+                description: "High-capacity 24,000mAh power bank with 140W output and Power Delivery.",
+                features: [
+                    "24,000mAh capacity with 140W total output",
+                    "USB-C Power Delivery 3.1",
+                    "Digital display showing remaining power",
+                    "ActiveShield 2.0 for temperature control",
+                    "Charges laptop, tablet, and phone simultaneously"
+                ]
+            },
+            { 
+                id: 41, 
+                title: "Samsung Galaxy Watch6 Classic", 
+                category: "Electronics", 
+                price: 369.99, 
+                originalPrice: 399.99, 
+                image: "product_41.jpg", 
+                badge: "new",
+                description: "Premium smartwatch with rotating bezel and advanced health monitoring.",
+                features: [
+                    "Rotating bezel for easy navigation",
+                    "Sapphire crystal glass display",
+                    "Advanced sleep coaching with Sleep Score",
+                    "Bioelectrical Impedance Analysis sensor",
+                    "Wear OS Powered by Samsung"
+                ]
+            },
+            { 
+                id: 42, 
+                title: "Corsair K100 RGB Keyboard", 
+                category: "Gaming", 
+                price: 229.99, 
+                originalPrice: 259.99, 
+                image: "product_42.jpg", 
+                badge: "",
+                description: "Mechanical gaming keyboard with OPX optical-mechanical switches and iCUE control.",
+                features: [
+                    "OPX optical-mechanical switches",
+                    "AXON hyper-processing technology",
+                    "Dynamic RGB lighting with 44 zones",
+                    "PBT double-shot keycaps",
+                    "Dedicated multimedia and macro keys"
+                ]
+            },
+            { 
+                id: 43, 
+                title: "Nikon Z9 Mirrorless Camera", 
+                category: "Electronics", 
+                price: 5499.95, 
+                originalPrice: 5999.95, 
+                image: "product_43.jpg", 
+                badge: "hot",
+                description: "Flagship mirrorless camera with 45.7MP stacked sensor and 8K video.",
+                features: [
+                    "45.7MP stacked CMOS sensor",
+                    "8K UHD/30p video recording",
+                    "120 fps continuous shooting",
+                    "Real-Live Viewfinder with blackout-free shooting",
+                    "Dual card slots (CFexpress Type B/XQD)"
+                ]
+            },
+            { 
+                id: 44, 
+                title: "Herman Miller Aeron Chair", 
+                category: "Home & Kitchen", 
+                price: 1495.00, 
+                originalPrice: 1695.00, 
+                image: "product_44.jpg", 
+                badge: "sale",
+                description: "The iconic ergonomic office chair with PostureFit SL support and 12-year warranty.",
+                features: [
+                    "PostureFit SL for sacral and lumbar support",
+                    "8Z Pellicle suspension material",
+                    "Fully adjustable arms and tilt",
+                    "Recyclable materials and 94% recyclable",
+                    "12-year warranty"
+                ]
+            },
+            { 
+                id: 45, 
+                title: "Dyson V15 Detect Cordless Vacuum", 
+                category: "Home & Kitchen", 
+                price: 749.99, 
+                originalPrice: 849.99, 
+                image: "product_45.jpg", 
+                badge: "trending",
+                description: "Intelligent cordless vacuum with laser dust detection and 60-minute run time.",
+                features: [
+                    "Laser dust detection reveals hidden particles",
+                    "Piezo sensor counts and sizes dust particles",
+                    "High torque cleaner head for deep cleaning",
+                    "60 minutes of fade-free power",
+                    "Whole-machine HEPA filtration"
+                ]
+            },
+            { 
+                id: 46, 
+                title: "Breville Barista Touch Espresso Machine", 
+                category: "Home & Kitchen", 
+                price: 999.95, 
+                originalPrice: 1199.95, 
+                image: "product_46.jpg", 
+                badge: "hot",
+                description: "Automatic espresso machine with intuitive touch screen and built-in grinder.",
+                features: [
+                    "Intuitive touch screen display",
+                    "Built-in conical burr grinder",
+                    "ThermoJet heating system for fast heat-up",
+                    "Automatic milk texturing",
+                    "Pre-infusion for even extraction"
+                ]
+            },
+            { 
+                id: 47, 
+                title: "Vitamix A3500 Ascent Series Blender", 
+                category: "Home & Kitchen", 
+                price: 599.95, 
+                originalPrice: 699.95, 
+                image: "product_47.jpg", 
+                badge: "",
+                description: "Professional-grade blender with self-detect technology and programmable settings.",
+                features: [
+                    "Self-detect technology for perfect results",
+                    "Five program settings (smoothies, hot soups, etc.)",
+                    "2.2 HP motor with thermal protection",
+                    "64-ounce low-profile container",
+                    "Pulse feature for controlled processing"
+                ]
+            },
+            { 
+                id: 48, 
+                title: "Apple HomePod (2nd Generation)", 
+                category: "Electronics", 
+                price: 299.00, 
+                originalPrice: 349.00, 
+                image: "product_48.jpg", 
+                badge: "new",
+                description: "Premium smart speaker with room-filling sound and smart home hub.",
+                features: [
+                    "High-excursion woofer and five tweeters",
+                    "Room sensing technology",
+                    "Sound Recognition for smoke and carbon monoxide alarms",
+                    "Temperature and humidity sensing",
+                    "Matter support for smart home accessories"
+                ]
+            },
+            { 
+                id: 49, 
+                title: "Philips Hue Gradient Lightstrip", 
+                category: "Home & Kitchen", 
+                price: 89.99, 
+                originalPrice: 109.99, 
+                image: "product_49.jpg", 
+                badge: "trending",
+                description: "Multi-colored LED lightstrip with gradient effects for TVs and entertainment areas.",
+                features: [
+                    "Gradient colors without separate segments",
+                    "Sync with music, games, and movies",
+                    "Works with Alexa, Google Assistant, and Siri",
+                    "Cuttable and extendable design",
+                    "16 million colors and shades of white"
+                ]
+            },
+            { 
+                id: 50, 
+                title: "Withings Sleep Tracking Mat", 
+                category: "Electronics", 
+                price: 99.95, 
+                originalPrice: 129.95, 
+                image: "product_50.jpg", 
+                badge: "",
+                description: "Advanced sleep tracking mat that goes under your mattress for comprehensive analysis.",
+                features: [
+                    "Tracks sleep cycles, heart rate, and snoring",
+                    "Sleep Score and Sleep Coach",
+                    "Detects sleep apnea risk",
+                    "Works with any mattress",
+                    "No charging needed - plugs into wall"
+                ]
+            }
+        ];
+
+        // Testimonials data
+        const testimonials = [
+            {
+                name: "Sarah M.",
+                location: "Dubai",
+                content: "The quality of products and speed of delivery exceeded my expectations. Will definitely shop here again!",
+                initials: "SM"
+            },
+            {
+                name: "Ahmed R.",
+                location: "Abu Dhabi",
+                content: "Best customer service I've experienced. They helped me choose the perfect laptop for my needs.",
+                initials: "AR"
+            },
+            {
+                name: "Lina K.",
+                location: "Sharjah",
+                content: "Fast shipping and genuine products. I've purchased multiple items and always had a great experience.",
+                initials: "LK"
+            },
+            {
+                name: "Mohammed A.",
+                location: "Ras Al Khaimah",
+                content: "Excellent prices and great selection. The customer support team was very helpful when I had questions about my order.",
+                initials: "MA"
+            },
+            {
+                name: "Fatima H.",
+                location: "Ajman",
+                content: "I love shopping at HIK Store! The website is easy to use, and I always find what I'm looking for.",
+                initials: "FH"
+            },
+            {
+                name: "Omar S.",
+                location: "Fujairah",
+                content: "The return process was so easy when I needed to exchange an item. Great service overall!",
+                initials: "OS"
+            }
         ];
 
         // Cart functionality
@@ -2143,6 +3509,110 @@
         const wishlistCount = document.querySelector('.wishlist-count');
         const cartItems = document.getElementById('cartItems');
         const cartTotal = document.querySelector('.cart-total-amount');
+
+        // Testimonials carousel functionality
+        let currentTestimonial = 0;
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on links
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileNav.classList.remove('active');
+            });
+        });
+
+        // Render testimonials carousel
+        function renderTestimonials() {
+            const carousel = document.getElementById('testimonialsCarousel');
+            const dotsContainer = document.getElementById('testimonialDots');
+            
+            carousel.innerHTML = '';
+            dotsContainer.innerHTML = '';
+            
+            testimonials.forEach((testimonial, index) => {
+                const testimonialCard = document.createElement('div');
+                testimonialCard.className = 'testimonial-card';
+                testimonialCard.innerHTML = `
+                    <div class="testimonial-content">
+                        ${testimonial.content}
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">${testimonial.initials}</div>
+                        <div class="author-info">
+                            <h4>${testimonial.name}</h4>
+                            <p>${testimonial.location}</p>
+                        </div>
+                    </div>
+                `;
+                carousel.appendChild(testimonialCard);
+                
+                // Create dots
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot';
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    goToTestimonial(index);
+                });
+                dotsContainer.appendChild(dot);
+            });
+            
+            updateCarouselPosition();
+        }
+
+        // Update carousel position
+        function updateCarouselPosition() {
+            const carousel = document.getElementById('testimonialsCarousel');
+            carousel.style.transform = `translateX(-${currentTestimonial * 100}%)`;
+            
+            // Update active dot
+            document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+                if (index === currentTestimonial) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Go to specific testimonial
+        function goToTestimonial(index) {
+            currentTestimonial = index;
+            updateCarouselPosition();
+        }
+
+        // Next testimonial
+        function nextTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            updateCarouselPosition();
+        }
+
+        // Previous testimonial
+        function prevTestimonial() {
+            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+            updateCarouselPosition();
+        }
+
+        // Auto-advance testimonials
+        let testimonialInterval = setInterval(nextTestimonial, 5000);
+
+        // Pause auto-advance on hover
+        document.getElementById('testimonialsCarousel').addEventListener('mouseenter', () => {
+            clearInterval(testimonialInterval);
+        });
+
+        // Resume auto-advance on mouse leave
+        document.getElementById('testimonialsCarousel').addEventListener('mouseleave', () => {
+            testimonialInterval = setInterval(nextTestimonial, 5000);
+        });
 
         // Render products
         function renderProducts(filterCategory = 'All') {
@@ -2164,6 +3634,8 @@
                     badgeHTML = '<div class="badge badge-trending">Trending</div>';
                 } else if (product.badge === 'new') {
                     badgeHTML = '<div class="badge badge-new">New</div>';
+                } else if (product.badge === 'sale') {
+                    badgeHTML = '<div class="badge badge-sale">Sale</div>';
                 }
                 
                 let priceHTML = `<div class="current-price">AED ${product.price.toFixed(2)}</div>`;
@@ -2467,6 +3939,30 @@
             }, 3000);
         }
 
+        // Countdown timer for special offers
+        function updateCountdown() {
+            const countdownDate = new Date();
+            countdownDate.setDate(countdownDate.getDate() + 7); // 7 days from now
+            
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('countdown').innerHTML = '<div class="countdown-item">Offer Expired</div>';
+            }
+        }
+
         // Checkout functionality
         document.getElementById('goToCheckoutBtn').addEventListener('click', () => {
             if (cart.length === 0) {
@@ -2576,11 +4072,28 @@
         // Scroll effect for header
         window.addEventListener('scroll', () => {
             const header = document.getElementById('topBar');
+            const backToTop = document.getElementById('backToTop');
+            
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
             }
+            
+            // Show/hide back to top button
+            if (window.scrollY > 500) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        // Back to top functionality
+        document.getElementById('backToTop').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
 
         // WhatsApp widget click
@@ -2638,6 +4151,8 @@
                         badgeHTML = '<div class="badge badge-trending">Trending</div>';
                     } else if (product.badge === 'new') {
                         badgeHTML = '<div class="badge badge-new">New</div>';
+                    } else if (product.badge === 'sale') {
+                        badgeHTML = '<div class="badge badge-sale">Sale</div>';
                     }
                     
                     let priceHTML = `<div class="current-price">AED ${product.price.toFixed(2)}</div>`;
@@ -2688,9 +4203,19 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
+            createBubbles();
             renderProducts();
+            renderTestimonials();
             updateCart();
             updateWishlist();
+            updateCountdown();
+            
+            // Start countdown timer
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            
+            // Add event listeners for carousel controls
+            document.getElementById('nextTestimonial').addEventListener('click', nextTestimonial);
+            document.getElementById('prevTestimonial').addEventListener('click', prevTestimonial);
             
             // Add animation to elements on scroll
             const observerOptions = {
@@ -2707,7 +4232,7 @@
             }, observerOptions);
             
             // Observe elements for animation
-            document.querySelectorAll('.product-card, .feature-card, .testimonial-card, .category-card').forEach(el => {
+            document.querySelectorAll('.product-card, .feature-card, .testimonial-card, .category-card, .trust-badge').forEach(el => {
                 el.style.opacity = '0';
                 observer.observe(el);
             });
