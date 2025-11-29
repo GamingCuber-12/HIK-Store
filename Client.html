@@ -655,1164 +655,1158 @@
                 container.appendChild(element);
             }
         }
-        const products = [
-            { 
-                id: 1, 
-                title: "Meta Quest 3 512GB VR Headset", 
-                category: "Gaming", 
-                price: 649.99, 
-                originalPrice: 749.99, 
-                image: "product_01.jpg", 
-                badge: "hot", 
-                description: "Experience the next generation of virtual reality with the Meta Quest 3. Featuring higher resolution displays, faster performance, and breakthrough mixed reality capabilities.", 
-                features: ["Next-generation Snapdragon processor for faster performance", "Higher resolution displays with 30% more pixels than Quest 2", "Breakthrough mixed reality with full-color passthrough", "Slimmer, more comfortable design with adjustable straps", "512GB storage for all your games and experiences"],
-                specs: {
-                    "Display": "Dual 4K+ Infinite Display",
-                    "Processor": "Snapdragon XR2 Gen 2",
-                    "RAM": "8GB",
-                    "Storage": "512GB",
-                    "Battery Life": "2-3 hours",
-                    "Weight": "515g",
-                    "Connectivity": "Wi-Fi 6E, Bluetooth 5.2"
-                },
-                reviews: [
-                    { author: "Alex T.", rating: 5, date: "2023-11-15", content: "Absolutely mind-blowing VR experience! The mixed reality features are game-changing." },
-                    { author: "Sarah M.", rating: 4, date: "2023-11-10", content: "Great upgrade from Quest 2. The display is much clearer and performance is noticeably better." }
-                ]
-            },
-            { 
-                id: 2, 
-                title: "Dyson Zone Noise-Cancelling Headphones", 
-                category: "Electronics", 
-                price: 929.00, 
-                originalPrice: 1099.00, 
-                image: "product_02.jpg", 
-                badge: "", 
-                description: "The world's first air-purifying headphones. Advanced noise cancellation meets breakthrough air purification technology for cleaner audio and cleaner air.", 
-                features: ["Advanced noise cancellation technology", "Breakthrough air purification with dual-stage filtration", "Ultra-low distortion and rich, full-frequency response", "Up to 50 hours of battery life for listening", "Compact, portable design with magnetic visor attachment"],
-                specs: {
-                    "Noise Cancellation": "Advanced ANC with 11 microphones",
-                    "Battery Life": "50 hours (ANC off), 4 hours (purification)",
-                    "Air Purification": "HEPA H13 filter",
-                    "Connectivity": "Bluetooth 5.0, USB-C",
-                    "Weight": "595g",
-                    "Charging Time": "3 hours"
-                },
-                reviews: [
-                    { author: "Michael R.", rating: 5, date: "2023-11-12", content: "Innovative product that actually works! Great sound quality and the air purification is surprisingly effective." },
-                    { author: "Jessica L.", rating: 4, date: "2023-11-05", content: "Perfect for city commuting. The noise cancellation is excellent and the air purification is a nice bonus." }
-                ]
-            },
-            { 
-                id: 3, 
-                title: "Beats Studio Buds + (Transparent Edition)", 
-                category: "Electronics", 
-                price: 179.99, 
-                originalPrice: 199.99, 
-                image: "product_03.jpg", 
-                badge: "", 
-                description: "Beats Studio Buds + deliver powerful, balanced sound in a transparent design. With Active Noise Cancelling and transparency mode, these earbuds adapt to your listening needs.", 
-                features: ["Custom acoustic platform for powerful, balanced sound", "Active Noise Cancelling (ANC) blocks external noise", "Transparency mode for hearing your surroundings", "Up to 8 hours of listening time (up to 24 with case)", "Sweat and water resistant (IPX4-rated)"],
-                specs: {
-                    "Battery Life": "8 hours (ANC on), 12 hours (ANC off)",
-                    "Charging Case": "24 hours additional battery",
-                    "Connectivity": "Bluetooth 5.2",
-                    "Water Resistance": "IPX4",
-                    "Weight": "5.1g per earbud",
-                    "Charging": "USB-C, Wireless"
-                },
-                reviews: [
-                    { author: "David K.", rating: 5, date: "2023-11-08", content: "Love the transparent design! Sound quality is excellent and the fit is comfortable for long periods." },
-                    { author: "Emma S.", rating: 4, date: "2023-11-02", content: "Great value for money. The noise cancellation works well and battery life is impressive." }
-                ]
-            },
-            { 
-                id: 4, 
-                title: "Nothing Phone (2) 5G 512GB", 
-                category: "Electronics", 
-                price: 799.00, 
-                originalPrice: 899.00, 
-                image: "product_04.jpg", 
-                badge: "trending", 
-                description: "The revolutionary Nothing Phone (2) with unique Glyph Interface and powerful performance.", 
-                features: ["Snapdragon 8+ Gen 1 processor", "6.7-inch LTPO OLED display", "Unique Glyph Interface with LED lights", "Dual 50MP camera system", "4700mAh battery with 45W charging"],
-                specs: {
-                    "Display": "6.7-inch LTPO OLED, 120Hz",
-                    "Processor": "Snapdragon 8+ Gen 1",
-                    "RAM": "12GB",
-                    "Storage": "512GB",
-                    "Battery": "4700mAh",
-                    "Charging": "45W wired, 15W wireless",
-                    "Cameras": "50MP main, 50MP ultra-wide"
-                },
-                reviews: [
-                    { author: "Oliver P.", rating: 5, date: "2023-10-28", content: "The Glyph Interface is not just a gimmick - it's actually useful! Performance is top-notch." },
-                    { author: "Sophia M.", rating: 4, date: "2023-10-25", content: "Beautiful design and smooth performance. The transparent back with LED lights is stunning." }
-                ]
-            },
-            { 
-                id: 5, 
-                title: "GoPro HERO12 Black Action Camera", 
-                category: "Electronics", 
-                price: 449.99, 
-                originalPrice: 499.99, 
-                image: "product_05.jpg", 
-                badge: "hot", 
-                description: "Capture your adventures in stunning detail with the HERO12 Black. Improved battery life and enhanced stabilization.", 
-                features: ["5.3K60 video and 27MP photos", "HyperSmooth 6.0 stabilization", "HDR video and photo capture", "Waterproof to 33ft (10m)", "Improved battery life up to 2x longer"],
-                specs: {
-                    "Video Resolution": "5.3K60, 4K120, 2.7K240",
-                    "Photo Resolution": "27MP",
-                    "Stabilization": "HyperSmooth 6.0",
-                    "Waterproof": "33ft (10m)",
-                    "Battery Life": "Up to 2.5 hours (5.3K30)",
-                    "Connectivity": "Wi-Fi, Bluetooth, USB-C"
-                },
-                reviews: [
-                    { author: "James W.", rating: 5, date: "2023-10-20", content: "The battery life improvement is real! I can now record my entire hiking trip without worrying about power." },
-                    { author: "Lily R.", rating: 4, date: "2023-10-15", content: "HyperSmooth 6.0 is incredible - even running footage looks perfectly stable. Great upgrade from HERO10." }
-                ]
-            },
-            { 
-                id: 6, 
-                title: "Samsung Galaxy Watch6 Classic 47mm", 
-                category: "Electronics", 
-                price: 399.99, 
-                originalPrice: 449.99, 
-                image: "product_06.jpg", 
-                badge: "new", 
-                description: "The Galaxy Watch6 Classic combines timeless design with advanced health monitoring and seamless connectivity.", 
-                features: ["Rotating bezel for intuitive navigation", "Advanced sleep coaching with personalized insights", "Body composition analysis", "Sapphire crystal glass for durability", "Up to 40 hours of battery life"],
-                specs: {
-                    "Display": "1.5-inch Super AMOLED, 480x480",
-                    "Processor": "Exynos W930 Dual Core",
-                    "RAM": "2GB",
-                    "Storage": "16GB",
-                    "Battery": "425mAh",
-                    "Connectivity": "Bluetooth 5.3, Wi-Fi, LTE (optional)",
-                    "Sensors": "BioActive Sensor, Accelerometer, Gyro"
-                },
-                reviews: [
-                    { author: "Robert K.", rating: 5, date: "2023-10-10", content: "The rotating bezel makes navigation so much easier than touch-only watches. Health tracking is comprehensive." },
-                    { author: "Natalie S.", rating: 4, date: "2023-10-05", content: "Beautiful watch with excellent build quality. Battery life is good for a smartwatch with so many features." }
-                ]
-            },
-            { 
-                id: 7, 
-                title: "Sony WH-1000XM5 Wireless Headphones", 
-                category: "Electronics", 
-                price: 399.99, 
-                originalPrice: 449.99, 
-                image: "product_07.jpg", 
-                badge: "trending", 
-                description: "Industry-leading noise cancellation meets exceptional sound quality in Sony's flagship headphones.", 
-                features: ["Industry-leading noise cancellation with Auto NC Optimizer", "30-hour battery life with quick charging", "Crystal clear hands-free calling", "Ultra-comfortable, lightweight design", "Multipoint connection for two devices"],
-                specs: {
-                    "Noise Cancellation": "Industry-leading ANC",
-                    "Battery Life": "30 hours (ANC on)",
-                    "Quick Charge": "3 hours playback in 3 minutes",
-                    "Weight": "250g",
-                    "Connectivity": "Bluetooth 5.2, NFC, 3.5mm",
-                    "Driver": "30mm dynamic driver"
-                },
-                reviews: [
-                    { author: "Thomas L.", rating: 5, date: "2023-09-28", content: "Best noise cancellation I've ever experienced. Perfect for flights and noisy environments." },
-                    { author: "Olivia M.", rating: 5, date: "2023-09-25", content: "Sound quality is phenomenal and they're incredibly comfortable for long listening sessions." }
-                ]
-            },
-            { 
-                id: 8, 
-                title: "Apple iPad Air 5th Gen 64GB", 
-                category: "Electronics", 
-                price: 599.00, 
-                originalPrice: 649.00, 
-                image: "product_08.jpg", 
-                badge: "", 
-                description: "The powerful and versatile iPad Air with M1 chip, perfect for work, creativity, and entertainment.", 
-                features: ["M1 chip for next-level performance", "10.9-inch Liquid Retina display", "12MP Ultra Wide front camera with Center Stage", "5G capable for fast connectivity", "Supports Apple Pencil (2nd gen) and Magic Keyboard"],
-                specs: {
-                    "Display": "10.9-inch Liquid Retina, 2360x1640",
-                    "Processor": "Apple M1",
-                    "RAM": "8GB",
-                    "Storage": "64GB",
-                    "Cameras": "12MP Wide, 12MP Ultra Wide front",
-                    "Connectivity": "Wi-Fi 6, 5G (optional)",
-                    "Battery": "Up to 10 hours"
-                },
-                reviews: [
-                    { author: "Daniel R.", rating: 5, date: "2023-09-20", content: "The M1 chip makes this iPad incredibly fast. Perfect for graphic design work on the go." },
-                    { author: "Sophie K.", rating: 4, date: "2023-09-15", content: "Great balance of performance and portability. Center Stage is surprisingly useful for video calls." }
-                ]
-            },
-            { 
-                id: 9, 
-                title: "Nintendo Switch OLED Model", 
-                category: "Gaming", 
-                price: 349.99, 
-                originalPrice: 399.99, 
-                image: "product_09.jpg", 
-                badge: "sale", 
-                description: "The Nintendo Switch OLED model features a vibrant 7-inch OLED screen, enhanced audio, and a wide adjustable stand.", 
-                features: ["7-inch OLED screen for vibrant colors and contrast", "Enhanced audio for immersive gameplay", "Wide adjustable stand for tabletop mode", "64GB internal storage", "Dock with wired LAN port"],
-                specs: {
-                    "Display": "7-inch OLED, 1280x720",
-                    "Storage": "64GB",
-                    "Battery Life": "4.5-9 hours",
-                    "Audio": "Enhanced stereo speakers",
-                    "Connectivity": "Wi-Fi, Bluetooth 4.1",
-                    "Dimensions": "102mm x 239mm x 13.9mm"
-                },
-                reviews: [
-                    { author: "Lucas T.", rating: 5, date: "2023-09-10", content: "The OLED screen makes a huge difference - colors pop and blacks are much deeper. Perfect for handheld gaming." },
-                    { author: "Mia J.", rating: 4, date: "2023-09-05", content: "Great upgrade from the original Switch. The improved kickstand is much more stable for tabletop play." }
-                ]
-            },
-            { 
-                id: 10, 
-                title: "PlayStation 5 Digital Edition", 
-                category: "Gaming", 
-                price: 399.99, 
-                originalPrice: 449.99, 
-                image: "product_10.jpg", 
-                badge: "hot", 
-                description: "Experience lightning-fast loading with an ultra-high speed SSD, deeper immersion with support for haptic feedback, and more.", 
-                features: ["Ultra-high speed SSD for fast loading", "Integrated I/O for seamless gameplay", "Tempest 3D AudioTech", "Haptic feedback and adaptive triggers", "4K gaming at up to 120fps"],
-                specs: {
-                    "CPU": "AMD Ryzen Zen 2, 8-core/16-thread",
-                    "GPU": "AMD Radeon RDNA 2, 10.28 TFLOPs",
-                    "RAM": "16GB GDDR6",
-                    "Storage": "825GB SSD",
-                    "Optical Drive": "None (Digital Edition)",
-                    "Video Output": "4K 120Hz, 8K"
-                },
-                reviews: [
-                    { author: "Ethan C.", rating: 5, date: "2023-08-28", content: "The SSD makes load times almost non-existent. DualSense controller features add a new dimension to gaming." },
-                    { author: "Isabella R.", rating: 5, date: "2023-08-25", content: "Incredible next-gen experience. The graphics and performance are a massive leap from PS4." }
-                ]
-            },
-            { 
-                id: 11, 
-                title: "Xbox Series X", 
-                category: "Gaming", 
-                price: 499.99, 
-                originalPrice: 549.99, 
-                image: "product_11.jpg", 
-                badge: "", 
-                description: "The fastest, most powerful Xbox ever with next-gen performance, faster load times, and richer, more dynamic worlds.", 
-                features: ["12 teraflops of processing power", "Xbox Velocity Architecture for faster load times", "4K gaming at up to 120fps", "1TB custom SSD", "Backward compatibility with thousands of games"],
-                specs: {
-                    "CPU": "Custom Zen 2, 8-core, 3.8GHz",
-                    "GPU": "Custom RDNA 2, 12.15 TFLOPs",
-                    "RAM": "16GB GDDR6",
-                    "Storage": "1TB Custom NVME SSD",
-                    "Optical Drive": "4K UHD Blu-ray",
-                    "Video Output": "4K 120Hz, 8K"
-                },
-                reviews: [
-                    { author: "Noah S.", rating: 5, date: "2023-08-20", content: "Quick Resume is a game-changer - being able to switch between multiple games instantly is amazing." },
-                    { author: "Charlotte M.", rating: 5, date: "2023-08-15", content: "Incredible performance and Game Pass offers unbeatable value. The console is whisper-quiet even during intensive gaming." }
-                ]
-            },
-            { 
-                id: 12, 
-                title: "Apple MacBook Pro 14-inch M2 Pro", 
-                category: "Electronics", 
-                price: 1999.00, 
-                originalPrice: 2199.00, 
-                image: "product_12.jpg", 
-                badge: "trending", 
-                description: "Supercharged by M2 Pro or M2 Max, MacBook Pro takes its power and efficiency further than ever.", 
-                features: ["M2 Pro or M2 Max chip for extreme performance", "Liquid Retina XDR display with ProMotion", "Up to 22 hours of battery life", "Advanced camera and audio system", "Multiple ports including HDMI and SDXC"],
-                specs: {
-                    "Display": "14.2-inch Liquid Retina XDR, 3024x1964",
-                    "Processor": "Apple M2 Pro (10-core CPU, 16-core GPU)",
-                    "RAM": "16GB",
-                    "Storage": "512GB SSD",
-                    "Battery": "Up to 18 hours",
-                    "Ports": "MagSafe 3, 3x Thunderbolt 4, HDMI, SDXC"
-                },
-                reviews: [
-                    { author: "William P.", rating: 5, date: "2023-08-10", content: "The performance is incredible - handles 4K video editing without breaking a sweat. Battery life is phenomenal." },
-                    { author: "Amelia T.", rating: 5, date: "2023-08-05", content: "Perfect for creative professionals. The display is stunning and the return of useful ports is very welcome." }
-                ]
-            },
-            { 
-                id: 13, 
-                title: "DJI Mini 3 Pro Drone", 
-                category: "Electronics", 
-                price: 759.00, 
-                originalPrice: 909.00, 
-                image: "product_13.jpg", 
-                badge: "sale", 
-                description: "The ultimate compact camera drone with advanced features, obstacle sensing, and professional-quality video.", 
-                features: ["4K/60fps HDR video", "Tri-directional obstacle sensing", "34-minute max flight time", "True Vertical Shooting for social media", "Advanced features like FocusTrack and MasterShots"],
-                specs: {
-                    "Camera": "1/1.3-inch CMOS, 48MP",
-                    "Video": "4K/60fps, HDR",
-                    "Max Flight Time": "34 minutes (standard battery)",
-                    "Weight": "<249g",
-                    "Obstacle Sensing": "Forward, backward, downward",
-                    "Transmission": "DJI O3, 12km max range"
-                },
-                reviews: [
-                    { author: "Benjamin L.", rating: 5, date: "2023-07-28", content: "Incredible video quality in such a small package. The obstacle avoidance gives peace of mind for flying in complex environments." },
-                    { author: "Harper R.", rating: 4, date: "2023-07-25", content: "Perfect for travel photography. The vertical video mode is great for social media content creation." }
-                ]
-            },
-            { 
-                id: 14, 
-                title: "Canon EOS R6 Mark II Mirrorless Camera", 
-                category: "Electronics", 
-                price: 2499.00, 
-                originalPrice: 2799.00, 
-                image: "product_14.jpg", 
-                badge: "new", 
-                description: "A versatile full-frame mirrorless camera that excels in both photography and videography with advanced features.", 
-                features: ["24.2MP full-frame CMOS sensor", "40fps continuous shooting with electronic shutter", "6K oversampled 4K/60p video", "Advanced subject detection AF", "In-body image stabilization up to 8 stops"],
-                specs: {
-                    "Sensor": "24.2MP Full-frame CMOS",
-                    "Burst Shooting": "12fps mechanical, 40fps electronic",
-                    "Video": "6K oversampled 4K/60p",
-                    "ISO Range": "100-102400 (expandable to 204800)",
-                    "Stabilization": "In-body, up to 8 stops",
-                    "Connectivity": "Wi-Fi, Bluetooth"
-                },
-                reviews: [
-                    { author: "Samuel W.", rating: 5, date: "2023-07-20", content: "The autofocus is incredibly fast and accurate. Perfect for wildlife and sports photography." },
-                    { author: "Evelyn K.", rating: 5, date: "2023-07-15", content: "Excellent hybrid camera that performs equally well for both photos and video. IBIS is a game-changer for handheld shooting." }
-                ]
-            },
-            { 
-                id: 15, 
-                title: "Bose QuietComfort Ultra Earbuds", 
-                category: "Electronics", 
-                price: 299.00, 
-                originalPrice: 329.00, 
-                image: "product_15.jpg", 
-                badge: "", 
-                description: "Premium noise-cancelling earbuds with immersive audio and comfortable, secure fit for all-day wear.", 
-                features: ["World-class noise cancellation", "Immersive Audio with Bose spatial technology", "CustomTune technology for personalized sound", "Up to 6 hours of battery (24 with case)", "Comfortable, secure fit with multiple ear tips"],
-                specs: {
-                    "Battery Life": "6 hours (ANC on), 24 hours with case",
-                    "Charging": "USB-C, wireless",
-                    "Connectivity": "Bluetooth 5.3",
-                    "Water Resistance": "IPX4",
-                    "Weight": "6.24g per earbud",
-                    "Features": "CustomTune, Immersive Audio"
-                },
-                reviews: [
-                    { author: "Henry B.", rating: 5, date: "2023-07-10", content: "Best noise cancellation in true wireless earbuds. The Immersive Audio feature creates a surprisingly spacious soundstage." },
-                    { author: "Ava M.", rating: 4, date: "2023-07-05", content: "Extremely comfortable for long listening sessions. Sound quality is excellent across all genres of music." }
-                ]
-            },
-            { 
-                id: 16, 
-                title: "Samsung 65\" QLED 4K Smart TV", 
-                category: "Electronics", 
-                price: 1199.99, 
-                originalPrice: 1499.99, 
-                image: "product_16.jpg", 
-                badge: "sale", 
-                description: "Brilliant 4K QLED picture with Quantum Dot technology, Object Tracking Sound, and a sleek, minimalist design.", 
-                features: ["Quantum Dot technology for brilliant colors", "Object Tracking Sound for immersive audio", "Quantum Processor 4K for AI upscaling", "Slim, minimalist design", "Smart TV with multiple streaming apps"],
-                specs: {
-                    "Display": "65-inch QLED, 3840x2160",
-                    "HDR": "Quantum HDR",
-                    "Processor": "Quantum Processor 4K",
-                    "Audio": "Object Tracking Sound",
-                    "Smart Platform": "Tizen",
-                    "Connectivity": "4x HDMI, 2x USB, Ethernet"
-                },
-                reviews: [
-                    { author: "Jack H.", rating: 5, date: "2023-06-28", content: "The picture quality is stunning with vibrant colors and deep blacks. The Object Tracking Sound really enhances the viewing experience." },
-                    { author: "Grace L.", rating: 4, date: "2023-06-25", content: "Great value for a premium TV. The smart interface is responsive and easy to use." }
-                ]
-            },
-            { 
-                id: 17, 
-                title: "Apple AirPods Pro (2nd Generation)", 
-                category: "Electronics", 
-                price: 249.00, 
-                originalPrice: 279.00, 
-                image: "product_17.jpg", 
-                badge: "trending", 
-                description: "The latest AirPods Pro feature enhanced Active Noise Cancellation, Transparency mode, and personalized spatial audio.", 
-                features: ["Active Noise Cancellation (2x more effective)", "Transparency mode for hearing surroundings", "Personalized Spatial Audio with dynamic head tracking", "MagSafe Charging Case with speaker", "Up to 6 hours of listening time (30 with case)"],
-                specs: {
-                    "Battery Life": "6 hours (ANC on), 30 hours with case",
-                    "Charging": "MagSafe, wireless, Lightning",
-                    "Connectivity": "Bluetooth 5.3",
-                    "Water Resistance": "IPX4 (earbuds and case)",
-                    "Features": "H2 chip, Adaptive EQ"
-                },
-                reviews: [
-                    { author: "Logan T.", rating: 5, date: "2023-06-20", content: "The noise cancellation is significantly improved from the first generation. Sound quality is excellent and the fit is comfortable." },
-                    { author: "Chloe R.", rating: 5, date: "2023-06-15", content: "Perfect integration with Apple ecosystem. The transparency mode is so natural it's like not wearing earbuds at all." }
-                ]
-            },
-            { 
-                id: 18, 
-                title: "Nike Air Force 1 '07 White", 
-                category: "Clothing", 
-                price: 110.00, 
-                originalPrice: 130.00, 
-                image: "product_18.jpg", 
-                badge: "", 
-                description: "The legend lives on in the Nike Air Force 1 '07. This classic sneaker brings fresh details to the iconic basketball shoe.", 
-                features: ["Leather upper for durable wear", "Perforations on the toe for breathability", "Low-top design for versatile styling", "Encapsulated Air-Sole unit for cushioning", "Rubber outsole for traction"],
-                specs: {
-                    "Upper Material": "Leather",
-                    "Closure": "Lace-up",
-                    "Cushioning": "Encapsulated Air-Sole",
-                    "Outsole": "Rubber",
-                    "Fit": "True to size",
-                    "Style": "Low-top"
-                },
-                reviews: [
-                    { author: "Mason P.", rating: 5, date: "2023-06-10", content: "Classic design that goes with everything. Comfortable for all-day wear and the quality is excellent." },
-                    { author: "Zoe K.", rating: 4, date: "2023-06-05", content: "Timeless sneakers that never go out of style. Great for casual outfits and surprisingly comfortable." }
-                ]
-            },
-            { 
-                id: 19, 
-                title: "Adidas Ultraboost 22 Running Shoes", 
-                category: "Clothing", 
-                price: 180.00, 
-                originalPrice: 200.00, 
-                image: "product_19.jpg", 
-                badge: "sale", 
-                description: "Experience incredible energy return and comfort with the Adidas Ultraboost 22, designed for optimal running performance.", 
-                features: ["Boost midsole for maximum energy return", "Primeblue upper with recycled materials", "Linear Energy Push for forward momentum", "Continental Rubber outsole for grip", "Tailored Fiber Placement for precise fit"],
-                specs: {
-                    "Upper Material": "Primeblue (recycled)",
-                    "Midsole": "Boost technology",
-                    "Outsole": "Continental Rubber",
-                    "Drop": "10mm",
-                    "Weight": "310g (size 9)",
-                    "Fit": "Regular"
-                },
-                reviews: [
-                    { author: "Eli S.", rating: 5, date: "2023-05-28", content: "Most comfortable running shoes I've ever owned. The energy return is noticeable on long runs." },
-                    { author: "Lily M.", rating: 5, date: "2023-05-25", content: "Perfect combination of cushioning and responsiveness. Great for both running and everyday wear." }
-                ]
-            },
-            { 
-                id: 20, 
-                title: "Levi's 511 Slim Fit Jeans", 
-                category: "Clothing", 
-                price: 79.50, 
-                originalPrice: 89.50, 
-                image: "product_20.jpg", 
-                badge: "", 
-                description: "Classic slim fit jeans that sit below the waist and are slim through the hip and thigh with a straight leg opening.", 
-                features: ["Slim through hip and thigh", "Straight leg opening", "Classic five-pocket styling", "Durable denim construction", "Available in multiple washes"],
-                specs: {
-                    "Fit": "Slim",
-                    "Rise": "Below waist",
-                    "Leg Opening": "Straight",
-                    "Material": "99% Cotton, 1% Elastane",
-                    "Closure": "Button fly",
-                    "Pockets": "5-pocket design"
-                },
-                reviews: [
-                    { author: "Owen T.", rating: 5, date: "2023-05-20", content: "Perfect slim fit - not too tight, not too loose. The quality is excellent and they hold their shape well." },
-                    { author: "Aria L.", rating: 4, date: "2023-05-15", content: "Comfortable jeans that look great. The stretch makes them perfect for all-day wear." }
-                ]
-            },
-            { 
-                id: 21, 
-                title: "The North Face Aconcagua 3 Jacket", 
-                category: "Clothing", 
-                price: 199.00, 
-                originalPrice: 229.00, 
-                image: "product_21.jpg", 
-                badge: "trending", 
-                description: "A versatile, technical fleece jacket with premium materials and classic mountaineering style.", 
-                features: ["FlashDry-XD technology for moisture management", "700-fill premium goose down insulation", "Non-PFC DWR finish for water resistance", "Zippered hand pockets and internal chest pocket", "Elastic-bound cuffs for comfort and warmth"],
-                specs: {
-                    "Insulation": "700-fill premium goose down",
-                    "Shell": "Non-PFC DWR finish",
-                    "Technology": "FlashDry-XD",
-                    "Pockets": "2 hand, 1 internal chest",
-                    "Fit": "Regular",
-                    "Weight": "Medium: 510g"
-                },
-                reviews: [
-                    { author: "Liam B.", rating: 5, date: "2023-05-10", content: "Incredibly warm for its weight. Perfect for cold weather hiking and everyday use in winter." },
-                    { author: "Mila R.", rating: 5, date: "2023-05-05", content: "High-quality construction and materials. The fit is perfect and it's become my go-to winter jacket." }
-                ]
-            },
-            { 
-                id: 22, 
-                title: "Patagonia Better Sweater Fleece Jacket", 
-                category: "Clothing", 
-                price: 139.00, 
-                originalPrice: 159.00, 
-                image: "product_22.jpg", 
-                badge: "", 
-                description: "A versatile, casual fleece jacket made from recycled materials, perfect for outdoor adventures or everyday wear.", 
-                features: ["Made from recycled polyester", "Smooth-faced jersey exterior", "Soft brushed-back fleece interior", "Two zippered handwarmer pockets", "Articulated sleeves for better mobility"],
-                specs: {
-                    "Material": "Recycled polyester",
-                    "Weight": "Medium: 510g",
-                    "Pockets": "2 zippered handwarmer",
-                    "Fit": "Regular",
-                    "Sustainability": "Fair Trade Certified sewn"
-                },
-                reviews: [
-                    { author: "Caleb M.", rating: 5, date: "2023-04-28", content: "Perfect mid-layer for outdoor activities. The quality is excellent and it's comfortable in a wide range of temperatures." },
-                    { author: "Nora S.", rating: 4, date: "2023-04-25", content: "Great everyday fleece that looks good and performs well. Love that it's made from recycled materials." }
-                ]
-            },
-            { 
-                id: 23, 
-                title: "KitchenAid Artisan Stand Mixer 5-Qt", 
-                category: "Home & Kitchen", 
-                price: 449.99, 
-                originalPrice: 499.99, 
-                image: "product_23.jpg", 
-                badge: "hot", 
-                description: "The iconic KitchenAid stand mixer with a powerful motor, 10 speeds, and a tilt-head design for easy access.", 
-                features: ["10-speed slide control for precise mixing", "Tilt-head design for easy access to bowl", "Powerful 325-watt motor", "Planetary mixing action for thorough incorporation", "Comes with flat beater, dough hook, and wire whip"],
-                specs: {
-                    "Capacity": "5-quart stainless steel bowl",
-                    "Motor": "325-watt",
-                    "Speeds": "10",
-                    "Attachments": "Flat beater, dough hook, wire whip",
-                    "Design": "Tilt-head",
-                    "Color Options": "Multiple available"
-                },
-                reviews: [
-                    { author: "Gabriel T.", rating: 5, date: "2023-04-20", content: "Worth every penny. Makes baking so much easier and more enjoyable. The power and performance are exceptional." },
-                    { author: "Hannah L.", rating: 5, date: "2023-04-15", content: "Beautiful and functional. The attachments available make it incredibly versatile for all kinds of cooking tasks." }
-                ]
-            },
-            { 
-                id: 24, 
-                title: "Vitamix 5200 Blender", 
-                category: "Home & Kitchen", 
-                price: 449.95, 
-                originalPrice: 499.95, 
-                image: "product_24.jpg", 
-                badge: "", 
-                description: "Professional-grade blender with a powerful motor and durable construction for smoothies, soups, and more.", 
-                features: ["2.2 peak HP motor for high performance", "64-ounce low-profile container", "Variable speed control with pulse feature", "Stainless steel blades for efficient blending", "Self-cleaning function for easy maintenance"],
-                specs: {
-                    "Motor": "2.2 peak HP",
-                    "Container": "64-ounce low-profile",
-                    "Speeds": "Variable with pulse",
-                    "Weight": "10.6 lbs",
-                    "Warranty": "7-year full",
-                    "Functions": "Smoothies, soups, frozen desserts"
-                },
-                reviews: [
-                    { author: "Julian R.", rating: 5, date: "2023-04-10", content: "Blends everything perfectly smooth. The power is incredible and it's built to last. Worth the investment." },
-                    { author: "Stella M.", rating: 5, date: "2023-04-05", content: "Makes the creamiest smoothies and soups. The self-cleaning function is a game-changer for easy cleanup." }
-                ]
-            },
-            { 
-                id: 25, 
-                title: "Dyson V15 Detect Cordless Vacuum", 
-                category: "Home & Kitchen", 
-                price: 749.99, 
-                originalPrice: 849.99, 
-                image: "product_25.jpg", 
-                badge: "trending", 
-                description: "Intelligent cordless vacuum with laser dust detection, powerful suction, and advanced filtration.", 
-                features: ["Laser dust detection to reveal hidden particles", "High torque cleaner head for deep cleaning", "Whole machine HEPA filtration", "Piezo sensor for automatic power adjustment", "Up to 60 minutes of run time"],
-                specs: {
-                    "Suction Power": "230 AW",
-                    "Run Time": "Up to 60 minutes",
-                    "Filtration": "Whole machine HEPA",
-                    "Dustbin Capacity": "0.77 liters",
-                    "Weight": "3.0 kg",
-                    "Charging Time": "4.5 hours"
-                },
-                reviews: [
-                    { author: "Nathan B.", rating: 5, date: "2023-03-28", content: "The laser feature is incredible - it shows dust you wouldn't normally see. Powerful suction and great battery life." },
-                    { author: "Aurora T.", rating: 5, date: "2023-03-25", content: "Best vacuum I've ever owned. Makes cleaning so much easier and more effective. The attachments are versatile and useful." }
-                ]
-            },
-            { 
-                id: 26, 
-                title: "Instant Pot Duo Plus 9-in-1", 
-                category: "Home & Kitchen", 
-                price: 129.95, 
-                originalPrice: 149.95, 
-                image: "product_26.jpg", 
-                badge: "sale", 
-                description: "A versatile 9-in-1 multi-use programmable pressure cooker that replaces multiple kitchen appliances.", 
-                features: ["9-in-1 functionality: pressure cooker, slow cooker, etc.", "Advanced microprocessor with 15 smart programs", "Easy-seal lid with automatic sealing", "Stainless steel cooking pot with tri-ply bottom", "Over 10 safety features including overheat protection"],
-                specs: {
-                    "Capacity": "6-quart",
-                    "Functions": "9-in-1",
-                    "Programs": "15 smart programs",
-                    "Material": "Stainless steel",
-                    "Power": "1000 watts",
-                    "Safety Features": "10+ including overheat protection"
-                },
-                reviews: [
-                    { author: "Dylan K.", rating: 5, date: "2023-03-20", content: "Revolutionized my cooking. Makes perfect rice, tender meats, and delicious soups in a fraction of the time." },
-                    { author: "Penelope S.", rating: 4, date: "2023-03-15", content: "Incredibly versatile kitchen appliance. The yogurt function alone makes it worth the purchase." }
-                ]
-            },
-            { 
-                id: 27, 
-                title: "Breville Barista Express Espresso Machine", 
-                category: "Home & Kitchen", 
-                price: 699.95, 
-                originalPrice: 799.95, 
-                image: "product_27.jpg", 
-                badge: "", 
-                description: "Create third wave specialty coffee at home with the Breville Barista Express, featuring a built-in conical burr grinder.", 
-                features: ["Built-in conical burr grinder with dose control", "ThermoJet heating system for fast heat-up", "PID digital temperature control", "15-bar Italian pump", "Stainless steel construction with professional steam wand"],
-                specs: {
-                    "Pump Pressure": "15-bar Italian pump",
-                    "Grinder": "Integrated conical burr",
-                    "Water Tank": "2-liter removable",
-                    "Heating System": "ThermoJet",
-                    "Material": "Stainless steel",
-                    "Features": "PID temperature control"
-                },
-                reviews: [
-                    { author: "Carter L.", rating: 5, date: "2023-03-10", content: "Makes cafe-quality espresso at home. The built-in grinder is a game-changer for freshness and convenience." },
-                    { author: "Luna R.", rating: 5, date: "2023-03-05", content: "Worth every penny for coffee enthusiasts. The learning curve is manageable and the results are incredible." }
-                ]
-            },
-            { 
-                id: 28, 
-                title: "Cuisinart Food Processor 14-Cup", 
-                category: "Home & Kitchen", 
-                price: 199.95, 
-                originalPrice: 249.95, 
-                image: "product_28.jpg", 
-                badge: "", 
-                description: "A powerful food processor with a large capacity and multiple functions for all your food prep needs.", 
-                features: ["Large 14-cup capacity work bowl", "720-watt peak power motor", "Stainless steel discs for slicing and shredding", "Dough blade for kneading", "Pulse control for precise processing"],
-                specs: {
-                    "Capacity": "14-cup work bowl",
-                    "Motor": "720-watt peak power",
-                    "Discs": "Slicing, shredding, grating",
-                    "Functions": "Chopping, mixing, kneading",
-                    "Weight": "14.5 lbs",
-                    "Warranty": "3-year limited"
-                },
-                reviews: [
-                    { author: "Wyatt T.", rating: 5, date: "2023-02-28", content: "Makes food prep so much faster. The slicing and shredding discs are perfect for large batches of vegetables." },
-                    { author: "Maya K.", rating: 4, date: "2023-02-25", content: "Powerful and versatile. The large capacity is great for meal prep and the quality is excellent." }
-                ]
-            },
-            { 
-                id: 29, 
-                title: "All-Clad D3 10-Piece Cookware Set", 
-                category: "Home & Kitchen", 
-                price: 799.99, 
-                originalPrice: 999.99, 
-                image: "product_29.jpg", 
-                badge: "sale", 
-                description: "Professional-grade stainless steel cookware with 3-ply construction for even heating and superior performance.", 
-                features: ["3-ply construction with aluminum core", "Stainless steel cooking surface", "Oven safe to 600°F", "Dishwasher safe for easy cleaning", "Lifetime warranty"],
-                specs: {
-                    "Construction": "3-ply (stainless/aluminum/stainless)",
-                    "Oven Safe": "Up to 600°F",
-                    "Dishwasher Safe": "Yes",
-                    "Handles": "Stainless steel with cool-touch",
-                    "Lids": "Tight-fitting stainless steel",
-                    "Warranty": "Lifetime"
-                },
-                reviews: [
-                    { author: "Grayson M.", rating: 5, date: "2023-02-20", content: "Professional quality cookware that will last a lifetime. The even heating is exceptional and cleanup is easy." },
-                    { author: "Ella S.", rating: 5, date: "2023-02-15", content: "Worth the investment for serious cooks. The quality is immediately noticeable and cooking performance is outstanding." }
-                ]
-            },
-            { 
-                id: 30, 
-                title: "Le Creuset Signature Dutch Oven 5.5-Qt", 
-                category: "Home & Kitchen", 
-                price: 379.95, 
-                originalPrice: 429.95, 
-                image: "product_30.jpg", 
-                badge: "trending", 
-                description: "Iconic French oven with superior heat retention and even heat distribution, perfect for slow cooking and baking.", 
-                features: ["Enameled cast iron construction", "Superior heat retention and distribution", "Sand-colored interior for easy monitoring", "Ergonomic handles for safe carrying", "Oven safe to 500°F"],
-                specs: {
-                    "Material": "Enameled cast iron",
-                    "Capacity": "5.5-quart",
-                    "Oven Safe": "Up to 500°F",
-                    "Lid": "Self-basting",
-                    "Colors": "Multiple available",
-                    "Warranty": "Lifetime"
-                },
-                reviews: [
-                    { author: "Leo T.", rating: 5, date: "2023-02-10", content: "The gold standard of Dutch ovens. Perfect for everything from braising to baking bread. Beautiful and functional." },
-                    { author: "Avery L.", rating: 5, date: "2023-02-05", content: "Worth every penny. The heat distribution is perfect and it will last a lifetime. A true kitchen heirloom." }
-                ]
-            },
-            { 
-                id: 31, 
-                title: "Harry Potter Complete Book Set", 
-                category: "Books", 
-                price: 89.99, 
-                originalPrice: 99.99, 
-                image: "product_31.jpg", 
-                badge: "", 
-                description: "The complete collection of all seven Harry Potter books in a beautiful box set, perfect for fans and collectors.", 
-                features: ["All seven Harry Potter books in one set", "Beautifully designed box for display", "Original cover artwork", "Perfect for new readers and collectors", "Makes a great gift for Harry Potter fans"],
-                specs: {
-                    "Books Included": "7 (Philosopher's Stone to Deathly Hallows)",
-                    "Format": "Paperback",
-                    "Pages": "Approx. 4100 total",
-                    "Box Dimensions": "23.5 x 16.5 x 15 cm",
-                    "Publisher": "Bloomsbury"
-                },
-                reviews: [
-                    { author: "Ryan B.", rating: 5, date: "2023-01-28", content: "Beautiful box set that looks great on the shelf. Perfect for introducing the series to new readers." },
-                    { author: "Scarlett M.", rating: 5, date: "2023-01-25", content: "High-quality printing and the box is sturdy. A must-have for any Harry Potter fan's collection." }
-                ]
-            },
-            { 
-                id: 32, 
-                title: "The Lord of the Rings Box Set", 
-                category: "Books", 
-                price: 39.99, 
-                originalPrice: 49.99, 
-                image: "product_32.jpg", 
-                badge: "sale", 
-                description: "J.R.R. Tolkien's epic fantasy masterpiece in a beautiful box set, including The Hobbit and The Lord of the Rings trilogy.", 
-                features: ["Includes The Hobbit and The Lord of the Rings", "Beautiful matching cover designs", "Maps of Middle-earth included", "Durable box for protection and display", "Perfect for Tolkien fans and collectors"],
-                specs: {
-                    "Books Included": "4 (The Hobbit + LOTR trilogy)",
-                    "Format": "Paperback",
-                    "Pages": "Approx. 1600 total",
-                    "Box Dimensions": "20.3 x 13.3 x 10.2 cm",
-                    "Publisher": "HarperCollins"
-                },
-                reviews: [
-                    { author: "Isaac T.", rating: 5, date: "2023-01-20", content: "Classic fantasy that every reader should experience. The box set is beautiful and makes a great gift." },
-                    { author: "Hazel R.", rating: 5, date: "2023-01-15", content: "Timeless stories in a beautiful edition. The quality of the books and box is excellent." }
-                ]
-            },
-            { 
-                id: 33, 
-                title: "A Song of Ice and Fire 5-Book Set", 
-                category: "Books", 
-                price: 59.99, 
-                originalPrice: 69.99, 
-                image: "product_33.jpg", 
-                badge: "", 
-                description: "George R.R. Martin's epic fantasy series that inspired Game of Thrones, in a complete 5-book box set.", 
-                features: ["Complete series to date (5 books)", "Matching cover designs", "Includes maps of Westeros and Essos", "Durable box for protection", "Perfect for fantasy fans"],
-                specs: {
-                    "Books Included": "5 (A Game of Thrones to A Dance with Dragons)",
-                    "Format": "Paperback",
-                    "Pages": "Approx. 5200 total",
-                    "Box Dimensions": "23.5 x 15.9 x 12.7 cm",
-                    "Publisher": "Bantam"
-                },
-                reviews: [
-                    { author: "Luke S.", rating: 5, date: "2023-01-10", content: "Epic fantasy at its finest. The books are even better than the TV series with much more depth and detail." },
-                    { author: "Violet K.", rating: 4, date: "2023-01-05", content: "Beautiful box set for an incredible series. The books are massive but the story is completely engrossing." }
-                ]
-            },
-            { 
-                id: 34, 
-                title: "Dune by Frank Herbert", 
-                category: "Books", 
-                price: 16.99, 
-                originalPrice: 19.99, 
-                image: "product_34.jpg", 
-                badge: "", 
-                description: "The masterpiece of science fiction that set the standard for the genre, now in a beautiful new edition.", 
-                features: ["Winner of the Hugo and Nebula awards", "Includes appendix with terminology", "Beautiful new cover artwork", "Perfect for science fiction fans", "The book that inspired the major motion picture"],
-                specs: {
-                    "Pages": "688",
-                    "Format": "Paperback",
-                    "Publisher": "Ace",
-                    "Language": "English",
-                    "ISBN": "9780441013593",
-                    "Dimensions": "17.8 x 10.9 x 3.3 cm"
-                },
-                reviews: [
-                    { author: "Hunter L.", rating: 5, date: "2022-12-28", content: "The greatest science fiction novel ever written. The world-building is unparalleled and the story is timeless." },
-                    { author: "Willow T.", rating: 5, date: "2022-12-25", content: "A masterpiece of speculative fiction. The political and ecological themes are even more relevant today." }
-                ]
-            },
-            { 
-                id: 35, 
-                title: "The Alchemist by Paulo Coelho", 
-                category: "Books", 
-                price: 14.99, 
-                originalPrice: 16.99, 
-                image: "product_35.jpg", 
-                badge: "trending", 
-                description: "A magical fable about following your dreams, this international bestseller has inspired millions worldwide.", 
-                features: ["International bestseller", "25th anniversary edition", "Beautiful, inspirational story", "Perfect gift for graduates and dreamers", "Translated into 80 languages"],
-                specs: {
-                    "Pages": "208",
-                    "Format": "Paperback",
-                    "Publisher": "HarperOne",
-                    "Language": "English",
-                    "ISBN": "9780062315007",
-                    "Dimensions": "17.1 x 10.7 x 1.3 cm"
-                },
-                reviews: [
-                    { author: "Jordan M.", rating: 5, date: "2022-12-20", content: "A beautiful, inspiring story that everyone should read. It reminds you to follow your personal legend." },
-                    { author: "Paisley R.", rating: 4, date: "2022-12-15", content: "Simple yet profound. This book has a way of speaking to you exactly when you need to hear its message." }
-                ]
-            },
-            { 
-                id: 36, 
-                title: "Atomic Habits by James Clear", 
-                category: "Books", 
-                price: 18.99, 
-                originalPrice: 21.99, 
-                image: "product_36.jpg", 
-                badge: "hot", 
-                description: "Tiny Changes, Remarkable Results. An easy & proven way to build good habits & break bad ones.", 
-                features: ["#1 New York Times bestseller", "Practical framework for building good habits", "Based on scientific research", "Includes habit-tracking templates", "Perfect for personal development"],
-                specs: {
-                    "Pages": "320",
-                    "Format": "Hardcover",
-                    "Publisher": "Avery",
-                    "Language": "English",
-                    "ISBN": "9780735211292",
-                    "Dimensions": "21.1 x 14.5 x 2.8 cm"
-                },
-                reviews: [
-                    { author: "Austin T.", rating: 5, date: "2022-12-10", content: "Life-changing book. The practical advice actually works and has helped me build lasting positive habits." },
-                    { author: "Nova S.", rating: 5, date: "2022-12-05", content: "The most practical and actionable book on habit formation I've ever read. The 1% better every day concept is powerful." }
-                ]
-            },
-            { 
-                id: 37, 
-                title: "Sapiens: A Brief History of Humankind", 
-                category: "Books", 
-                price: 19.99, 
-                originalPrice: 22.99, 
-                image: "product_37.jpg", 
-                badge: "", 
-                description: "A groundbreaking narrative of humanity's creation and evolution that explores the ways in which biology and history have defined us.", 
-                features: ["International bestseller", "New York Times Bestseller", "Thought-provoking exploration of human history", "Accessible writing style", "Perfect for history and science enthusiasts"],
-                specs: {
-                    "Pages": "464",
-                    "Format": "Paperback",
-                    "Publisher": "Harper Perennial",
-                    "Language": "English",
-                    "ISBN": "9780062316097",
-                    "Dimensions": "20.3 x 13.5 x 2.5 cm"
-                },
-                reviews: [
-                    { author: "Evan L.", rating: 5, date: "2022-11-28", content: "Fascinating perspective on human history. Changes the way you think about society, money, and religion." },
-                    { author: "Skylar M.", rating: 5, date: "2022-11-25", content: "Brilliant book that connects biology, history, and anthropology in an accessible way. Thought-provoking and enlightening." }
-                ]
-            },
-            { 
-                id: 38, 
-                title: "Cooler", 
-                category: "Books", 
-                price: 16.99, 
-                originalPrice: 18.99, 
-                image: "product_38.jpg", 
-                badge: "trending", 
-                description: "A counterintuitive approach to living a good life, this generation-defining self-help guide offers a refreshing approach to happiness.", 
-                features: ["#1 New York Times Bestseller", "Counterintuitive approach to happiness", "Honest, straightforward advice", "Funny and engaging writing style", "Perfect for those feeling overwhelmed"],
-                specs: {
-                    "Pages": "224",
-                    "Format": "Hardcover",
-                    "Publisher": "HarperOne",
-                    "Language": "English",
-                    "ISBN": "9780062457714",
-                    "Dimensions": "20.3 x 13.5 x 2.3 cm"
-                },
-                reviews: [
-                    { author: "Miles T.", rating: 5, date: "2022-11-20", content: "Refreshingly honest and practical. The message about choosing what to care about is liberating." },
-                    { author: "Emery R.", rating: 4, date: "2022-11-15", content: "Funny, profane, and surprisingly insightful. A different take on self-help that actually works." }
-                ]
-            },
-            { 
-                id: 39, 
-                title: "Where the Crawdads Sing by Delia Owens", 
-                category: "Books", 
-                price: 15.99, 
-                originalPrice: 17.99, 
-                image: "product_39.jpg", 
-                badge: "", 
-                description: "A heartbreaking coming-of-age story and a surprising tale of possible murder, this novel has topped bestseller lists worldwide.", 
-                features: ["#1 New York Times Bestseller", "Over 12 million copies sold", "Soon to be a major motion picture", "Beautiful, lyrical writing", "Perfect for book clubs"],
-                specs: {
-                    "Pages": "384",
-                    "Format": "Paperback",
-                    "Publisher": "G.P. Putnam's Sons",
-                    "Language": "English",
-                    "ISBN": "9780735219090",
-                    "Dimensions": "20.3 x 13.5 x 2.5 cm"
-                },
-                reviews: [
-                    { author: "Rowan K.", rating: 5, date: "2022-11-10", content: "Beautifully written and completely engrossing. The setting is a character in itself and the story is unforgettable." },
-                    { author: "Sadie M.", rating: 5, date: "2022-11-05", content: "One of the best books I've read in years. The writing is poetic and the story is both heartbreaking and uplifting." }
-                ]
-            },
-            { 
-                id: 40, 
-                title: "The Midnight Library by Matt Haig", 
-                category: "Books", 
-                price: 16.99, 
-                originalPrice: 18.99, 
-                image: "product_40.jpg", 
-                badge: "new", 
-                description: "Between life and death there is a library, and within that library, the shelves go on forever. A novel about regret, hope and second chances.", 
-                features: ["New York Times Bestseller", "Goodreads Choice Award Winner", "Thought-provoking concept", "Uplifting and philosophical", "Perfect for those pondering life choices"],
-                specs: {
-                    "Pages": "304",
-                    "Format": "Hardcover",
-                    "Publisher": "Viking",
-                    "Language": "English",
-                    "ISBN": "9780525559474",
-                    "Dimensions": "21.1 x 14.5 x 2.8 cm"
-                },
-                reviews: [
-                    { author: "Sawyer T.", rating: 5, date: "2022-10-28", content: "Beautiful concept executed perfectly. Made me think about my own life choices and what truly matters." },
-                    { author: "Quinn L.", rating: 5, date: "2022-10-25", content: "A perfect blend of fantasy and philosophy. The message about appreciating the life you have is powerful." }
-                ]
-            },
-            { 
-                id: 41, 
-                title: "Project Hail Mary by Andy Weir", 
-                category: "Books", 
-                price: 19.99, 
-                originalPrice: 22.99, 
-                image: "product_41.jpg", 
-                badge: "hot", 
-                description: "From the author of The Martian, a lone astronaut must save the earth from disaster in this propulsive, cinematic science fiction thriller.", 
-                features: ["#1 New York Times Bestseller", "From the author of The Martian", "Scientific accuracy with thrilling storytelling", "Unexpected friendship at its core", "Perfect for science fiction fans"],
-                specs: {
-                    "Pages": "496",
-                    "Format": "Hardcover",
-                    "Publisher": "Ballantine Books",
-                    "Language": "English",
-                    "ISBN": "9780593135204",
-                    "Dimensions": "23.6 x 16.0 x 4.1 cm"
-                },
-                reviews: [
-                    { author: "Blake R.", rating: 5, date: "2022-10-20", content: "Even better than The Martian! The science is fascinating and the story is incredibly engaging with surprising emotional depth." },
-                    { author: "Reagan S.", rating: 5, date: "2022-10-15", content: "Brilliant science fiction with heart. The relationship development is as compelling as the scientific problem-solving." }
-                ]
-            },
-            { 
-                id: 42, 
-                title: "It Ends With Us by Colleen Hoover", 
-                category: "Books", 
-                price: 15.99, 
-                originalPrice: 17.99, 
-                image: "product_42.jpg", 
-                badge: "trending", 
-                description: "A brave and heartbreaking novel that digs its claws into you and doesn't let go, long after you've finished it.", 
-                features: ["New York Times Bestseller", "Over 1 million copies sold", "Powerful, emotional story", "Addresses difficult themes with sensitivity", "Perfect for contemporary fiction readers"],
-                specs: {
-                    "Pages": "384",
-                    "Format": "Paperback",
-                    "Publisher": "Atria Books",
-                    "Language": "English",
-                    "ISBN": "9781501110368",
-                    "Dimensions": "20.3 x 13.5 x 2.5 cm"
-                },
-                reviews: [
-                    { author: "Hayden T.", rating: 5, date: "2022-10-10", content: "Emotional, powerful, and unforgettable. This book will stay with you long after you finish reading." },
-                    { author: "Addison M.", rating: 5, date: "2022-10-05", content: "Colleen Hoover's best work. Handles difficult subject matter with grace and creates complex, believable characters." }
-                ]
-            },
-            { 
-                id: 43, 
-                title: "The Seven Husbands of Evelyn Hugo", 
-                category: "Books", 
-                price: 16.99, 
-                originalPrice: 18.99, 
-                image: "product_43.jpg", 
-                badge: "", 
-                description: "Aging and reclusive Hollywood movie icon Evelyn Hugo is finally ready to tell the truth about her glamorous and scandalous life.", 
-                features: ["New York Times Bestseller", "Goodreads Choice Award Winner", "Glamorous Hollywood setting", "Complex, unforgettable characters", "Perfect for historical fiction fans"],
-                specs: {
-                    "Pages": "400",
-                    "Format": "Paperback",
-                    "Publisher": "Atria Books",
-                    "Language": "English",
-                    "ISBN": "9781501161933",
-                    "Dimensions": "20.3 x 13.5 x 2.5 cm"
-                },
-                reviews: [
-                    { author: "Parker L.", rating: 5, date: "2022-09-28", content: "Absolutely captivating from start to finish. Evelyn Hugo is one of the most compelling characters I've ever encountered." },
-                    { author: "Brooklyn R.", rating: 5, date: "2022-09-25", content: "A masterpiece of storytelling. The glamour of old Hollywood combined with deep emotional resonance. Unforgettable." }
-                ]
-            },
-            { 
-                id: 44, 
-                title: "The Invisible Life of Addie LaRue", 
-                category: "Books", 
-                price: 17.99, 
-                originalPrice: 19.99, 
-                image: "product_44.jpg", 
-                badge: "", 
-                description: "A Life No One Will Remember. A Story You Will Never Forget. A breathtaking fantasy novel about a young woman who makes a Faustian bargain.", 
-                features: ["New York Times Bestseller", "Goodreads Choice Award Winner", "Unique, imaginative premise", "Beautiful, lyrical writing", "Perfect for fantasy and literary fiction fans"],
-                specs: {
-                    "Pages": "448",
-                    "Format": "Hardcover",
-                    "Publisher": "Tor Books",
-                    "Language": "English",
-                    "ISBN": "9780765387561",
-                    "Dimensions": "23.6 x 16.0 x 4.1 cm"
-                },
-                reviews: [
-                    { author: "Riley T.", rating: 5, date: "2022-09-20", content: "One of the most original and beautifully written books I've ever read. The concept is brilliant and the execution is flawless." },
-                    { author: "Morgan S.", rating: 5, date: "2022-09-15", content: "A masterpiece of fantasy literature. The exploration of memory, legacy, and what makes life meaningful is profound." }
-                ]
-            },
-            { 
-                id: 45, 
-                title: "A Court of Thorns and Roses Box Set", 
-                category: "Books", 
-                price: 59.99, 
-                originalPrice: 69.99, 
-                image: "product_45.jpg", 
-                badge: "hot", 
-                description: "The complete ACOTAR series in a beautiful box set, featuring Feyre's journey through the magical world of Prythian.", 
-                features: ["Complete series (5 books)", "Beautiful matching cover designs", "Fantasy romance with complex world-building", "Durable box for protection", "Perfect for fantasy romance fans"],
-                specs: {
-                    "Books Included": "5 (ACOTAR to A Court of Silver Flames)",
-                    "Format": "Paperback",
-                    "Pages": "Approx. 2400 total",
-                    "Box Dimensions": "23.5 x 15.9 x 12.7 cm",
-                    "Publisher": "Bloomsbury"
-                },
-                reviews: [
-                    { author: "Taylor M.", rating: 5, date: "2022-09-10", content: "Addictive fantasy romance with incredible world-building. The character development across the series is phenomenal." },
-                    { author: "Jordan L.", rating: 5, date: "2022-09-05", content: "Beautiful box set for an incredible series. The books get better with each installment and the romance is swoon-worthy." }
-                ]
-            },
-            { 
-                id: 46, 
-                title: "The Thursday Murder Club by Richard Osman", 
-                category: "Books", 
-                price: 15.99, 
-                originalPrice: 17.99, 
-                image: "product_46.jpg", 
-                badge: "", 
-                description: "Four septuagenarians with a few tricks up their sleeves investigate the murder of a property developer in this witty mystery.", 
-                features: ["International bestseller", "Witty, charming mystery", "Unlikely elderly detectives", "Perfect for cozy mystery fans", "First in a series"],
-                specs: {
-                    "Pages": "400",
-                    "Format": "Paperback",
-                    "Publisher": "Penguin",
-                    "Language": "English",
-                    "ISBN": "9780241425442",
-                    "Dimensions": "19.8 x 12.9 x 2.5 cm"
-                },
-                reviews: [
-                    { author: "Casey T.", rating: 5, date: "2022-08-28", content: "Charming, witty, and surprisingly touching. The elderly protagonists are delightful and the mystery is engaging." },
-                    { author: "Riley K.", rating: 4, date: "2022-08-25", content: "A cozy mystery with heart and humor. The characters are so well-drawn they feel like real people." }
-                ]
-            },
-            { 
-                id: 47, 
-                title: "Klara and the Sun by Kazuo Ishiguro", 
-                category: "Books", 
-                price: 16.99, 
-                originalPrice: 18.99, 
-                image: "product_47.jpg", 
-                badge: "", 
-                description: "From the Nobel Prize-winning author, a magnificent new novel about the changing nature of love and what it means to be human.", 
-                features: ["Nobel Prize-winning author", "Explores artificial intelligence and humanity", "Beautiful, poignant storytelling", "Thought-provoking themes", "Perfect for literary fiction fans"],
-                specs: {
-                    "Pages": "320",
-                    "Format": "Hardcover",
-                    "Publisher": "Faber & Faber",
-                    "Language": "English",
-                    "ISBN": "9780571364879",
-                    "Dimensions": "22.2 x 14.4 x 3.2 cm"
-                },
-                reviews: [
-                    { author: "Jamie R.", rating: 5, date: "2022-08-20", content: "A beautiful, heartbreaking exploration of what it means to love and be human. Ishiguro's writing is masterful as always." },
-                    { author: "Alex S.", rating: 5, date: "2022-08-15", content: "Profound and moving. Klara's perspective offers unique insights into humanity that will stay with you long after reading." }
-                ]
-            },
-            { 
-                id: 48, 
-                title: "The Four Winds by Kristin Hannah", 
-                category: "Books", 
-                price: 17.99, 
-                originalPrice: 19.99, 
-                image: "product_48.jpg", 
-                badge: "trending", 
-                description: "An epic novel of love and heroism set during the Great Depression, following one woman's journey from Texas to California.", 
-                features: ["New York Times Bestseller", "Historical fiction at its finest", "Powerful portrayal of the Great Depression", "Strong female protagonist", "Perfect for book clubs"],
-                specs: {
-                    "Pages": "464",
-                    "Format": "Hardcover",
-                    "Publisher": "St. Martin's Press",
-                    "Language": "English",
-                    "ISBN": "9781250178602",
-                    "Dimensions": "23.6 x 16.0 x 4.1 cm"
-                },
-                reviews: [
-                    { author: "Morgan T.", rating: 5, date: "2022-08-10", content: "A powerful, emotional journey through one of America's most difficult periods. The characters feel incredibly real." },
-                    { author: "Jordan M.", rating: 5, date: "2022-08-05", content: "Kristin Hannah at her best. The historical detail is impeccable and the story is both heartbreaking and uplifting." }
-                ]
-            },
-            { 
-                id: 49, 
-                title: "The Silent Patient by Alex Michaelides", 
-                category: "Books", 
-                price: 15.99, 
-                originalPrice: 17.99, 
-                image: "product_49.jpg", 
-                badge: "", 
-                description: "A psychological thriller about a woman who shoots her husband and then stops speaking, and the criminal psychotherapist determined to get her to talk.", 
-                features: ["New York Times Bestseller", "Psychological thriller with shocking twist", "Atmospheric and suspenseful", "Perfect for thriller fans", "Debut novel with critical acclaim"],
-                specs: {
-                    "Pages": "336",
-                    "Format": "Paperback",
-                    "Publisher": "Celadon Books",
-                    "Language": "English",
-                    "ISBN": "9781250301697",
-                    "Dimensions": "20.8 x 13.7 x 2.3 cm"
-                },
-                reviews: [
-                    { author: "Avery T.", rating: 5, date: "2022-07-28", content: "One of the best psychological thrillers I've ever read. The twist is incredible and completely unexpected." },
-                    { author: "Quinn L.", rating: 5, date: "2022-07-25", content: "A masterclass in suspense. The pacing is perfect and the ending will leave you stunned. Couldn't put it down." }
-                ]
-            },
-            { 
-                id: 50, 
-                title: "Educated by Tara Westover", 
-                category: "Books", 
-                price: 16.99, 
-                originalPrice: 18.99, 
-                image: "product_50.jpg", 
-                badge: "", 
-                description: "A memoir about a young girl who, kept out of school, leaves her survivalist family and goes on to earn a PhD from Cambridge University.", 
-                features: ["New York Times Bestseller", "Memoir of remarkable transformation", "Explores family, education, and self-invention", "Powerful, inspiring story", "Perfect for memoir and nonfiction readers"],
-                specs: {
-                    "Pages": "352",
-                    "Format": "Paperback",
-                    "Publisher": "Random House",
-                    "Language": "English",
-                    "ISBN": "9780399590504",
-                    "Dimensions": "20.3 x 13.5 x 2.5 cm"
-                },
-                reviews: [
-                    { author: "Riley S.", rating: 5, date: "2022-07-20", content: "An incredible story of resilience and the power of education. Westover's journey is both heartbreaking and inspiring." },
-                    { author: "Jordan K.", rating: 5, date: "2022-07-15", content: "One of the most powerful memoirs I've ever read. The writing is beautiful and the story is unforgettable." }
-                ]
-            }
-        ];
-        const testimonials = [
-            { name: "Sarah M.", location: "Dubai", content: "The quality of products and speed of delivery exceeded my expectations. Will definitely shop here again!", initials: "SM" },
-            { name: "Ahmed R.", location: "Abu Dhabi", content: "Best customer service I've experienced. They helped me choose the perfect laptop for my needs.", initials: "AR" },
-            { name: "Lina K.", location: "Sharjah", content: "Fast shipping and genuine products. I've purchased multiple items and always had a great experience.", initials: "LK" },
-            { name: "Mohammed A.", location: "Ras Al Khaimah", content: "Excellent prices and great selection. The customer support team was very helpful when I had questions about my order.", initials: "MA" },
-            { name: "Fatima H.", location: "Ajman", content: "I love shopping at HIK Store! The website is easy to use, and I always find what I'm looking for.", initials: "FH" },
-            { name: "Omar S.", location: "Fujairah", content: "The return process was so easy when I needed to exchange an item. Great service overall!", initials: "OS" }
-        ];
+      const products = [
+    { 
+        id: 1, 
+        title: "Meta Quest 3 512GB VR Headset", 
+        category: "Gaming", 
+        price: 2386, 
+        originalPrice: 2599, 
+        image: "product_01.jpg", 
+        badge: "hot", 
+        description: "Experience the next generation of virtual reality with the Meta Quest 3. Featuring higher resolution displays, faster performance, and breakthrough mixed reality capabilities.", 
+        features: ["Next-generation Snapdragon processor for faster performance", "Higher resolution displays with 30% more pixels than Quest 2", "Breakthrough mixed reality with full-color passthrough", "Slimmer, more comfortable design with adjustable straps", "512GB storage for all your games and experiences"],
+        specs: {
+            "Display": "Dual 4K+ Infinite Display",
+            "Processor": "Snapdragon XR2 Gen 2",
+            "RAM": "8GB",
+            "Storage": "512GB",
+            "Battery Life": "2-3 hours",
+            "Weight": "515g",
+            "Connectivity": "Wi-Fi 6E, Bluetooth 5.2"
+        },
+        reviews: [
+            { author: "Alex T.", rating: 5, date: "2023-11-15", content: "Absolutely mind-blowing VR experience! The mixed reality features are game-changing." },
+            { author: "Sarah M.", rating: 4, date: "2023-11-10", content: "Great upgrade from Quest 2. The display is much clearer and performance is noticeably better." }
+        ]
+    },
+    { 
+        id: 2, 
+        title: "Logitech G PRO X TKL Keyboard", 
+        category: "Gaming", 
+        price: 734, 
+        originalPrice: 799, 
+        image: "product_02.jpg", 
+        badge: "", 
+        description: "Professional-grade tenkeyless mechanical keyboard designed for esports with advanced GX mechanical switches and customizable RGB lighting.", 
+        features: ["GX mechanical switches for precise actuation", "Tenkeyless design for more mouse space", "Advanced LIGHTSYNC RGB technology", "Detachable USB-C cable", "Durable construction for tournament use"],
+        specs: {
+            "Switch Type": "GX Mechanical",
+            "Layout": "Tenkeyless",
+            "Backlight": "RGB LIGHTSYNC",
+            "Connectivity": "USB-C",
+            "Weight": "980g",
+            "Dimensions": "361 x 153 x 34 mm"
+        },
+        reviews: [
+            { author: "Michael R.", rating: 5, date: "2023-11-12", content: "Perfect for competitive gaming. The switches are responsive and the build quality is exceptional." },
+            { author: "Jessica L.", rating: 4, date: "2023-11-05", content: "Great keyboard for both gaming and typing. The tenkeyless design saves so much desk space." }
+        ]
+    },
+    { 
+        id: 3, 
+        title: "Razer BlackWidow V4 75% Keyboard", 
+        category: "Gaming", 
+        price: 697, 
+        originalPrice: 749, 
+        image: "product_03.jpg", 
+        badge: "", 
+        description: "Premium 75% mechanical gaming keyboard with Razer Green mechanical switches and Chroma RGB lighting for the ultimate gaming experience.", 
+        features: ["Razer Green mechanical switches with clicky feedback", "75% form factor with dedicated arrow keys", "Razer Chroma RGB with 16.8 million colors", "Doubleshot ABS keycaps for durability", "Plush leatherette wrist rest included"],
+        specs: {
+            "Switch Type": "Razer Green Mechanical",
+            "Layout": "75%",
+            "Backlight": "Chroma RGB",
+            "Connectivity": "USB-C",
+            "Weight": "1100g",
+            "Keycaps": "Doubleshot ABS"
+        },
+        reviews: [
+            { author: "David K.", rating: 5, date: "2023-11-08", content: "The tactile feedback is amazing for gaming. The 75% layout is perfect for saving space while keeping essential keys." },
+            { author: "Emma S.", rating: 4, date: "2023-11-02", content: "Solid build quality and the RGB lighting is stunning. The wrist rest makes long gaming sessions comfortable." }
+        ]
+    },
+    { 
+        id: 4, 
+        title: "SteelSeries Apex Pro TKL Keyboard", 
+        category: "Gaming", 
+        price: 697, 
+        originalPrice: 749, 
+        image: "product_04.jpg", 
+        badge: "trending", 
+        description: "World's fastest mechanical gaming keyboard with adjustable actuation and OLED smart display for customizable gaming performance.", 
+        features: ["Adjustable mechanical switches with 0.4-3.6mm actuation", "Tenkeyless tournament-ready design", "OLED smart display for game info and Discord", "Aircraft-grade aluminum alloy frame", "Magnetic wrist rest for comfort"],
+        specs: {
+            "Switch Type": "OmniPoint Adjustable",
+            "Layout": "Tenkeyless",
+            "Actuation Range": "0.4-3.6mm",
+            "Display": "OLED Smart Display",
+            "Frame": "Aircraft-grade aluminum",
+            "Connectivity": "USB-C"
+        },
+        reviews: [
+            { author: "Oliver P.", rating: 5, date: "2023-10-28", content: "The adjustable actuation is a game-changer for different game genres. The build quality is exceptional." },
+            { author: "Sophia M.", rating: 4, date: "2023-10-25", content: "Incredible keyboard for competitive gaming. The OLED display is useful for tracking system performance during games." }
+        ]
+    },
+    { 
+        id: 5, 
+        title: "Logitech G502 X Plus Wireless Mouse", 
+        category: "Gaming", 
+        price: 587, 
+        originalPrice: 649, 
+        image: "product_05.jpg", 
+        badge: "hot", 
+        description: "Advanced LIGHTFORCE hybrid optical-mechanical switches meet next-gen LIGHTSYNC RGB in this premium wireless gaming mouse.", 
+        features: ["LIGHTFORCE hybrid optical-mechanical switches", "Lightspeed wireless and Bluetooth connectivity", "LIGHTSYNC RGB with 16.8 million colors", "HERO 25K sensor with sub-micron precision", "13 programmable controls with dual-mode hyperfast scroll"],
+        specs: {
+            "Sensor": "HERO 25K",
+            "DPI": "25,600",
+            "Connectivity": "Lightspeed, Bluetooth",
+            "Battery Life": "Up to 120 hours",
+            "Weight": "106g",
+            "Buttons": "13 programmable"
+        },
+        reviews: [
+            { author: "James W.", rating: 5, date: "2023-10-20", content: "Perfect weight and balance. The hybrid switches are incredibly responsive and the battery life is impressive." },
+            { author: "Lily R.", rating: 4, date: "2023-10-15", content: "Comfortable for long gaming sessions and the customizable weights let me find the perfect balance." }
+        ]
+    },
+    { 
+        id: 6, 
+        title: "Lian Li O11 Dynamic EVO Case", 
+        category: "Gaming", 
+        price: 624, 
+        originalPrice: 699, 
+        image: "product_06.jpg", 
+        badge: "new", 
+        description: "Premium mid-tower chassis with reversible design, exceptional cooling potential, and stunning aesthetics for high-performance builds.", 
+        features: ["Reversible design for flexible layout options", "Dual chamber design for optimal airflow", "Support for multiple 360mm radiators", "Tempered glass panels on front and side", "Modular design for easy customization"],
+        specs: {
+            "Type": "Mid-Tower",
+            "Motherboard": "E-ATX, ATX, Micro-ATX, Mini-ITX",
+            "Drive Bays": "6x 2.5\", 2x 3.5\"",
+            "Expansion Slots": "8",
+            "Front I/O": "2x USB 3.0, 1x USB-C, Audio",
+            "Dimensions": "465 x 285 x 471 mm"
+        },
+        reviews: [
+            { author: "Robert K.", rating: 5, date: "2023-10-10", content: "Best PC case I've ever built in. The cable management is easy and the cooling performance is outstanding." },
+            { author: "Natalie S.", rating: 4, date: "2023-10-05", content: "Beautiful case with excellent build quality. The reversible design lets you set it up exactly how you want." }
+        ]
+    },
+    { 
+        id: 7, 
+        title: "Lego Icons Eiffel Tower Set", 
+        category: "Gaming", 
+        price: 2313, 
+        originalPrice: 2499, 
+        image: "product_07.jpg", 
+        badge: "sale", 
+        description: "Build a monumental replica of the iconic Eiffel Tower with this massive 10,001-piece LEGO set featuring incredible detail and scale.", 
+        features: ["10,001 pieces for the ultimate building challenge", "Measures over 59 inches (149 cm) tall", "Authentic details and proportions", "Includes decorative Parisian lampposts", "Collector's booklet with design history"],
+        specs: {
+            "Pieces": "10,001",
+            "Height": "149 cm",
+            "Age": "18+",
+            "Dimensions": "57 x 22 x 22 cm (box)",
+            "Weight": "13.5 kg",
+            "Theme": "Icons"
+        },
+        reviews: [
+            { author: "Lucas T.", rating: 5, date: "2023-09-10", content: "Incredible building experience! The scale is massive and the finished model is a stunning display piece." },
+            { author: "Mia J.", rating: 4, date: "2023-09-05", content: "Challenging but rewarding build. The engineering behind this set is remarkable and it looks amazing when completed." }
+        ]
+    },
+    { 
+        id: 8, 
+        title: "Dyson Zone Headphones", 
+        category: "Electronics", 
+        price: 3410, 
+        originalPrice: 3699, 
+        image: "product_08.jpg", 
+        badge: "", 
+        description: "The world's first air-purifying headphones. Advanced noise cancellation meets breakthrough air purification technology for cleaner audio and cleaner air.", 
+        features: ["Advanced noise cancellation technology", "Breakthrough air purification with dual-stage filtration", "Ultra-low distortion and rich, full-frequency response", "Up to 50 hours of battery life for listening", "Compact, portable design with magnetic visor attachment"],
+        specs: {
+            "Noise Cancellation": "Advanced ANC with 11 microphones",
+            "Battery Life": "50 hours (ANC off), 4 hours (purification)",
+            "Air Purification": "HEPA H13 filter",
+            "Connectivity": "Bluetooth 5.0, USB-C",
+            "Weight": "595g",
+            "Charging Time": "3 hours"
+        },
+        reviews: [
+            { author: "Thomas L.", rating: 5, date: "2023-09-28", content: "Innovative product that actually works! Great sound quality and the air purification is surprisingly effective." },
+            { author: "Olivia M.", rating: 4, date: "2023-09-25", content: "Perfect for city commuting. The noise cancellation is excellent and the air purification is a nice bonus." }
+        ]
+    },
+    { 
+        id: 9, 
+        title: "Beats Studio Buds+", 
+        category: "Electronics", 
+        price: 661, 
+        originalPrice: 729, 
+        image: "product_09.jpg", 
+        badge: "", 
+        description: "Beats Studio Buds + deliver powerful, balanced sound in a transparent design. With Active Noise Cancelling and transparency mode, these earbuds adapt to your listening needs.", 
+        features: ["Custom acoustic platform for powerful, balanced sound", "Active Noise Cancelling (ANC) blocks external noise", "Transparency mode for hearing your surroundings", "Up to 8 hours of listening time (up to 24 with case)", "Sweat and water resistant (IPX4-rated)"],
+        specs: {
+            "Battery Life": "8 hours (ANC on), 12 hours (ANC off)",
+            "Charging Case": "24 hours additional battery",
+            "Connectivity": "Bluetooth 5.2",
+            "Water Resistance": "IPX4",
+            "Weight": "5.1g per earbud",
+            "Charging": "USB-C, Wireless"
+        },
+        reviews: [
+            { author: "Henry B.", rating: 5, date: "2023-07-10", content: "Love the transparent design! Sound quality is excellent and the fit is comfortable for long periods." },
+            { author: "Ava M.", rating: 4, date: "2023-07-05", content: "Great value for money. The noise cancellation works well and battery life is impressive." }
+        ]
+    },
+    { 
+        id: 10, 
+        title: "Nothing Phone (2) 512GB", 
+        category: "Electronics", 
+        price: 2934, 
+        originalPrice: 3199, 
+        image: "product_10.jpg", 
+        badge: "trending", 
+        description: "The revolutionary Nothing Phone (2) with unique Glyph Interface and powerful performance.", 
+        features: ["Snapdragon 8+ Gen 1 processor", "6.7-inch LTPO OLED display", "Unique Glyph Interface with LED lights", "Dual 50MP camera system", "4700mAh battery with 45W charging"],
+        specs: {
+            "Display": "6.7-inch LTPO OLED, 120Hz",
+            "Processor": "Snapdragon 8+ Gen 1",
+            "RAM": "12GB",
+            "Storage": "512GB",
+            "Battery": "4700mAh",
+            "Charging": "45W wired, 15W wireless",
+            "Cameras": "50MP main, 50MP ultra-wide"
+        },
+        reviews: [
+            { author: "Oliver P.", rating: 5, date: "2023-10-28", content: "The Glyph Interface is not just a gimmick - it's actually useful! Performance is top-notch." },
+            { author: "Sophia M.", rating: 4, date: "2023-10-25", content: "Beautiful design and smooth performance. The transparent back with LED lights is stunning." }
+        ]
+    },
+    { 
+        id: 11, 
+        title: "GoPro HERO12 Black", 
+        category: "Electronics", 
+        price: 1652, 
+        originalPrice: 1799, 
+        image: "product_11.jpg", 
+        badge: "hot", 
+        description: "Capture your adventures in stunning detail with the HERO12 Black. Improved battery life and enhanced stabilization.", 
+        features: ["5.3K60 video and 27MP photos", "HyperSmooth 6.0 stabilization", "HDR video and photo capture", "Waterproof to 33ft (10m)", "Improved battery life up to 2x longer"],
+        specs: {
+            "Video Resolution": "5.3K60, 4K120, 2.7K240",
+            "Photo Resolution": "27MP",
+            "Stabilization": "HyperSmooth 6.0",
+            "Waterproof": "33ft (10m)",
+            "Battery Life": "Up to 2.5 hours (5.3K30)",
+            "Connectivity": "Wi-Fi, Bluetooth, USB-C"
+        },
+        reviews: [
+            { author: "James W.", rating: 5, date: "2023-10-20", content: "The battery life improvement is real! I can now record my entire hiking trip without worrying about power." },
+            { author: "Lily R.", rating: 4, date: "2023-10-15", content: "HyperSmooth 6.0 is incredible - even running footage looks perfectly stable. Great upgrade from HERO10." }
+        ]
+    },
+    { 
+        id: 12, 
+        title: "Anker Solix F3800 Power Station", 
+        category: "Electronics", 
+        price: 12846, 
+        originalPrice: 13999, 
+        image: "product_12.jpg", 
+        badge: "new", 
+        description: "Massive 3.8kWh portable power station with solar charging capability for home backup and outdoor adventures.", 
+        features: ["3.8kWh expandable capacity", "6x 1800W AC outlets (3000W surge)", "Solar charging compatible up to 2400W", "Smart app control and monitoring", "UPS function for zero-delay backup power"],
+        specs: {
+            "Capacity": "3.8kWh (expandable to 15.2kWh)",
+            "AC Output": "6x 1800W (3000W surge)",
+            "Solar Input": "Up to 2400W",
+            "Battery": "LFP (LiFePO4)",
+            "Cycle Life": "3000+ cycles",
+            "Weight": "37.5 kg"
+        },
+        reviews: [
+            { author: "William P.", rating: 5, date: "2023-08-10", content: "Powerful enough to run my entire home during outages. The solar charging capability is fantastic." },
+            { author: "Amelia T.", rating: 5, date: "2023-08-05", content: "Incredible power station that replaced my generator. Silent operation and zero emissions." }
+        ]
+    },
+    { 
+        id: 13, 
+        title: "Nanoleaf Lines Kit (9pc)", 
+        category: "Electronics", 
+        price: 731, 
+        originalPrice: 799, 
+        image: "product_13.jpg", 
+        badge: "", 
+        description: "Smarter lighting made beautiful. Create your own rhythm with dynamic light lines that sync to music, games, and more.", 
+        features: ["Dynamic RGBW lighting with 16+ million colors", "Music visualization and screen mirroring", "Easy magnetic connection system", "Works with Apple HomeKit, Google Assistant, Alexa", "Customizable layouts and patterns"],
+        specs: {
+            "Lights": "9 panels",
+            "Colors": "16+ million",
+            "Connectivity": "Wi-Fi, Bluetooth",
+            "Smart Home": "Apple HomeKit, Google, Alexa",
+            "Power": "36W",
+            "Control": "App, voice, touch"
+        },
+        reviews: [
+            { author: "Benjamin L.", rating: 5, date: "2023-07-28", content: "Stunning lighting effects that transform any room. The music visualization feature is amazing for parties." },
+            { author: "Harper R.", rating: 4, date: "2023-07-25", content: "Easy to install and customize. The app offers endless possibilities for creating unique lighting scenes." }
+        ]
+    },
+    { 
+        id: 14, 
+        title: "Shure MV7X Microphone", 
+        category: "Electronics", 
+        price: 731, 
+        originalPrice: 799, 
+        image: "product_14.jpg", 
+        badge: "", 
+        description: "Professional XLR dynamic microphone with legendary Shure sound quality for streaming, podcasting, and recording.", 
+        features: ["Dynamic microphone with smooth frequency response", "XLR connectivity for professional audio interfaces", "Built-in shock mount to reduce handling noise", "All-metal construction for durability", "Legendary Shure sound quality"],
+        specs: {
+            "Type": "Dynamic",
+            "Connectivity": "XLR",
+            "Frequency Response": "50Hz - 16kHz",
+            "Polar Pattern": "Cardioid",
+            "Weight": "590g",
+            "Color": "Black"
+        },
+        reviews: [
+            { author: "Samuel W.", rating: 5, date: "2023-07-20", content: "Broadcast-quality sound that makes my voice sound incredible. Perfect for streaming and podcasting." },
+            { author: "Evelyn K.", rating: 5, date: "2023-07-15", content: "Professional sound quality at an accessible price. The build quality is exceptional as expected from Shure." }
+        ]
+    },
+    { 
+        id: 15, 
+        title: "Google Pixel Watch 2 LTE", 
+        category: "Electronics", 
+        price: 1465, 
+        originalPrice: 1599, 
+        image: "product_15.jpg", 
+        badge: "", 
+        description: "The ultimate Google smartwatch with LTE connectivity, advanced health tracking, and seamless integration with the Google ecosystem.", 
+        features: ["LTE connectivity for calls and streaming without phone", "Advanced health sensors with stress management", "24+ hour battery life with fast charging", "Wear OS with Google apps and services", "Stainless steel case with Corning Gorilla Glass"],
+        specs: {
+            "Display": "1.6-inch AMOLED, 320 PPI",
+            "Connectivity": "LTE, Bluetooth 5.0, Wi-Fi",
+            "Battery": "24+ hours",
+            "Sensors": "Heart rate, SpO2, ECG, Stress",
+            "Materials": "Stainless steel, Gorilla Glass",
+            "Water Resistance": "5 ATM"
+        },
+        reviews: [
+            { author: "Robert K.", rating: 5, date: "2023-10-10", content: "Perfect integration with my Pixel phone. The health tracking is comprehensive and accurate." },
+            { author: "Natalie S.", rating: 4, date: "2023-10-05", content: "Beautiful watch with excellent build quality. The LTE connectivity lets me leave my phone at home during workouts." }
+        ]
+    },
+    { 
+        id: 16, 
+        title: "Twelve South Curve Flex Stand", 
+        category: "Electronics", 
+        price: 294, 
+        originalPrice: 349, 
+        image: "product_16.jpg", 
+        badge: "sale", 
+        description: "Premium adjustable stand for laptops, tablets, and monitors with flexible positioning and sturdy aluminum construction.", 
+        features: ["Adjustable height and angle for optimal viewing", "Heavy-duty aluminum construction", "Compatible with laptops, tablets, and monitors", "Cable management system for clean setup", "Non-slip silicone padding to protect devices"],
+        specs: {
+            "Material": "Aluminum",
+            "Weight Capacity": "5 kg",
+            "Adjustment": "Height and angle",
+            "Compatibility": "Laptops, tablets, monitors",
+            "Color": "Space Gray",
+            "Weight": "850g"
+        },
+        reviews: [
+            { author: "Jack H.", rating: 5, date: "2023-06-28", content: "Sturdy and highly adjustable. Perfect for creating an ergonomic workspace with my laptop and monitor." },
+            { author: "Grace L.", rating: 4, date: "2023-06-25", content: "Great build quality and the flexibility to position my devices exactly how I want them." }
+        ]
+    },
+    { 
+        id: 17, 
+        title: "Elgato Stream Deck Plus", 
+        category: "Electronics", 
+        price: 841, 
+        originalPrice: 899, 
+        image: "product_17.jpg", 
+        badge: "trending", 
+        description: "Advanced live production controller with LCD keys and touch strips for streamers, creators, and professionals.", 
+        features: ["8 customizable LCD keys with tactile feedback", "4 touch strips for precise parameter control", "Unlimited folders and actions with Stream Deck software", "Integrated dials for audio mixing and parameter adjustment", "Professional build quality with anti-slip base"],
+        specs: {
+            "Keys": "8 LCD keys",
+            "Touch Strips": "4 with haptic feedback",
+            "Software": "Stream Deck OS",
+            "Connectivity": "USB-C",
+            "Dimensions": "145 x 105 x 45 mm",
+            "Weight": "450g"
+        },
+        reviews: [
+            { author: "Logan T.", rating: 5, date: "2023-06-20", content: "Game-changer for my streaming setup. The touch strips are perfect for audio mixing and scene transitions." },
+            { author: "Chloe R.", rating: 5, date: "2023-06-15", content: "Incredibly versatile for both streaming and productivity. The software integration is seamless with all major apps." }
+        ]
+    },
+    { 
+        id: 18, 
+        title: "Samsung T7 Shield 2TB SSD", 
+        category: "Electronics", 
+        price: 551, 
+        originalPrice: 599, 
+        image: "product_18.jpg", 
+        badge: "", 
+        description: "Rugged portable SSD with IP65 rating for water and dust resistance, offering blazing-fast transfer speeds for professionals on the go.", 
+        features: ["IP65 water and dust resistance", "3-meter drop protection", "USB 3.2 Gen 2 speeds up to 1,050MB/s", "Compact rubber design for durability", "Hardware encryption for data security"],
+        specs: {
+            "Capacity": "2TB",
+            "Interface": "USB 3.2 Gen 2",
+            "Speeds": "Up to 1,050MB/s",
+            "Protection": "IP65, 3m drop",
+            "Encryption": "AES 256-bit",
+            "Dimensions": "95 x 59 x 14 mm"
+        },
+        reviews: [
+            { author: "Mason P.", rating: 5, date: "2023-06-10", content: "Fast, durable, and reliable. Perfect for outdoor photography and video work where conditions can be rough." },
+            { author: "Zoe K.", rating: 4, date: "2023-06-05", content: "The peace of mind from the IP65 rating is worth it alone. Transfer speeds are blazing fast for large video files." }
+        ]
+    },
+    { 
+        id: 19, 
+        title: "Sony WH-1000XM5 Headphones", 
+        category: "Electronics", 
+        price: 1465, 
+        originalPrice: 1599, 
+        image: "product_19.jpg", 
+        badge: "trending", 
+        description: "Industry-leading noise cancellation meets exceptional sound quality in Sony's flagship headphones.", 
+        features: ["Industry-leading noise cancellation with Auto NC Optimizer", "30-hour battery life with quick charging", "Crystal clear hands-free calling", "Ultra-comfortable, lightweight design", "Multipoint connection for two devices"],
+        specs: {
+            "Noise Cancellation": "Industry-leading ANC",
+            "Battery Life": "30 hours (ANC on)",
+            "Quick Charge": "3 hours playback in 3 minutes",
+            "Weight": "250g",
+            "Connectivity": "Bluetooth 5.2, NFC, 3.5mm",
+            "Driver": "30mm dynamic driver"
+        },
+        reviews: [
+            { author: "Thomas L.", rating: 5, date: "2023-09-28", content: "Best noise cancellation I've ever experienced. Perfect for flights and noisy environments." },
+            { author: "Olivia M.", rating: 5, date: "2023-09-25", content: "Sound quality is phenomenal and they're incredibly comfortable for long listening sessions." }
+        ]
+    },
+    { 
+        id: 20, 
+        title: "Wacom Cintiq 16 Tablet", 
+        category: "Electronics", 
+        price: 2199, 
+        originalPrice: 2399, 
+        image: "product_20.jpg", 
+        badge: "", 
+        description: "Professional creative pen display with full HD screen and natural pen-on-paper feel for digital artists and designers.", 
+        features: ["15.6-inch Full HD display with 72% NTSC color", "Pro Pen 2 with 8,192 pressure levels", "Natural surface texture for paper-like feel", "Foldable legs for comfortable 19-degree tilt", "Compatible with major creative software"],
+        specs: {
+            "Display": "15.6-inch Full HD (1920x1080)",
+            "Color Gamut": "72% NTSC",
+            "Pen Pressure": "8,192 levels",
+            "Connectivity": "HDMI, USB-C",
+            "Active Area": "344 x 194 mm",
+            "Weight": "1.9 kg"
+        },
+        reviews: [
+            { author: "Daniel R.", rating: 5, date: "2023-09-20", content: "Game-changing for digital art. The pen feels natural and the display quality is excellent for professional work." },
+            { author: "Sophie K.", rating: 4, date: "2023-09-15", content: "Perfect balance of quality and affordability. The textured surface really does feel like drawing on paper." }
+        ]
+    },
+    { 
+        id: 21, 
+        title: "DJI Mini 3 Pro Drone", 
+        category: "Electronics", 
+        price: 2787, 
+        originalPrice: 2999, 
+        image: "product_21.jpg", 
+        badge: "sale", 
+        description: "Ultra-light premium camera drone with obstacle sensing, 4K HDR video, and vertical shooting for social media content.", 
+        features: ["4K/60fps HDR video with 48MP photos", "Tri-directional obstacle sensing", "34-minute max flight time", "True Vertical Shooting for social media", "Advanced features like FocusTrack and MasterShots"],
+        specs: {
+            "Camera": "1/1.3-inch CMOS, 48MP",
+            "Video": "4K/60fps, HDR",
+            "Max Flight Time": "34 minutes (standard battery)",
+            "Weight": "<249g",
+            "Obstacle Sensing": "Forward, backward, downward",
+            "Transmission": "DJI O3, 12km max range"
+        },
+        reviews: [
+            { author: "Benjamin L.", rating: 5, date: "2023-07-28", content: "Incredible video quality in such a small package. The obstacle avoidance gives peace of mind for flying in complex environments." },
+            { author: "Harper R.", rating: 4, date: "2023-07-25", content: "Perfect for travel photography. The vertical video mode is great for social media content creation." }
+        ]
+    },
+    { 
+        id: 22, 
+        title: "Anker 737 Power Bank 24K", 
+        category: "Electronics", 
+        price: 551, 
+        originalPrice: 599, 
+        image: "product_22.jpg", 
+        badge: "", 
+        description: "Massive 24,000mAh power bank with 140W output, digital display, and GaNPrime technology for fast charging multiple devices.", 
+        features: ["24,000mAh capacity with 140W max output", "Digital display shows remaining power and wattage", "GaNPrime technology for efficient charging", "2x USB-C and 1x USB-A ports", "Power Delivery 3.1 and PPS support"],
+        specs: {
+            "Capacity": "24,000mAh",
+            "Max Output": "140W",
+            "Ports": "2x USB-C, 1x USB-A",
+            "Display": "Digital power display",
+            "Technology": "GaNPrime",
+            "Weight": "425g"
+        },
+        reviews: [
+            { author: "Eli S.", rating: 5, date: "2023-05-28", content: "Charges my laptop, phone, and tablet simultaneously. The digital display is incredibly useful for monitoring power levels." },
+            { author: "Lily M.", rating: 5, date: "2023-05-25", content: "Perfect for travel and power outages. The 140W output can even charge my gaming laptop quickly." }
+        ]
+    },
+    { 
+        id: 23, 
+        title: "Canon EOS R8 Full-Frame", 
+        category: "Electronics", 
+        price: 5503, 
+        originalPrice: 5899, 
+        image: "product_23.jpg", 
+        badge: "new", 
+        description: "Compact full-frame mirrorless camera with advanced autofocus, 4K video, and professional features in a lightweight body.", 
+        features: ["24.2MP full-frame CMOS sensor", "Dual Pixel CMOS AF II with subject detection", "4K/60p video with oversampling", "40fps continuous shooting with electronic shutter", "Compact and lightweight body design"],
+        specs: {
+            "Sensor": "24.2MP Full-frame CMOS",
+            "Autofocus": "Dual Pixel CMOS AF II",
+            "Video": "4K/60p oversampled from 6K",
+            "Burst Shooting": "40fps electronic shutter",
+            "Weight": "461g (body only)",
+            "Connectivity": "Wi-Fi, Bluetooth"
+        },
+        reviews: [
+            { author: "Samuel W.", rating: 5, date: "2023-07-20", content: "The autofocus is incredibly fast and accurate. Perfect for wildlife and sports photography." },
+            { author: "Evelyn K.", rating: 5, date: "2023-07-15", content: "Excellent hybrid camera that performs equally well for both photos and video. Amazing value for a full-frame camera." }
+        ]
+    },
+    { 
+        id: 24, 
+        title: "Audio-Technica AT2020 Mic", 
+        category: "Electronics", 
+        price: 364, 
+        originalPrice: 399, 
+        image: "product_24.jpg", 
+        badge: "", 
+        description: "Popular cardioid condenser microphone with exceptional clarity and detail for home studio recording and streaming.", 
+        features: ["Cardioid polar pattern reduces background noise", "Custom-engineered low-mass diaphragm", "High SPL handling and wide dynamic range", "Professional quality for vocals and instruments", "Ideal for project studio applications"],
+        specs: {
+            "Type": "Condenser",
+            "Polar Pattern": "Cardioid",
+            "Frequency Response": "20-20,000 Hz",
+            "Output": "XLR",
+            "Weight": "350g",
+            "Color": "Black"
+        },
+        reviews: [
+            { author: "Caleb M.", rating: 5, date: "2023-04-28", content: "Studio-quality sound at an affordable price. Perfect for podcasting and voiceover work." },
+            { author: "Nora S.", rating: 4, date: "2023-04-25", content: "Great entry-level studio microphone. The sound quality is much better than USB microphones in this price range." }
+        ]
+    },
+    { 
+        id: 25, 
+        title: "Fitbit Charge 6", 
+        category: "Electronics", 
+        price: 587, 
+        originalPrice: 649, 
+        image: "product_25.jpg", 
+        badge: "trending", 
+        description: "Advanced fitness tracker with Google apps, ECG sensor, and 7-day battery life for comprehensive health monitoring.", 
+        features: ["Built-in GPS for pace and distance without phone", "ECG app for heart rhythm assessment", "Daily Readiness Score for optimal training", "Google Maps, Wallet, and YouTube Music", "7+ day battery life"],
+        specs: {
+            "Display": "AMOLED always-on",
+            "Battery Life": "7+ days",
+            "Sensors": "ECG, SpO2, GPS, HR",
+            "Water Resistance": "50m",
+            "Connectivity": "Bluetooth, Wi-Fi",
+            "Compatibility": "Android, iOS"
+        },
+        reviews: [
+            { author: "Gabriel T.", rating: 5, date: "2023-04-20", content: "Perfect balance of fitness tracking and smart features. The Google integration is seamless." },
+            { author: "Hannah L.", rating: 4, date: "2023-04-15", content: "Accurate fitness tracking with useful health metrics. The battery life is impressive for such a feature-packed device." }
+        ]
+    },
+    { 
+        id: 26, 
+        title: "Ray-Ban Meta Smart Glasses", 
+        category: "Electronics", 
+        price: 1098, 
+        originalPrice: 1199, 
+        image: "product_26.jpg", 
+        badge: "", 
+        description: "Iconic Wayfarer design with built-in camera, speakers, and Meta AI for hands-free photos, videos, and music.", 
+        features: ["12MP photo and 1080p video capture", "Open-ear speakers with 3-microphone array", "Meta AI for voice commands and information", "Up to 36 hours of battery with charging case", "Classic Ray-Ban styling with prescription options"],
+        specs: {
+            "Camera": "12MP photos, 1080p video",
+            "Audio": "Open-ear speakers",
+            "Battery": "4 hours continuous, 36 with case",
+            "Connectivity": "Bluetooth, Wi-Fi",
+            "Frame": "Classic Wayfarer",
+            "Weight": "48g"
+        },
+        reviews: [
+            { author: "Julian R.", rating: 5, date: "2023-04-10", content: "Seamlessly blends technology with fashion. The camera quality is surprisingly good and the audio is clear." },
+            { author: "Stella M.", rating: 4, date: "2023-04-05", content: "Perfect for capturing moments hands-free. People don't even realize they're smart glasses until you start talking to the AI." }
+        ]
+    },
+    { 
+        id: 27, 
+        title: "Sony Alpha a6700 Camera", 
+        category: "Electronics", 
+        price: 5137, 
+        originalPrice: 5499, 
+        image: "product_27.jpg", 
+        badge: "", 
+        description: "Advanced APS-C mirrorless camera with AI processing, 4K 120p video, and professional features for content creators.", 
+        features: ["26MP APS-C Exmor R CMOS sensor", "AI processing for real-time tracking", "4K 120p video with 10-bit 4:2:2", "5-axis in-body image stabilization", "Professional video features and connectivity"],
+        specs: {
+            "Sensor": "26MP APS-C Exmor R CMOS",
+            "Video": "4K 120p 10-bit 4:2:2",
+            "Stabilization": "5-axis IBIS up to 5 stops",
+            "Autofocus": "AI-powered Real-time Tracking",
+            "Weight": "493g (with battery)",
+            "Connectivity": "Wi-Fi, Bluetooth, USB-C"
+        },
+        reviews: [
+            { author: "Nathan B.", rating: 5, date: "2023-03-28", content: "Incredible video capabilities in a compact body. The AI autofocus tracks subjects perfectly even in complex scenes." },
+            { author: "Aurora T.", rating: 5, date: "2023-03-25", content: "Perfect hybrid camera for both photography and videography. The 4K 120p slow motion is breathtaking." }
+        ]
+    },
+    { 
+        id: 28, 
+        title: "Samsung ViewFinity S9 5K", 
+        category: "Electronics", 
+        price: 5875, 
+        originalPrice: 6299, 
+        image: "product_28.jpg", 
+        badge: "sale", 
+        description: "Professional 5K display with exceptional color accuracy, 4K webcam, and sleek design for creative professionals.", 
+        features: ["27-inch 5K (5120x2880) IPS display", "99% DCI-P3 color gamut with Calman Verified", "4K SlimFit Camera with AI tracking", "Thunderbolt 4 with 96W charging", "Sleek, minimal design with height adjustment"],
+        specs: {
+            "Display": "27-inch 5K IPS",
+            "Resolution": "5120x2880",
+            "Color Gamut": "99% DCI-P3",
+            "Connectivity": "Thunderbolt 4, HDMI, USB-C",
+            "Camera": "4K SlimFit",
+            "Stand": "Height, tilt, swivel adjustable"
+        },
+        reviews: [
+            { author: "Dylan K.", rating: 5, date: "2023-03-20", content: "Stunning display with perfect color accuracy for photo editing. The 5K resolution provides incredible detail." },
+            { author: "Penelope S.", rating: 4, date: "2023-03-15", content: "Professional-grade monitor that rivals Apple's Studio Display. The built-in 4K camera is excellent for video calls." }
+        ]
+    },
+    { 
+        id: 29, 
+        title: "U-Turn Audio Orbit Plus", 
+        category: "Electronics", 
+        price: 1465, 
+        originalPrice: 1599, 
+        image: "product_29.jpg", 
+        badge: "", 
+        description: "Premium belt-drive turntable with audiophile-grade components, built-in preamp, and customizable options for vinyl enthusiasts.", 
+        features: ["Belt-drive system with electronic speed control", "Audio-Technica cartridge with elliptical stylus", "Built-in switchable phono preamp", "MDF platter with felt mat", "Customizable with multiple upgrade options"],
+        specs: {
+            "Drive": "Belt-drive",
+            "Cartridge": "Audio-Technica",
+            "Preamp": "Built-in switchable",
+            "Platter": "MDF with felt mat",
+            "Speeds": "33 1/3, 45 RPM",
+            "Weight": "5.9 kg"
+        },
+        reviews: [
+            { author: "Carter L.", rating: 5, date: "2023-03-10", content: "Exceptional sound quality that rivals turntables costing twice as much. The built-in preamp is very clean." },
+            { author: "Luna R.", rating: 5, date: "2023-03-05", content: "Beautiful, minimalist design with fantastic performance. The customizable options let you build your perfect turntable." }
+        ]
+    },
+    { 
+        id: 30, 
+        title: "Sonos Arc Soundbar", 
+        category: "Electronics", 
+        price: 3301, 
+        originalPrice: 3599, 
+        image: "product_30.jpg", 
+        badge: "trending", 
+        description: "Premium Dolby Atmos soundbar with immersive 3D sound, voice control, and seamless integration with the Sonos ecosystem.", 
+        features: ["Dolby Atmos for immersive 3D sound", "11 high-performance drivers including up-firing", "Voice control with Amazon Alexa and Google Assistant", "HDMI eARC for highest quality audio", "Tuned in Hollywood for cinematic experience"],
+        specs: {
+            "Audio": "Dolby Atmos, 5.0.2 channel",
+            "Drivers": "11 (8 woofers, 3 tweeters)",
+            "Connectivity": "HDMI eARC, Ethernet, Wi-Fi",
+            "Voice Control": "Alexa, Google Assistant",
+            "Dimensions": "114 x 8.5 x 11.5 cm",
+            "Weight": "6.3 kg"
+        },
+        reviews: [
+            { author: "Wyatt T.", rating: 5, date: "2023-02-28", content: "Transformative home theater experience. The Dolby Atmos creates a bubble of sound that feels like being in a cinema." },
+            { author: "Maya K.", rating: 4, date: "2023-02-25", content: "Incredible sound quality for both movies and music. The setup is simple and the Sonos app is excellent." }
+        ]
+    },
+    { 
+        id: 31, 
+        title: "Nixplay 10.1 Smart Frame", 
+        category: "Electronics", 
+        price: 661, 
+        originalPrice: 729, 
+        image: "product_31.jpg", 
+        badge: "", 
+        description: "Smart digital photo frame with 10.1-inch display, cloud storage, and mobile app control for sharing memories with family.", 
+        features: ["10.1-inch HD display with IPS technology", "Cloud storage for unlimited photos", "Mobile app and email for adding photos", "Motion sensor for energy efficiency", "Plays videos with sound and displays photos"],
+        specs: {
+            "Display": "10.1-inch HD IPS",
+            "Storage": "Cloud-based unlimited",
+            "Control": "App, email, web",
+            "Sensors": "Motion sensor",
+            "Connectivity": "Wi-Fi",
+            "Aspect Ratio": "16:10"
+        },
+        reviews: [
+            { author: "Ryan B.", rating: 5, date: "2023-01-28", content: "Perfect way to share photos with family members. The cloud storage means we never run out of space for new memories." },
+            { author: "Scarlett M.", rating: 4, date: "2023-01-25", content: "Beautiful display that shows our family photos in stunning quality. Family members can easily add photos from anywhere." }
+        ]
+    },
+    { 
+        id: 32, 
+        title: "Elgato Key Light Air", 
+        category: "Electronics", 
+        price: 477, 
+        originalPrice: 529, 
+        image: "product_32.jpg", 
+        badge: "", 
+        description: "Professional LED studio light with adjustable brightness and color temperature, controlled via app for streamers and creators.", 
+        features: ["2800-7000K adjustable color temperature", "App control via Stream Deck or mobile app", "Brightness adjustable from 0 to 250 lumens", "Magnetic desk mount with tilt adjustment", "Professional 95 CRI for accurate colors"],
+        specs: {
+            "Color Temperature": "2800-7000K",
+            "Brightness": "Up to 250 lumens",
+            "CRI": "95",
+            "Control": "App, Stream Deck",
+            "Mount": "Magnetic desk clamp",
+            "Power": "USB-C"
+        },
+        reviews: [
+            { author: "Isaac T.", rating: 5, date: "2023-01-20", content: "Perfect lighting for streaming and video calls. The app control makes adjustments quick and easy." },
+            { author: "Hazel R.", rating: 4, date: "2023-01-15", content: "Compact but powerful lighting that makes a huge difference in video quality. The color accuracy is excellent." }
+        ]
+    },
+    { 
+        id: 33, 
+        title: "Sony ZV-E10 Vlogging Camera", 
+        category: "Electronics", 
+        price: 2937, 
+        originalPrice: 3199, 
+        image: "product_33.jpg", 
+        badge: "", 
+        description: "Compact vlogging camera with 4K video, real-time eye autofocus, and content creation features for aspiring creators.", 
+        features: ["24.2MP APS-C Exmor CMOS sensor", "Real-time Eye AF and tracking", "4K video with full pixel readout", "Product Showcase Setting for reviews", "Vari-angle LCD screen and directional microphone"],
+        specs: {
+            "Sensor": "24.2MP APS-C Exmor CMOS",
+            "Video": "4K 30p, 1080p 120p",
+            "Autofocus": "Real-time Eye AF",
+            "Display": "3.0-inch vari-angle LCD",
+            "Microphone": "Directional 3-capsule",
+            "Weight": "343g (with battery)"
+        },
+        reviews: [
+            { author: "Luke S.", rating: 5, date: "2023-01-10", content: "Perfect vlogging camera with amazing autofocus. The product showcase feature is genius for review content." },
+            { author: "Violet K.", rating: 4, date: "2023-01-05", content: "Excellent video quality in a compact package. The built-in microphone is surprisingly good for on-the-go recording." }
+        ]
+    },
+    { 
+        id: 34, 
+        title: "Apple AirTag (4 Pack)", 
+        category: "Electronics", 
+        price: 364, 
+        originalPrice: 399, 
+        image: "product_34.jpg", 
+        badge: "", 
+        description: "Keep track of your belongings with Apple AirTag. Leverage the vast Find My network to locate lost items with precision finding.", 
+        features: ["Precision Finding with iPhone 11 and later", "Vast Find My network for locating lost items", "Replaceable battery lasting over a year", "Water and dust resistant (IP67)", "Privacy-focused design with end-to-end encryption"],
+        specs: {
+            "Compatibility": "iPhone, iPad with iOS 14.5+",
+            "Battery": "User-replaceable CR2032",
+            "Water Resistance": "IP67",
+            "Range": "Bluetooth with Find My network",
+            "Dimensions": "31.9 mm diameter, 8.0 mm thick",
+            "Weight": "11g"
+        },
+        reviews: [
+            { author: "Hunter L.", rating: 5, date: "2022-12-28", content: "Perfect for keeping track of keys, bags, and other important items. The precision finding is incredibly accurate." },
+            { author: "Willow T.", rating: 4, date: "2022-12-25", content: "Peace of mind for frequently lost items. The battery life is impressive and replacement is easy." }
+        ]
+    },
+    { 
+        id: 35, 
+        title: "AnkerMake M5 3D Printer", 
+        category: "Electronics", 
+        price: 2934, 
+        originalPrice: 3199, 
+        image: "product_35.jpg", 
+        badge: "hot", 
+        description: "High-speed 3D printer with AI camera monitoring, 250mm/s print speed, and easy setup for makers and creators.", 
+        features: ["Up to 250mm/s print speed with precision", "AI camera for print monitoring and error detection", "One-click automatic leveling", "All-metal hotend up to 300°C", "AnkerMake slicer with smart features"],
+        specs: {
+            "Print Speed": "Up to 250mm/s",
+            "Build Volume": "235 x 235 x 250 mm",
+            "Nozzle Temperature": "Up to 300°C",
+            "Bed Leveling": "Automatic 25-point",
+            "Connectivity": "Wi-Fi, USB, App",
+            "Camera": "1080p AI monitoring"
+        },
+        reviews: [
+            { author: "Jordan M.", rating: 5, date: "2022-12-20", content: "Incredible print speed without sacrificing quality. The AI camera catches failed prints before they waste material." },
+            { author: "Paisley R.", rating: 4, date: "2022-12-15", content: "Perfect for beginners and experienced users alike. The setup was straightforward and the print quality is excellent." }
+        ]
+    },
+    { 
+        id: 36, 
+        title: "Philips Hue Starter Kit", 
+        category: "Home & Kitchen", 
+        price: 584, 
+        originalPrice: 649, 
+        image: "product_36.jpg", 
+        badge: "", 
+        description: "Smart lighting starter kit with color ambiance bulbs, bridge, and app control for creating the perfect atmosphere in any room.", 
+        features: ["16 million colors for any mood or occasion", "Voice control with Alexa, Google Assistant, Apple HomeKit", "Wireless control via smartphone app", "Automations and schedules for energy saving", "Works with existing light fixtures"],
+        specs: {
+            "Bulbs": "3x Color Ambiance E27",
+            "Bridge": "Required for full functionality",
+            "Control": "App, voice, accessories",
+            "Compatibility": "Alexa, Google, Apple HomeKit",
+            "Warranty": "2 years",
+            "Range": "Up to 25m indoors"
+        },
+        reviews: [
+            { author: "Austin T.", rating: 5, date: "2022-12-10", content: "Transform your home lighting with endless possibilities. The color options are stunning and the app is intuitive." },
+            { author: "Nova S.", rating: 4, date: "2022-12-05", content: "Reliable smart lighting system that just works. The automations make our home feel intelligent and responsive." }
+        ]
+    },
+    { 
+        id: 37, 
+        title: "Ooni Karu 12 Pizza Oven", 
+        category: "Home & Kitchen", 
+        price: 1281, 
+        originalPrice: 1399, 
+        image: "product_37.jpg", 
+        badge: "trending", 
+        description: "Multi-fuel portable pizza oven that reaches 950°F in 15 minutes, cooking authentic Neapolitan pizzas in 60 seconds.", 
+        features: ["Multi-fuel: wood, charcoal, or gas (adapter sold separately)", "Reaches 950°F (500°C) in just 15 minutes", "Cooks authentic pizza in 60 seconds", "Built-in temperature gauge for perfect results", "Portable design for outdoor cooking anywhere"],
+        specs: {
+            "Fuel Types": "Wood, charcoal, gas (with adapter)",
+            "Max Temperature": "950°F (500°C)",
+            "Cooking Time": "60 seconds",
+            "Cooking Area": "12-inch diameter",
+            "Weight": "22 kg",
+            "Dimensions": "62 x 42 x 42 cm"
+        },
+        reviews: [
+            { author: "Evan L.", rating: 5, date: "2022-11-28", content: "Restaurant-quality pizza at home! The high temperature creates the perfect char and leopard spotting on the crust." },
+            { author: "Skylar M.", rating: 5, date: "2022-11-25", content: "Game-changer for outdoor cooking. We use it multiple times a week for pizza, bread, and even roasted vegetables." }
+        ]
+    },
+    { 
+        id: 38, 
+        title: "COSORI Pro II Air Fryer", 
+        category: "Home & Kitchen", 
+        price: 477, 
+        originalPrice: 529, 
+        image: "product_38.jpg", 
+        badge: "", 
+        description: "Smart air fryer with 13 cooking functions, digital display, and 5.5L capacity for healthy, oil-free cooking.", 
+        features: ["13 one-touch cooking functions", "5.5L capacity for family-sized meals", "Smart control via VeSync app with 100+ recipes", "Non-stick and dishwasher-safe basket", "100°F to 400°F temperature range"],
+        specs: {
+            "Capacity": "5.5L",
+            "Functions": "13 preset programs",
+            "Temperature": "100-400°F (40-200°C)",
+            "Control": "Digital, App control",
+            "Power": "1700W",
+            "Weight": "5.6 kg"
+        },
+        reviews: [
+            { author: "Miles T.", rating: 5, date: "2022-11-20", content: "Healthy cooking made easy. The preset functions work perfectly and the app has great recipe suggestions." },
+            { author: "Emery R.", rating: 4, date: "2022-11-15", content: "Large enough for family meals and the results are consistently crispy without all the oil of traditional frying." }
+        ]
+    },
+    { 
+        id: 39, 
+        title: "TP-Link Tapo Smart Plug 4pk", 
+        category: "Home & Kitchen", 
+        price: 147, 
+        originalPrice: 179, 
+        image: "product_39.jpg", 
+        badge: "sale", 
+        description: "Smart Wi-Fi plugs that enable voice control and scheduling for your existing home appliances and electronics.", 
+        features: ["Voice control with Alexa and Google Assistant", "Schedule and timer functions via Tapo app", "Away mode for security when you're out", "Energy monitoring to track consumption", "No hub required - connects directly to Wi-Fi"],
+        specs: {
+            "Compatibility": "Alexa, Google Assistant",
+            "Control": "App, voice, manual",
+            "Wi-Fi": "2.4GHz only",
+            "Maximum Load": "16A/3680W",
+            "Dimensions": "7.2 x 5.0 x 4.3 cm",
+            "Warranty": "2 years"
+        },
+        reviews: [
+            { author: "Rowan K.", rating: 5, date: "2022-11-10", content: "Easy way to make any device smart. Perfect for lamps, fans, and coffee makers. The scheduling feature is very useful." },
+            { author: "Sadie M.", rating: 4, date: "2022-11-05", content: "Reliable and affordable smart home entry point. The four-pack is perfect for automating multiple rooms at once." }
+        ]
+    },
+    { 
+        id: 40, 
+        title: "Herman Miller Aeron Chair", 
+        category: "Home & Kitchen", 
+        price: 6775, 
+        originalPrice: 7299, 
+        image: "product_40.jpg", 
+        badge: "", 
+        description: "Iconic ergonomic office chair with PostureFit SL support, 8Z pellicle suspension, and fully adjustable features for all-day comfort.", 
+        features: ["PostureFit SL support for healthy spine alignment", "8Z pellicle suspension for even weight distribution", "Fully adjustable arms, seat height, and tilt", "Breathable material for temperature regulation", "Durable construction with 12-year warranty"],
+        specs: {
+            "Size Options": "A, B, C (medium recommended)",
+            "Adjustments": "Arms, height, tilt, tension",
+            "Material": "Pellicle suspension",
+            "Weight Capacity": "159 kg",
+            "Warranty": "12 years",
+            "Color": "Graphite, Carbon, Mineral"
+        },
+        reviews: [
+            { author: "Sawyer T.", rating: 5, date: "2022-10-28", content: "Worth every penny for anyone who sits all day. My back pain disappeared after switching to this chair." },
+            { author: "Quinn L.", rating: 5, date: "2022-10-25", content: "The gold standard of office chairs. The adjustability means it can fit anyone perfectly. Built to last a lifetime." }
+        ]
+    },
+    { 
+        id: 41, 
+        title: "Yeti Tundra 45 Cooler", 
+        category: "Home & Kitchen", 
+        price: 1102, 
+        originalPrice: 1199, 
+        image: "product_41.jpg", 
+        badge: "", 
+        description: "Roto-molded cooler with 2-inch insulation, freezer-quality gasket, and bear-resistant design for extended ice retention.", 
+        features: ["2-inch PermaFrost insulation for 3+ days ice retention", "Freezer-quality gasket for maximum cold-holding", "Bear-resistant design (when used with padlock)", "Interlock lid system with T-Rex lid latches", "Non-slip rubber feet and rope handles"],
+        specs: {
+            "Capacity": "45 quarts",
+            "Ice Retention": "3+ days",
+            "Weight": "12.7 kg (empty)",
+            "Dimensions": "51 x 36 x 38 cm",
+            "Construction": "Roto-molded",
+            "Warranty": "5 years"
+        },
+        reviews: [
+            { author: "Blake R.", rating: 5, date: "2022-10-20", content: "Keeps ice for days even in hot weather. The build quality is incredible and it's virtually indestructible." },
+            { author: "Reagan S.", rating: 4, date: "2022-10-15", content: "Perfect for camping and beach trips. The ice retention is amazing and the latches are super secure." }
+        ]
+    },
+    { 
+        id: 42, 
+        title: "Breville Barista Express", 
+        category: "Home & Kitchen", 
+        price: 2753, 
+        originalPrice: 2999, 
+        image: "product_42.jpg", 
+        badge: "hot", 
+        description: "Semi-automatic espresso machine with built-in conical burr grinder and precise espresso extraction for cafe-quality coffee at home.", 
+        features: ["Built-in conical burr grinder with dose control", "ThermoJet heating system for fast heat-up", "PID digital temperature control", "15-bar Italian pump", "Stainless steel construction with professional steam wand"],
+        specs: {
+            "Pump Pressure": "15-bar Italian pump",
+            "Grinder": "Integrated conical burr",
+            "Water Tank": "2-liter removable",
+            "Heating System": "ThermoJet",
+            "Material": "Stainless steel",
+            "Features": "PID temperature control"
+        },
+        reviews: [
+            { author: "Carter L.", rating: 5, date: "2023-03-10", content: "Makes cafe-quality espresso at home. The built-in grinder is a game-changer for freshness and convenience." },
+            { author: "Luna R.", rating: 5, date: "2023-03-05", content: "Worth every penny for coffee enthusiasts. The learning curve is manageable and the results are incredible." }
+        ]
+    },
+    { 
+        id: 43, 
+        title: "Xiaomi Smart Standing Fan 2", 
+        category: "Home & Kitchen", 
+        price: 547, 
+        originalPrice: 599, 
+        image: "product_43.jpg", 
+        badge: "", 
+        description: "Smart Wi-Fi fan with 100+ natural wind modes, voice control, and quiet operation for comfortable air circulation.", 
+        features: ["100+ natural wind modes for comfortable airflow", "Voice control via Alexa, Google Assistant, and Siri", "Quiet operation as low as 28.6 dB", "Oscillation up to 140 degrees", "Bladeless design for safety and easy cleaning"],
+        specs: {
+            "Control": "App, voice, remote",
+            "Noise Level": "28.6-60 dB",
+            "Oscillation": "140 degrees",
+            "Wind Modes": "100+ natural wind patterns",
+            "Power": "25W",
+            "Weight": "3.2 kg"
+        },
+        reviews: [
+            { author: "Parker L.", rating: 5, date: "2022-09-28", content: "Incredibly quiet and the natural wind modes feel much more comfortable than traditional fans." },
+            { author: "Brooklyn R.", rating: 4, date: "2022-09-25", content: "Smart features work perfectly and the bladeless design is both safe and easy to clean. Great value." }
+        ]
+    },
+    { 
+        id: 44, 
+        title: "North Face Borealis Backpack", 
+        category: "Clothing", 
+        price: 364, 
+        originalPrice: 399, 
+        image: "product_44.jpg", 
+        badge: "", 
+        description: "Versatile everyday backpack with FlexVent suspension system, laptop sleeve, and multiple organization pockets for work and travel.", 
+        features: ["FlexVent suspension system with breathable back panel", "Padded laptop sleeve fits up to 15-inch devices", "Multiple organization pockets for easy access", "Durable 600D polyester construction", "Reflective details for visibility"],
+        specs: {
+            "Capacity": "28 liters",
+            "Laptop Sleeve": "Up to 15-inch",
+            "Material": "600D polyester",
+            "Weight": "0.82 kg",
+            "Dimensions": "48 x 31 x 19 cm",
+            "Color Options": "Multiple available"
+        },
+        reviews: [
+            { author: "Riley T.", rating: 5, date: "2022-09-20", content: "Perfect balance of comfort, organization, and durability. The ventilation system really works to keep your back cool." },
+            { author: "Morgan S.", rating: 4, date: "2022-09-15", content: "Great everyday backpack that transitions seamlessly from work to travel. The organization pockets are well thought out." }
+        ]
+    },
+    { 
+        id: 45, 
+        title: "Arc'teryx Beta AR Jacket", 
+        category: "Clothing", 
+        price: 2203, 
+        originalPrice: 2399, 
+        image: "product_45.jpg", 
+        badge: "trending", 
+        description: "Technical alpine jacket with GORE-TEX PRO construction, stormhood, and articulated patterning for maximum weather protection.", 
+        features: ["GORE-TEX PRO most durable waterproof protection", "StormHood designed for helmet compatibility", "Articulated patterning for maximum mobility", "Pit zips for ventilation during high exertion", "Lightweight and packable for alpine use"],
+        specs: {
+            "Material": "GORE-TEX PRO 40D",
+            "Waterproof": "28,000mm",
+            "Breathability": "25,000g/m²/24h",
+            "Weight": "475g (Medium)",
+            "Fit": "Regular",
+            "Hood": "StormHood (helmet compatible)"
+        },
+        reviews: [
+            { author: "Taylor M.", rating: 5, date: "2022-09-10", content: "The ultimate shell jacket for serious mountain activities. Completely waterproof and incredibly durable." },
+            { author: "Jordan L.", rating: 5, date: "2022-09-05", content: "Perfect fit and mobility for climbing and skiing. The GORE-TEX PRO fabric is bombproof in terrible weather." }
+        ]
+    },
+    { 
+        id: 46, 
+        title: "Lululemon ABC Classic Pant", 
+        category: "Clothing", 
+        price: 470, 
+        originalPrice: 499, 
+        image: "product_46.jpg", 
+        badge: "", 
+        description: "Anti-Ball Crushing pants with Warpstreme fabric offering four-way stretch and comfortable fit for all-day wear.", 
+        features: ["Warpstreme fabric with four-way stretch", "ABC design for enhanced comfort and mobility", "Gusseted crotch for maximum range of motion", "Multiple pocket options including hidden phone pocket", "Classic fit that works for office or casual wear"],
+        specs: {
+            "Fabric": "Warpstreme (87% Nylon, 13% Lycra)",
+            "Fit": "Classic",
+            "Stretch": "Four-way",
+            "Length Options": "Multiple inseams",
+            "Care": "Machine washable",
+            "Color Options": "Multiple available"
+        },
+        reviews: [
+            { author: "Casey T.", rating: 5, date: "2022-08-28", content: "Most comfortable pants I've ever owned. Perfect for travel, work, or casual wear. The stretch is incredible." },
+            { author: "Riley K.", rating: 4, date: "2022-08-25", content: "Worth the investment for the comfort and versatility. They look professional enough for meetings but feel like sweatpants." }
+        ]
+    },
+    { 
+        id: 47, 
+        title: "Patagonia Better Sweater", 
+        category: "Clothing", 
+        price: 584, 
+        originalPrice: 649, 
+        image: "product_47.jpg", 
+        badge: "", 
+        description: "Versatile, casual fleece jacket made from recycled materials, perfect for outdoor adventures or everyday wear.", 
+        features: ["Made from recycled polyester", "Smooth-faced jersey exterior", "Soft brushed-back fleece interior", "Two zippered handwarmer pockets", "Articulated sleeves for better mobility"],
+        specs: {
+            "Material": "Recycled polyester",
+            "Weight": "Medium: 510g",
+            "Pockets": "2 zippered handwarmer",
+            "Fit": "Regular",
+            "Sustainability": "Fair Trade Certified sewn"
+        },
+        reviews: [
+            { author: "Caleb M.", rating: 5, date: "2023-04-28", content: "Perfect mid-layer for outdoor activities. The quality is excellent and it's comfortable in a wide range of temperatures." },
+            { author: "Nora S.", rating: 4, date: "2023-04-25", content: "Great everyday fleece that looks good and performs well. Love that it's made from recycled materials." }
+        ]
+    },
+    { 
+        id: 48, 
+        title: "Kindle Scribe Premium Pen", 
+        category: "Books", 
+        price: 1432, 
+        originalPrice: 1599, 
+        image: "product_48.jpg", 
+        badge: "new", 
+        description: "The largest Kindle with built-in pen for reading, writing notes, and marking up documents on a 10.2-inch 300 ppi display.", 
+        features: ["10.2-inch 300 ppi Paperwhite display", "Includes premium pen that attaches magnetically", "Write directly on books and documents", "Up to 12 weeks of battery life", "Adjustable warm light and auto-rotating screen"],
+        specs: {
+            "Display": "10.2-inch 300 ppi Paperwhite",
+            "Storage": "16GB/32GB options",
+            "Battery": "Up to 12 weeks",
+            "Pen": "Included premium pen",
+            "Connectivity": "Wi-Fi",
+            "Weight": "433g"
+        },
+        reviews: [
+            { author: "Jamie R.", rating: 5, date: "2022-08-20", content: "Perfect for professionals who read and annotate documents. The large screen is game-changing for PDFs and technical books." },
+            { author: "Alex S.", rating: 4, date: "2022-08-15", content: "Brilliant combination of e-reader and digital notebook. The writing experience feels natural and the display is easy on the eyes." }
+        ]
+    },
+    { 
+        id: 49, 
+        title: "The Dune Saga 6-Book Set", 
+        category: "Books", 
+        price: 364, 
+        originalPrice: 399, 
+        image: "product_49.jpg", 
+        badge: "", 
+        description: "Complete Dune saga collection featuring all six original novels by Frank Herbert in a beautiful matching set.", 
+        features: ["All six original Dune novels by Frank Herbert", "Beautiful matching cover designs", "Includes Dune, Dune Messiah, Children of Dune", "Also includes God Emperor, Heretics, Chapterhouse", "Perfect for science fiction collectors"],
+        specs: {
+            "Books Included": "6",
+            "Format": "Paperback",
+            "Pages": "Approx. 2600 total",
+            "Box Dimensions": "23 x 15 x 12 cm",
+            "Publisher": "Ace"
+        },
+        reviews: [
+            { author: "Avery T.", rating: 5, date: "2022-07-28", content: "The definitive science fiction epic in a beautiful collection. The world-building is unparalleled in the genre." },
+            { author: "Quinn L.", rating: 5, date: "2022-07-25", content: "Masterpiece of speculative fiction. The political and ecological themes are even more relevant today." }
+        ]
+    },
+    { 
+        id: 50, 
+        title: "Kindle Paperwhite Signature", 
+        category: "Books", 
+        price: 698, 
+        originalPrice: 799, 
+        image: "product_50.jpg", 
+        badge: "", 
+        description: "Premium Kindle with wireless charging, auto-adjusting light, and 32GB storage for the ultimate reading experience.", 
+        features: ["6.8-inch 300 ppi Paperwhite display", "Wireless charging compatible", "Auto-adjusting front light", "32GB storage for thousands of books", "Waterproof (IPX8) for reading anywhere"],
+        specs: {
+            "Display": "6.8-inch 300 ppi Paperwhite",
+            "Storage": "32GB",
+            "Battery": "Up to 10 weeks",
+            "Charging": "USB-C, Wireless",
+            "Waterproof": "IPX8",
+            "Weight": "208g"
+        },
+        reviews: [
+            { author: "Riley S.", rating: 5, date: "2022-07-20", content: "Perfect e-reader with all the premium features. The wireless charging is convenient and the screen is crystal clear." },
+            { author: "Jordan K.", rating: 4, date: "2022-07-15", content: "Worth the upgrade for the auto-adjusting light and extra storage. The battery life is incredible." }
+        ]
+    }
+];
         let cart = [];
         let wishlist = [];
         const cartCount = document.querySelector('.cart-count');
@@ -2213,4 +2207,5 @@
     </script>
 </body>
 </html>
+
 
