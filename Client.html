@@ -23,12 +23,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; background: var(--bg-light); color: var(--text); line-height: 1.6; overflow-x: hidden; position: relative; }
-        .bubbles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; pointer-events: none; }
-        .bubble { position: absolute; border-radius: 50%; background: linear-gradient(135deg, rgba(0, 102, 255, 0.08) 0%, rgba(51, 145, 255, 0.04) 100%); filter: blur(5px); animation: floatBubble 25s infinite ease-in-out; box-shadow: 0 0 20px rgba(0, 102, 255, 0.05), inset 0 0 20px rgba(255, 255, 255, 0.05); }
-        .bubble:nth-child(odd) { background: linear-gradient(135deg, rgba(51, 145, 255, 0.06) 0%, rgba(0, 102, 255, 0.03) 100%); animation-duration: 30s; animation-delay: -5s; }
-        .bubble:nth-child(3n) { background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, rgba(51, 145, 255, 0.08) 100%); animation-duration: 35s; animation-delay: -10s; }
-        .bubble:nth-child(4n) { background: linear-gradient(135deg, rgba(255, 51, 102, 0.06) 0%, rgba(255, 102, 153, 0.03) 100%); animation-duration: 28s; animation-delay: -7s; }
-        .bubble:nth-child(5n) { background: linear-gradient(135deg, rgba(102, 255, 204, 0.06) 0%, rgba(153, 255, 204, 0.03) 100%); animation-duration: 32s; animation-delay: -12s; }
+        .bubbles, .floating-elements { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; pointer-events: none; }
+        .bubble, .floating-element { position: absolute; border-radius: 50%; background: rgba(0, 102, 255, 0.05); filter: blur(5px); animation: floatBubble 25s infinite ease-in-out; box-shadow: 0 0 20px rgba(0, 102, 255, 0.05), inset 0 0 20px rgba(255, 255, 255, 0.05); }
+        .bubble:nth-child(odd), .floating-element:nth-child(odd) { background: rgba(51, 145, 255, 0.06); animation-duration: 30s; animation-delay: -5s; }
+        .bubble:nth-child(3n), .floating-element:nth-child(3n) { background: rgba(0, 102, 255, 0.05); animation-duration: 35s; animation-delay: -10s; }
+        .bubble:nth-child(4n) { background: rgba(255, 51, 102, 0.06); animation-duration: 28s; animation-delay: -7s; }
+        .bubble:nth-child(5n) { background: rgba(102, 255, 204, 0.06); animation-duration: 32s; animation-delay: -12s; }
         @keyframes floatBubble { 0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0.6; } 25% { transform: translate(30px, -50px) rotate(90deg) scale(1.1); opacity: 0.8; } 50% { transform: translate(-20px, -80px) rotate(180deg) scale(0.9); opacity: 0.5; } 75% { transform: translate(35px, -40px) rotate(270deg) scale(1.05); opacity: 0.7; } }
         .glow { box-shadow: 0 0 25px rgba(0, 102, 255, 0.4); }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
@@ -61,12 +61,13 @@
         .search-bar input:focus { background: white; box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.2); animation: none; }
         .search-bar i { position: absolute; left: 18px; color: var(--text-lighter); transition: var(--transition); }
         .search-bar input:focus + i { color: var(--primary); }
-        .cart-icon { position: relative; background: var(--primary); color: white; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3); }
+        .cart-icon, .wishlist-icon { position: relative; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); }
+        .cart-icon { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3); }
         .cart-icon:hover { background: var(--primary-dark); transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 20px rgba(0, 102, 255, 0.4); }
-        .cart-count { position: absolute; top: -5px; right: -5px; background: var(--accent); color: white; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 50px; min-width: 20px; text-align: center; animation: pulse 2s infinite; }
-        .wishlist-icon { position: relative; background: var(--bg-light); color: var(--text); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); }
+        .wishlist-icon { background: var(--bg-light); color: var(--text); }
         .wishlist-icon:hover { background: var(--primary-light); color: white; transform: translateY(-2px); }
-        .wishlist-count { position: absolute; top: -5px; right: -5px; background: var(--accent); color: white; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 50px; min-width: 20px; text-align: center; }
+        .cart-count, .wishlist-count { position: absolute; top: -5px; right: -5px; background: var(--accent); color: white; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 50px; min-width: 20px; text-align: center; }
+        .cart-count { animation: pulse 2s infinite; }
         .mobile-menu-btn { display: none; flex-direction: column; gap: 4px; cursor: pointer; padding: 8px; transition: var(--transition); }
         .mobile-menu-btn div { width: 24px; height: 2px; background: var(--text); transition: var(--transition); }
         .mobile-menu-btn.active div:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
@@ -77,7 +78,7 @@
         .mobile-nav a { padding: 15px 0; text-decoration: none; color: var(--text); font-weight: 600; border-bottom: 1px solid var(--border); transition: var(--transition); }
         .mobile-nav a:hover { color: var(--primary); padding-left: 10px; }
         .mobile-nav a:last-child { border-bottom: none; }
-        .promo-banner { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%); color: white; padding: 12px 5%; text-align: center; font-weight: 600; position: relative; overflow: hidden; margin-top: 80px; animation: slideUp 0.8s ease-out; }
+        .promo-banner { background: var(--gradient-accent); color: white; padding: 12px 5%; text-align: center; font-weight: 600; position: relative; overflow: hidden; margin-top: 80px; animation: slideUp 0.8s ease-out; }
         .promo-banner::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>'); background-size: cover; }
         .promo-content { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .promo-content i { animation: bounce 2s infinite; }
@@ -135,10 +136,10 @@
         .btn-wishlist:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
         .banner-section { padding: 0 5%; margin: 60px 0; }
         .banner-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .promo-banner-card { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: var(--radius-lg); padding: 50px 40px; color: white; text-align: center; position: relative; overflow: hidden; animation: zoomIn 0.8s ease-out; transition: var(--transition); }
+        .promo-banner-card { background: var(--gradient); border-radius: var(--radius-lg); padding: 50px 40px; color: white; text-align: center; position: relative; overflow: hidden; animation: zoomIn 0.8s ease-out; transition: var(--transition); }
         .promo-banner-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-xl); }
         .promo-banner-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>'); background-size: cover; }
-        .promo-banner-card:nth-child(2) { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%); }
+        .promo-banner-card:nth-child(2) { background: var(--gradient-accent); }
         .promo-banner-card:nth-child(3) { background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%); }
         .banner-content { position: relative; z-index: 1; }
         .banner-content i { font-size: 3rem; margin-bottom: 20px; display: block; animation: float 3s ease-in-out infinite; }
@@ -193,7 +194,7 @@
         .category-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, rgba(51, 145, 255, 0.02) 100%); opacity: 0; transition: var(--transition); }
         .category-card:hover { transform: translateY(-10px) scale(1.05); box-shadow: var(--shadow-xl); border-color: var(--primary-light); }
         .category-card:hover::before { opacity: 1; }
-        .category-icon { width: 70px; height: 70px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 28px; transition: var(--transition); }
+        .category-icon { width: 70px; height: 70px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 28px; transition: var(--transition); }
         .category-card:hover .category-icon { transform: scale(1.1) rotate(5deg); }
         .category-card h3 { font-size: 18px; font-weight: 600; position: relative; z-index: 1; }
         .features { background: white; }
@@ -202,7 +203,7 @@
         .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, rgba(51, 145, 255, 0.02) 100%); opacity: 0; transition: var(--transition); }
         .feature-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-xl); border-color: var(--primary-light); }
         .feature-card:hover::before { opacity: 1; }
-        .feature-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; color: white; font-size: 32px; transition: var(--transition); }
+        .feature-icon { width: 80px; height: 80px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; color: white; font-size: 32px; transition: var(--transition); }
         .feature-card:hover .feature-icon { transform: scale(1.1) rotate(5deg); }
         .feature-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 15px; position: relative; z-index: 1; }
         .feature-card p { color: var(--text-light); line-height: 1.6; position: relative; z-index: 1; }
@@ -215,7 +216,7 @@
         .testimonial-content { font-style: italic; margin-bottom: 30px; color: var(--text); line-height: 1.6; font-size: 18px; position: relative; }
         .testimonial-content::before { content: '"'; font-size: 80px; color: var(--primary-light); position: absolute; top: -40px; left: -20px; opacity: 0.2; font-family: Georgia, serif; }
         .testimonial-author { display: flex; align-items: center; gap: 15px; }
-        .author-avatar { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-light)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 24px; transition: var(--transition); }
+        .author-avatar { width: 70px; height: 70px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 24px; transition: var(--transition); }
         .testimonial-card:hover .author-avatar { transform: scale(1.1); }
         .author-info h4 { font-weight: 600; margin-bottom: 4px; }
         .author-info p { color: var(--text-light); font-size: 14px; }
@@ -290,10 +291,6 @@
         .notification.show { display: flex; align-items: center; gap: 10px; }
         .notification.error { background: #EF4444; }
         .loading-spinner { display: none; width: 40px; height: 40px; border: 4px solid rgba(0, 102, 255, 0.2); border-radius: 50%; border-top-color: var(--primary); animation: spin 1s ease-in-out infinite; margin: 20px auto; }
-        .floating-elements { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
-        .floating-element { position: absolute; background: rgba(0, 102, 255, 0.05); border-radius: 50%; animation: float 15s infinite ease-in-out; }
-        .floating-element:nth-child(odd) { background: rgba(255, 51, 102, 0.05); animation-duration: 20s; animation-delay: -5s; }
-        .floating-element:nth-child(3n) { background: rgba(51, 145, 255, 0.05); animation-duration: 25s; animation-delay: -10s; }
         .typewriter { overflow: hidden; border-right: 3px solid var(--primary); white-space: nowrap; margin: 0 auto; animation: typewriter 3.5s steps(40, end), blink 0.75s step-end infinite; }
         .shake-animation { animation: shake 0.5s; }
         
@@ -619,6 +616,7 @@
     <div class="whatsapp-widget"><i class="fab fa-whatsapp"></i></div>
     <div class="notification" id="notification"><i class="fas fa-check-circle"></i><span id="notificationText">Item added to cart!</span></div>
     <script>
+        // Create floating background elements
         function createBubbles() {
             const bubblesContainer = document.getElementById('bubbles');
             const bubbleCount = window.innerWidth < 768 ? 15 : 25;
@@ -655,1167 +653,83 @@
                 container.appendChild(element);
             }
         }
-      const products = [
-    { 
-        id: 1, 
-        title: "Meta Quest 3 512GB VR Headset", 
-        category: "Gaming", 
-        price: 2386, 
-        originalPrice: 2599, 
-        image: "product_01.jpg", 
-        badge: "hot", 
-        description: "Experience the next generation of virtual reality with the Meta Quest 3. Featuring higher resolution displays, faster performance, and breakthrough mixed reality capabilities.", 
-        features: ["Next-generation Snapdragon processor for faster performance", "Higher resolution displays with 30% more pixels than Quest 2", "Breakthrough mixed reality with full-color passthrough", "Slimmer, more comfortable design with adjustable straps", "512GB storage for all your games and experiences"],
-        specs: {
-            "Display": "Dual 4K+ Infinite Display",
-            "Processor": "Snapdragon XR2 Gen 2",
-            "RAM": "8GB",
-            "Storage": "512GB",
-            "Battery Life": "2-3 hours",
-            "Weight": "515g",
-            "Connectivity": "Wi-Fi 6E, Bluetooth 5.2"
-        },
-        reviews: [
-            { author: "Alex T.", rating: 5, date: "2023-11-15", content: "Absolutely mind-blowing VR experience! The mixed reality features are game-changing." },
-            { author: "Sarah M.", rating: 4, date: "2023-11-10", content: "Great upgrade from Quest 2. The display is much clearer and performance is noticeably better." }
-        ]
-    },
-    { 
-        id: 2, 
-        title: "Logitech G PRO X TKL Keyboard", 
-        category: "Gaming", 
-        price: 734, 
-        originalPrice: 799, 
-        image: "product_02.jpg", 
-        badge: "", 
-        description: "Professional-grade tenkeyless mechanical keyboard designed for esports with advanced GX mechanical switches and customizable RGB lighting.", 
-        features: ["GX mechanical switches for precise actuation", "Tenkeyless design for more mouse space", "Advanced LIGHTSYNC RGB technology", "Detachable USB-C cable", "Durable construction for tournament use"],
-        specs: {
-            "Switch Type": "GX Mechanical",
-            "Layout": "Tenkeyless",
-            "Backlight": "RGB LIGHTSYNC",
-            "Connectivity": "USB-C",
-            "Weight": "980g",
-            "Dimensions": "361 x 153 x 34 mm"
-        },
-        reviews: [
-            { author: "Michael R.", rating: 5, date: "2023-11-12", content: "Perfect for competitive gaming. The switches are responsive and the build quality is exceptional." },
-            { author: "Jessica L.", rating: 4, date: "2023-11-05", content: "Great keyboard for both gaming and typing. The tenkeyless design saves so much desk space." }
-        ]
-    },
-    { 
-        id: 3, 
-        title: "Razer BlackWidow V4 75% Keyboard", 
-        category: "Gaming", 
-        price: 697, 
-        originalPrice: 749, 
-        image: "product_03.jpg", 
-        badge: "", 
-        description: "Premium 75% mechanical gaming keyboard with Razer Green mechanical switches and Chroma RGB lighting for the ultimate gaming experience.", 
-        features: ["Razer Green mechanical switches with clicky feedback", "75% form factor with dedicated arrow keys", "Razer Chroma RGB with 16.8 million colors", "Doubleshot ABS keycaps for durability", "Plush leatherette wrist rest included"],
-        specs: {
-            "Switch Type": "Razer Green Mechanical",
-            "Layout": "75%",
-            "Backlight": "Chroma RGB",
-            "Connectivity": "USB-C",
-            "Weight": "1100g",
-            "Keycaps": "Doubleshot ABS"
-        },
-        reviews: [
-            { author: "David K.", rating: 5, date: "2023-11-08", content: "The tactile feedback is amazing for gaming. The 75% layout is perfect for saving space while keeping essential keys." },
-            { author: "Emma S.", rating: 4, date: "2023-11-02", content: "Solid build quality and the RGB lighting is stunning. The wrist rest makes long gaming sessions comfortable." }
-        ]
-    },
-    { 
-        id: 4, 
-        title: "SteelSeries Apex Pro TKL Keyboard", 
-        category: "Gaming", 
-        price: 697, 
-        originalPrice: 749, 
-        image: "product_04.jpg", 
-        badge: "trending", 
-        description: "World's fastest mechanical gaming keyboard with adjustable actuation and OLED smart display for customizable gaming performance.", 
-        features: ["Adjustable mechanical switches with 0.4-3.6mm actuation", "Tenkeyless tournament-ready design", "OLED smart display for game info and Discord", "Aircraft-grade aluminum alloy frame", "Magnetic wrist rest for comfort"],
-        specs: {
-            "Switch Type": "OmniPoint Adjustable",
-            "Layout": "Tenkeyless",
-            "Actuation Range": "0.4-3.6mm",
-            "Display": "OLED Smart Display",
-            "Frame": "Aircraft-grade aluminum",
-            "Connectivity": "USB-C"
-        },
-        reviews: [
-            { author: "Oliver P.", rating: 5, date: "2023-10-28", content: "The adjustable actuation is a game-changer for different game genres. The build quality is exceptional." },
-            { author: "Sophia M.", rating: 4, date: "2023-10-25", content: "Incredible keyboard for competitive gaming. The OLED display is useful for tracking system performance during games." }
-        ]
-    },
-    { 
-        id: 5, 
-        title: "Logitech G502 X Plus Wireless Mouse", 
-        category: "Gaming", 
-        price: 587, 
-        originalPrice: 649, 
-        image: "product_05.jpg", 
-        badge: "hot", 
-        description: "Advanced LIGHTFORCE hybrid optical-mechanical switches meet next-gen LIGHTSYNC RGB in this premium wireless gaming mouse.", 
-        features: ["LIGHTFORCE hybrid optical-mechanical switches", "Lightspeed wireless and Bluetooth connectivity", "LIGHTSYNC RGB with 16.8 million colors", "HERO 25K sensor with sub-micron precision", "13 programmable controls with dual-mode hyperfast scroll"],
-        specs: {
-            "Sensor": "HERO 25K",
-            "DPI": "25,600",
-            "Connectivity": "Lightspeed, Bluetooth",
-            "Battery Life": "Up to 120 hours",
-            "Weight": "106g",
-            "Buttons": "13 programmable"
-        },
-        reviews: [
-            { author: "James W.", rating: 5, date: "2023-10-20", content: "Perfect weight and balance. The hybrid switches are incredibly responsive and the battery life is impressive." },
-            { author: "Lily R.", rating: 4, date: "2023-10-15", content: "Comfortable for long gaming sessions and the customizable weights let me find the perfect balance." }
-        ]
-    },
-    { 
-        id: 6, 
-        title: "Lian Li O11 Dynamic EVO Case", 
-        category: "Gaming", 
-        price: 624, 
-        originalPrice: 699, 
-        image: "product_06.jpg", 
-        badge: "new", 
-        description: "Premium mid-tower chassis with reversible design, exceptional cooling potential, and stunning aesthetics for high-performance builds.", 
-        features: ["Reversible design for flexible layout options", "Dual chamber design for optimal airflow", "Support for multiple 360mm radiators", "Tempered glass panels on front and side", "Modular design for easy customization"],
-        specs: {
-            "Type": "Mid-Tower",
-            "Motherboard": "E-ATX, ATX, Micro-ATX, Mini-ITX",
-            "Drive Bays": "6x 2.5\", 2x 3.5\"",
-            "Expansion Slots": "8",
-            "Front I/O": "2x USB 3.0, 1x USB-C, Audio",
-            "Dimensions": "465 x 285 x 471 mm"
-        },
-        reviews: [
-            { author: "Robert K.", rating: 5, date: "2023-10-10", content: "Best PC case I've ever built in. The cable management is easy and the cooling performance is outstanding." },
-            { author: "Natalie S.", rating: 4, date: "2023-10-05", content: "Beautiful case with excellent build quality. The reversible design lets you set it up exactly how you want." }
-        ]
-    },
-    { 
-        id: 7, 
-        title: "Lego Icons Eiffel Tower Set", 
-        category: "Gaming", 
-        price: 2313, 
-        originalPrice: 2499, 
-        image: "product_07.jpg", 
-        badge: "sale", 
-        description: "Build a monumental replica of the iconic Eiffel Tower with this massive 10,001-piece LEGO set featuring incredible detail and scale.", 
-        features: ["10,001 pieces for the ultimate building challenge", "Measures over 59 inches (149 cm) tall", "Authentic details and proportions", "Includes decorative Parisian lampposts", "Collector's booklet with design history"],
-        specs: {
-            "Pieces": "10,001",
-            "Height": "149 cm",
-            "Age": "18+",
-            "Dimensions": "57 x 22 x 22 cm (box)",
-            "Weight": "13.5 kg",
-            "Theme": "Icons"
-        },
-        reviews: [
-            { author: "Lucas T.", rating: 5, date: "2023-09-10", content: "Incredible building experience! The scale is massive and the finished model is a stunning display piece." },
-            { author: "Mia J.", rating: 4, date: "2023-09-05", content: "Challenging but rewarding build. The engineering behind this set is remarkable and it looks amazing when completed." }
-        ]
-    },
-    { 
-        id: 8, 
-        title: "Dyson Zone Headphones", 
-        category: "Electronics", 
-        price: 3410, 
-        originalPrice: 3699, 
-        image: "product_08.jpg", 
-        badge: "", 
-        description: "The world's first air-purifying headphones. Advanced noise cancellation meets breakthrough air purification technology for cleaner audio and cleaner air.", 
-        features: ["Advanced noise cancellation technology", "Breakthrough air purification with dual-stage filtration", "Ultra-low distortion and rich, full-frequency response", "Up to 50 hours of battery life for listening", "Compact, portable design with magnetic visor attachment"],
-        specs: {
-            "Noise Cancellation": "Advanced ANC with 11 microphones",
-            "Battery Life": "50 hours (ANC off), 4 hours (purification)",
-            "Air Purification": "HEPA H13 filter",
-            "Connectivity": "Bluetooth 5.0, USB-C",
-            "Weight": "595g",
-            "Charging Time": "3 hours"
-        },
-        reviews: [
-            { author: "Thomas L.", rating: 5, date: "2023-09-28", content: "Innovative product that actually works! Great sound quality and the air purification is surprisingly effective." },
-            { author: "Olivia M.", rating: 4, date: "2023-09-25", content: "Perfect for city commuting. The noise cancellation is excellent and the air purification is a nice bonus." }
-        ]
-    },
-    { 
-        id: 9, 
-        title: "Beats Studio Buds+", 
-        category: "Electronics", 
-        price: 661, 
-        originalPrice: 729, 
-        image: "product_09.jpg", 
-        badge: "", 
-        description: "Beats Studio Buds + deliver powerful, balanced sound in a transparent design. With Active Noise Cancelling and transparency mode, these earbuds adapt to your listening needs.", 
-        features: ["Custom acoustic platform for powerful, balanced sound", "Active Noise Cancelling (ANC) blocks external noise", "Transparency mode for hearing your surroundings", "Up to 8 hours of listening time (up to 24 with case)", "Sweat and water resistant (IPX4-rated)"],
-        specs: {
-            "Battery Life": "8 hours (ANC on), 12 hours (ANC off)",
-            "Charging Case": "24 hours additional battery",
-            "Connectivity": "Bluetooth 5.2",
-            "Water Resistance": "IPX4",
-            "Weight": "5.1g per earbud",
-            "Charging": "USB-C, Wireless"
-        },
-        reviews: [
-            { author: "Henry B.", rating: 5, date: "2023-07-10", content: "Love the transparent design! Sound quality is excellent and the fit is comfortable for long periods." },
-            { author: "Ava M.", rating: 4, date: "2023-07-05", content: "Great value for money. The noise cancellation works well and battery life is impressive." }
-        ]
-    },
-    { 
-        id: 10, 
-        title: "Nothing Phone (2) 512GB", 
-        category: "Electronics", 
-        price: 2934, 
-        originalPrice: 3199, 
-        image: "product_10.jpg", 
-        badge: "trending", 
-        description: "The revolutionary Nothing Phone (2) with unique Glyph Interface and powerful performance.", 
-        features: ["Snapdragon 8+ Gen 1 processor", "6.7-inch LTPO OLED display", "Unique Glyph Interface with LED lights", "Dual 50MP camera system", "4700mAh battery with 45W charging"],
-        specs: {
-            "Display": "6.7-inch LTPO OLED, 120Hz",
-            "Processor": "Snapdragon 8+ Gen 1",
-            "RAM": "12GB",
-            "Storage": "512GB",
-            "Battery": "4700mAh",
-            "Charging": "45W wired, 15W wireless",
-            "Cameras": "50MP main, 50MP ultra-wide"
-        },
-        reviews: [
-            { author: "Oliver P.", rating: 5, date: "2023-10-28", content: "The Glyph Interface is not just a gimmick - it's actually useful! Performance is top-notch." },
-            { author: "Sophia M.", rating: 4, date: "2023-10-25", content: "Beautiful design and smooth performance. The transparent back with LED lights is stunning." }
-        ]
-    },
-    { 
-        id: 11, 
-        title: "GoPro HERO12 Black", 
-        category: "Electronics", 
-        price: 1652, 
-        originalPrice: 1799, 
-        image: "product_11.jpg", 
-        badge: "hot", 
-        description: "Capture your adventures in stunning detail with the HERO12 Black. Improved battery life and enhanced stabilization.", 
-        features: ["5.3K60 video and 27MP photos", "HyperSmooth 6.0 stabilization", "HDR video and photo capture", "Waterproof to 33ft (10m)", "Improved battery life up to 2x longer"],
-        specs: {
-            "Video Resolution": "5.3K60, 4K120, 2.7K240",
-            "Photo Resolution": "27MP",
-            "Stabilization": "HyperSmooth 6.0",
-            "Waterproof": "33ft (10m)",
-            "Battery Life": "Up to 2.5 hours (5.3K30)",
-            "Connectivity": "Wi-Fi, Bluetooth, USB-C"
-        },
-        reviews: [
-            { author: "James W.", rating: 5, date: "2023-10-20", content: "The battery life improvement is real! I can now record my entire hiking trip without worrying about power." },
-            { author: "Lily R.", rating: 4, date: "2023-10-15", content: "HyperSmooth 6.0 is incredible - even running footage looks perfectly stable. Great upgrade from HERO10." }
-        ]
-    },
-    { 
-        id: 12, 
-        title: "Anker Solix F3800 Power Station", 
-        category: "Electronics", 
-        price: 12846, 
-        originalPrice: 13999, 
-        image: "product_12.jpg", 
-        badge: "new", 
-        description: "Massive 3.8kWh portable power station with solar charging capability for home backup and outdoor adventures.", 
-        features: ["3.8kWh expandable capacity", "6x 1800W AC outlets (3000W surge)", "Solar charging compatible up to 2400W", "Smart app control and monitoring", "UPS function for zero-delay backup power"],
-        specs: {
-            "Capacity": "3.8kWh (expandable to 15.2kWh)",
-            "AC Output": "6x 1800W (3000W surge)",
-            "Solar Input": "Up to 2400W",
-            "Battery": "LFP (LiFePO4)",
-            "Cycle Life": "3000+ cycles",
-            "Weight": "37.5 kg"
-        },
-        reviews: [
-            { author: "William P.", rating: 5, date: "2023-08-10", content: "Powerful enough to run my entire home during outages. The solar charging capability is fantastic." },
-            { author: "Amelia T.", rating: 5, date: "2023-08-05", content: "Incredible power station that replaced my generator. Silent operation and zero emissions." }
-        ]
-    },
-    { 
-        id: 13, 
-        title: "Nanoleaf Lines Kit (9pc)", 
-        category: "Electronics", 
-        price: 731, 
-        originalPrice: 799, 
-        image: "product_13.jpg", 
-        badge: "", 
-        description: "Smarter lighting made beautiful. Create your own rhythm with dynamic light lines that sync to music, games, and more.", 
-        features: ["Dynamic RGBW lighting with 16+ million colors", "Music visualization and screen mirroring", "Easy magnetic connection system", "Works with Apple HomeKit, Google Assistant, Alexa", "Customizable layouts and patterns"],
-        specs: {
-            "Lights": "9 panels",
-            "Colors": "16+ million",
-            "Connectivity": "Wi-Fi, Bluetooth",
-            "Smart Home": "Apple HomeKit, Google, Alexa",
-            "Power": "36W",
-            "Control": "App, voice, touch"
-        },
-        reviews: [
-            { author: "Benjamin L.", rating: 5, date: "2023-07-28", content: "Stunning lighting effects that transform any room. The music visualization feature is amazing for parties." },
-            { author: "Harper R.", rating: 4, date: "2023-07-25", content: "Easy to install and customize. The app offers endless possibilities for creating unique lighting scenes." }
-        ]
-    },
-    { 
-        id: 14, 
-        title: "Shure MV7X Microphone", 
-        category: "Electronics", 
-        price: 731, 
-        originalPrice: 799, 
-        image: "product_14.jpg", 
-        badge: "", 
-        description: "Professional XLR dynamic microphone with legendary Shure sound quality for streaming, podcasting, and recording.", 
-        features: ["Dynamic microphone with smooth frequency response", "XLR connectivity for professional audio interfaces", "Built-in shock mount to reduce handling noise", "All-metal construction for durability", "Legendary Shure sound quality"],
-        specs: {
-            "Type": "Dynamic",
-            "Connectivity": "XLR",
-            "Frequency Response": "50Hz - 16kHz",
-            "Polar Pattern": "Cardioid",
-            "Weight": "590g",
-            "Color": "Black"
-        },
-        reviews: [
-            { author: "Samuel W.", rating: 5, date: "2023-07-20", content: "Broadcast-quality sound that makes my voice sound incredible. Perfect for streaming and podcasting." },
-            { author: "Evelyn K.", rating: 5, date: "2023-07-15", content: "Professional sound quality at an accessible price. The build quality is exceptional as expected from Shure." }
-        ]
-    },
-    { 
-        id: 15, 
-        title: "Google Pixel Watch 2 LTE", 
-        category: "Electronics", 
-        price: 1465, 
-        originalPrice: 1599, 
-        image: "product_15.jpg", 
-        badge: "", 
-        description: "The ultimate Google smartwatch with LTE connectivity, advanced health tracking, and seamless integration with the Google ecosystem.", 
-        features: ["LTE connectivity for calls and streaming without phone", "Advanced health sensors with stress management", "24+ hour battery life with fast charging", "Wear OS with Google apps and services", "Stainless steel case with Corning Gorilla Glass"],
-        specs: {
-            "Display": "1.6-inch AMOLED, 320 PPI",
-            "Connectivity": "LTE, Bluetooth 5.0, Wi-Fi",
-            "Battery": "24+ hours",
-            "Sensors": "Heart rate, SpO2, ECG, Stress",
-            "Materials": "Stainless steel, Gorilla Glass",
-            "Water Resistance": "5 ATM"
-        },
-        reviews: [
-            { author: "Robert K.", rating: 5, date: "2023-10-10", content: "Perfect integration with my Pixel phone. The health tracking is comprehensive and accurate." },
-            { author: "Natalie S.", rating: 4, date: "2023-10-05", content: "Beautiful watch with excellent build quality. The LTE connectivity lets me leave my phone at home during workouts." }
-        ]
-    },
-    { 
-        id: 16, 
-        title: "Twelve South Curve Flex Stand", 
-        category: "Electronics", 
-        price: 294, 
-        originalPrice: 349, 
-        image: "product_16.jpg", 
-        badge: "sale", 
-        description: "Premium adjustable stand for laptops, tablets, and monitors with flexible positioning and sturdy aluminum construction.", 
-        features: ["Adjustable height and angle for optimal viewing", "Heavy-duty aluminum construction", "Compatible with laptops, tablets, and monitors", "Cable management system for clean setup", "Non-slip silicone padding to protect devices"],
-        specs: {
-            "Material": "Aluminum",
-            "Weight Capacity": "5 kg",
-            "Adjustment": "Height and angle",
-            "Compatibility": "Laptops, tablets, monitors",
-            "Color": "Space Gray",
-            "Weight": "850g"
-        },
-        reviews: [
-            { author: "Jack H.", rating: 5, date: "2023-06-28", content: "Sturdy and highly adjustable. Perfect for creating an ergonomic workspace with my laptop and monitor." },
-            { author: "Grace L.", rating: 4, date: "2023-06-25", content: "Great build quality and the flexibility to position my devices exactly how I want them." }
-        ]
-    },
-    { 
-        id: 17, 
-        title: "Elgato Stream Deck Plus", 
-        category: "Electronics", 
-        price: 841, 
-        originalPrice: 899, 
-        image: "product_17.jpg", 
-        badge: "trending", 
-        description: "Advanced live production controller with LCD keys and touch strips for streamers, creators, and professionals.", 
-        features: ["8 customizable LCD keys with tactile feedback", "4 touch strips for precise parameter control", "Unlimited folders and actions with Stream Deck software", "Integrated dials for audio mixing and parameter adjustment", "Professional build quality with anti-slip base"],
-        specs: {
-            "Keys": "8 LCD keys",
-            "Touch Strips": "4 with haptic feedback",
-            "Software": "Stream Deck OS",
-            "Connectivity": "USB-C",
-            "Dimensions": "145 x 105 x 45 mm",
-            "Weight": "450g"
-        },
-        reviews: [
-            { author: "Logan T.", rating: 5, date: "2023-06-20", content: "Game-changer for my streaming setup. The touch strips are perfect for audio mixing and scene transitions." },
-            { author: "Chloe R.", rating: 5, date: "2023-06-15", content: "Incredibly versatile for both streaming and productivity. The software integration is seamless with all major apps." }
-        ]
-    },
-    { 
-        id: 18, 
-        title: "Samsung T7 Shield 2TB SSD", 
-        category: "Electronics", 
-        price: 551, 
-        originalPrice: 599, 
-        image: "product_18.jpg", 
-        badge: "", 
-        description: "Rugged portable SSD with IP65 rating for water and dust resistance, offering blazing-fast transfer speeds for professionals on the go.", 
-        features: ["IP65 water and dust resistance", "3-meter drop protection", "USB 3.2 Gen 2 speeds up to 1,050MB/s", "Compact rubber design for durability", "Hardware encryption for data security"],
-        specs: {
-            "Capacity": "2TB",
-            "Interface": "USB 3.2 Gen 2",
-            "Speeds": "Up to 1,050MB/s",
-            "Protection": "IP65, 3m drop",
-            "Encryption": "AES 256-bit",
-            "Dimensions": "95 x 59 x 14 mm"
-        },
-        reviews: [
-            { author: "Mason P.", rating: 5, date: "2023-06-10", content: "Fast, durable, and reliable. Perfect for outdoor photography and video work where conditions can be rough." },
-            { author: "Zoe K.", rating: 4, date: "2023-06-05", content: "The peace of mind from the IP65 rating is worth it alone. Transfer speeds are blazing fast for large video files." }
-        ]
-    },
-    { 
-        id: 19, 
-        title: "Sony WH-1000XM5 Headphones", 
-        category: "Electronics", 
-        price: 1465, 
-        originalPrice: 1599, 
-        image: "product_19.jpg", 
-        badge: "trending", 
-        description: "Industry-leading noise cancellation meets exceptional sound quality in Sony's flagship headphones.", 
-        features: ["Industry-leading noise cancellation with Auto NC Optimizer", "30-hour battery life with quick charging", "Crystal clear hands-free calling", "Ultra-comfortable, lightweight design", "Multipoint connection for two devices"],
-        specs: {
-            "Noise Cancellation": "Industry-leading ANC",
-            "Battery Life": "30 hours (ANC on)",
-            "Quick Charge": "3 hours playback in 3 minutes",
-            "Weight": "250g",
-            "Connectivity": "Bluetooth 5.2, NFC, 3.5mm",
-            "Driver": "30mm dynamic driver"
-        },
-        reviews: [
-            { author: "Thomas L.", rating: 5, date: "2023-09-28", content: "Best noise cancellation I've ever experienced. Perfect for flights and noisy environments." },
-            { author: "Olivia M.", rating: 5, date: "2023-09-25", content: "Sound quality is phenomenal and they're incredibly comfortable for long listening sessions." }
-        ]
-    },
-    { 
-        id: 20, 
-        title: "Wacom Cintiq 16 Tablet", 
-        category: "Electronics", 
-        price: 2199, 
-        originalPrice: 2399, 
-        image: "product_20.jpg", 
-        badge: "", 
-        description: "Professional creative pen display with full HD screen and natural pen-on-paper feel for digital artists and designers.", 
-        features: ["15.6-inch Full HD display with 72% NTSC color", "Pro Pen 2 with 8,192 pressure levels", "Natural surface texture for paper-like feel", "Foldable legs for comfortable 19-degree tilt", "Compatible with major creative software"],
-        specs: {
-            "Display": "15.6-inch Full HD (1920x1080)",
-            "Color Gamut": "72% NTSC",
-            "Pen Pressure": "8,192 levels",
-            "Connectivity": "HDMI, USB-C",
-            "Active Area": "344 x 194 mm",
-            "Weight": "1.9 kg"
-        },
-        reviews: [
-            { author: "Daniel R.", rating: 5, date: "2023-09-20", content: "Game-changing for digital art. The pen feels natural and the display quality is excellent for professional work." },
-            { author: "Sophie K.", rating: 4, date: "2023-09-15", content: "Perfect balance of quality and affordability. The textured surface really does feel like drawing on paper." }
-        ]
-    },
-    { 
-        id: 21, 
-        title: "DJI Mini 3 Pro Drone", 
-        category: "Electronics", 
-        price: 2787, 
-        originalPrice: 2999, 
-        image: "product_21.jpg", 
-        badge: "sale", 
-        description: "Ultra-light premium camera drone with obstacle sensing, 4K HDR video, and vertical shooting for social media content.", 
-        features: ["4K/60fps HDR video with 48MP photos", "Tri-directional obstacle sensing", "34-minute max flight time", "True Vertical Shooting for social media", "Advanced features like FocusTrack and MasterShots"],
-        specs: {
-            "Camera": "1/1.3-inch CMOS, 48MP",
-            "Video": "4K/60fps, HDR",
-            "Max Flight Time": "34 minutes (standard battery)",
-            "Weight": "<249g",
-            "Obstacle Sensing": "Forward, backward, downward",
-            "Transmission": "DJI O3, 12km max range"
-        },
-        reviews: [
-            { author: "Benjamin L.", rating: 5, date: "2023-07-28", content: "Incredible video quality in such a small package. The obstacle avoidance gives peace of mind for flying in complex environments." },
-            { author: "Harper R.", rating: 4, date: "2023-07-25", content: "Perfect for travel photography. The vertical video mode is great for social media content creation." }
-        ]
-    },
-    { 
-        id: 22, 
-        title: "Anker 737 Power Bank 24K", 
-        category: "Electronics", 
-        price: 551, 
-        originalPrice: 599, 
-        image: "product_22.jpg", 
-        badge: "", 
-        description: "Massive 24,000mAh power bank with 140W output, digital display, and GaNPrime technology for fast charging multiple devices.", 
-        features: ["24,000mAh capacity with 140W max output", "Digital display shows remaining power and wattage", "GaNPrime technology for efficient charging", "2x USB-C and 1x USB-A ports", "Power Delivery 3.1 and PPS support"],
-        specs: {
-            "Capacity": "24,000mAh",
-            "Max Output": "140W",
-            "Ports": "2x USB-C, 1x USB-A",
-            "Display": "Digital power display",
-            "Technology": "GaNPrime",
-            "Weight": "425g"
-        },
-        reviews: [
-            { author: "Eli S.", rating: 5, date: "2023-05-28", content: "Charges my laptop, phone, and tablet simultaneously. The digital display is incredibly useful for monitoring power levels." },
-            { author: "Lily M.", rating: 5, date: "2023-05-25", content: "Perfect for travel and power outages. The 140W output can even charge my gaming laptop quickly." }
-        ]
-    },
-    { 
-        id: 23, 
-        title: "Canon EOS R8 Full-Frame", 
-        category: "Electronics", 
-        price: 5503, 
-        originalPrice: 5899, 
-        image: "product_23.jpg", 
-        badge: "new", 
-        description: "Compact full-frame mirrorless camera with advanced autofocus, 4K video, and professional features in a lightweight body.", 
-        features: ["24.2MP full-frame CMOS sensor", "Dual Pixel CMOS AF II with subject detection", "4K/60p video with oversampling", "40fps continuous shooting with electronic shutter", "Compact and lightweight body design"],
-        specs: {
-            "Sensor": "24.2MP Full-frame CMOS",
-            "Autofocus": "Dual Pixel CMOS AF II",
-            "Video": "4K/60p oversampled from 6K",
-            "Burst Shooting": "40fps electronic shutter",
-            "Weight": "461g (body only)",
-            "Connectivity": "Wi-Fi, Bluetooth"
-        },
-        reviews: [
-            { author: "Samuel W.", rating: 5, date: "2023-07-20", content: "The autofocus is incredibly fast and accurate. Perfect for wildlife and sports photography." },
-            { author: "Evelyn K.", rating: 5, date: "2023-07-15", content: "Excellent hybrid camera that performs equally well for both photos and video. Amazing value for a full-frame camera." }
-        ]
-    },
-    { 
-        id: 24, 
-        title: "Audio-Technica AT2020 Mic", 
-        category: "Electronics", 
-        price: 364, 
-        originalPrice: 399, 
-        image: "product_24.jpg", 
-        badge: "", 
-        description: "Popular cardioid condenser microphone with exceptional clarity and detail for home studio recording and streaming.", 
-        features: ["Cardioid polar pattern reduces background noise", "Custom-engineered low-mass diaphragm", "High SPL handling and wide dynamic range", "Professional quality for vocals and instruments", "Ideal for project studio applications"],
-        specs: {
-            "Type": "Condenser",
-            "Polar Pattern": "Cardioid",
-            "Frequency Response": "20-20,000 Hz",
-            "Output": "XLR",
-            "Weight": "350g",
-            "Color": "Black"
-        },
-        reviews: [
-            { author: "Caleb M.", rating: 5, date: "2023-04-28", content: "Studio-quality sound at an affordable price. Perfect for podcasting and voiceover work." },
-            { author: "Nora S.", rating: 4, date: "2023-04-25", content: "Great entry-level studio microphone. The sound quality is much better than USB microphones in this price range." }
-        ]
-    },
-    { 
-        id: 25, 
-        title: "Fitbit Charge 6", 
-        category: "Electronics", 
-        price: 587, 
-        originalPrice: 649, 
-        image: "product_25.jpg", 
-        badge: "trending", 
-        description: "Advanced fitness tracker with Google apps, ECG sensor, and 7-day battery life for comprehensive health monitoring.", 
-        features: ["Built-in GPS for pace and distance without phone", "ECG app for heart rhythm assessment", "Daily Readiness Score for optimal training", "Google Maps, Wallet, and YouTube Music", "7+ day battery life"],
-        specs: {
-            "Display": "AMOLED always-on",
-            "Battery Life": "7+ days",
-            "Sensors": "ECG, SpO2, GPS, HR",
-            "Water Resistance": "50m",
-            "Connectivity": "Bluetooth, Wi-Fi",
-            "Compatibility": "Android, iOS"
-        },
-        reviews: [
-            { author: "Gabriel T.", rating: 5, date: "2023-04-20", content: "Perfect balance of fitness tracking and smart features. The Google integration is seamless." },
-            { author: "Hannah L.", rating: 4, date: "2023-04-15", content: "Accurate fitness tracking with useful health metrics. The battery life is impressive for such a feature-packed device." }
-        ]
-    },
-    { 
-        id: 26, 
-        title: "Ray-Ban Meta Smart Glasses", 
-        category: "Electronics", 
-        price: 1098, 
-        originalPrice: 1199, 
-        image: "product_26.jpg", 
-        badge: "", 
-        description: "Iconic Wayfarer design with built-in camera, speakers, and Meta AI for hands-free photos, videos, and music.", 
-        features: ["12MP photo and 1080p video capture", "Open-ear speakers with 3-microphone array", "Meta AI for voice commands and information", "Up to 36 hours of battery with charging case", "Classic Ray-Ban styling with prescription options"],
-        specs: {
-            "Camera": "12MP photos, 1080p video",
-            "Audio": "Open-ear speakers",
-            "Battery": "4 hours continuous, 36 with case",
-            "Connectivity": "Bluetooth, Wi-Fi",
-            "Frame": "Classic Wayfarer",
-            "Weight": "48g"
-        },
-        reviews: [
-            { author: "Julian R.", rating: 5, date: "2023-04-10", content: "Seamlessly blends technology with fashion. The camera quality is surprisingly good and the audio is clear." },
-            { author: "Stella M.", rating: 4, date: "2023-04-05", content: "Perfect for capturing moments hands-free. People don't even realize they're smart glasses until you start talking to the AI." }
-        ]
-    },
-    { 
-        id: 27, 
-        title: "Sony Alpha a6700 Camera", 
-        category: "Electronics", 
-        price: 5137, 
-        originalPrice: 5499, 
-        image: "product_27.jpg", 
-        badge: "", 
-        description: "Advanced APS-C mirrorless camera with AI processing, 4K 120p video, and professional features for content creators.", 
-        features: ["26MP APS-C Exmor R CMOS sensor", "AI processing for real-time tracking", "4K 120p video with 10-bit 4:2:2", "5-axis in-body image stabilization", "Professional video features and connectivity"],
-        specs: {
-            "Sensor": "26MP APS-C Exmor R CMOS",
-            "Video": "4K 120p 10-bit 4:2:2",
-            "Stabilization": "5-axis IBIS up to 5 stops",
-            "Autofocus": "AI-powered Real-time Tracking",
-            "Weight": "493g (with battery)",
-            "Connectivity": "Wi-Fi, Bluetooth, USB-C"
-        },
-        reviews: [
-            { author: "Nathan B.", rating: 5, date: "2023-03-28", content: "Incredible video capabilities in a compact body. The AI autofocus tracks subjects perfectly even in complex scenes." },
-            { author: "Aurora T.", rating: 5, date: "2023-03-25", content: "Perfect hybrid camera for both photography and videography. The 4K 120p slow motion is breathtaking." }
-        ]
-    },
-    { 
-        id: 28, 
-        title: "Samsung ViewFinity S9 5K", 
-        category: "Electronics", 
-        price: 5875, 
-        originalPrice: 6299, 
-        image: "product_28.jpg", 
-        badge: "sale", 
-        description: "Professional 5K display with exceptional color accuracy, 4K webcam, and sleek design for creative professionals.", 
-        features: ["27-inch 5K (5120x2880) IPS display", "99% DCI-P3 color gamut with Calman Verified", "4K SlimFit Camera with AI tracking", "Thunderbolt 4 with 96W charging", "Sleek, minimal design with height adjustment"],
-        specs: {
-            "Display": "27-inch 5K IPS",
-            "Resolution": "5120x2880",
-            "Color Gamut": "99% DCI-P3",
-            "Connectivity": "Thunderbolt 4, HDMI, USB-C",
-            "Camera": "4K SlimFit",
-            "Stand": "Height, tilt, swivel adjustable"
-        },
-        reviews: [
-            { author: "Dylan K.", rating: 5, date: "2023-03-20", content: "Stunning display with perfect color accuracy for photo editing. The 5K resolution provides incredible detail." },
-            { author: "Penelope S.", rating: 4, date: "2023-03-15", content: "Professional-grade monitor that rivals Apple's Studio Display. The built-in 4K camera is excellent for video calls." }
-        ]
-    },
-    { 
-        id: 29, 
-        title: "U-Turn Audio Orbit Plus", 
-        category: "Electronics", 
-        price: 1465, 
-        originalPrice: 1599, 
-        image: "product_29.jpg", 
-        badge: "", 
-        description: "Premium belt-drive turntable with audiophile-grade components, built-in preamp, and customizable options for vinyl enthusiasts.", 
-        features: ["Belt-drive system with electronic speed control", "Audio-Technica cartridge with elliptical stylus", "Built-in switchable phono preamp", "MDF platter with felt mat", "Customizable with multiple upgrade options"],
-        specs: {
-            "Drive": "Belt-drive",
-            "Cartridge": "Audio-Technica",
-            "Preamp": "Built-in switchable",
-            "Platter": "MDF with felt mat",
-            "Speeds": "33 1/3, 45 RPM",
-            "Weight": "5.9 kg"
-        },
-        reviews: [
-            { author: "Carter L.", rating: 5, date: "2023-03-10", content: "Exceptional sound quality that rivals turntables costing twice as much. The built-in preamp is very clean." },
-            { author: "Luna R.", rating: 5, date: "2023-03-05", content: "Beautiful, minimalist design with fantastic performance. The customizable options let you build your perfect turntable." }
-        ]
-    },
-    { 
-        id: 30, 
-        title: "Sonos Arc Soundbar", 
-        category: "Electronics", 
-        price: 3301, 
-        originalPrice: 3599, 
-        image: "product_30.jpg", 
-        badge: "trending", 
-        description: "Premium Dolby Atmos soundbar with immersive 3D sound, voice control, and seamless integration with the Sonos ecosystem.", 
-        features: ["Dolby Atmos for immersive 3D sound", "11 high-performance drivers including up-firing", "Voice control with Amazon Alexa and Google Assistant", "HDMI eARC for highest quality audio", "Tuned in Hollywood for cinematic experience"],
-        specs: {
-            "Audio": "Dolby Atmos, 5.0.2 channel",
-            "Drivers": "11 (8 woofers, 3 tweeters)",
-            "Connectivity": "HDMI eARC, Ethernet, Wi-Fi",
-            "Voice Control": "Alexa, Google Assistant",
-            "Dimensions": "114 x 8.5 x 11.5 cm",
-            "Weight": "6.3 kg"
-        },
-        reviews: [
-            { author: "Wyatt T.", rating: 5, date: "2023-02-28", content: "Transformative home theater experience. The Dolby Atmos creates a bubble of sound that feels like being in a cinema." },
-            { author: "Maya K.", rating: 4, date: "2023-02-25", content: "Incredible sound quality for both movies and music. The setup is simple and the Sonos app is excellent." }
-        ]
-    },
-    { 
-        id: 31, 
-        title: "Nixplay 10.1 Smart Frame", 
-        category: "Electronics", 
-        price: 661, 
-        originalPrice: 729, 
-        image: "product_31.jpg", 
-        badge: "", 
-        description: "Smart digital photo frame with 10.1-inch display, cloud storage, and mobile app control for sharing memories with family.", 
-        features: ["10.1-inch HD display with IPS technology", "Cloud storage for unlimited photos", "Mobile app and email for adding photos", "Motion sensor for energy efficiency", "Plays videos with sound and displays photos"],
-        specs: {
-            "Display": "10.1-inch HD IPS",
-            "Storage": "Cloud-based unlimited",
-            "Control": "App, email, web",
-            "Sensors": "Motion sensor",
-            "Connectivity": "Wi-Fi",
-            "Aspect Ratio": "16:10"
-        },
-        reviews: [
-            { author: "Ryan B.", rating: 5, date: "2023-01-28", content: "Perfect way to share photos with family members. The cloud storage means we never run out of space for new memories." },
-            { author: "Scarlett M.", rating: 4, date: "2023-01-25", content: "Beautiful display that shows our family photos in stunning quality. Family members can easily add photos from anywhere." }
-        ]
-    },
-    { 
-        id: 32, 
-        title: "Elgato Key Light Air", 
-        category: "Electronics", 
-        price: 477, 
-        originalPrice: 529, 
-        image: "product_32.jpg", 
-        badge: "", 
-        description: "Professional LED studio light with adjustable brightness and color temperature, controlled via app for streamers and creators.", 
-        features: ["2800-7000K adjustable color temperature", "App control via Stream Deck or mobile app", "Brightness adjustable from 0 to 250 lumens", "Magnetic desk mount with tilt adjustment", "Professional 95 CRI for accurate colors"],
-        specs: {
-            "Color Temperature": "2800-7000K",
-            "Brightness": "Up to 250 lumens",
-            "CRI": "95",
-            "Control": "App, Stream Deck",
-            "Mount": "Magnetic desk clamp",
-            "Power": "USB-C"
-        },
-        reviews: [
-            { author: "Isaac T.", rating: 5, date: "2023-01-20", content: "Perfect lighting for streaming and video calls. The app control makes adjustments quick and easy." },
-            { author: "Hazel R.", rating: 4, date: "2023-01-15", content: "Compact but powerful lighting that makes a huge difference in video quality. The color accuracy is excellent." }
-        ]
-    },
-    { 
-        id: 33, 
-        title: "Sony ZV-E10 Vlogging Camera", 
-        category: "Electronics", 
-        price: 2937, 
-        originalPrice: 3199, 
-        image: "product_33.jpg", 
-        badge: "", 
-        description: "Compact vlogging camera with 4K video, real-time eye autofocus, and content creation features for aspiring creators.", 
-        features: ["24.2MP APS-C Exmor CMOS sensor", "Real-time Eye AF and tracking", "4K video with full pixel readout", "Product Showcase Setting for reviews", "Vari-angle LCD screen and directional microphone"],
-        specs: {
-            "Sensor": "24.2MP APS-C Exmor CMOS",
-            "Video": "4K 30p, 1080p 120p",
-            "Autofocus": "Real-time Eye AF",
-            "Display": "3.0-inch vari-angle LCD",
-            "Microphone": "Directional 3-capsule",
-            "Weight": "343g (with battery)"
-        },
-        reviews: [
-            { author: "Luke S.", rating: 5, date: "2023-01-10", content: "Perfect vlogging camera with amazing autofocus. The product showcase feature is genius for review content." },
-            { author: "Violet K.", rating: 4, date: "2023-01-05", content: "Excellent video quality in a compact package. The built-in microphone is surprisingly good for on-the-go recording." }
-        ]
-    },
-    { 
-        id: 34, 
-        title: "Apple AirTag (4 Pack)", 
-        category: "Electronics", 
-        price: 364, 
-        originalPrice: 399, 
-        image: "product_34.jpg", 
-        badge: "", 
-        description: "Keep track of your belongings with Apple AirTag. Leverage the vast Find My network to locate lost items with precision finding.", 
-        features: ["Precision Finding with iPhone 11 and later", "Vast Find My network for locating lost items", "Replaceable battery lasting over a year", "Water and dust resistant (IP67)", "Privacy-focused design with end-to-end encryption"],
-        specs: {
-            "Compatibility": "iPhone, iPad with iOS 14.5+",
-            "Battery": "User-replaceable CR2032",
-            "Water Resistance": "IP67",
-            "Range": "Bluetooth with Find My network",
-            "Dimensions": "31.9 mm diameter, 8.0 mm thick",
-            "Weight": "11g"
-        },
-        reviews: [
-            { author: "Hunter L.", rating: 5, date: "2022-12-28", content: "Perfect for keeping track of keys, bags, and other important items. The precision finding is incredibly accurate." },
-            { author: "Willow T.", rating: 4, date: "2022-12-25", content: "Peace of mind for frequently lost items. The battery life is impressive and replacement is easy." }
-        ]
-    },
-    { 
-        id: 35, 
-        title: "AnkerMake M5 3D Printer", 
-        category: "Electronics", 
-        price: 2934, 
-        originalPrice: 3199, 
-        image: "product_35.jpg", 
-        badge: "hot", 
-        description: "High-speed 3D printer with AI camera monitoring, 250mm/s print speed, and easy setup for makers and creators.", 
-        features: ["Up to 250mm/s print speed with precision", "AI camera for print monitoring and error detection", "One-click automatic leveling", "All-metal hotend up to 300°C", "AnkerMake slicer with smart features"],
-        specs: {
-            "Print Speed": "Up to 250mm/s",
-            "Build Volume": "235 x 235 x 250 mm",
-            "Nozzle Temperature": "Up to 300°C",
-            "Bed Leveling": "Automatic 25-point",
-            "Connectivity": "Wi-Fi, USB, App",
-            "Camera": "1080p AI monitoring"
-        },
-        reviews: [
-            { author: "Jordan M.", rating: 5, date: "2022-12-20", content: "Incredible print speed without sacrificing quality. The AI camera catches failed prints before they waste material." },
-            { author: "Paisley R.", rating: 4, date: "2022-12-15", content: "Perfect for beginners and experienced users alike. The setup was straightforward and the print quality is excellent." }
-        ]
-    },
-    { 
-        id: 36, 
-        title: "Philips Hue Starter Kit", 
-        category: "Home & Kitchen", 
-        price: 584, 
-        originalPrice: 649, 
-        image: "product_36.jpg", 
-        badge: "", 
-        description: "Smart lighting starter kit with color ambiance bulbs, bridge, and app control for creating the perfect atmosphere in any room.", 
-        features: ["16 million colors for any mood or occasion", "Voice control with Alexa, Google Assistant, Apple HomeKit", "Wireless control via smartphone app", "Automations and schedules for energy saving", "Works with existing light fixtures"],
-        specs: {
-            "Bulbs": "3x Color Ambiance E27",
-            "Bridge": "Required for full functionality",
-            "Control": "App, voice, accessories",
-            "Compatibility": "Alexa, Google, Apple HomeKit",
-            "Warranty": "2 years",
-            "Range": "Up to 25m indoors"
-        },
-        reviews: [
-            { author: "Austin T.", rating: 5, date: "2022-12-10", content: "Transform your home lighting with endless possibilities. The color options are stunning and the app is intuitive." },
-            { author: "Nova S.", rating: 4, date: "2022-12-05", content: "Reliable smart lighting system that just works. The automations make our home feel intelligent and responsive." }
-        ]
-    },
-    { 
-        id: 37, 
-        title: "Ooni Karu 12 Pizza Oven", 
-        category: "Home & Kitchen", 
-        price: 1281, 
-        originalPrice: 1399, 
-        image: "product_37.jpg", 
-        badge: "trending", 
-        description: "Multi-fuel portable pizza oven that reaches 950°F in 15 minutes, cooking authentic Neapolitan pizzas in 60 seconds.", 
-        features: ["Multi-fuel: wood, charcoal, or gas (adapter sold separately)", "Reaches 950°F (500°C) in just 15 minutes", "Cooks authentic pizza in 60 seconds", "Built-in temperature gauge for perfect results", "Portable design for outdoor cooking anywhere"],
-        specs: {
-            "Fuel Types": "Wood, charcoal, gas (with adapter)",
-            "Max Temperature": "950°F (500°C)",
-            "Cooking Time": "60 seconds",
-            "Cooking Area": "12-inch diameter",
-            "Weight": "22 kg",
-            "Dimensions": "62 x 42 x 42 cm"
-        },
-        reviews: [
-            { author: "Evan L.", rating: 5, date: "2022-11-28", content: "Restaurant-quality pizza at home! The high temperature creates the perfect char and leopard spotting on the crust." },
-            { author: "Skylar M.", rating: 5, date: "2022-11-25", content: "Game-changer for outdoor cooking. We use it multiple times a week for pizza, bread, and even roasted vegetables." }
-        ]
-    },
-    { 
-        id: 38, 
-        title: "COSORI Pro II Air Fryer", 
-        category: "Home & Kitchen", 
-        price: 477, 
-        originalPrice: 529, 
-        image: "product_38.jpg", 
-        badge: "", 
-        description: "Smart air fryer with 13 cooking functions, digital display, and 5.5L capacity for healthy, oil-free cooking.", 
-        features: ["13 one-touch cooking functions", "5.5L capacity for family-sized meals", "Smart control via VeSync app with 100+ recipes", "Non-stick and dishwasher-safe basket", "100°F to 400°F temperature range"],
-        specs: {
-            "Capacity": "5.5L",
-            "Functions": "13 preset programs",
-            "Temperature": "100-400°F (40-200°C)",
-            "Control": "Digital, App control",
-            "Power": "1700W",
-            "Weight": "5.6 kg"
-        },
-        reviews: [
-            { author: "Miles T.", rating: 5, date: "2022-11-20", content: "Healthy cooking made easy. The preset functions work perfectly and the app has great recipe suggestions." },
-            { author: "Emery R.", rating: 4, date: "2022-11-15", content: "Large enough for family meals and the results are consistently crispy without all the oil of traditional frying." }
-        ]
-    },
-    { 
-        id: 39, 
-        title: "TP-Link Tapo Smart Plug 4pk", 
-        category: "Home & Kitchen", 
-        price: 147, 
-        originalPrice: 179, 
-        image: "product_39.jpg", 
-        badge: "sale", 
-        description: "Smart Wi-Fi plugs that enable voice control and scheduling for your existing home appliances and electronics.", 
-        features: ["Voice control with Alexa and Google Assistant", "Schedule and timer functions via Tapo app", "Away mode for security when you're out", "Energy monitoring to track consumption", "No hub required - connects directly to Wi-Fi"],
-        specs: {
-            "Compatibility": "Alexa, Google Assistant",
-            "Control": "App, voice, manual",
-            "Wi-Fi": "2.4GHz only",
-            "Maximum Load": "16A/3680W",
-            "Dimensions": "7.2 x 5.0 x 4.3 cm",
-            "Warranty": "2 years"
-        },
-        reviews: [
-            { author: "Rowan K.", rating: 5, date: "2022-11-10", content: "Easy way to make any device smart. Perfect for lamps, fans, and coffee makers. The scheduling feature is very useful." },
-            { author: "Sadie M.", rating: 4, date: "2022-11-05", content: "Reliable and affordable smart home entry point. The four-pack is perfect for automating multiple rooms at once." }
-        ]
-    },
-    { 
-        id: 40, 
-        title: "Herman Miller Aeron Chair", 
-        category: "Home & Kitchen", 
-        price: 6775, 
-        originalPrice: 7299, 
-        image: "product_40.jpg", 
-        badge: "", 
-        description: "Iconic ergonomic office chair with PostureFit SL support, 8Z pellicle suspension, and fully adjustable features for all-day comfort.", 
-        features: ["PostureFit SL support for healthy spine alignment", "8Z pellicle suspension for even weight distribution", "Fully adjustable arms, seat height, and tilt", "Breathable material for temperature regulation", "Durable construction with 12-year warranty"],
-        specs: {
-            "Size Options": "A, B, C (medium recommended)",
-            "Adjustments": "Arms, height, tilt, tension",
-            "Material": "Pellicle suspension",
-            "Weight Capacity": "159 kg",
-            "Warranty": "12 years",
-            "Color": "Graphite, Carbon, Mineral"
-        },
-        reviews: [
-            { author: "Sawyer T.", rating: 5, date: "2022-10-28", content: "Worth every penny for anyone who sits all day. My back pain disappeared after switching to this chair." },
-            { author: "Quinn L.", rating: 5, date: "2022-10-25", content: "The gold standard of office chairs. The adjustability means it can fit anyone perfectly. Built to last a lifetime." }
-        ]
-    },
-    { 
-        id: 41, 
-        title: "Yeti Tundra 45 Cooler", 
-        category: "Home & Kitchen", 
-        price: 1102, 
-        originalPrice: 1199, 
-        image: "product_41.jpg", 
-        badge: "", 
-        description: "Roto-molded cooler with 2-inch insulation, freezer-quality gasket, and bear-resistant design for extended ice retention.", 
-        features: ["2-inch PermaFrost insulation for 3+ days ice retention", "Freezer-quality gasket for maximum cold-holding", "Bear-resistant design (when used with padlock)", "Interlock lid system with T-Rex lid latches", "Non-slip rubber feet and rope handles"],
-        specs: {
-            "Capacity": "45 quarts",
-            "Ice Retention": "3+ days",
-            "Weight": "12.7 kg (empty)",
-            "Dimensions": "51 x 36 x 38 cm",
-            "Construction": "Roto-molded",
-            "Warranty": "5 years"
-        },
-        reviews: [
-            { author: "Blake R.", rating: 5, date: "2022-10-20", content: "Keeps ice for days even in hot weather. The build quality is incredible and it's virtually indestructible." },
-            { author: "Reagan S.", rating: 4, date: "2022-10-15", content: "Perfect for camping and beach trips. The ice retention is amazing and the latches are super secure." }
-        ]
-    },
-    { 
-        id: 42, 
-        title: "Breville Barista Express", 
-        category: "Home & Kitchen", 
-        price: 2753, 
-        originalPrice: 2999, 
-        image: "product_42.jpg", 
-        badge: "hot", 
-        description: "Semi-automatic espresso machine with built-in conical burr grinder and precise espresso extraction for cafe-quality coffee at home.", 
-        features: ["Built-in conical burr grinder with dose control", "ThermoJet heating system for fast heat-up", "PID digital temperature control", "15-bar Italian pump", "Stainless steel construction with professional steam wand"],
-        specs: {
-            "Pump Pressure": "15-bar Italian pump",
-            "Grinder": "Integrated conical burr",
-            "Water Tank": "2-liter removable",
-            "Heating System": "ThermoJet",
-            "Material": "Stainless steel",
-            "Features": "PID temperature control"
-        },
-        reviews: [
-            { author: "Carter L.", rating: 5, date: "2023-03-10", content: "Makes cafe-quality espresso at home. The built-in grinder is a game-changer for freshness and convenience." },
-            { author: "Luna R.", rating: 5, date: "2023-03-05", content: "Worth every penny for coffee enthusiasts. The learning curve is manageable and the results are incredible." }
-        ]
-    },
-    { 
-        id: 43, 
-        title: "Xiaomi Smart Standing Fan 2", 
-        category: "Home & Kitchen", 
-        price: 547, 
-        originalPrice: 599, 
-        image: "product_43.jpg", 
-        badge: "", 
-        description: "Smart Wi-Fi fan with 100+ natural wind modes, voice control, and quiet operation for comfortable air circulation.", 
-        features: ["100+ natural wind modes for comfortable airflow", "Voice control via Alexa, Google Assistant, and Siri", "Quiet operation as low as 28.6 dB", "Oscillation up to 140 degrees", "Bladeless design for safety and easy cleaning"],
-        specs: {
-            "Control": "App, voice, remote",
-            "Noise Level": "28.6-60 dB",
-            "Oscillation": "140 degrees",
-            "Wind Modes": "100+ natural wind patterns",
-            "Power": "25W",
-            "Weight": "3.2 kg"
-        },
-        reviews: [
-            { author: "Parker L.", rating: 5, date: "2022-09-28", content: "Incredibly quiet and the natural wind modes feel much more comfortable than traditional fans." },
-            { author: "Brooklyn R.", rating: 4, date: "2022-09-25", content: "Smart features work perfectly and the bladeless design is both safe and easy to clean. Great value." }
-        ]
-    },
-    { 
-        id: 44, 
-        title: "North Face Borealis Backpack", 
-        category: "Clothing", 
-        price: 364, 
-        originalPrice: 399, 
-        image: "product_44.jpg", 
-        badge: "", 
-        description: "Versatile everyday backpack with FlexVent suspension system, laptop sleeve, and multiple organization pockets for work and travel.", 
-        features: ["FlexVent suspension system with breathable back panel", "Padded laptop sleeve fits up to 15-inch devices", "Multiple organization pockets for easy access", "Durable 600D polyester construction", "Reflective details for visibility"],
-        specs: {
-            "Capacity": "28 liters",
-            "Laptop Sleeve": "Up to 15-inch",
-            "Material": "600D polyester",
-            "Weight": "0.82 kg",
-            "Dimensions": "48 x 31 x 19 cm",
-            "Color Options": "Multiple available"
-        },
-        reviews: [
-            { author: "Riley T.", rating: 5, date: "2022-09-20", content: "Perfect balance of comfort, organization, and durability. The ventilation system really works to keep your back cool." },
-            { author: "Morgan S.", rating: 4, date: "2022-09-15", content: "Great everyday backpack that transitions seamlessly from work to travel. The organization pockets are well thought out." }
-        ]
-    },
-    { 
-        id: 45, 
-        title: "Arc'teryx Beta AR Jacket", 
-        category: "Clothing", 
-        price: 2203, 
-        originalPrice: 2399, 
-        image: "product_45.jpg", 
-        badge: "trending", 
-        description: "Technical alpine jacket with GORE-TEX PRO construction, stormhood, and articulated patterning for maximum weather protection.", 
-        features: ["GORE-TEX PRO most durable waterproof protection", "StormHood designed for helmet compatibility", "Articulated patterning for maximum mobility", "Pit zips for ventilation during high exertion", "Lightweight and packable for alpine use"],
-        specs: {
-            "Material": "GORE-TEX PRO 40D",
-            "Waterproof": "28,000mm",
-            "Breathability": "25,000g/m²/24h",
-            "Weight": "475g (Medium)",
-            "Fit": "Regular",
-            "Hood": "StormHood (helmet compatible)"
-        },
-        reviews: [
-            { author: "Taylor M.", rating: 5, date: "2022-09-10", content: "The ultimate shell jacket for serious mountain activities. Completely waterproof and incredibly durable." },
-            { author: "Jordan L.", rating: 5, date: "2022-09-05", content: "Perfect fit and mobility for climbing and skiing. The GORE-TEX PRO fabric is bombproof in terrible weather." }
-        ]
-    },
-    { 
-        id: 46, 
-        title: "Lululemon ABC Classic Pant", 
-        category: "Clothing", 
-        price: 470, 
-        originalPrice: 499, 
-        image: "product_46.jpg", 
-        badge: "", 
-        description: "Anti-Ball Crushing pants with Warpstreme fabric offering four-way stretch and comfortable fit for all-day wear.", 
-        features: ["Warpstreme fabric with four-way stretch", "ABC design for enhanced comfort and mobility", "Gusseted crotch for maximum range of motion", "Multiple pocket options including hidden phone pocket", "Classic fit that works for office or casual wear"],
-        specs: {
-            "Fabric": "Warpstreme (87% Nylon, 13% Lycra)",
-            "Fit": "Classic",
-            "Stretch": "Four-way",
-            "Length Options": "Multiple inseams",
-            "Care": "Machine washable",
-            "Color Options": "Multiple available"
-        },
-        reviews: [
-            { author: "Casey T.", rating: 5, date: "2022-08-28", content: "Most comfortable pants I've ever owned. Perfect for travel, work, or casual wear. The stretch is incredible." },
-            { author: "Riley K.", rating: 4, date: "2022-08-25", content: "Worth the investment for the comfort and versatility. They look professional enough for meetings but feel like sweatpants." }
-        ]
-    },
-    { 
-        id: 47, 
-        title: "Patagonia Better Sweater", 
-        category: "Clothing", 
-        price: 584, 
-        originalPrice: 649, 
-        image: "product_47.jpg", 
-        badge: "", 
-        description: "Versatile, casual fleece jacket made from recycled materials, perfect for outdoor adventures or everyday wear.", 
-        features: ["Made from recycled polyester", "Smooth-faced jersey exterior", "Soft brushed-back fleece interior", "Two zippered handwarmer pockets", "Articulated sleeves for better mobility"],
-        specs: {
-            "Material": "Recycled polyester",
-            "Weight": "Medium: 510g",
-            "Pockets": "2 zippered handwarmer",
-            "Fit": "Regular",
-            "Sustainability": "Fair Trade Certified sewn"
-        },
-        reviews: [
-            { author: "Caleb M.", rating: 5, date: "2023-04-28", content: "Perfect mid-layer for outdoor activities. The quality is excellent and it's comfortable in a wide range of temperatures." },
-            { author: "Nora S.", rating: 4, date: "2023-04-25", content: "Great everyday fleece that looks good and performs well. Love that it's made from recycled materials." }
-        ]
-    },
-    { 
-        id: 48, 
-        title: "Kindle Scribe Premium Pen", 
-        category: "Books", 
-        price: 1432, 
-        originalPrice: 1599, 
-        image: "product_48.jpg", 
-        badge: "new", 
-        description: "The largest Kindle with built-in pen for reading, writing notes, and marking up documents on a 10.2-inch 300 ppi display.", 
-        features: ["10.2-inch 300 ppi Paperwhite display", "Includes premium pen that attaches magnetically", "Write directly on books and documents", "Up to 12 weeks of battery life", "Adjustable warm light and auto-rotating screen"],
-        specs: {
-            "Display": "10.2-inch 300 ppi Paperwhite",
-            "Storage": "16GB/32GB options",
-            "Battery": "Up to 12 weeks",
-            "Pen": "Included premium pen",
-            "Connectivity": "Wi-Fi",
-            "Weight": "433g"
-        },
-        reviews: [
-            { author: "Jamie R.", rating: 5, date: "2022-08-20", content: "Perfect for professionals who read and annotate documents. The large screen is game-changing for PDFs and technical books." },
-            { author: "Alex S.", rating: 4, date: "2022-08-15", content: "Brilliant combination of e-reader and digital notebook. The writing experience feels natural and the display is easy on the eyes." }
-        ]
-    },
-    { 
-        id: 49, 
-        title: "The Dune Saga 6-Book Set", 
-        category: "Books", 
-        price: 364, 
-        originalPrice: 399, 
-        image: "product_49.jpg", 
-        badge: "", 
-        description: "Complete Dune saga collection featuring all six original novels by Frank Herbert in a beautiful matching set.", 
-        features: ["All six original Dune novels by Frank Herbert", "Beautiful matching cover designs", "Includes Dune, Dune Messiah, Children of Dune", "Also includes God Emperor, Heretics, Chapterhouse", "Perfect for science fiction collectors"],
-        specs: {
-            "Books Included": "6",
-            "Format": "Paperback",
-            "Pages": "Approx. 2600 total",
-            "Box Dimensions": "23 x 15 x 12 cm",
-            "Publisher": "Ace"
-        },
-        reviews: [
-            { author: "Avery T.", rating: 5, date: "2022-07-28", content: "The definitive science fiction epic in a beautiful collection. The world-building is unparalleled in the genre." },
-            { author: "Quinn L.", rating: 5, date: "2022-07-25", content: "Masterpiece of speculative fiction. The political and ecological themes are even more relevant today." }
-        ]
-    },
-    { 
-        id: 50, 
-        title: "Kindle Paperwhite Signature", 
-        category: "Books", 
-        price: 698, 
-        originalPrice: 799, 
-        image: "product_50.jpg", 
-        badge: "", 
-        description: "Premium Kindle with wireless charging, auto-adjusting light, and 32GB storage for the ultimate reading experience.", 
-        features: ["6.8-inch 300 ppi Paperwhite display", "Wireless charging compatible", "Auto-adjusting front light", "32GB storage for thousands of books", "Waterproof (IPX8) for reading anywhere"],
-        specs: {
-            "Display": "6.8-inch 300 ppi Paperwhite",
-            "Storage": "32GB",
-            "Battery": "Up to 10 weeks",
-            "Charging": "USB-C, Wireless",
-            "Waterproof": "IPX8",
-            "Weight": "208g"
-        },
-        reviews: [
-            { author: "Riley S.", rating: 5, date: "2022-07-20", content: "Perfect e-reader with all the premium features. The wireless charging is convenient and the screen is crystal clear." },
-            { author: "Jordan K.", rating: 4, date: "2022-07-15", content: "Worth the upgrade for the auto-adjusting light and extra storage. The battery life is incredible." }
-        ]
-    }
-];
+
+        // Product data
+        const products = [
+            { id: 1, title: "Meta Quest 3 512GB VR Headset", category: "Gaming", price: 2386, originalPrice: 2599, image: "product_01.jpg", badge: "hot", description: "Experience the next generation of virtual reality with the Meta Quest 3.", features: ["Next-generation Snapdragon processor", "Higher resolution displays", "Breakthrough mixed reality", "Slimmer, more comfortable design", "512GB storage"], specs: {"Display": "Dual 4K+ Infinite Display", "Processor": "Snapdragon XR2 Gen 2", "RAM": "8GB", "Storage": "512GB", "Battery Life": "2-3 hours", "Weight": "515g", "Connectivity": "Wi-Fi 6E, Bluetooth 5.2"}, reviews: [{ author: "Alex T.", rating: 5, date: "2023-11-15", content: "Absolutely mind-blowing VR experience!" }, { author: "Sarah M.", rating: 4, date: "2023-11-10", content: "Great upgrade from Quest 2." }] },
+            { id: 2, title: "Logitech G PRO X TKL Keyboard", category: "Gaming", price: 734, originalPrice: 799, image: "product_02.jpg", badge: "", description: "Professional-grade tenkeyless mechanical keyboard designed for esports.", features: ["GX mechanical switches", "Tenkeyless design", "Advanced LIGHTSYNC RGB", "Detachable USB-C cable", "Durable construction"], specs: {"Switch Type": "GX Mechanical", "Layout": "Tenkeyless", "Backlight": "RGB LIGHTSYNC", "Connectivity": "USB-C", "Weight": "980g", "Dimensions": "361 x 153 x 34 mm"}, reviews: [{ author: "Michael R.", rating: 5, date: "2023-11-12", content: "Perfect for competitive gaming." }, { author: "Jessica L.", rating: 4, date: "2023-11-05", content: "Great keyboard for both gaming and typing." }] },
+            { id: 3, title: "Razer BlackWidow V4 75% Keyboard", category: "Gaming", price: 697, originalPrice: 749, image: "product_03.jpg", badge: "", description: "Premium 75% mechanical gaming keyboard with Razer Green switches.", features: ["Razer Green mechanical switches", "75% form factor", "Razer Chroma RGB", "Doubleshot ABS keycaps", "Plush leatherette wrist rest"], specs: {"Switch Type": "Razer Green Mechanical", "Layout": "75%", "Backlight": "Chroma RGB", "Connectivity": "USB-C", "Weight": "1100g", "Keycaps": "Doubleshot ABS"}, reviews: [{ author: "David K.", rating: 5, date: "2023-11-08", content: "The tactile feedback is amazing for gaming." }, { author: "Emma S.", rating: 4, date: "2023-11-02", content: "Solid build quality and the RGB lighting is stunning." }] },
+            { id: 4, title: "SteelSeries Apex Pro TKL Keyboard", category: "Gaming", price: 697, originalPrice: 749, image: "product_04.jpg", badge: "trending", description: "World's fastest mechanical gaming keyboard with adjustable actuation.", features: ["Adjustable mechanical switches", "Tenkeyless design", "OLED smart display", "Aircraft-grade aluminum frame", "Magnetic wrist rest"], specs: {"Switch Type": "OmniPoint Adjustable", "Layout": "Tenkeyless", "Actuation Range": "0.4-3.6mm", "Display": "OLED Smart Display", "Frame": "Aircraft-grade aluminum", "Connectivity": "USB-C"}, reviews: [{ author: "Oliver P.", rating: 5, date: "2023-10-28", content: "The adjustable actuation is a game-changer." }, { author: "Sophia M.", rating: 4, date: "2023-10-25", content: "Incredible keyboard for competitive gaming." }] },
+            { id: 5, title: "Logitech G502 X Plus Wireless Mouse", category: "Gaming", price: 587, originalPrice: 649, image: "product_05.jpg", badge: "hot", description: "Advanced LIGHTFORCE hybrid optical-mechanical switches.", features: ["LIGHTFORCE hybrid switches", "Lightspeed wireless and Bluetooth", "LIGHTSYNC RGB", "HERO 25K sensor", "13 programmable controls"], specs: {"Sensor": "HERO 25K", "DPI": "25,600", "Connectivity": "Lightspeed, Bluetooth", "Battery Life": "Up to 120 hours", "Weight": "106g", "Buttons": "13 programmable"}, reviews: [{ author: "James W.", rating: 5, date: "2023-10-20", content: "Perfect weight and balance." }, { author: "Lily R.", rating: 4, date: "2023-10-15", content: "Comfortable for long gaming sessions." }] },
+            { id: 6, title: "Lian Li O11 Dynamic EVO Case", category: "Gaming", price: 624, originalPrice: 699, image: "product_06.jpg", badge: "new", description: "Premium mid-tower chassis with reversible design.", features: ["Reversible design", "Dual chamber design", "Support for multiple 360mm radiators", "Tempered glass panels", "Modular design"], specs: {"Type": "Mid-Tower", "Motherboard": "E-ATX, ATX, Micro-ATX, Mini-ITX", "Drive Bays": "6x 2.5\", 2x 3.5\"", "Expansion Slots": "8", "Front I/O": "2x USB 3.0, 1x USB-C, Audio", "Dimensions": "465 x 285 x 471 mm"}, reviews: [{ author: "Robert K.", rating: 5, date: "2023-10-10", content: "Best PC case I've ever built in." }, { author: "Natalie S.", rating: 4, date: "2023-10-05", content: "Beautiful case with excellent build quality." }] },
+            { id: 7, title: "Lego Icons Eiffel Tower Set", category: "Gaming", price: 2313, originalPrice: 2499, image: "product_07.jpg", badge: "sale", description: "Build a monumental replica of the iconic Eiffel Tower.", features: ["10,001 pieces", "Measures over 59 inches tall", "Authentic details", "Includes decorative Parisian lampposts", "Collector's booklet"], specs: {"Pieces": "10,001", "Height": "149 cm", "Age": "18+", "Dimensions": "57 x 22 x 22 cm (box)", "Weight": "13.5 kg", "Theme": "Icons"}, reviews: [{ author: "Lucas T.", rating: 5, date: "2023-09-10", content: "Incredible building experience!" }, { author: "Mia J.", rating: 4, date: "2023-09-05", content: "Challenging but rewarding build." }] },
+            { id: 8, title: "Dyson Zone Headphones", category: "Electronics", price: 3410, originalPrice: 3699, image: "product_08.jpg", badge: "", description: "The world's first air-purifying headphones.", features: ["Advanced noise cancellation", "Breakthrough air purification", "Ultra-low distortion", "Up to 50 hours of battery life", "Compact, portable design"], specs: {"Noise Cancellation": "Advanced ANC", "Battery Life": "50 hours (ANC off)", "Air Purification": "HEPA H13 filter", "Connectivity": "Bluetooth 5.0, USB-C", "Weight": "595g", "Charging Time": "3 hours"}, reviews: [{ author: "Thomas L.", rating: 5, date: "2023-09-28", content: "Innovative product that actually works!" }, { author: "Olivia M.", rating: 4, date: "2023-09-25", content: "Perfect for city commuting." }] },
+            { id: 9, title: "Beats Studio Buds+", category: "Electronics", price: 661, originalPrice: 729, image: "product_09.jpg", badge: "", description: "Beats Studio Buds + deliver powerful, balanced sound.", features: ["Custom acoustic platform", "Active Noise Cancelling", "Transparency mode", "Up to 8 hours of listening time", "Sweat and water resistant"], specs: {"Battery Life": "8 hours (ANC on)", "Charging Case": "24 hours additional", "Connectivity": "Bluetooth 5.2", "Water Resistance": "IPX4", "Weight": "5.1g per earbud", "Charging": "USB-C, Wireless"}, reviews: [{ author: "Henry B.", rating: 5, date: "2023-07-10", content: "Love the transparent design!" }, { author: "Ava M.", rating: 4, date: "2023-07-05", content: "Great value for money." }] },
+            { id: 10, title: "Nothing Phone (2) 512GB", category: "Electronics", price: 2934, originalPrice: 3199, image: "product_10.jpg", badge: "trending", description: "The revolutionary Nothing Phone (2) with unique Glyph Interface.", features: ["Snapdragon 8+ Gen 1 processor", "6.7-inch LTPO OLED display", "Unique Glyph Interface", "Dual 50MP camera system", "4700mAh battery"], specs: {"Display": "6.7-inch LTPO OLED, 120Hz", "Processor": "Snapdragon 8+ Gen 1", "RAM": "12GB", "Storage": "512GB", "Battery": "4700mAh", "Charging": "45W wired, 15W wireless", "Cameras": "50MP main, 50MP ultra-wide"}, reviews: [{ author: "Oliver P.", rating: 5, date: "2023-10-28", content: "The Glyph Interface is not just a gimmick!" }, { author: "Sophia M.", rating: 4, date: "2023-10-25", content: "Beautiful design and smooth performance." }] },
+            { id: 11, title: "GoPro HERO12 Black", category: "Electronics", price: 1652, originalPrice: 1799, image: "product_11.jpg", badge: "hot", description: "Capture your adventures in stunning detail.", features: ["5.3K60 video and 27MP photos", "HyperSmooth 6.0 stabilization", "HDR video and photo capture", "Waterproof to 33ft", "Improved battery life"], specs: {"Video Resolution": "5.3K60, 4K120, 2.7K240", "Photo Resolution": "27MP", "Stabilization": "HyperSmooth 6.0", "Waterproof": "33ft (10m)", "Battery Life": "Up to 2.5 hours", "Connectivity": "Wi-Fi, Bluetooth, USB-C"}, reviews: [{ author: "James W.", rating: 5, date: "2023-10-20", content: "The battery life improvement is real!" }, { author: "Lily R.", rating: 4, date: "2023-10-15", content: "HyperSmooth 6.0 is incredible." }] },
+            { id: 12, title: "Anker Solix F3800 Power Station", category: "Electronics", price: 12846, originalPrice: 13999, image: "product_12.jpg", badge: "new", description: "Massive 3.8kWh portable power station with solar charging.", features: ["3.8kWh expandable capacity", "6x 1800W AC outlets", "Solar charging compatible", "Smart app control", "UPS function"], specs: {"Capacity": "3.8kWh (expandable)", "AC Output": "6x 1800W (3000W surge)", "Solar Input": "Up to 2400W", "Battery": "LFP (LiFePO4)", "Cycle Life": "3000+ cycles", "Weight": "37.5 kg"}, reviews: [{ author: "William P.", rating: 5, date: "2023-08-10", content: "Powerful enough to run my entire home." }, { author: "Amelia T.", rating: 5, date: "2023-08-05", content: "Incredible power station." }] },
+            { id: 13, title: "Nanoleaf Lines Kit (9pc)", category: "Electronics", price: 731, originalPrice: 799, image: "product_13.jpg", badge: "", description: "Smarter lighting made beautiful.", features: ["Dynamic RGBW lighting", "Music visualization", "Easy magnetic connection", "Works with smart home systems", "Customizable layouts"], specs: {"Lights": "9 panels", "Colors": "16+ million", "Connectivity": "Wi-Fi, Bluetooth", "Smart Home": "Apple HomeKit, Google, Alexa", "Power": "36W", "Control": "App, voice, touch"}, reviews: [{ author: "Benjamin L.", rating: 5, date: "2023-07-28", content: "Stunning lighting effects." }, { author: "Harper R.", rating: 4, date: "2023-07-25", content: "Easy to install and customize." }] },
+            { id: 14, title: "Shure MV7X Microphone", category: "Electronics", price: 731, originalPrice: 799, image: "product_14.jpg", badge: "", description: "Professional XLR dynamic microphone.", features: ["Dynamic microphone", "XLR connectivity", "Built-in shock mount", "All-metal construction", "Legendary Shure sound quality"], specs: {"Type": "Dynamic", "Connectivity": "XLR", "Frequency Response": "50Hz - 16kHz", "Polar Pattern": "Cardioid", "Weight": "590g", "Color": "Black"}, reviews: [{ author: "Samuel W.", rating: 5, date: "2023-07-20", content: "Broadcast-quality sound." }, { author: "Evelyn K.", rating: 5, date: "2023-07-15", content: "Professional sound quality." }] },
+            { id: 15, title: "Google Pixel Watch 2 LTE", category: "Electronics", price: 1465, originalPrice: 1599, image: "product_15.jpg", badge: "", description: "The ultimate Google smartwatch with LTE connectivity.", features: ["LTE connectivity", "Advanced health sensors", "24+ hour battery life", "Wear OS with Google apps", "Stainless steel case"], specs: {"Display": "1.6-inch AMOLED, 320 PPI", "Connectivity": "LTE, Bluetooth 5.0, Wi-Fi", "Battery": "24+ hours", "Sensors": "Heart rate, SpO2, ECG, Stress", "Materials": "Stainless steel, Gorilla Glass", "Water Resistance": "5 ATM"}, reviews: [{ author: "Robert K.", rating: 5, date: "2023-10-10", content: "Perfect integration with my Pixel phone." }, { author: "Natalie S.", rating: 4, date: "2023-10-05", content: "Beautiful watch with excellent build quality." }] },
+            { id: 16, title: "Twelve South Curve Flex Stand", category: "Electronics", price: 294, originalPrice: 349, image: "product_16.jpg", badge: "sale", description: "Premium adjustable stand for laptops, tablets, and monitors.", features: ["Adjustable height and angle", "Heavy-duty aluminum", "Compatible with multiple devices", "Cable management system", "Non-slip silicone padding"], specs: {"Material": "Aluminum", "Weight Capacity": "5 kg", "Adjustment": "Height and angle", "Compatibility": "Laptops, tablets, monitors", "Color": "Space Gray", "Weight": "850g"}, reviews: [{ author: "Jack H.", rating: 5, date: "2023-06-28", content: "Sturdy and highly adjustable." }, { author: "Grace L.", rating: 4, date: "2023-06-25", content: "Great build quality." }] },
+            { id: 17, title: "Elgato Stream Deck Plus", category: "Electronics", price: 841, originalPrice: 899, image: "product_17.jpg", badge: "trending", description: "Advanced live production controller with LCD keys.", features: ["8 customizable LCD keys", "4 touch strips", "Unlimited folders and actions", "Integrated dials", "Professional build quality"], specs: {"Keys": "8 LCD keys", "Touch Strips": "4 with haptic feedback", "Software": "Stream Deck OS", "Connectivity": "USB-C", "Dimensions": "145 x 105 x 45 mm", "Weight": "450g"}, reviews: [{ author: "Logan T.", rating: 5, date: "2023-06-20", content: "Game-changer for my streaming setup." }, { author: "Chloe R.", rating: 5, date: "2023-06-15", content: "Incredibly versatile." }] },
+            { id: 18, title: "Samsung T7 Shield 2TB SSD", category: "Electronics", price: 551, originalPrice: 599, image: "product_18.jpg", badge: "", description: "Rugged portable SSD with IP65 rating.", features: ["IP65 water and dust resistance", "3-meter drop protection", "USB 3.2 Gen 2 speeds", "Compact rubber design", "Hardware encryption"], specs: {"Capacity": "2TB", "Interface": "USB 3.2 Gen 2", "Speeds": "Up to 1,050MB/s", "Protection": "IP65, 3m drop", "Encryption": "AES 256-bit", "Dimensions": "95 x 59 x 14 mm"}, reviews: [{ author: "Mason P.", rating: 5, date: "2023-06-10", content: "Fast, durable, and reliable." }, { author: "Zoe K.", rating: 4, date: "2023-06-05", content: "The peace of mind from the IP65 rating is worth it." }] },
+            { id: 19, title: "Sony WH-1000XM5 Headphones", category: "Electronics", price: 1465, originalPrice: 1599, image: "product_19.jpg", badge: "trending", description: "Industry-leading noise cancellation meets exceptional sound quality.", features: ["Industry-leading noise cancellation", "30-hour battery life", "Crystal clear hands-free calling", "Ultra-comfortable design", "Multipoint connection"], specs: {"Noise Cancellation": "Industry-leading ANC", "Battery Life": "30 hours (ANC on)", "Quick Charge": "3 hours playback in 3 minutes", "Weight": "250g", "Connectivity": "Bluetooth 5.2, NFC, 3.5mm", "Driver": "30mm dynamic driver"}, reviews: [{ author: "Thomas L.", rating: 5, date: "2023-09-28", content: "Best noise cancellation I've ever experienced." }, { author: "Olivia M.", rating: 5, date: "2023-09-25", content: "Sound quality is phenomenal." }] },
+            { id: 20, title: "Wacom Cintiq 16 Tablet", category: "Electronics", price: 2199, originalPrice: 2399, image: "product_20.jpg", badge: "", description: "Professional creative pen display with full HD screen.", features: ["15.6-inch Full HD display", "Pro Pen 2 with 8,192 pressure levels", "Natural surface texture", "Foldable legs", "Compatible with major software"], specs: {"Display": "15.6-inch Full HD (1920x1080)", "Color Gamut": "72% NTSC", "Pen Pressure": "8,192 levels", "Connectivity": "HDMI, USB-C", "Active Area": "344 x 194 mm", "Weight": "1.9 kg"}, reviews: [{ author: "Daniel R.", rating: 5, date: "2023-09-20", content: "Game-changing for digital art." }, { author: "Sophie K.", rating: 4, date: "2023-09-15", content: "Perfect balance of quality and affordability." }] },
+            { id: 21, title: "DJI Mini 3 Pro Drone", category: "Electronics", price: 2787, originalPrice: 2999, image: "product_21.jpg", badge: "sale", description: "Ultra-light premium camera drone with obstacle sensing.", features: ["4K/60fps HDR video", "Tri-directional obstacle sensing", "34-minute max flight time", "True Vertical Shooting", "Advanced features"], specs: {"Camera": "1/1.3-inch CMOS, 48MP", "Video": "4K/60fps, HDR", "Max Flight Time": "34 minutes", "Weight": "<249g", "Obstacle Sensing": "Forward, backward, downward", "Transmission": "DJI O3, 12km max range"}, reviews: [{ author: "Benjamin L.", rating: 5, date: "2023-07-28", content: "Incredible video quality in such a small package." }, { author: "Harper R.", rating: 4, date: "2023-07-25", content: "Perfect for travel photography." }] },
+            { id: 22, title: "Anker 737 Power Bank 24K", category: "Electronics", price: 551, originalPrice: 599, image: "product_22.jpg", badge: "", description: "Massive 24,000mAh power bank with 140W output.", features: ["24,000mAh capacity", "140W max output", "Digital display", "GaNPrime technology", "2x USB-C and 1x USB-A ports"], specs: {"Capacity": "24,000mAh", "Max Output": "140W", "Ports": "2x USB-C, 1x USB-A", "Display": "Digital power display", "Technology": "GaNPrime", "Weight": "425g"}, reviews: [{ author: "Eli S.", rating: 5, date: "2023-05-28", content: "Charges my laptop, phone, and tablet simultaneously." }, { author: "Lily M.", rating: 5, date: "2023-05-25", content: "Perfect for travel and power outages." }] },
+            { id: 23, title: "Canon EOS R8 Full-Frame", category: "Electronics", price: 5503, originalPrice: 5899, image: "product_23.jpg", badge: "new", description: "Compact full-frame mirrorless camera with advanced autofocus.", features: ["24.2MP full-frame CMOS sensor", "Dual Pixel CMOS AF II", "4K/60p video", "40fps continuous shooting", "Compact and lightweight"], specs: {"Sensor": "24.2MP Full-frame CMOS", "Autofocus": "Dual Pixel CMOS AF II", "Video": "4K/60p oversampled from 6K", "Burst Shooting": "40fps electronic shutter", "Weight": "461g (body only)", "Connectivity": "Wi-Fi, Bluetooth"}, reviews: [{ author: "Samuel W.", rating: 5, date: "2023-07-20", content: "The autofocus is incredibly fast and accurate." }, { author: "Evelyn K.", rating: 5, date: "2023-07-15", content: "Excellent hybrid camera." }] },
+            { id: 24, title: "Audio-Technica AT2020 Mic", category: "Electronics", price: 364, originalPrice: 399, image: "product_24.jpg", badge: "", description: "Popular cardioid condenser microphone.", features: ["Cardioid polar pattern", "Custom-engineered diaphragm", "High SPL handling", "Professional quality", "Ideal for project studio"], specs: {"Type": "Condenser", "Polar Pattern": "Cardioid", "Frequency Response": "20-20,000 Hz", "Output": "XLR", "Weight": "350g", "Color": "Black"}, reviews: [{ author: "Caleb M.", rating: 5, date: "2023-04-28", content: "Studio-quality sound at an affordable price." }, { author: "Nora S.", rating: 4, date: "2023-04-25", content: "Great entry-level studio microphone." }] },
+            { id: 25, title: "Fitbit Charge 6", category: "Electronics", price: 587, originalPrice: 649, image: "product_25.jpg", badge: "trending", description: "Advanced fitness tracker with Google apps.", features: ["Built-in GPS", "ECG app", "Daily Readiness Score", "Google Maps, Wallet, and YouTube Music", "7+ day battery life"], specs: {"Display": "AMOLED always-on", "Battery Life": "7+ days", "Sensors": "ECG, SpO2, GPS, HR", "Water Resistance": "50m", "Connectivity": "Bluetooth, Wi-Fi", "Compatibility": "Android, iOS"}, reviews: [{ author: "Gabriel T.", rating: 5, date: "2023-04-20", content: "Perfect balance of fitness tracking and smart features." }, { author: "Hannah L.", rating: 4, date: "2023-04-15", content: "Accurate fitness tracking with useful health metrics." }] },
+            { id: 26, title: "Ray-Ban Meta Smart Glasses", category: "Electronics", price: 1098, originalPrice: 1199, image: "product_26.jpg", badge: "", description: "Iconic Wayfarer design with built-in camera.", features: ["12MP photo and 1080p video", "Open-ear speakers", "Meta AI for voice commands", "Up to 36 hours of battery", "Classic Ray-Ban styling"], specs: {"Camera": "12MP photos, 1080p video", "Audio": "Open-ear speakers", "Battery": "4 hours continuous, 36 with case", "Connectivity": "Bluetooth, Wi-Fi", "Frame": "Classic Wayfarer", "Weight": "48g"}, reviews: [{ author: "Julian R.", rating: 5, date: "2023-04-10", content: "Seamlessly blends technology with fashion." }, { author: "Stella M.", rating: 4, date: "2023-04-05", content: "Perfect for capturing moments hands-free." }] },
+            { id: 27, title: "Sony Alpha a6700 Camera", category: "Electronics", price: 5137, originalPrice: 5499, image: "product_27.jpg", badge: "", description: "Advanced APS-C mirrorless camera with AI processing.", features: ["26MP APS-C Exmor R CMOS sensor", "AI processing", "4K 120p video", "5-axis in-body stabilization", "Professional video features"], specs: {"Sensor": "26MP APS-C Exmor R CMOS", "Video": "4K 120p 10-bit 4:2:2", "Stabilization": "5-axis IBIS up to 5 stops", "Autofocus": "AI-powered Real-time Tracking", "Weight": "493g (with battery)", "Connectivity": "Wi-Fi, Bluetooth, USB-C"}, reviews: [{ author: "Nathan B.", rating: 5, date: "2023-03-28", content: "Incredible video capabilities in a compact body." }, { author: "Aurora T.", rating: 5, date: "2023-03-25", content: "Perfect hybrid camera." }] },
+            { id: 28, title: "Samsung ViewFinity S9 5K", category: "Electronics", price: 5875, originalPrice: 6299, image: "product_28.jpg", badge: "sale", description: "Professional 5K display with exceptional color accuracy.", features: ["27-inch 5K IPS display", "99% DCI-P3 color gamut", "4K SlimFit Camera", "Thunderbolt 4 with 96W charging", "Sleek, minimal design"], specs: {"Display": "27-inch 5K IPS", "Resolution": "5120x2880", "Color Gamut": "99% DCI-P3", "Connectivity": "Thunderbolt 4, HDMI, USB-C", "Camera": "4K SlimFit", "Stand": "Height, tilt, swivel adjustable"}, reviews: [{ author: "Dylan K.", rating: 5, date: "2023-03-20", content: "Stunning display with perfect color accuracy." }, { author: "Penelope S.", rating: 4, date: "2023-03-15", content: "Professional-grade monitor." }] },
+            { id: 29, title: "U-Turn Audio Orbit Plus", category: "Electronics", price: 1465, originalPrice: 1599, image: "product_29.jpg", badge: "", description: "Premium belt-drive turntable with audiophile-grade components.", features: ["Belt-drive system", "Audio-Technica cartridge", "Built-in switchable phono preamp", "MDF platter with felt mat", "Customizable options"], specs: {"Drive": "Belt-drive", "Cartridge": "Audio-Technica", "Preamp": "Built-in switchable", "Platter": "MDF with felt mat", "Speeds": "33 1/3, 45 RPM", "Weight": "5.9 kg"}, reviews: [{ author: "Carter L.", rating: 5, date: "2023-03-10", content: "Exceptional sound quality." }, { author: "Luna R.", rating: 5, date: "2023-03-05", content: "Beautiful, minimalist design." }] },
+            { id: 30, title: "Sonos Arc Soundbar", category: "Electronics", price: 3301, originalPrice: 3599, image: "product_30.jpg", badge: "trending", description: "Premium Dolby Atmos soundbar with immersive 3D sound.", features: ["Dolby Atmos", "11 high-performance drivers", "Voice control", "HDMI eARC", "Tuned in Hollywood"], specs: {"Audio": "Dolby Atmos, 5.0.2 channel", "Drivers": "11 (8 woofers, 3 tweeters)", "Connectivity": "HDMI eARC, Ethernet, Wi-Fi", "Voice Control": "Alexa, Google Assistant", "Dimensions": "114 x 8.5 x 11.5 cm", "Weight": "6.3 kg"}, reviews: [{ author: "Wyatt T.", rating: 5, date: "2023-02-28", content: "Transformative home theater experience." }, { author: "Maya K.", rating: 4, date: "2023-02-25", content: "Incredible sound quality." }] },
+            { id: 31, title: "Nixplay 10.1 Smart Frame", category: "Electronics", price: 661, originalPrice: 729, image: "product_31.jpg", badge: "", description: "Smart digital photo frame with 10.1-inch display.", features: ["10.1-inch HD display", "Cloud storage", "Mobile app and email control", "Motion sensor", "Plays videos with sound"], specs: {"Display": "10.1-inch HD IPS", "Storage": "Cloud-based unlimited", "Control": "App, email, web", "Sensors": "Motion sensor", "Connectivity": "Wi-Fi", "Aspect Ratio": "16:10"}, reviews: [{ author: "Ryan B.", rating: 5, date: "2023-01-28", content: "Perfect way to share photos with family." }, { author: "Scarlett M.", rating: 4, date: "2023-01-25", content: "Beautiful display." }] },
+            { id: 32, title: "Elgato Key Light Air", category: "Electronics", price: 477, originalPrice: 529, image: "product_32.jpg", badge: "", description: "Professional LED studio light with adjustable brightness.", features: ["2800-7000K color temperature", "App control", "Brightness adjustable", "Magnetic desk mount", "Professional 95 CRI"], specs: {"Color Temperature": "2800-7000K", "Brightness": "Up to 250 lumens", "CRI": "95", "Control": "App, Stream Deck", "Mount": "Magnetic desk clamp", "Power": "USB-C"}, reviews: [{ author: "Isaac T.", rating: 5, date: "2023-01-20", content: "Perfect lighting for streaming." }, { author: "Hazel R.", rating: 4, date: "2023-01-15", content: "Compact but powerful lighting." }] },
+            { id: 33, title: "Sony ZV-E10 Vlogging Camera", category: "Electronics", price: 2937, originalPrice: 3199, image: "product_33.jpg", badge: "", description: "Compact vlogging camera with 4K video.", features: ["24.2MP APS-C Exmor CMOS sensor", "Real-time Eye AF", "4K video", "Product Showcase Setting", "Vari-angle LCD screen"], specs: {"Sensor": "24.2MP APS-C Exmor CMOS", "Video": "4K 30p, 1080p 120p", "Autofocus": "Real-time Eye AF", "Display": "3.0-inch vari-angle LCD", "Microphone": "Directional 3-capsule", "Weight": "343g (with battery)"}, reviews: [{ author: "Luke S.", rating: 5, date: "2023-01-10", content: "Perfect vlogging camera." }, { author: "Violet K.", rating: 4, date: "2023-01-05", content: "Excellent video quality." }] },
+            { id: 34, title: "Apple AirTag (4 Pack)", category: "Electronics", price: 364, originalPrice: 399, image: "product_34.jpg", badge: "", description: "Keep track of your belongings with Apple AirTag.", features: ["Precision Finding", "Vast Find My network", "Replaceable battery", "Water and dust resistant", "Privacy-focused design"], specs: {"Compatibility": "iPhone, iPad with iOS 14.5+", "Battery": "User-replaceable CR2032", "Water Resistance": "IP67", "Range": "Bluetooth with Find My network", "Dimensions": "31.9 mm diameter, 8.0 mm thick", "Weight": "11g"}, reviews: [{ author: "Hunter L.", rating: 5, date: "2022-12-28", content: "Perfect for keeping track of keys." }, { author: "Willow T.", rating: 4, date: "2022-12-25", content: "Peace of mind for frequently lost items." }] },
+            { id: 35, title: "AnkerMake M5 3D Printer", category: "Electronics", price: 2934, originalPrice: 3199, image: "product_35.jpg", badge: "hot", description: "High-speed 3D printer with AI camera monitoring.", features: ["Up to 250mm/s print speed", "AI camera", "One-click automatic leveling", "All-metal hotend", "AnkerMake slicer"], specs: {"Print Speed": "Up to 250mm/s", "Build Volume": "235 x 235 x 250 mm", "Nozzle Temperature": "Up to 300°C", "Bed Leveling": "Automatic 25-point", "Connectivity": "Wi-Fi, USB, App", "Camera": "1080p AI monitoring"}, reviews: [{ author: "Jordan M.", rating: 5, date: "2022-12-20", content: "Incredible print speed without sacrificing quality." }, { author: "Paisley R.", rating: 4, date: "2022-12-15", content: "Perfect for beginners and experienced users." }] },
+            { id: 36, title: "Philips Hue Starter Kit", category: "Home & Kitchen", price: 584, originalPrice: 649, image: "product_36.jpg", badge: "", description: "Smart lighting starter kit with color ambiance bulbs.", features: ["16 million colors", "Voice control", "Wireless control", "Automations and schedules", "Works with existing fixtures"], specs: {"Bulbs": "3x Color Ambiance E27", "Bridge": "Required for full functionality", "Control": "App, voice, accessories", "Compatibility": "Alexa, Google, Apple HomeKit", "Warranty": "2 years", "Range": "Up to 25m indoors"}, reviews: [{ author: "Austin T.", rating: 5, date: "2022-12-10", content: "Transform your home lighting." }, { author: "Nova S.", rating: 4, date: "2022-12-05", content: "Reliable smart lighting system." }] },
+            { id: 37, title: "Ooni Karu 12 Pizza Oven", category: "Home & Kitchen", price: 1281, originalPrice: 1399, image: "product_37.jpg", badge: "trending", description: "Multi-fuel portable pizza oven.", features: ["Multi-fuel: wood, charcoal, or gas", "Reaches 950°F in 15 minutes", "Cooks authentic pizza in 60 seconds", "Built-in temperature gauge", "Portable design"], specs: {"Fuel Types": "Wood, charcoal, gas (with adapter)", "Max Temperature": "950°F (500°C)", "Cooking Time": "60 seconds", "Cooking Area": "12-inch diameter", "Weight": "22 kg", "Dimensions": "62 x 42 x 42 cm"}, reviews: [{ author: "Evan L.", rating: 5, date: "2022-11-28", content: "Restaurant-quality pizza at home!" }, { author: "Skylar M.", rating: 5, date: "2022-11-25", content: "Game-changer for outdoor cooking." }] },
+            { id: 38, title: "COSORI Pro II Air Fryer", category: "Home & Kitchen", price: 477, originalPrice: 529, image: "product_38.jpg", badge: "", description: "Smart air fryer with 13 cooking functions.", features: ["13 one-touch cooking functions", "5.5L capacity", "Smart control via app", "Non-stick basket", "100°F to 400°F temperature range"], specs: {"Capacity": "5.5L", "Functions": "13 preset programs", "Temperature": "100-400°F (40-200°C)", "Control": "Digital, App control", "Power": "1700W", "Weight": "5.6 kg"}, reviews: [{ author: "Miles T.", rating: 5, date: "2022-11-20", content: "Healthy cooking made easy." }, { author: "Emery R.", rating: 4, date: "2022-11-15", content: "Large enough for family meals." }] },
+            { id: 39, title: "TP-Link Tapo Smart Plug 4pk", category: "Home & Kitchen", price: 147, originalPrice: 179, image: "product_39.jpg", badge: "sale", description: "Smart Wi-Fi plugs for voice control and scheduling.", features: ["Voice control", "Schedule and timer functions", "Away mode", "Energy monitoring", "No hub required"], specs: {"Compatibility": "Alexa, Google Assistant", "Control": "App, voice, manual", "Wi-Fi": "2.4GHz only", "Maximum Load": "16A/3680W", "Dimensions": "7.2 x 5.0 x 4.3 cm", "Warranty": "2 years"}, reviews: [{ author: "Rowan K.", rating: 5, date: "2022-11-10", content: "Easy way to make any device smart." }, { author: "Sadie M.", rating: 4, date: "2022-11-05", content: "Reliable and affordable." }] },
+            { id: 40, title: "Herman Miller Aeron Chair", category: "Home & Kitchen", price: 6775, originalPrice: 7299, image: "product_40.jpg", badge: "", description: "Iconic ergonomic office chair.", features: ["PostureFit SL support", "8Z pellicle suspension", "Fully adjustable", "Breathable material", "Durable construction"], specs: {"Size Options": "A, B, C (medium recommended)", "Adjustments": "Arms, height, tilt, tension", "Material": "Pellicle suspension", "Weight Capacity": "159 kg", "Warranty": "12 years", "Color": "Graphite, Carbon, Mineral"}, reviews: [{ author: "Sawyer T.", rating: 5, date: "2022-10-28", content: "Worth every penny." }, { author: "Quinn L.", rating: 5, date: "2022-10-25", content: "The gold standard of office chairs." }] },
+            { id: 41, title: "Yeti Tundra 45 Cooler", category: "Home & Kitchen", price: 1102, originalPrice: 1199, image: "product_41.jpg", badge: "", description: "Roto-molded cooler with 2-inch insulation.", features: ["2-inch PermaFrost insulation", "Freezer-quality gasket", "Bear-resistant design", "Interlock lid system", "Non-slip rubber feet"], specs: {"Capacity": "45 quarts", "Ice Retention": "3+ days", "Weight": "12.7 kg (empty)", "Dimensions": "51 x 36 x 38 cm", "Construction": "Roto-molded", "Warranty": "5 years"}, reviews: [{ author: "Blake R.", rating: 5, date: "2022-10-20", content: "Keeps ice for days even in hot weather." }, { author: "Reagan S.", rating: 4, date: "2022-10-15", content: "Perfect for camping and beach trips." }] },
+            { id: 42, title: "Breville Barista Express", category: "Home & Kitchen", price: 2753, originalPrice: 2999, image: "product_42.jpg", badge: "hot", description: "Semi-automatic espresso machine with built-in grinder.", features: ["Built-in conical burr grinder", "ThermoJet heating system", "PID digital temperature control", "15-bar Italian pump", "Stainless steel construction"], specs: {"Pump Pressure": "15-bar Italian pump", "Grinder": "Integrated conical burr", "Water Tank": "2-liter removable", "Heating System": "ThermoJet", "Material": "Stainless steel", "Features": "PID temperature control"}, reviews: [{ author: "Carter L.", rating: 5, date: "2023-03-10", content: "Makes cafe-quality espresso at home." }, { author: "Luna R.", rating: 5, date: "2023-03-05", content: "Worth every penny for coffee enthusiasts." }] },
+            { id: 43, title: "Xiaomi Smart Standing Fan 2", category: "Home & Kitchen", price: 547, originalPrice: 599, image: "product_43.jpg", badge: "", description: "Smart Wi-Fi fan with 100+ natural wind modes.", features: ["100+ natural wind modes", "Voice control", "Quiet operation", "Oscillation up to 140 degrees", "Bladeless design"], specs: {"Control": "App, voice, remote", "Noise Level": "28.6-60 dB", "Oscillation": "140 degrees", "Wind Modes": "100+ natural wind patterns", "Power": "25W", "Weight": "3.2 kg"}, reviews: [{ author: "Parker L.", rating: 5, date: "2022-09-28", content: "Incredibly quiet." }, { author: "Brooklyn R.", rating: 4, date: "2022-09-25", content: "Smart features work perfectly." }] },
+            { id: 44, title: "North Face Borealis Backpack", category: "Clothing", price: 364, originalPrice: 399, image: "product_44.jpg", badge: "", description: "Versatile everyday backpack.", features: ["FlexVent suspension system", "Padded laptop sleeve", "Multiple organization pockets", "Durable construction", "Reflective details"], specs: {"Capacity": "28 liters", "Laptop Sleeve": "Up to 15-inch", "Material": "600D polyester", "Weight": "0.82 kg", "Dimensions": "48 x 31 x 19 cm", "Color Options": "Multiple available"}, reviews: [{ author: "Riley T.", rating: 5, date: "2022-09-20", content: "Perfect balance of comfort and organization." }, { author: "Morgan S.", rating: 4, date: "2022-09-15", content: "Great everyday backpack." }] },
+            { id: 45, title: "Arc'teryx Beta AR Jacket", category: "Clothing", price: 2203, originalPrice: 2399, image: "product_45.jpg", badge: "trending", description: "Technical alpine jacket with GORE-TEX PRO.", features: ["GORE-TEX PRO protection", "StormHood design", "Articulated patterning", "Pit zips for ventilation", "Lightweight and packable"], specs: {"Material": "GORE-TEX PRO 40D", "Waterproof": "28,000mm", "Breathability": "25,000g/m²/24h", "Weight": "475g (Medium)", "Fit": "Regular", "Hood": "StormHood (helmet compatible)"}, reviews: [{ author: "Taylor M.", rating: 5, date: "2022-09-10", content: "The ultimate shell jacket." }, { author: "Jordan L.", rating: 5, date: "2022-09-05", content: "Perfect fit and mobility." }] },
+            { id: 46, title: "Lululemon ABC Classic Pant", category: "Clothing", price: 470, originalPrice: 499, image: "product_46.jpg", badge: "", description: "Anti-Ball Crushing pants with Warpstreme fabric.", features: ["Warpstreme fabric", "ABC design", "Gusseted crotch", "Multiple pocket options", "Classic fit"], specs: {"Fabric": "Warpstreme (87% Nylon, 13% Lycra)", "Fit": "Classic", "Stretch": "Four-way", "Length Options": "Multiple inseams", "Care": "Machine washable", "Color Options": "Multiple available"}, reviews: [{ author: "Casey T.", rating: 5, date: "2022-08-28", content: "Most comfortable pants I've ever owned." }, { author: "Riley K.", rating: 4, date: "2022-08-25", content: "Worth the investment." }] },
+            { id: 47, title: "Patagonia Better Sweater", category: "Clothing", price: 584, originalPrice: 649, image: "product_47.jpg", badge: "", description: "Versatile, casual fleece jacket.", features: ["Made from recycled polyester", "Smooth-faced jersey exterior", "Soft brushed-back interior", "Two zippered handwarmer pockets", "Articulated sleeves"], specs: {"Material": "Recycled polyester", "Weight": "Medium: 510g", "Pockets": "2 zippered handwarmer", "Fit": "Regular", "Sustainability": "Fair Trade Certified sewn"}, reviews: [{ author: "Caleb M.", rating: 5, date: "2023-04-28", content: "Perfect mid-layer for outdoor activities." }, { author: "Nora S.", rating: 4, date: "2023-04-25", content: "Great everyday fleece." }] },
+            { id: 48, title: "Kindle Scribe Premium Pen", category: "Books", price: 1432, originalPrice: 1599, image: "product_48.jpg", badge: "new", description: "The largest Kindle with built-in pen.", features: ["10.2-inch 300 ppi display", "Includes premium pen", "Write directly on books", "Up to 12 weeks of battery life", "Adjustable warm light"], specs: {"Display": "10.2-inch 300 ppi Paperwhite", "Storage": "16GB/32GB options", "Battery": "Up to 12 weeks", "Pen": "Included premium pen", "Connectivity": "Wi-Fi", "Weight": "433g"}, reviews: [{ author: "Jamie R.", rating: 5, date: "2022-08-20", content: "Perfect for professionals." }, { author: "Alex S.", rating: 4, date: "2022-08-15", content: "Brilliant combination of e-reader and notebook." }] },
+            { id: 49, title: "The Dune Saga 6-Book Set", category: "Books", price: 364, originalPrice: 399, image: "product_49.jpg", badge: "", description: "Complete Dune saga collection.", features: ["All six original Dune novels", "Beautiful matching cover designs", "Includes all six books", "Perfect for collectors"], specs: {"Books Included": "6", "Format": "Paperback", "Pages": "Approx. 2600 total", "Box Dimensions": "23 x 15 x 12 cm", "Publisher": "Ace"}, reviews: [{ author: "Avery T.", rating: 5, date: "2022-07-28", content: "The definitive science fiction epic." }, { author: "Quinn L.", rating: 5, date: "2022-07-25", content: "Masterpiece of speculative fiction." }] },
+            { id: 50, title: "Kindle Paperwhite Signature", category: "Books", price: 698, originalPrice: 799, image: "product_50.jpg", badge: "", description: "Premium Kindle with wireless charging.", features: ["6.8-inch 300 ppi display", "Wireless charging", "Auto-adjusting front light", "32GB storage", "Waterproof"], specs: {"Display": "6.8-inch 300 ppi Paperwhite", "Storage": "32GB", "Battery": "Up to 10 weeks", "Charging": "USB-C, Wireless", "Waterproof": "IPX8", "Weight": "208g"}, reviews: [{ author: "Riley S.", rating: 5, date: "2022-07-20", content: "Perfect e-reader with all premium features." }, { author: "Jordan K.", rating: 4, date: "2022-07-15", content: "Worth the upgrade." }] }
+        ];
+
+        // Testimonials data
+        const testimonials = [
+            { name: "Ahmed S.", location: "Dubai", initials: "AS", content: "HIK Store has completely transformed my shopping experience. The product quality is exceptional and delivery is always on time. Highly recommended!" },
+            { name: "Fatima A.", location: "Abu Dhabi", initials: "FA", content: "I've been shopping with HIK Store for over a year now. Their customer service is outstanding and they always have the latest products at competitive prices." },
+            { name: "Mohammed R.", location: "Sharjah", initials: "MR", content: "The fast delivery and authentic products make HIK Store my go-to for all tech needs. Their after-sales support is also excellent." }
+        ];
+
+        // Initialize app state
         let cart = [];
         let wishlist = [];
+        let currentTestimonial = 0;
+        let testimonialInterval;
+
+        // DOM elements
         const cartCount = document.querySelector('.cart-count');
         const wishlistCount = document.querySelector('.wishlist-count');
         const cartItems = document.getElementById('cartItems');
         const cartTotal = document.querySelector('.cart-total-amount');
-        let currentTestimonial = 0;
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileNav = document.getElementById('mobileNav');
+
+        // Mobile menu functionality
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenuBtn.classList.toggle('active');
             mobileNav.classList.toggle('active');
@@ -1826,6 +740,8 @@
                 mobileNav.classList.remove('active');
             });
         });
+
+        // Testimonials carousel
         function renderTestimonials() {
             const carousel = document.getElementById('testimonialsCarousel');
             const dotsContainer = document.getElementById('testimonialDots');
@@ -1853,6 +769,7 @@
             });
             updateCarouselPosition();
         }
+
         function updateCarouselPosition() {
             const carousel = document.getElementById('testimonialsCarousel');
             carousel.style.transform = `translateX(-${currentTestimonial * 100}%)`;
@@ -1861,12 +778,23 @@
                 else dot.classList.remove('active');
             });
         }
-        function goToTestimonial(index) { currentTestimonial = index; updateCarouselPosition(); }
-        function nextTestimonial() { currentTestimonial = (currentTestimonial + 1) % testimonials.length; updateCarouselPosition(); }
-        function prevTestimonial() { currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length; updateCarouselPosition(); }
-        let testimonialInterval = setInterval(nextTestimonial, 5000);
-        document.getElementById('testimonialsCarousel').addEventListener('mouseenter', () => { clearInterval(testimonialInterval); });
-        document.getElementById('testimonialsCarousel').addEventListener('mouseleave', () => { testimonialInterval = setInterval(nextTestimonial, 5000); });
+
+        function goToTestimonial(index) { 
+            currentTestimonial = index; 
+            updateCarouselPosition(); 
+        }
+
+        function nextTestimonial() { 
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length; 
+            updateCarouselPosition(); 
+        }
+
+        function prevTestimonial() { 
+            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length; 
+            updateCarouselPosition(); 
+        }
+
+        // Product rendering
         function renderProducts(filterCategory = 'All') {
             const productsGrid = document.getElementById('productsGrid');
             productsGrid.innerHTML = '';
@@ -1902,7 +830,13 @@
                 productsGrid.appendChild(productCard);
             });
         }
-        function filterProducts(category) { renderProducts(category); document.getElementById('products').scrollIntoView({ behavior: 'smooth' }); }
+
+        function filterProducts(category) { 
+            renderProducts(category); 
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' }); 
+        }
+
+        // Product modal functionality
         function showProductDetails(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
@@ -1979,9 +913,24 @@
             document.getElementById('productModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        function closeProductModal() { document.getElementById('productModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
-        function increaseQuantity() { const quantityElement = document.getElementById('modalQuantity'); let quantity = parseInt(quantityElement.textContent); quantityElement.textContent = quantity + 1; }
-        function decreaseQuantity() { const quantityElement = document.getElementById('modalQuantity'); let quantity = parseInt(quantityElement.textContent); if (quantity > 1) quantityElement.textContent = quantity - 1; }
+
+        function closeProductModal() { 
+            document.getElementById('productModal').classList.remove('active'); 
+            document.body.style.overflow = 'auto'; 
+        }
+
+        function increaseQuantity() { 
+            const quantityElement = document.getElementById('modalQuantity'); 
+            let quantity = parseInt(quantityElement.textContent); 
+            quantityElement.textContent = quantity + 1; 
+        }
+
+        function decreaseQuantity() { 
+            const quantityElement = document.getElementById('modalQuantity'); 
+            let quantity = parseInt(quantityElement.textContent); 
+            if (quantity > 1) quantityElement.textContent = quantity - 1; 
+        }
+
         function addToCartFromModal(productId) {
             const product = products.find(p => p.id === productId);
             const quantity = parseInt(document.getElementById('modalQuantity').textContent);
@@ -1992,28 +941,52 @@
                 showNotification(`${product.title} (${quantity}x) added to cart!`);
             }
         }
+
+        // Cart functionality
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
-            if (product) { cart.push(product); updateCart(); showNotification(`${product.title} added to cart!`); }
+            if (product) { 
+                cart.push(product); 
+                updateCart(); 
+                showNotification(`${product.title} added to cart!`); 
+            }
         }
+
         function toggleWishlist(productId) {
             const product = products.find(p => p.id === productId);
             if (product) {
                 const index = wishlist.findIndex(item => item.id === productId);
-                if (index === -1) { wishlist.push(product); showNotification(`${product.title} added to wishlist!`); }
-                else { wishlist.splice(index, 1); showNotification(`${product.title} removed from wishlist!`); }
+                if (index === -1) { 
+                    wishlist.push(product); 
+                    showNotification(`${product.title} added to wishlist!`); 
+                }
+                else { 
+                    wishlist.splice(index, 1); 
+                    showNotification(`${product.title} removed from wishlist!`); 
+                }
                 updateWishlist();
                 renderProducts();
                 const modal = document.getElementById('productModal');
                 if (modal.classList.contains('active')) {
                     const wishlistButton = modal.querySelector('.btn-secondary');
                     const wishlistIcon = modal.querySelector('.btn-secondary i');
-                    if (index === -1) { wishlistButton.innerHTML = '<i class="fas fa-heart"></i> Remove from Wishlist'; wishlistIcon.className = 'fas fa-heart'; }
-                    else { wishlistButton.innerHTML = '<i class="far fa-heart"></i> Add to Wishlist'; wishlistIcon.className = 'far fa-heart'; }
+                    if (index === -1) { 
+                        wishlistButton.innerHTML = '<i class="fas fa-heart"></i> Remove from Wishlist'; 
+                        wishlistIcon.className = 'fas fa-heart'; 
+                    }
+                    else { 
+                        wishlistButton.innerHTML = '<i class="far fa-heart"></i> Add to Wishlist'; 
+                        wishlistIcon.className = 'far fa-heart'; 
+                    }
                 }
             }
         }
-        function removeFromCart(index) { cart.splice(index, 1); updateCart(); }
+
+        function removeFromCart(index) { 
+            cart.splice(index, 1); 
+            updateCart(); 
+        }
+
         function updateCart() {
             cartCount.textContent = cart.length;
             cartItems.innerHTML = '';
@@ -2035,7 +1008,11 @@
             cartTotal.textContent = `AED ${total.toFixed(2)}`;
             updateCheckoutSummary();
         }
-        function updateWishlist() { wishlistCount.textContent = wishlist.length; }
+
+        function updateWishlist() { 
+            wishlistCount.textContent = wishlist.length; 
+        }
+
         function updateCheckoutSummary() {
             const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
             const shipping = subtotal > 50 ? 0 : 9.99;
@@ -2059,6 +1036,8 @@
             const orderDetails = cart.map(item => `${item.title} - AED ${item.price.toFixed(2)}`).join('\n');
             document.getElementById('orderDetails').value = `Order Summary:\n${orderDetails}\n\nSubtotal: AED ${subtotal.toFixed(2)}\nShipping: AED ${shipping.toFixed(2)}\nTax: AED ${tax.toFixed(2)}\nTotal: AED ${(subtotal + shipping + tax).toFixed(2)}`;
         }
+
+        // Notification system
         function showNotification(message, isError = false) {
             const notification = document.getElementById('notification');
             const notificationText = document.getElementById('notificationText');
@@ -2070,9 +1049,13 @@
             notification.classList.add('show');
             setTimeout(() => { notification.classList.remove('show'); }, 3000);
         }
+
+        // Countdown timer
         function updateCountdown() {
-            const countdownDate = new Date(); countdownDate.setDate(countdownDate.getDate() + 7);
-            const now = new Date().getTime(); const distance = countdownDate - now;
+            const countdownDate = new Date(); 
+            countdownDate.setDate(countdownDate.getDate() + 7);
+            const now = new Date().getTime(); 
+            const distance = countdownDate - now;
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -2086,17 +1069,24 @@
                 document.getElementById('countdown').innerHTML = '<div class="countdown-item">Offer Expired</div>';
             }
         }
+
+        // Checkout functionality
         document.getElementById('goToCheckoutBtn').addEventListener('click', () => {
-            if (cart.length === 0) { showNotification('Your cart is empty!', true); return; }
+            if (cart.length === 0) { 
+                showNotification('Your cart is empty!', true); 
+                return; 
+            }
             document.getElementById('cart').style.display = 'none';
             document.getElementById('checkoutPage').style.display = 'block';
             document.getElementById('checkoutPage').scrollIntoView({ behavior: 'smooth' });
         });
+
         document.getElementById('backToCartBtn').addEventListener('click', () => {
             document.getElementById('checkoutPage').style.display = 'none';
             document.getElementById('cart').style.display = 'block';
             document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
         });
+
         document.querySelectorAll('.payment-method').forEach(method => {
             method.addEventListener('click', () => {
                 document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
@@ -2107,11 +1097,18 @@
                 else cardDetails.style.display = 'none';
             });
         });
+
         document.getElementById('paymentForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (cart.length === 0) { showNotification('Your cart is empty!', true); return; }
+            if (cart.length === 0) { 
+                showNotification('Your cart is empty!', true); 
+                return; 
+            }
             const selectedMethod = document.querySelector('.payment-method.selected');
-            if (!selectedMethod) { showNotification('Please select a payment method!', true); return; }
+            if (!selectedMethod) { 
+                showNotification('Please select a payment method!', true); 
+                return; 
+            }
             const spinner = document.getElementById('formSpinner');
             spinner.style.display = 'block';
             try {
@@ -2122,7 +1119,8 @@
                 const result = await response.json();
                 if (result.success) {
                     showNotification('Order placed successfully! We will contact you soon.');
-                    cart = []; updateCart();
+                    cart = []; 
+                    updateCart();
                     document.getElementById('paymentForm').reset();
                     document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
                     document.getElementById('cardDetails').style.display = 'none';
@@ -2132,8 +1130,12 @@
             } catch (error) {
                 console.error('Error submitting form:', error);
                 showNotification('There was an error submitting your order. Please try again.', true);
-            } finally { spinner.style.display = 'none'; }
+            } finally { 
+                spinner.style.display = 'none'; 
+            }
         });
+
+        // Scroll effects
         window.addEventListener('scroll', () => {
             const header = document.getElementById('topBar');
             const backToTop = document.getElementById('backToTop');
@@ -2142,23 +1144,42 @@
             if (window.scrollY > 500) backToTop.classList.add('show');
             else backToTop.classList.remove('show');
         });
-        document.getElementById('backToTop').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+        document.getElementById('backToTop').addEventListener('click', () => { 
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
+        });
+
+        // WhatsApp integration
         document.querySelector('.whatsapp-widget').addEventListener('click', () => {
             const phoneNumber = '+971501234567';
             const message = 'Hello! I have a question about HIK Store products.';
             const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
         });
-        document.getElementById('cartBtn').addEventListener('click', () => { document.getElementById('cart').scrollIntoView({ behavior: 'smooth' }); });
+
+        // Navigation
+        document.getElementById('cartBtn').addEventListener('click', () => { 
+            document.getElementById('cart').scrollIntoView({ behavior: 'smooth' }); 
+        });
+
         document.getElementById('wishlistBtn').addEventListener('click', () => {
             if (wishlist.length === 0) showNotification('Your wishlist is empty!');
             else showNotification(`You have ${wishlist.length} items in your wishlist!`);
         });
+
+        // Modal close functionality
         document.getElementById('modalClose').addEventListener('click', closeProductModal);
-        document.getElementById('productModal').addEventListener('click', (e) => { if (e.target === document.getElementById('productModal')) closeProductModal(); });
+        document.getElementById('productModal').addEventListener('click', (e) => { 
+            if (e.target === document.getElementById('productModal')) closeProductModal(); 
+        });
+
+        // Search functionality
         document.querySelector('.search-bar input').addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
-            const filteredProducts = products.filter(product => product.title.toLowerCase().includes(searchTerm) || product.category.toLowerCase().includes(searchTerm));
+            const filteredProducts = products.filter(product => 
+                product.title.toLowerCase().includes(searchTerm) || 
+                product.category.toLowerCase().includes(searchTerm)
+            );
             const productsGrid = document.getElementById('productsGrid');
             productsGrid.innerHTML = '';
             if (filteredProducts.length === 0) productsGrid.innerHTML = '<div class="empty-search" style="grid-column: 1/-1; text-align: center; padding: 60px; color: #6B7280;">No products found matching your search</div>';
@@ -2193,19 +1214,42 @@
                 productsGrid.appendChild(productCard);
             });
         });
+
+        // Initialize the application
         document.addEventListener('DOMContentLoaded', () => {
-            createBubbles(); createFloatingElements(); renderProducts(); renderTestimonials(); updateCart(); updateWishlist(); updateCountdown();
+            createBubbles(); 
+            createFloatingElements(); 
+            renderProducts(); 
+            renderTestimonials(); 
+            updateCart(); 
+            updateWishlist(); 
+            updateCountdown();
+            
             const countdownInterval = setInterval(updateCountdown, 1000);
             document.getElementById('nextTestimonial').addEventListener('click', nextTestimonial);
             document.getElementById('prevTestimonial').addEventListener('click', prevTestimonial);
+            
+            // Start testimonial carousel
+            testimonialInterval = setInterval(nextTestimonial, 5000);
+            document.getElementById('testimonialsCarousel').addEventListener('mouseenter', () => { 
+                clearInterval(testimonialInterval); 
+            });
+            document.getElementById('testimonialsCarousel').addEventListener('mouseleave', () => { 
+                testimonialInterval = setInterval(nextTestimonial, 5000); 
+            });
+
+            // Intersection Observer for animations
             const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { if (entry.isIntersecting) entry.target.style.animation = `fadeInUp 0.8s ease-out forwards`; });
+                entries.forEach(entry => { 
+                    if (entry.isIntersecting) entry.target.style.animation = `fadeInUp 0.8s ease-out forwards`; 
+                });
             }, observerOptions);
-            document.querySelectorAll('.product-card, .feature-card, .testimonial-card, .category-card, .trust-badge').forEach(el => { el.style.opacity = '0'; observer.observe(el); });
+            document.querySelectorAll('.product-card, .feature-card, .testimonial-card, .category-card, .trust-badge').forEach(el => { 
+                el.style.opacity = '0'; 
+                observer.observe(el); 
+            });
         });
     </script>
 </body>
 </html>
-
-
