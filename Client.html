@@ -7,6 +7,7 @@
     <link rel="icon" href="logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --primary: #0066FF; --primary-dark: #0052D4; --primary-light: #3391FF; --primary-ultralight: #E6F0FF;
@@ -20,6 +21,7 @@
             --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
             --gradient-offer: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
             --gradient-rainbow: linear-gradient(90deg, #FF3366, #FF9933, #FFCC33, #33CC33, #3399FF, #9966FF);
+            --points: #FFD700; --points-dark: #FFA500;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -173,6 +175,11 @@
             100% { background-position: 0% 50%; }
         }
         
+        @keyframes pointsGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.6); }
+        }
+        
         /* Enhanced header */
         #topBar { 
             position: fixed; 
@@ -290,6 +297,24 @@
         
         .search-bar input:focus + i { 
             color: var(--primary); 
+        }
+        
+        .points-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--points), var(--points-dark));
+            border-radius: 50px;
+            color: #000;
+            font-weight: 700;
+            animation: pointsGlow 2s infinite;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .points-display:hover {
+            transform: scale(1.05);
         }
         
         .cart-icon, .wishlist-icon, .user-icon { 
@@ -459,6 +484,104 @@
         
         .promo-content i { 
             animation: bounce 2s infinite, wave 1.5s ease-in-out infinite; 
+        }
+        
+        /* AD BANNERS */
+        .ad-banner {
+            width: 100%;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            animation: zoomIn 0.8s ease-out;
+        }
+        
+        .ad-banner.large {
+            height: 400px;
+        }
+        
+        .ad-banner.medium {
+            height: 250px;
+        }
+        
+        .ad-banner.small {
+            height: 180px;
+        }
+        
+        .ad-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .ad-banner:hover img {
+            transform: scale(1.05);
+        }
+        
+        .ad-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+            background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+            color: white;
+        }
+        
+        .ad-tag {
+            background: var(--accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 20px;
+            width: fit-content;
+            animation: pulse 2s infinite;
+        }
+        
+        .ad-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .ad-description {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            max-width: 500px;
+            opacity: 0.9;
+        }
+        
+        .ad-button {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .ad-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         
         /* Enhanced hero section */
@@ -1519,7 +1642,7 @@
             left: 0; 
             width: 100%; 
             height: 100%; 
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>'); 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>'); 
             background-size: cover; 
         }
         
@@ -1579,6 +1702,245 @@
             font-size: 1rem; 
             opacity: 0.9; 
             font-weight: 600; 
+        }
+        
+        /* Profile Section */
+        .profile-section {
+            background: white;
+        }
+        
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+        }
+        
+        .profile-sidebar {
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 102, 255, 0.1);
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 48px;
+            font-weight: 700;
+            animation: morph 8s ease-in-out infinite;
+        }
+        
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .profile-email {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-item {
+            background: white;
+            padding: 20px 15px;
+            border-radius: var(--radius);
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .points-display-large {
+            background: linear-gradient(135deg, var(--points), var(--points-dark));
+            padding: 25px;
+            border-radius: var(--radius);
+            text-align: center;
+            color: #000;
+            margin-bottom: 30px;
+            animation: pointsGlow 2s infinite;
+        }
+        
+        .points-value {
+            font-size: 36px;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .points-label {
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+        
+        .profile-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .profile-nav-btn {
+            padding: 15px 20px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            text-align: left;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .profile-nav-btn:hover,
+        .profile-nav-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .profile-content {
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 102, 255, 0.1);
+        }
+        
+        .profile-content-section {
+            display: none;
+        }
+        
+        .profile-content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .profile-content h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--text);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .profile-content h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .points-history {
+            margin-top: 30px;
+        }
+        
+        .points-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .points-table th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .points-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .points-table tr:hover {
+            background: rgba(0, 102, 255, 0.05);
+        }
+        
+        .points-earned {
+            color: #10B981;
+            font-weight: 700;
+        }
+        
+        .points-spent {
+            color: #EF4444;
+            font-weight: 700;
         }
         
         /* Enhanced cart section */
@@ -1988,10 +2350,23 @@
             transform: scale(1.05);
         }
         
+        /* Confetti Canvas */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3000;
+            display: none;
+        }
+        
         /* Enhanced mobile responsiveness */
         @media (max-width: 1200px) { 
             .hero h1 { font-size: 3.5rem; } 
             .products-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } 
+            .profile-container { grid-template-columns: 1fr; } 
         }
         
         @media (max-width: 1024px) { 
@@ -2000,6 +2375,7 @@
             .search-bar input { width: 240px; } 
             .modal-body { flex-direction: column; } 
             .modal-image-container { min-height: 300px; } 
+            .ad-title { font-size: 2rem; } 
         }
         
         @media (max-width: 768px) { 
@@ -2007,6 +2383,7 @@
             .nav-links { display: none; } 
             .mobile-nav { display: flex; } 
             .search-bar { display: none; } 
+            .points-display { display: none; } 
             .hero { padding: 120px 5% 80px; } 
             .hero h1 { font-size: 2.5rem; } 
             .hero p { font-size: 1.2rem; } 
@@ -2026,6 +2403,13 @@
             .modal-actions { flex-direction: column; }
             .specs-grid { grid-template-columns: 1fr; }
             .quick-view-badge { opacity: 1; }
+            .ad-banner.large { height: 300px; } 
+            .ad-banner.medium { height: 200px; } 
+            .ad-banner.small { height: 150px; } 
+            .ad-content { padding: 20px; } 
+            .ad-title { font-size: 1.5rem; } 
+            .ad-description { font-size: 1rem; } 
+            .info-grid { grid-template-columns: 1fr; } 
         }
         
         @media (max-width: 640px) { 
@@ -2048,6 +2432,9 @@
             .offers-content h2 { font-size: 2.2rem; } 
             .countdown { flex-wrap: wrap; } 
             .countdown-item { min-width: 80px; } 
+            .ad-banner.large { height: 250px; } 
+            .ad-banner.medium { height: 180px; } 
+            .ad-banner.small { height: 120px; } 
         }
         
         @media (max-width: 480px) { 
@@ -2066,6 +2453,10 @@
             .modal-title { font-size: 20px; }
             .modal-current-price { font-size: 22px; }
             .modal-features ul { padding-left: 15px; }
+            .profile-sidebar { padding: 30px 20px; } 
+            .profile-content { padding: 30px 20px; } 
+            .points-table { font-size: 14px; } 
+            .points-table th, .points-table td { padding: 10px; } 
         }
         
         @media (max-width: 360px) { 
@@ -2083,18 +2474,25 @@
     <div class="bubbles" id="bubbles"></div>
     <div class="floating-elements" id="floatingElements"></div>
     <div class="particles" id="particles"></div>
+    <canvas id="confetti-canvas"></canvas>
     
     <header id="topBar">
         <a href="#" class="logoWrap"><img src="logo.png" alt="HIK Store"><span>HIK STORE</span></a>
         <nav class="nav-links">
             <a href="#products">Products</a>
             <a href="#categories">Categories</a>
+            <a href="#ad-banners">Offers</a>
             <a href="#features">Features</a>
-            <a href="#testimonials">Testimonials</a>
+            <a href="#testimonials">Reviews</a>
+            <a href="#profile" id="profileNavLink">Profile</a>
             <a href="#cart">Cart</a>
         </nav>
         <div class="nav-actions">
             <div class="search-bar"><i class="fas fa-search"></i><input type="text" placeholder="Search products..." id="searchInput"></div>
+            <div class="points-display" id="pointsDisplayBtn">
+                <i class="fas fa-coins"></i>
+                <span id="pointsValue">0</span>
+            </div>
             <div class="user-icon" id="userBtn"><i class="fas fa-user"></i></div>
             <div class="wishlist-icon" id="wishlistBtn"><i class="fas fa-heart"></i><span class="wishlist-count">0</span></div>
             <div class="cart-icon" id="cartBtn"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></div>
@@ -2113,8 +2511,10 @@
     <nav class="mobile-nav" id="mobileNav">
         <a href="#products">Products</a>
         <a href="#categories">Categories</a>
+        <a href="#ad-banners">Offers</a>
         <a href="#features">Features</a>
-        <a href="#testimonials">Testimonials</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#profile" id="mobileProfileLink">Profile</a>
         <a href="#cart">Cart</a>
     </nav>
     
@@ -2166,6 +2566,1203 @@
             </div>
         </div>
     </section>
+    
+   <!-- Premium Ad Banners Section -->
+<section class="section" id="premium-ads">
+    <div class="section-header">
+        <h2>Premium Collections</h2>
+        <p>Explore our curated selection of premium products</p>
+    </div>
+    
+    <div class="premium-ads-container">
+        <!-- Banner 1: Tech & Electronics -->
+        <div class="premium-ad-banner tech-collection">
+            <div class="premium-ad-background">
+                <div class="ad-bg-gradient"></div>
+                <div class="ad-bg-glow"></div>
+                <div class="ad-bg-grid"></div>
+                <div class="ad-circuits"></div>
+            </div>
+            
+            <div class="premium-ad-content">
+                <div class="ad-badge">
+                    <span class="badge-text">TECH COLLECTION</span>
+                    <div class="badge-glow"></div>
+                </div>
+                
+                <h1 class="ad-title">
+                    <span class="title-line">PREMIUM</span>
+                    <span class="title-line accent">ELECTRONICS</span>
+                </h1>
+                
+                <div class="ad-tagline">
+                    <span class="tagline-text">CUTTING-EDGE TECHNOLOGY FOR MODERN LIVING</span>
+                    <div class="tagline-underline"></div>
+                </div>
+                
+                <div class="ad-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-text">Latest Devices</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-text">Authentic Brands</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🚚</div>
+                        <div class="feature-text">Fast UAE Delivery</div>
+                    </div>
+                </div>
+                
+                <button class="ad-cta" onclick="filterProducts('electronics')">
+                    <span class="cta-text">EXPLORE ELECTRONICS</span>
+                    <div class="cta-icon">→</div>
+                    <div class="cta-hover-effect"></div>
+                </button>
+            </div>
+            
+            <div class="ad-products-display">
+                <div class="product-float product-1">
+                    <img src="product_01.jpg" alt="Meta Quest 3" class="float-image">
+                    <div class="float-glow"></div>
+                </div>
+                <div class="product-float product-2">
+                    <img src="product_19.jpg" alt="Sony Headphones" class="float-image">
+                    <div class="float-glow"></div>
+                </div>
+                <div class="product-float product-3">
+                    <img src="product_10.jpg" alt="Nothing Phone" class="float-image">
+                    <div class="float-glow"></div>
+                </div>
+            </div>
+            
+            <div class="ad-decorations">
+                <div class="ad-light-ray ray-1"></div>
+                <div class="ad-light-ray ray-2"></div>
+                <div class="circuit-node node-1"></div>
+                <div class="circuit-node node-2"></div>
+                <div class="circuit-line line-1"></div>
+                <div class="circuit-line line-2"></div>
+            </div>
+        </div>
+        
+        <!-- Banner 2: Gaming Collection -->
+        <div class="premium-ad-banner gaming-collection">
+            <div class="premium-ad-background">
+                <div class="ad-bg-gradient"></div>
+                <div class="ad-bg-glow"></div>
+                <div class="ad-bg-grid"></div>
+                <div class="ad-particles"></div>
+            </div>
+            
+            <div class="premium-ad-content">
+                <div class="ad-badge">
+                    <span class="badge-text">GAMING UNIVERSE</span>
+                    <div class="badge-glow"></div>
+                </div>
+                
+                <h1 class="ad-title">
+                    <span class="title-line">ULTIMATE</span>
+                    <span class="title-line accent">GAMING GEAR</span>
+                </h1>
+                
+                <div class="ad-tagline">
+                    <span class="tagline-text">ELEVATE YOUR GAMING EXPERIENCE</span>
+                    <div class="tagline-underline"></div>
+                </div>
+                
+                <div class="ad-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🎮</div>
+                        <div class="feature-text">Pro Gaming Gear</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-text">High Performance</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏆</div>
+                        <div class="feature-text">Esports Ready</div>
+                    </div>
+                </div>
+                
+                <button class="ad-cta" onclick="filterProducts('gaming')">
+                    <span class="cta-text">DISCOVER GAMING</span>
+                    <div class="cta-icon">→</div>
+                    <div class="cta-hover-effect"></div>
+                </button>
+            </div>
+            
+            <div class="ad-products-display">
+                <div class="product-float product-1">
+                    <img src="product_02.jpg" alt="Logitech Keyboard" class="float-image">
+                    <div class="float-glow"></div>
+                </div>
+                <div class="product-float product-2">
+                    <img src="product_05.jpg" alt="Gaming Mouse" class="float-image">
+                    <div class="float-glow"></div>
+                </div>
+                <div class="product-float product-3">
+                    <img src="product_21.jpg" alt="DJI Drone" class="float-image">
+                    <div class="float-glow"></div>
+                </div>
+            </div>
+            
+            <div class="ad-decorations">
+                <div class="ad-light-ray ray-1"></div>
+                <div class="ad-light-ray ray-2"></div>
+                <div class="game-controller"></div>
+                <div class="dpad"></div>
+                <div class="health-bar"></div>
+            </div>
+        </div>
+        
+        <!-- Banner 3: Home & Lifestyle -->
+        <div class="premium-ad-banner home-collection">
+            <div class="premium-ad-background">
+                <div class="ad-bg-gradient"></div>
+                <div class="ad-bg-glow"></div>
+                <div class="ad-bg-grid"></div>
+                <div class="ad-geometric"></div>
+            </div>
+            
+            <div class="premium-ad-content">
+                <div class="ad-badge">
+                    <span class="badge-text">HOME ESSENTIALS</span>
+                    <div class="badge-glow"></div>
+                </div>
+                
+                <h1 class="ad-title">
+                    <span class="title-line">SMART</span>
+                    <span class="title-line accent">LIVING SPACES</span>
+                </h1>
+                
+                <div class="ad-tagline">
+                    <span class="tagline-text">TRANSFORM YOUR HOME WITH INNOVATION</span>
+                    <div class="tagline-underline"></div>
+                </div>
+                
+                <div class="ad-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🏠</div>
+                        <div class="feature-text">Smart Home Tech</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✨</div>
+                        <div class="feature-text">Premium Quality</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📦</div>
+                        <div class="feature-text">Easy Installation</div>
+                    </div>
+                </div>
+                
+                <button class="ad-cta" onclick="filterProducts('home')">
+                    <span class="cta-text">BROWSE HOME</span>
+                    <div class="cta-icon">→</div>
+                    <div class="cta-hover-effect"></div>
+                </button>
+            </div>
+            
+            <div class="ad-products-display">
+                <div class="product-float product-1">
+                    <img src="product_36.jpg" alt="Philips Hue" class="float-image">
+                    <div class="float-glow"></div>
+                </div>
+                <div class="product-float product-2">
+                    <img src="product_37.jpg" alt="Pizza Oven" class="float-image">
+                    <div class="float-glow"></div>
+                </div>
+                <div class="product-float product-3">
+                    <img src="product_38.jpg" alt="Air Fryer" class="float-image">
+                    <div class="float-glow"></div>
+                </div>
+            </div>
+            
+            <div class="ad-decorations">
+                <div class="ad-light-ray ray-1"></div>
+                <div class="ad-light-ray ray-2"></div>
+                <div class="home-icon icon-1">🏠</div>
+                <div class="home-icon icon-2">💡</div>
+                <div class="geometric-shape shape-1"></div>
+                <div class="geometric-shape shape-2"></div>
+            </div>
+        </div>
+        
+        <!-- Banner 4: Fashion & Wearables -->
+        <div class="premium-ad-banner fashion-collection">
+            <div class="premium-ad-background">
+                <div class="ad-bg-gradient"></div>
+                <div class="ad-bg-glow"></div>
+                <div class="ad-bg-grid"></div>
+                <div class="ad-pattern"></div>
+            </div>
+            
+            <div class="premium-ad-content">
+                <div class="ad-badge">
+                    <span class="badge-text">FASHION EDITION</span>
+                    <div class="badge-glow"></div>
+                </div>
+                
+                <h1 class="ad-title">
+                    <span class="title-line">STYLE</span>
+                    <span class="title-line accent">MEETS FUNCTION</span>
+                </h1>
+                
+                <div class="ad-tagline">
+                    <span class="tagline-text">ELEVATE YOUR EVERYDAY WARDROBE</span>
+                    <div class="tagline-underline"></div>
+                </div>
+                
+                <div class="ad-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">👔</div>
+                        <div class="feature-text">Premium Materials</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-text">Perfect Fit</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌟</div>
+                        <div class="feature-text">Modern Designs</div>
+                    </div>
+                </div>
+                
+                <button class="ad-cta" onclick="filterProducts('fashion')">
+                    <span class="cta-text">EXPLORE FASHION</span>
+                    <div class="cta-icon">→</div>
+                    <div class="cta-hover-effect"></div>
+                </button>
+            </div>
+            
+            <div class="ad-products-display">
+                <div class="product-float product-1">
+                    <img src="product_44.jpg" alt="Backpack" class="float-image">
+                    <div class="float-glow"></div>
+                </div>
+                <div class="product-float product-2">
+                    <img src="product_45.jpg" alt="Jacket" class="float-image">
+                    <div class="float-glow"></div>
+                </div>
+                <div class="product-float product-3">
+                    <img src="product_46.jpg" alt="Pants" class="float-image">
+                    <div class="float-glow"></div>
+                </div>
+            </div>
+            
+            <div class="ad-decorations">
+                <div class="ad-light-ray ray-1"></div>
+                <div class="ad-light-ray ray-2"></div>
+                <div class="fashion-icon icon-1">👟</div>
+                <div class="fashion-icon icon-2">🕶️</div>
+                <div class="pattern-dot dot-1"></div>
+                <div class="pattern-dot dot-2"></div>
+                <div class="pattern-dot dot-3"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Premium Ad Banners Container */
+    .premium-ads-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    /* Individual Ad Banner */
+    .premium-ad-banner {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 
+            0 25px 50px -12px rgba(0, 0, 0, 0.5),
+            0 0 0 1px rgba(255, 255, 255, 0.05);
+        isolation: isolate;
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+    
+    .premium-ad-banner:hover {
+        transform: translateY(-5px);
+        box-shadow: 
+            0 35px 60px -15px rgba(0, 0, 0, 0.6),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Banner Backgrounds */
+    .premium-ad-background {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
+    
+    .ad-bg-gradient {
+        position: absolute;
+        inset: 0;
+    }
+    
+    .ad-bg-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 800px;
+        height: 800px;
+        filter: blur(40px);
+        animation: glowPulse 8s ease-in-out infinite;
+    }
+    
+    .ad-bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: radial-gradient(circle at center, black, transparent 70%);
+    }
+    
+    /* Theme-specific Backgrounds */
+    .tech-collection .ad-bg-gradient {
+        background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+    }
+    
+    .tech-collection .ad-bg-glow {
+        background: radial-gradient(circle at center, rgba(0, 102, 255, 0.2) 0%, transparent 70%);
+    }
+    
+    .gaming-collection .ad-bg-gradient {
+        background: linear-gradient(135deg, #1A0F1A 0%, #2D1B2D 50%, #1A0F1A 100%);
+    }
+    
+    .gaming-collection .ad-bg-glow {
+        background: radial-gradient(circle at center, rgba(255, 51, 102, 0.2) 0%, transparent 70%);
+    }
+    
+    .home-collection .ad-bg-gradient {
+        background: linear-gradient(135deg, #172A0F 0%, #293B1E 50%, #172A0F 100%);
+    }
+    
+    .home-collection .ad-bg-glow {
+        background: radial-gradient(circle at center, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+    }
+    
+    .fashion-collection .ad-bg-gradient {
+        background: linear-gradient(135deg, #1A0F17 0%, #2D1B29 50%, #1A0F17 100%);
+    }
+    
+    .fashion-collection .ad-bg-glow {
+        background: radial-gradient(circle at center, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+    }
+    
+    /* Ad Content */
+    .premium-ad-content {
+        position: relative;
+        z-index: 3;
+        color: white;
+        padding: 40px;
+        max-width: 500px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .ad-badge {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+    
+    .ad-badge .badge-text {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        padding: 6px 15px;
+        border-radius: 50px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .tech-collection .badge-text {
+        background: rgba(0, 102, 255, 0.1);
+        color: #00D4FF;
+        border-color: rgba(0, 212, 255, 0.3);
+    }
+    
+    .gaming-collection .badge-text {
+        background: rgba(255, 51, 102, 0.1);
+        color: #FF6699;
+        border-color: rgba(255, 102, 153, 0.3);
+    }
+    
+    .home-collection .badge-text {
+        background: rgba(16, 185, 129, 0.1);
+        color: #10B981;
+        border-color: rgba(16, 185, 129, 0.3);
+    }
+    
+    .fashion-collection .badge-text {
+        background: rgba(139, 92, 246, 0.1);
+        color: #8B5CF6;
+        border-color: rgba(139, 92, 246, 0.3);
+    }
+    
+    .badge-glow {
+        position: absolute;
+        inset: -4px;
+        border-radius: 50px;
+        filter: blur(8px);
+        animation: badgeGlow 3s ease-in-out infinite;
+    }
+    
+    .tech-collection .badge-glow {
+        background: radial-gradient(circle at center, rgba(0, 212, 255, 0.3), transparent 70%);
+    }
+    
+    .gaming-collection .badge-glow {
+        background: radial-gradient(circle at center, rgba(255, 102, 153, 0.3), transparent 70%);
+    }
+    
+    .home-collection .badge-glow {
+        background: radial-gradient(circle at center, rgba(16, 185, 129, 0.3), transparent 70%);
+    }
+    
+    .fashion-collection .badge-glow {
+        background: radial-gradient(circle at center, rgba(139, 92, 246, 0.3), transparent 70%);
+    }
+    
+    .ad-title {
+        font-family: 'Inter', sans-serif;
+        font-size: 3.5rem;
+        font-weight: 900;
+        line-height: 1;
+        margin-bottom: 15px;
+        letter-spacing: -0.5px;
+    }
+    
+    .title-line {
+        display: block;
+        background: linear-gradient(90deg, #FFFFFF, #E6F0FF);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .tech-collection .title-line.accent {
+        background: linear-gradient(90deg, #00D4FF, #0066FF);
+    }
+    
+    .gaming-collection .title-line.accent {
+        background: linear-gradient(90deg, #FF6699, #FF3366);
+    }
+    
+    .home-collection .title-line.accent {
+        background: linear-gradient(90deg, #10B981, #059669);
+    }
+    
+    .fashion-collection .title-line.accent {
+        background: linear-gradient(90deg, #8B5CF6, #7C3AED);
+    }
+    
+    .title-line.accent {
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: titleShimmer 8s ease-in-out infinite;
+    }
+    
+    .ad-tagline {
+        position: relative;
+        margin-bottom: 30px;
+    }
+    
+    .tagline-text {
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.8);
+        display: inline-block;
+    }
+    
+    .tagline-underline {
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 80px;
+        height: 2px;
+        border-radius: 1px;
+        animation: underlineSlide 6s ease-in-out infinite;
+    }
+    
+    .tech-collection .tagline-underline {
+        background: linear-gradient(90deg, #00D4FF, transparent);
+    }
+    
+    .gaming-collection .tagline-underline {
+        background: linear-gradient(90deg, #FF6699, transparent);
+    }
+    
+    .home-collection .tagline-underline {
+        background: linear-gradient(90deg, #10B981, transparent);
+    }
+    
+    .fashion-collection .tagline-underline {
+        background: linear-gradient(90deg, #8B5CF6, transparent);
+    }
+    
+    /* Features Grid */
+    .ad-features {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+    
+    .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+    }
+    
+    .feature-item:hover {
+        opacity: 1;
+    }
+    
+    .feature-icon {
+        font-size: 1.2rem;
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .feature-text {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.95);
+    }
+    
+    /* CTA Button */
+    .ad-cta {
+        position: relative;
+        color: white;
+        border: none;
+        padding: 16px 30px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        width: fit-content;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .tech-collection .ad-cta {
+        background: linear-gradient(135deg, #0066FF, #00D4FF);
+    }
+    
+    .gaming-collection .ad-cta {
+        background: linear-gradient(135deg, #FF3366, #FF6699);
+    }
+    
+    .home-collection .ad-cta {
+        background: linear-gradient(135deg, #10B981, #059669);
+    }
+    
+    .fashion-collection .ad-cta {
+        background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+    }
+    
+    .ad-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+    }
+    
+    .cta-hover-effect {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+    }
+    
+    .ad-cta:hover .cta-hover-effect {
+        transform: translateX(100%);
+    }
+    
+    .cta-text {
+        font-weight: 700;
+    }
+    
+    .cta-icon {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+    
+    /* Products Display */
+    .ad-products-display {
+        position: absolute;
+        top: 50%;
+        right: 40px;
+        transform: translateY(-50%);
+        z-index: 2;
+        width: 300px;
+        height: 300px;
+    }
+    
+    .product-float {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 
+            0 10px 30px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+        animation: floatProduct 15s ease-in-out infinite;
+        z-index: 3;
+    }
+    
+    .product-1 {
+        top: 20%;
+        right: 40%;
+        width: 120px;
+        height: 120px;
+        animation-delay: 0s;
+    }
+    
+    .product-2 {
+        top: 50%;
+        right: 10%;
+        width: 90px;
+        height: 90px;
+        animation-delay: -5s;
+    }
+    
+    .product-3 {
+        bottom: 20%;
+        right: 60%;
+        width: 110px;
+        height: 110px;
+        animation-delay: -10s;
+    }
+    
+    .float-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .product-float:hover .float-image {
+        transform: scale(1.1);
+    }
+    
+    .float-glow {
+        position: absolute;
+        inset: -5px;
+        border-radius: 12px;
+        filter: blur(10px);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+    }
+    
+    .tech-collection .float-glow {
+        background: radial-gradient(circle at center, rgba(0, 102, 255, 0.3), transparent 70%);
+    }
+    
+    .gaming-collection .float-glow {
+        background: radial-gradient(circle at center, rgba(255, 51, 102, 0.3), transparent 70%);
+    }
+    
+    .home-collection .float-glow {
+        background: radial-gradient(circle at center, rgba(16, 185, 129, 0.3), transparent 70%);
+    }
+    
+    .fashion-collection .float-glow {
+        background: radial-gradient(circle at center, rgba(139, 92, 246, 0.3), transparent 70%);
+    }
+    
+    .product-float:hover .float-glow {
+        opacity: 1;
+    }
+    
+    /* Decorations */
+    .ad-decorations {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+    }
+    
+    .ad-light-ray {
+        position: absolute;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        height: 1px;
+        filter: blur(1px);
+        animation: rayMove 15s linear infinite;
+    }
+    
+    .ad-light-ray.ray-1 {
+        top: 30%;
+        width: 100%;
+        animation-delay: 0s;
+    }
+    
+    .ad-light-ray.ray-2 {
+        top: 70%;
+        width: 80%;
+        left: 10%;
+        animation-delay: -5s;
+        animation-duration: 20s;
+    }
+    
+    /* Tech-specific decorations */
+    .circuit-node {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #00D4FF;
+        filter: blur(1px);
+        animation: pulse 2s infinite;
+    }
+    
+    .circuit-node.node-1 {
+        top: 40%;
+        right: 30%;
+    }
+    
+    .circuit-node.node-2 {
+        bottom: 40%;
+        left: 30%;
+        animation-delay: -1s;
+    }
+    
+    .circuit-line {
+        position: absolute;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #00D4FF, transparent);
+        filter: blur(0.5px);
+    }
+    
+    .circuit-line.line-1 {
+        top: 40%;
+        left: 20%;
+        right: 30%;
+        transform: rotate(45deg);
+    }
+    
+    .circuit-line.line-2 {
+        bottom: 40%;
+        left: 30%;
+        right: 20%;
+        transform: rotate(-45deg);
+    }
+    
+    /* Gaming-specific decorations */
+    .game-controller {
+        position: absolute;
+        top: 30%;
+        right: 20%;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 51, 102, 0.2);
+        border-radius: 10px;
+        transform: rotate(45deg);
+        animation: rotateController 20s linear infinite;
+    }
+    
+    .dpad {
+        position: absolute;
+        bottom: 30%;
+        left: 20%;
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 102, 153, 0.2);
+        border-radius: 5px;
+        animation: bounce 3s infinite;
+    }
+    
+    .health-bar {
+        position: absolute;
+        top: 20%;
+        left: 40%;
+        width: 60px;
+        height: 8px;
+        background: rgba(255, 51, 102, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    
+    .health-bar::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 70%;
+        height: 100%;
+        background: linear-gradient(90deg, #FF3366, #FF6699);
+        animation: healthPulse 3s infinite;
+    }
+    
+    /* Home-specific decorations */
+    .home-icon {
+        position: absolute;
+        font-size: 24px;
+        opacity: 0.2;
+        animation: floatIcon 10s ease-in-out infinite;
+    }
+    
+    .home-icon.icon-1 {
+        top: 30%;
+        right: 30%;
+        animation-delay: 0s;
+    }
+    
+    .home-icon.icon-2 {
+        bottom: 30%;
+        left: 30%;
+        animation-delay: -5s;
+    }
+    
+    .geometric-shape {
+        position: absolute;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+    
+    .geometric-shape.shape-1 {
+        top: 40%;
+        left: 40%;
+        width: 20px;
+        height: 20px;
+        transform: rotate(45deg);
+        animation: rotateShape 15s linear infinite;
+    }
+    
+    .geometric-shape.shape-2 {
+        bottom: 40%;
+        right: 40%;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        animation: pulse 3s infinite;
+        animation-delay: -1s;
+    }
+    
+    /* Fashion-specific decorations */
+    .fashion-icon {
+        position: absolute;
+        font-size: 28px;
+        opacity: 0.2;
+        animation: floatIcon 12s ease-in-out infinite;
+    }
+    
+    .fashion-icon.icon-1 {
+        top: 35%;
+        left: 35%;
+        animation-delay: 0s;
+    }
+    
+    .fashion-icon.icon-2 {
+        bottom: 35%;
+        right: 35%;
+        animation-delay: -6s;
+    }
+    
+    .pattern-dot {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(139, 92, 246, 0.3);
+        filter: blur(1px);
+        animation: pulse 2s infinite;
+    }
+    
+    .pattern-dot.dot-1 {
+        top: 25%;
+        right: 25%;
+        animation-delay: 0s;
+    }
+    
+    .pattern-dot.dot-2 {
+        top: 60%;
+        left: 25%;
+        animation-delay: -1s;
+    }
+    
+    .pattern-dot.dot-3 {
+        bottom: 25%;
+        right: 60%;
+        animation-delay: -0.5s;
+    }
+    
+    /* Animations */
+    @keyframes glowPulse {
+        0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+        50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); }
+    }
+    
+    @keyframes badgeGlow {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+    }
+    
+    @keyframes titleShimmer {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+    
+    @keyframes underlineSlide {
+        0%, 100% { transform: translateX(0) scaleX(1); }
+        50% { transform: translateX(150px) scaleX(0.5); }
+    }
+    
+    @keyframes rayMove {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    @keyframes floatProduct {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        33% { transform: translateY(-15px) rotate(2deg); }
+        66% { transform: translateY(8px) rotate(-1deg); }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 1; }
+    }
+    
+    @keyframes rotateController {
+        0% { transform: rotate(45deg); }
+        100% { transform: rotate(405deg); }
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes healthPulse {
+        0%, 100% { width: 70%; }
+        50% { width: 80%; }
+    }
+    
+    @keyframes floatIcon {
+        0%, 100% { transform: translateY(0) rotate(0deg); opacity:0.2; }
+50% { transform: translateY(-15px) rotate(10deg); opacity: 0.3; }
+}@keyframes rotateShape {
+    0% { transform: rotate(45deg); }
+    100% { transform: rotate(405deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .premium-ad-banner {
+        height: 350px;
+    }
+    
+    .ad-title {
+        font-size: 2.8rem;
+    }
+    
+    .ad-products-display {
+        width: 250px;
+        height: 250px;
+        right: 20px;
+    }
+    
+    .product-float {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .product-1 {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .product-2 {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .product-3 {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+@media (max-width: 768px) {
+    .premium-ads-container {
+        gap: 20px;
+    }
+    
+    .premium-ad-banner {
+        height: 300px;
+    }
+    
+    .premium-ad-content {
+        padding: 25px;
+    }
+    
+    .ad-title {
+        font-size: 2.2rem;
+    }
+    
+    .tagline-text {
+        font-size: 0.9rem;
+    }
+    
+    .ad-features {
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .feature-text {
+        font-size: 0.85rem;
+    }
+    
+    .ad-cta {
+        padding: 12px 20px;
+        font-size: 0.85rem;
+    }
+    
+    .ad-products-display {
+        width: 200px;
+        height: 200px;
+        right: 10px;
+    }
+    
+    .product-float {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .product-1 {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .product-2 {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .product-3 {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .ad-decorations {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .premium-ad-banner {
+        height: 250px;
+    }
+    
+    .premium-ad-content {
+        padding: 20px;
+    }
+    
+    .ad-title {
+        font-size: 1.8rem;
+    }
+    
+    .ad-badge .badge-text {
+        font-size: 9px;
+        padding: 4px 10px;
+    }
+    
+    .tagline-text {
+        font-size: 0.8rem;
+    }
+    
+    .feature-item {
+        gap: 8px;
+    }
+    
+    .feature-icon {
+        width: 25px;
+        height: 25px;
+        font-size: 0.9rem;
+    }
+    
+    .feature-text {
+        font-size: 0.75rem;
+    }
+    
+    .ad-cta {
+        padding: 10px 16px;
+        font-size: 0.75rem;
+    }
+    
+    .ad-products-display {
+        display: none;
+    }
+}
+
+/* Section Header */
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1E293B;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #0066FF, #00D4FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-header p {
+    color: #64748B;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .section-header p {
+        font-size: 1rem;
+    }
+}
+</style><script> // Function to handle product filtering function filterProducts(category) { console.log(`Filtering products by category: ${category}`); // In a real implementation, this would filter the products grid // For now, we'll just show an alert alert(`Filtering products for ${category.toUpperCase()} collection`); // Scroll to products section const productsSection = document.getElementById('all-products'); if (productsSection) { productsSection.scrollIntoView({ behavior: 'smooth' }); } } // Add hover effects for product floats document.addEventListener('DOMContentLoaded', function() { const productFloats = document.querySelectorAll('.product-float'); productFloats.forEach(product => { product.addEventListener('mouseenter', function() { this.style.zIndex = '10'; this.style.animation = 'none'; this.style.transform = 'scale(1.1)'; }); product.addEventListener('mouseleave', function() { this.style.zIndex = '3'; this.style.animation = ''; this.style.transform = ''; }); }); }); 
+</script>
     
     <section class="trust-section">
         <div class="trust-badges">
@@ -2245,6 +3842,168 @@
         </div>
     </section>
     
+    <!-- Profile Section -->
+    <section class="section profile-section" id="profile">
+        <div class="section-header">
+            <h2>My Profile</h2>
+            <p>Manage your account, view points, and track orders</p>
+        </div>
+        <div class="profile-container">
+            <div class="profile-sidebar">
+                <div class="profile-header" id="profileHeader">
+                    <div class="profile-avatar" id="profileAvatar">?</div>
+                    <div class="profile-name" id="profileName">Guest User</div>
+                    <div class="profile-email" id="profileEmail">Please login to view profile</div>
+                </div>
+                
+                <div class="points-display-large" id="pointsDisplayLarge" style="display: none;">
+                    <span class="points-value" id="pointsValueLarge">0</span>
+                    <span class="points-label">REWARD POINTS</span>
+                </div>
+                
+                <div class="profile-stats" id="profileStats" style="display: none;">
+                    <div class="stat-item">
+                        <span class="stat-value" id="ordersCount">0</span>
+                        <span class="stat-label">Orders</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="wishlistCount">0</span>
+                        <span class="stat-label">Wishlist</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="cartCount">0</span>
+                        <span class="stat-label">Cart Items</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="pointsValue">0</span>
+                        <span class="stat-label">Points</span>
+                    </div>
+                </div>
+                
+                <div class="profile-nav">
+                    <button class="profile-nav-btn active" data-section="overview">
+                        <i class="fas fa-user-circle"></i> Overview
+                    </button>
+                    <button class="profile-nav-btn" data-section="points">
+                        <i class="fas fa-coins"></i> Points & Rewards
+                    </button>
+                    <button class="profile-nav-btn" data-section="orders">
+                        <i class="fas fa-shopping-bag"></i> Order History
+                    </button>
+                    <button class="profile-nav-btn" data-section="wishlist">
+                        <i class="fas fa-heart"></i> Wishlist
+                    </button>
+                    <button class="profile-nav-btn" data-section="settings">
+                        <i class="fas fa-cog"></i> Settings
+                    </button>
+                </div>
+            </div>
+            
+            <div class="profile-content">
+                <div class="profile-content-section active" id="overviewSection">
+                    <h3>Account Overview</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Member Since</span>
+                            <span class="info-value" id="memberSince">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Total Orders</span>
+                            <span class="info-value" id="totalOrders">0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Total Spent</span>
+                            <span class="info-value" id="totalSpent">AED 0.00</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Loyalty Tier</span>
+                            <span class="info-value" id="loyaltyTier">Bronze</span>
+                        </div>
+                    </div>
+                    
+                    <div class="points-history">
+                        <h4>Recent Points Activity</h4>
+                        <table class="points-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Activity</th>
+                                    <th>Points</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pointsHistoryBody">
+                                <tr><td colspan="3" style="text-align: center;">No points activity yet</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="profile-content-section" id="pointsSection">
+                    <h3>Points & Rewards</h3>
+                    <div style="background: linear-gradient(135deg, var(--points), var(--points-dark)); padding: 30px; border-radius: var(--radius); color: #000; margin-bottom: 30px;">
+                        <div style="font-size: 14px; font-weight: 600; margin-bottom: 10px;">YOUR BALANCE</div>
+                        <div style="font-size: 48px; font-weight: 800; margin-bottom: 20px;" id="pointsBalance">0</div>
+                        <div style="font-size: 16px; margin-bottom: 20px;">100 points = AED 1.00 discount</div>
+                        <button class="btn btn-primary" style="background: #000; color: var(--points);" onclick="usePoints()">
+                            <i class="fas fa-gift"></i> Redeem Points
+                        </button>
+                    </div>
+                    
+                    <h4>How to Earn Points</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
+                        <div class="feature-card" style="padding: 20px;">
+                            <div class="feature-icon" style="width: 60px; height: 60px; font-size: 24px;">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <h4 style="font-size: 16px;">Shopping</h4>
+                            <p style="font-size: 14px;">Earn 1 point for every AED 1 spent</p>
+                        </div>
+                        <div class="feature-card" style="padding: 20px;">
+                            <div class="feature-icon" style="width: 60px; height: 60px; font-size: 24px;">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <h4 style="font-size: 16px;">Refer Friends</h4>
+                            <p style="font-size: 14px;">Earn 500 points per referral</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-content-section" id="ordersSection">
+                    <h3>Order History</h3>
+                    <div id="ordersList">
+                        <div style="text-align: center; padding: 60px 0; color: var(--text-light);">
+                            <i class="fas fa-shopping-bag" style="font-size: 48px; margin-bottom: 20px; opacity: 0.3;"></i>
+                            <h4 style="margin-bottom: 10px;">No orders yet</h4>
+                            <p>Start shopping to see your order history here</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-content-section" id="wishlistSection">
+                    <h3>My Wishlist</h3>
+                    <div id="wishlistContent">
+                        <div style="text-align: center; padding: 60px 0; color: var(--text-light);">
+                            <i class="fas fa-heart" style="font-size: 48px; margin-bottom: 20px; opacity: 0.3;"></i>
+                            <h4 style="margin-bottom: 10px;">Wishlist is empty</h4>
+                            <p>Add products to your wishlist to see them here</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-content-section" id="settingsSection">
+                    <h3>Account Settings</h3>
+                    <div id="settingsContent">
+                        <div style="text-align: center; padding: 60px 0; color: var(--text-light);">
+                            <i class="fas fa-cog" style="font-size: 48px; margin-bottom: 20px; opacity: 0.3;"></i>
+                            <h4 style="margin-bottom: 10px;">Login Required</h4>
+                            <p>Please login to access account settings</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <section class="section testimonials" id="testimonials">
         <div class="section-header">
             <h2>Customer Reviews</h2>
@@ -2270,6 +4029,10 @@
             <div class="cart-items" id="cartItems"></div>
             <div class="cart-summary">
                 <div class="cart-total"><span>Total:</span><span class="cart-total-amount">AED 0.00</span></div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                    <input type="checkbox" id="usePointsCheckbox" style="width: 20px; height: 20px;">
+                    <label for="usePointsCheckbox" style="font-weight: 600;">Use <span id="availablePointsCheckout">0</span> points (AED <span id="pointsDiscountValue">0.00</span> discount)</label>
+                </div>
                 <button class="checkout-btn" id="checkoutBtn"><i class="fas fa-lock"></i>Proceed to Checkout</button>
             </div>
         </div>
@@ -2286,8 +4049,9 @@
                 <ul class="footer-links">
                     <li><a href="#products">Products</a></li>
                     <li><a href="#categories">Categories</a></li>
+                    <li><a href="#ad-banners">Offers</a></li>
                     <li><a href="#features">Features</a></li>
-                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="#profile">Profile</a></li>
                     <li><a href="#cart">Cart</a></li>
                 </ul>
             </div>
@@ -3906,6 +5670,24 @@
                 this.cart = JSON.parse(localStorage.getItem('hik_cart')) || [];
                 this.wishlist = JSON.parse(localStorage.getItem('hik_wishlist')) || [];
                 this.currentUser = JSON.parse(localStorage.getItem('hik_currentUser')) || null;
+                this.orders = JSON.parse(localStorage.getItem('hik_orders')) || [];
+                this.saleEndTime = JSON.parse(localStorage.getItem('hik_saleEndTime')) || this.getDefaultSaleEndTime();
+                
+                // Initialize user points if not exists
+                this.users.forEach(user => {
+                    if (!user.points) user.points = 0;
+                    if (!user.pointsHistory) user.pointsHistory = [];
+                    if (!user.orders) user.orders = [];
+                });
+                
+                this.save();
+            }
+            
+            getDefaultSaleEndTime() {
+                // Sale ends in 7 days from now
+                const endTime = new Date();
+                endTime.setDate(endTime.getDate() + 7);
+                return endTime.getTime();
             }
             
             save() {
@@ -3913,6 +5695,8 @@
                 localStorage.setItem('hik_cart', JSON.stringify(this.cart));
                 localStorage.setItem('hik_wishlist', JSON.stringify(this.wishlist));
                 localStorage.setItem('hik_currentUser', JSON.stringify(this.currentUser));
+                localStorage.setItem('hik_orders', JSON.stringify(this.orders));
+                localStorage.setItem('hik_saleEndTime', JSON.stringify(this.saleEndTime));
             }
             
             registerUser(name, email, password) {
@@ -3921,9 +5705,19 @@
                     name,
                     email,
                     password,
+                    points: 500, // Starting bonus points
+                    pointsHistory: [
+                        {
+                            date: new Date().toISOString(),
+                            activity: "Welcome Bonus",
+                            points: 500,
+                            type: "earned"
+                        }
+                    ],
                     createdAt: new Date().toISOString(),
                     addresses: [],
-                    orders: []
+                    orders: [],
+                    totalSpent: 0
                 };
                 this.users.push(user);
                 this.currentUser = user;
@@ -3992,6 +5786,70 @@
                 this.wishlist = this.wishlist.filter(item => item.id !== productId);
                 this.save();
             }
+            
+            addOrder(order) {
+                const orderId = Date.now();
+                const newOrder = {
+                    ...order,
+                    id: orderId,
+                    date: new Date().toISOString(),
+                    status: "Processing"
+                };
+                
+                this.orders.push(newOrder);
+                
+                // Add to user's orders if logged in
+                if (this.currentUser) {
+                    if (!this.currentUser.orders) this.currentUser.orders = [];
+                    this.currentUser.orders.push(newOrder.id);
+                    
+                    // Calculate points earned (1 point per AED 1 spent)
+                    const pointsEarned = Math.floor(order.total);
+                    this.currentUser.points += pointsEarned;
+                    this.currentUser.totalSpent = (this.currentUser.totalSpent || 0) + order.total;
+                    
+                    this.currentUser.pointsHistory.push({
+                        date: new Date().toISOString(),
+                        activity: `Order #${orderId}`,
+                        points: pointsEarned,
+                        type: "earned"
+                    });
+                    
+                    this.save();
+                }
+                
+                return newOrder;
+            }
+            
+            addPoints(userId, points, activity) {
+                const user = this.users.find(u => u.id === userId);
+                if (user) {
+                    user.points += points;
+                    user.pointsHistory.push({
+                        date: new Date().toISOString(),
+                        activity: activity,
+                        points: points,
+                        type: "earned"
+                    });
+                    this.save();
+                }
+            }
+            
+            usePoints(userId, points, activity) {
+                const user = this.users.find(u => u.id === userId);
+                if (user && user.points >= points) {
+                    user.points -= points;
+                    user.pointsHistory.push({
+                        date: new Date().toISOString(),
+                        activity: activity,
+                        points: -points,
+                        type: "spent"
+                    });
+                    this.save();
+                    return true;
+                }
+                return false;
+            }
         }
         
         // ========== APPLICATION STATE ==========
@@ -4000,6 +5858,25 @@
         let currentTestimonial = 0;
         let testimonialInterval;
         let modalQuantity = 1;
+        let pointsDiscount = 0;
+        
+        // ========== CONFETTI FUNCTION ==========
+        function launchConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.style.display = 'block';
+            
+            const confettiSettings = {
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 }
+            };
+            
+            confetti(confettiSettings);
+            
+            setTimeout(() => {
+                canvas.style.display = 'none';
+            }, 3000);
+        }
         
         // ========== UI FUNCTIONS ==========
         function showNotification(message, isError = false) {
@@ -4022,6 +5899,9 @@
             const wishlistCount = document.querySelector('.wishlist-count');
             const cartItems = document.getElementById('cartItems');
             const cartTotal = document.querySelector('.cart-total-amount');
+            const availablePointsCheckout = document.getElementById('availablePointsCheckout');
+            const pointsDiscountValue = document.getElementById('pointsDiscountValue');
+            const usePointsCheckbox = document.getElementById('usePointsCheckbox');
             
             // Update counts
             const totalItems = db.cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
@@ -4042,6 +5922,8 @@
                     </div>
                 `;
                 cartTotal.textContent = 'AED 0.00';
+                availablePointsCheckout.textContent = '0';
+                pointsDiscountValue.textContent = '0.00';
                 return;
             }
             
@@ -4076,7 +5958,17 @@
             
             const shipping = total > 50 ? 0 : 19.99;
             const tax = total * 0.05;
-            const grandTotal = total + shipping + tax;
+            let grandTotal = total + shipping + tax;
+            
+            // Calculate points discount
+            if (db.currentUser) {
+                const maxPointsDiscount = Math.floor(db.currentUser.points / 100);
+                pointsDiscount = usePointsCheckbox.checked ? Math.min(maxPointsDiscount, grandTotal) : 0;
+                grandTotal -= pointsDiscount;
+                
+                availablePointsCheckout.textContent = db.currentUser.points;
+                pointsDiscountValue.textContent = pointsDiscount.toFixed(2);
+            }
             
             cartTotal.textContent = `AED ${grandTotal.toFixed(2)}`;
         }
@@ -4104,6 +5996,7 @@
                 if (product.stock > 0) {
                     db.addToCart(product);
                     updateCartUI();
+                    updateProfileStats();
                     showNotification(`${product.title} added to cart!`);
                 } else {
                     showNotification('This product is out of stock', true);
@@ -4130,6 +6023,7 @@
             }
             
             updateCartUI();
+            updateProfileStats();
             renderProducts();
         }
         
@@ -4360,6 +6254,7 @@
                 if (product.stock > 0) {
                     db.addToCart(product, modalQuantity);
                     updateCartUI();
+                    updateProfileStats();
                     showNotification(`${product.title} (${modalQuantity}x) added to cart!`);
                     closeProductModal();
                 } else {
@@ -4372,6 +6267,317 @@
             currentFilter = category;
             renderProducts();
             document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // ========== PROFILE FUNCTIONS ==========
+        function updateProfileStats() {
+            const pointsValue = document.getElementById('pointsValue');
+            const pointsValueLarge = document.getElementById('pointsValueLarge');
+            const pointsBalance = document.getElementById('pointsBalance');
+            const ordersCount = document.getElementById('ordersCount');
+            const wishlistCount = document.getElementById('wishlistCount');
+            const cartCount = document.getElementById('cartCount');
+            const totalOrders = document.getElementById('totalOrders');
+            const totalSpent = document.getElementById('totalSpent');
+            const memberSince = document.getElementById('memberSince');
+            const loyaltyTier = document.getElementById('loyaltyTier');
+            const pointsHistoryBody = document.getElementById('pointsHistoryBody');
+            const profileHeader = document.getElementById('profileHeader');
+            const pointsDisplayLarge = document.getElementById('pointsDisplayLarge');
+            const profileStats = document.getElementById('profileStats');
+            const profileAvatar = document.getElementById('profileAvatar');
+            const profileName = document.getElementById('profileName');
+            const profileEmail = document.getElementById('profileEmail');
+            
+            if (db.currentUser) {
+                // Update header points
+                pointsValue.textContent = db.currentUser.points || 0;
+                pointsValueLarge.textContent = db.currentUser.points || 0;
+                pointsBalance.textContent = db.currentUser.points || 0;
+                
+                // Update stats
+                ordersCount.textContent = db.currentUser.orders ? db.currentUser.orders.length : 0;
+                wishlistCount.textContent = db.wishlist.length;
+                cartCount.textContent = db.cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+                totalOrders.textContent = db.currentUser.orders ? db.currentUser.orders.length : 0;
+                totalSpent.textContent = `AED ${(db.currentUser.totalSpent || 0).toFixed(2)}`;
+                
+                // Format member since date
+                const memberDate = new Date(db.currentUser.createdAt);
+                memberSince.textContent = memberDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                // Determine loyalty tier
+                const spent = db.currentUser.totalSpent || 0;
+                if (spent > 5000) {
+                    loyaltyTier.textContent = "Platinum";
+                    loyaltyTier.style.color = "#10B981";
+                } else if (spent > 1000) {
+                    loyaltyTier.textContent = "Gold";
+                    loyaltyTier.style.color = "#F59E0B";
+                } else {
+                    loyaltyTier.textContent = "Bronze";
+                    loyaltyTier.style.color = "#CD7F32";
+                }
+                
+                // Update points history
+                if (db.currentUser.pointsHistory && db.currentUser.pointsHistory.length > 0) {
+                    pointsHistoryBody.innerHTML = db.currentUser.pointsHistory
+                        .slice(-5)
+                        .reverse()
+                        .map(entry => `
+                            <tr>
+                                <td>${new Date(entry.date).toLocaleDateString()}</td>
+                                <td>${entry.activity}</td>
+                                <td class="${entry.points > 0 ? 'points-earned' : 'points-spent'}">
+                                    ${entry.points > 0 ? '+' : ''}${entry.points}
+                                </td>
+                            </tr>
+                        `).join('');
+                } else {
+                    pointsHistoryBody.innerHTML = `
+                        <tr><td colspan="3" style="text-align: center;">No points activity yet</td></tr>
+                    `;
+                }
+                
+                // Update profile header
+                profileAvatar.textContent = db.currentUser.name.charAt(0).toUpperCase();
+                profileName.textContent = db.currentUser.name;
+                profileEmail.textContent = db.currentUser.email;
+                
+                // Show profile sections
+                pointsDisplayLarge.style.display = 'block';
+                profileStats.style.display = 'grid';
+            } else {
+                // Reset to guest view
+                pointsValue.textContent = '0';
+                profileAvatar.textContent = '?';
+                profileName.textContent = 'Guest User';
+                profileEmail.textContent = 'Please login to view profile';
+                pointsDisplayLarge.style.display = 'none';
+                profileStats.style.display = 'none';
+            }
+        }
+        
+        function switchProfileSection(sectionId) {
+            // Update active nav button
+            document.querySelectorAll('.profile-nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-section') === sectionId) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update active section
+            document.querySelectorAll('.profile-content-section').forEach(section => {
+                section.classList.remove('active');
+                if (section.id === sectionId + 'Section') {
+                    section.classList.add('active');
+                }
+            });
+            
+            // Load section-specific content
+            if (sectionId === 'wishlist') {
+                loadWishlistContent();
+            } else if (sectionId === 'orders') {
+                loadOrdersContent();
+            } else if (sectionId === 'settings') {
+                loadSettingsContent();
+            }
+        }
+        
+        function loadWishlistContent() {
+            const wishlistContent = document.getElementById('wishlistContent');
+            
+            if (!db.currentUser) {
+                wishlistContent.innerHTML = `
+                    <div style="text-align: center; padding: 60px 0; color: var(--text-light);">
+                        <i class="fas fa-heart" style="font-size: 48px; margin-bottom: 20px; opacity: 0.3;"></i>
+                        <h4 style="margin-bottom: 10px;">Please Login</h4>
+                        <p>Login to view your wishlist</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            if (db.wishlist.length === 0) {
+                wishlistContent.innerHTML = `
+                    <div style="text-align: center; padding: 60px 0; color: var(--text-light);">
+                        <i class="fas fa-heart" style="font-size: 48px; margin-bottom: 20px; opacity: 0.3;"></i>
+                        <h4 style="margin-bottom: 10px;">Wishlist is empty</h4>
+                        <p>Add products to your wishlist to see them here</p>
+                        <a href="#products" class="btn btn-primary" style="margin-top: 20px;">
+                            <i class="fas fa-shopping-bag"></i> Browse Products
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            wishlistContent.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
+                    ${db.wishlist.map(item => `
+                        <div class="product-card" style="cursor: default;">
+                            <div class="product-image" style="height: 180px;">
+                                <img src="${item.image}" alt="${item.title}">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">${item.title}</h3>
+                                <div class="product-price">
+                                    <div class="current-price">AED ${item.price.toFixed(2)}</div>
+                                </div>
+                                <div class="product-actions">
+                                    <button class="btn-add-cart" onclick="addToCart(${item.id})">
+                                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                                    </button>
+                                    <button class="btn-wishlist active" onclick="toggleWishlist(${item.id})">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        function loadOrdersContent() {
+            const ordersList = document.getElementById('ordersList');
+            
+            if (!db.currentUser) {
+                ordersList.innerHTML = `
+                    <div style="text-align: center; padding: 60px 0; color: var(--text-light);">
+                        <i class="fas fa-shopping-bag" style="font-size: 48px; margin-bottom: 20px; opacity: 0.3;"></i>
+                        <h4 style="margin-bottom: 10px;">Please Login</h4>
+                        <p>Login to view your order history</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const userOrders = db.orders.filter(order => 
+                db.currentUser.orders && db.currentUser.orders.includes(order.id)
+            );
+            
+            if (userOrders.length === 0) {
+                ordersList.innerHTML = `
+                    <div style="text-align: center; padding: 60px 0; color: var(--text-light);">
+                        <i class="fas fa-shopping-bag" style="font-size: 48px; margin-bottom: 20px; opacity: 0.3;"></i>
+                        <h4 style="margin-bottom: 10px;">No orders yet</h4>
+                        <p>Start shopping to see your order history here</p>
+                        <a href="#products" class="btn btn-primary" style="margin-top: 20px;">
+                            <i class="fas fa-shopping-bag"></i> Browse Products
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            ordersList.innerHTML = `
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    ${userOrders.slice().reverse().map(order => `
+                        <div style="background: white; border-radius: var(--radius); padding: 25px; border: 1px solid var(--border);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <div>
+                                    <h4 style="margin-bottom: 5px;">Order #${order.id}</h4>
+                                    <p style="font-size: 14px; color: var(--text-light);">${new Date(order.date).toLocaleDateString()}</p>
+                                </div>
+                                <div>
+                                    <span style="background: ${order.status === 'Processing' ? '#F59E0B' : '#10B981'}; color: white; padding: 6px 12px; border-radius: 50px; font-size: 12px; font-weight: 600;">
+                                        ${order.status}
+                                    </span>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <p style="font-size: 14px; color: var(--text);">
+                                    ${order.items.map(item => `${item.quantity}x ${item.title}`).join(', ')}
+                                </p>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="font-weight: 600; color: var(--primary);">
+                                    Total: AED ${order.total.toFixed(2)}
+                                </div>
+                                <button class="btn btn-primary" style="padding: 8px 16px; font-size: 14px;">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        function loadSettingsContent() {
+            const settingsContent = document.getElementById('settingsContent');
+            
+            if (!db.currentUser) {
+                settingsContent.innerHTML = `
+                    <div style="text-align: center; padding: 60px 0; color: var(--text-light);">
+                        <i class="fas fa-cog" style="font-size: 48px; margin-bottom: 20px; opacity: 0.3;"></i>
+                        <h4 style="margin-bottom: 10px;">Login Required</h4>
+                        <p>Please login to access account settings</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            settingsContent.innerHTML = `
+                <div style="max-width: 500px;">
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="margin-bottom: 15px;">Personal Information</h4>
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div>
+                                <label style="display: block; margin-bottom: 5px; font-weight: 600;">Full Name</label>
+                                <input type="text" value="${db.currentUser.name}" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 5px; font-weight: 600;">Email Address</label>
+                                <input type="email" value="${db.currentUser.email}" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="margin-bottom: 15px;">Password</h4>
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div>
+                                <label style="display: block; margin-bottom: 5px; font-weight: 600;">Current Password</label>
+                                <input type="password" placeholder="Enter current password" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 5px; font-weight: 600;">New Password</label>
+                                <input type="password" placeholder="Enter new password" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </div>
+            `;
+        }
+        
+        function usePoints() {
+            if (!db.currentUser) {
+                showNotification('Please login to use points', true);
+                return;
+            }
+            
+            if (db.currentUser.points < 100) {
+                showNotification('You need at least 100 points to redeem', true);
+                return;
+            }
+            
+            const pointsToUse = Math.floor(db.currentUser.points / 100) * 100;
+            const discountAmount = pointsToUse / 100;
+            
+            if (confirm(`Use ${pointsToUse} points for AED ${discountAmount.toFixed(2)} discount on your next purchase?`)) {
+                showNotification(`AED ${discountAmount.toFixed(2)} discount will be applied to your next order!`);
+            }
         }
         
         // ========== TESTIMONIALS CAROUSEL ==========
@@ -4447,15 +6653,22 @@
             const authForms = document.querySelectorAll('.auth-form');
             const loginForm = document.getElementById('loginForm');
             const registerForm = document.getElementById('registerForm');
+            const pointsDisplayBtn = document.getElementById('pointsDisplayBtn');
+            const profileNavLink = document.getElementById('profileNavLink');
+            const mobileProfileLink = document.getElementById('mobileProfileLink');
             
             function updateUserButton() {
                 if (db.currentUser) {
                     userBtn.innerHTML = `<i class="fas fa-user-check"></i>`;
                     userBtn.title = `Logged in as ${db.currentUser.name}`;
+                    pointsDisplayBtn.style.display = 'flex';
+                    pointsDisplayBtn.querySelector('#pointsValue').textContent = db.currentUser.points || 0;
                 } else {
                     userBtn.innerHTML = `<i class="fas fa-user"></i>`;
                     userBtn.title = 'Login/Register';
+                    pointsDisplayBtn.style.display = 'none';
                 }
+                updateProfileStats();
             }
             
             userBtn.addEventListener('click', () => {
@@ -4466,6 +6679,36 @@
                         showNotification('Logged out successfully');
                     }
                 } else {
+                    authModal.classList.add('active');
+                }
+            });
+            
+            pointsDisplayBtn.addEventListener('click', () => {
+                if (db.currentUser) {
+                    document.getElementById('profile').scrollIntoView({ behavior: 'smooth' });
+                    switchProfileSection('points');
+                }
+            });
+            
+            profileNavLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (db.currentUser) {
+                    document.getElementById('profile').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    showNotification('Please login to view profile', true);
+                    authModal.classList.add('active');
+                }
+            });
+            
+            mobileProfileLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (db.currentUser) {
+                    document.getElementById('profile').scrollIntoView({ behavior: 'smooth' });
+                    // Close mobile menu
+                    document.getElementById('mobileMenuBtn').classList.remove('active');
+                    document.getElementById('mobileNav').classList.remove('active');
+                } else {
+                    showNotification('Please login to view profile', true);
                     authModal.classList.add('active');
                 }
             });
@@ -4512,7 +6755,7 @@
                 const user = db.registerUser(name, email, password);
                 authModal.classList.remove('active');
                 updateUserButton();
-                showNotification(`Account created successfully! Welcome, ${user.name}`);
+                showNotification(`Account created successfully! Welcome, ${user.name}. You received 500 bonus points!`);
                 registerForm.reset();
                 
                 authTabs.forEach(t => t.classList.remove('active'));
@@ -4532,12 +6775,9 @@
         
         // ========== COUNTDOWN TIMER ==========
         function updateCountdown() {
-            const countdownDate = new Date();
-            countdownDate.setDate(countdownDate.getDate() + 7);
-            
             function update() {
                 const now = new Date().getTime();
-                const distance = countdownDate - now;
+                const distance = db.saleEndTime - now;
                 
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -4550,13 +6790,23 @@
                 document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
                 
                 if (distance < 0) {
-                    clearInterval(countdownInterval);
-                    document.getElementById('countdown').innerHTML = '<div class="countdown-item">Offer Expired</div>';
+                    // Reset sale for another 7 days
+                    const newEndTime = new Date();
+                    newEndTime.setDate(newEndTime.getDate() + 7);
+                    db.saleEndTime = newEndTime.getTime();
+                    db.save();
                 }
             }
             
             update();
-            const countdownInterval = setInterval(update, 1000);
+            setInterval(update, 1000);
+        }
+        
+        // ========== AD BANNER FUNCTIONS ==========
+        function startFlashSale() {
+            showNotification('Flash sale activated! 30% off on selected items for the next hour!');
+            // In a real app, this would filter to flash sale products
+            filterProducts('electronics');
         }
         
         // ========== INITIALIZATION ==========
@@ -4622,6 +6872,7 @@
             setupAuth();
             updateCountdown();
             updateCartUI();
+            updateProfileStats();
             renderProducts();
             renderTestimonials();
             
@@ -4641,7 +6892,7 @@
                 });
             });
             
-            // Modal close functionality - FIXED
+            // Modal close functionality
             document.getElementById('modalClose').addEventListener('click', closeProductModal);
             document.getElementById('productModal').addEventListener('click', (e) => {
                 if (e.target === document.getElementById('productModal')) {
@@ -4668,6 +6919,17 @@
             document.getElementById('testimonialsCarousel').addEventListener('mouseleave', () => {
                 testimonialInterval = setInterval(nextTestimonial, 5000);
             });
+            
+            // Profile navigation
+            document.querySelectorAll('.profile-nav-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const section = btn.getAttribute('data-section');
+                    switchProfileSection(section);
+                });
+            });
+            
+            // Points checkbox in cart
+            document.getElementById('usePointsCheckbox').addEventListener('change', updateCartUI);
             
             // Scroll effects
             window.addEventListener('scroll', () => {
@@ -4708,8 +6970,8 @@
                 if (db.wishlist.length === 0) {
                     showNotification('Your wishlist is empty');
                 } else {
-                    // Show wishlist modal or navigate to wishlist page
-                    showNotification(`You have ${db.wishlist.length} items in your wishlist`);
+                    document.getElementById('profile').scrollIntoView({ behavior: 'smooth' });
+                    switchProfileSection('wishlist');
                 }
             });
             
@@ -4733,7 +6995,7 @@
                 });
             }
             
-            // Checkout functionality - FIXED
+            // Checkout functionality
             document.getElementById('checkoutBtn').addEventListener('click', () => {
                 if (!db.currentUser) {
                     showNotification('Please login to checkout', true);
@@ -4749,28 +7011,45 @@
                 const total = db.cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
                 const shipping = total > 50 ? 0 : 19.99;
                 const tax = total * 0.05;
-                const grandTotal = total + shipping + tax;
+                let grandTotal = total + shipping + tax;
+                
+                // Apply points discount
+                const usePointsCheckbox = document.getElementById('usePointsCheckbox');
+                if (usePointsCheckbox.checked && pointsDiscount > 0) {
+                    grandTotal -= pointsDiscount;
+                    db.usePoints(db.currentUser.id, pointsDiscount * 100, "Checkout Discount");
+                }
                 
                 const orderDetails = {
-                    items: db.cart.map(item => `${item.title} x${item.quantity || 1} - AED ${(item.price * (item.quantity || 1)).toFixed(2)}`).join('\n'),
-                    subtotal: total.toFixed(2),
-                    shipping: shipping.toFixed(2),
-                    tax: tax.toFixed(2),
-                    total: grandTotal.toFixed(2)
+                    items: db.cart.map(item => ({
+                        title: item.title,
+                        quantity: item.quantity || 1,
+                        price: item.price
+                    })),
+                    subtotal: total,
+                    shipping: shipping,
+                    tax: tax,
+                    discount: pointsDiscount,
+                    total: grandTotal
                 };
-                
-                const message = `New Order from HIK Store:\n\nItems:\n${orderDetails.items}\n\nSubtotal: AED ${orderDetails.subtotal}\nShipping: AED ${orderDetails.shipping}\nTax (5%): AED ${orderDetails.tax}\nTotal: AED ${orderDetails.total}\n\nCustomer: ${db.currentUser.name}\nEmail: ${db.currentUser.email}`;
                 
                 // Simulate order processing
                 showNotification('Processing your order...');
                 
                 setTimeout(() => {
+                    // Create order
+                    db.addOrder(orderDetails);
+                    
                     // Clear cart
                     db.cart = [];
                     db.save();
                     updateCartUI();
+                    updateProfileStats();
                     
-                    showNotification('Order placed successfully! We will contact you soon.');
+                    // Launch confetti
+                    launchConfetti();
+                    
+                    showNotification('Order placed successfully! Thank you for your purchase.');
                     
                     // Scroll to top
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4780,4 +7059,3 @@
     </script>
 </body>
 </html>
-
