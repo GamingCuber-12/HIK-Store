@@ -8,7 +8,7 @@
     <meta name="keywords" content="UAE shopping online, Dubai electronics, Abu Dhabi fashion, Sharjah home appliances, UAE free delivery">
     <meta property="og:title" content="HIK Store UAE - Premium Online Shopping">
     <meta property="og:description" content="Discover premium products with fast delivery across UAE">
-    <meta property="og:image" content="logo.png">
+    <meta property="og:image" content="https://hikstore.ae/logo.jpg">
     <meta property="og:url" content="https://hikstore.ae">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@hikstoreuae">
@@ -21,7 +21,7 @@
         "name": "HIK Store",
         "description": "Premium UAE Dropshipping Store with Fast Delivery",
         "url": "https://hikstore.ae",
-        "logo": "logo.png",
+        "logo": "https://hikstore.ae/logo.jpg",
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Dubai",
@@ -571,7 +571,7 @@
             box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
         }
         
-        .points-display, .user-icon, .wishlist-icon, .cart-icon {
+        .points-display, .user-icon, .wishlist-icon, .cart-icon, .comparison-icon {
             width: 44px;
             height: 44px;
             border-radius: var(--radius-full);
@@ -584,12 +584,12 @@
             position: relative;
         }
         
-        .points-display:hover, .user-icon:hover, .wishlist-icon:hover, .cart-icon:hover {
+        .points-display:hover, .user-icon:hover, .wishlist-icon:hover, .cart-icon:hover, .comparison-icon:hover {
             background: var(--primary-ultralight);
             transform: translateY(-2px);
         }
         
-        .wishlist-count, .cart-count {
+        .wishlist-count, .cart-count, .comparison-count {
             position: absolute;
             top: -5px;
             right: -5px;
@@ -607,7 +607,7 @@
         
         /* ========== ENHANCED HERO SECTION ========== */
         .hero {
-            background: var(--gradient-hero);
+            background: linear-gradient(135deg, #0066FF 0%, #0047CC 100%);
             color: var(--text-on-dark);
             padding: calc(var(--header-height) + 60px) 5% 100px;
             text-align: center;
@@ -631,6 +631,9 @@
             margin-bottom: 24px;
             font-weight: 900;
             animation: fadeInUp 1s ease-out;
+            -webkit-text-fill-color: white !important;
+            color: white !important;
+            background: none !important;
         }
         
         .hero p {
@@ -641,6 +644,8 @@
             margin-left: auto;
             margin-right: auto;
             animation: fadeInUp 1s ease-out 0.2s both;
+            color: white !important;
+            opacity: 0.95;
         }
         
         .hero-buttons {
@@ -687,8 +692,8 @@
         
         /* ========== ENHANCED OFFERS BANNER ========== */
         .offers-banner {
-            background: var(--gradient-hero-dark);
-            color: var(--text-on-dark);
+            background: var(--gradient-primary);
+            color: white;
             padding: 80px 5%;
             text-align: center;
             margin: 60px 0;
@@ -1038,6 +1043,12 @@
             justify-content: center;
             z-index: 99999;
             padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .modal.active {
@@ -1053,6 +1064,12 @@
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: var(--shadow-xl);
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
         .modal-close {
@@ -1069,6 +1086,11 @@
             justify-content: center;
             cursor: pointer;
             border: none;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.4);
         }
         
         /* ========== ENHANCED PRODUCT DETAIL PAGE ========== */
@@ -1081,6 +1103,7 @@
         
         .product-detail-page.active {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
         
         .product-detail-container {
@@ -1386,6 +1409,7 @@
         
         .profile-section.active {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
         
         .profile-container {
@@ -1833,13 +1857,360 @@
                 font-size: 0.75rem;
             }
         }
+        
+        /* ========== NEW FEATURES ========== */
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+        
+        /* Review Stars */
+        .stars {
+            display: flex;
+            gap: 2px;
+            color: var(--rating);
+        }
+        
+        .stars .empty {
+            color: var(--border);
+        }
+        
+        /* Skeleton Loader */
+        .skeleton {
+            background: linear-gradient(90deg, var(--border) 25%, var(--bg-lighter) 50%, var(--border) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: var(--radius);
+        }
+        
+        /* Floating Labels */
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+        }
+        
+        .form-group label {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            color: var(--text-light);
+            transition: var(--transition);
+            pointer-events: none;
+        }
+        
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 12px;
+            font-size: 0.75rem;
+            background: var(--bg);
+            padding: 0 8px;
+            color: var(--primary);
+        }
+        
+        /* Badge Animations */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .bounce {
+            animation: bounce 0.5s ease;
+        }
+        
+        /* Product Filters */
+        .filters-bar {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .filter-group label {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.875rem;
+        }
+        
+        .filter-group select {
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            background: var(--bg);
+            transition: var(--transition);
+        }
+        
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* Stock Indicator */
+        .stock-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .stock-indicator.in-stock {
+            background: var(--success);
+            color: var(--text-on-dark);
+        }
+        
+        .stock-indicator.low-stock {
+            background: var(--warning);
+            color: var(--text);
+        }
+        
+        .stock-indicator.out-of-stock {
+            background: var(--error);
+            color: var(--text-on-dark);
+        }
+        
+        /* Price Range Slider */
+        .price-range {
+            width: 100%;
+        }
+        
+        .price-range-values {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        /* Product Tags */
+        .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .product-tag {
+            padding: 4px 12px;
+            background: var(--bg-lighter);
+            color: var(--text-light);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            transition: var(--transition);
+        }
+        
+        .product-tag:hover {
+            background: var(--primary);
+            color: var(--text-on-dark);
+        }
+        
+        /* View Toggle */
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .view-toggle button {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .view-toggle button.active {
+            background: var(--primary);
+            color: var(--text-on-dark);
+            border-color: var(--primary);
+        }
+        
+        .view-toggle button:hover:not(.active) {
+            border-color: var(--primary-light);
+        }
+        
+        /* Grid View */
+        .products-grid.grid-view {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+        
+        /* List View */
+        .products-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+        
+        .product-card.list-view {
+            flex-direction: row;
+            height: auto;
+        }
+        
+        .product-card.list-view .product-image-container {
+            width: 200px;
+            height: 200px;
+            flex-shrink: 0;
+        }
+        
+        .product-card.list-view .product-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .product-card.list-view {
+                flex-direction: column;
+            }
+            
+            .product-card.list-view .product-image-container {
+                width: 100%;
+                height: 200px;
+            }
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--primary);
+        }
+        
+        .breadcrumb span {
+            color: var(--text);
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip:before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            background: var(--bg-dark);
+            color: var(--text-on-dark);
+            font-size: 0.75rem;
+            border-radius: var(--radius);
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+        
+        .tooltip:hover:before {
+            opacity: 1;
+            visibility: visible;
+            margin-bottom: 8px;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 40px;
+        }
+        
+        .pagination button {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .pagination button.active {
+            background: var(--primary);
+            color: var(--text-on-dark);
+            border-color: var(--primary);
+        }
+        
+        .pagination button:hover:not(.active):not(:disabled) {
+            border-color: var(--primary);
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header id="topBar">
         <a href="#" class="logoWrap" onclick="showMainContent(event)">
-            <img src="logo.png" alt="HIK Store">
+            <img src="logo.jpg" alt="HIK Store UAE Logo">
             <span>HIK STORE</span>
         </a>
         
@@ -1856,6 +2227,11 @@
             <div class="search-bar">
                 <i class="fas fa-search"></i>
                 <input type="text" placeholder="Search products..." id="searchInput">
+            </div>
+            
+            <div class="comparison-icon" id="comparisonBtn" title="Product Comparison" onclick="showComparisonModal()">
+                <i class="fas fa-balance-scale"></i>
+                <span class="comparison-count">0</span>
             </div>
             
             <div class="points-display" id="pointsDisplayBtn" title="Points">
@@ -1876,10 +2252,28 @@
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-count">0</span>
             </div>
+            
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
     </header>
 
-    <!-- Trust Badges (Now fixed - doesn't scroll) -->
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <a href="#products" onclick="showMainContent(event); closeMobileMenu()">Products</a>
+            <a href="#categories" onclick="showMainContent(event); closeMobileMenu()">Categories</a>
+            <a href="#offers" onclick="showMainContent(event); closeMobileMenu()">Offers</a>
+            <a href="#features" onclick="showMainContent(event); closeMobileMenu()">Features</a>
+            <a href="#" onclick="showProfileSection(event); closeMobileMenu()">Profile</a>
+            <a href="#cart" onclick="showMainContent(event); closeMobileMenu()">Cart</a>
+        </div>
+    </div>
+
+    <!-- Trust Badges -->
     <div class="trust-badges-bar">
         <div class="trust-badges-container">
             <div class="trust-badge-item">
@@ -1944,6 +2338,9 @@
 
     <!-- Product Detail Page -->
     <div class="product-detail-page" id="productDetailPage">
+        <div class="breadcrumb" id="breadcrumb">
+            <!-- Breadcrumb will be loaded here -->
+        </div>
         <div class="product-detail-container" id="productDetailContainer">
             <!-- Product detail will be loaded here -->
         </div>
@@ -2010,7 +2407,7 @@
                     <h3>Fashion</h3>
                     <p>Clothing, accessories & watches</p>
                 </div>
-                <div class="category-card" onclick="filterProducts('all')">
+                <div class="category-card" onclick="showAllCategories()">
                     <div class="category-icon"><i class="fas fa-th-large"></i></div>
                     <h3>View All</h3>
                     <p>Explore all products</p>
@@ -2024,13 +2421,47 @@
                 <h2>Featured Products</h2>
                 <p>Discover our handpicked selection of premium products</p>
             </div>
-            <div class="products-grid" id="productsGrid">
+            
+            <!-- Filters -->
+            <div class="filters-bar">
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label>Sort By</label>
+                        <select id="sortSelect" onchange="sortProducts()">
+                            <option value="featured">Featured</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="rating">Highest Rated</option>
+                            <option value="newest">Newest First</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Price Range</label>
+                        <div class="price-range">
+                            <input type="range" min="0" max="100000" value="100000" class="price-slider" id="priceSlider" oninput="filterByPrice()">
+                            <div class="price-range-values">
+                                <span>AED 0</span>
+                                <span id="maxPrice">AED 100,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>View</label>
+                        <div class="view-toggle">
+                            <button class="active" onclick="changeView('grid')"><i class="fas fa-th"></i></button>
+                            <button onclick="changeView('list')"><i class="fas fa-list"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="products-grid grid-view" id="productsGrid">
                 <!-- Products will be loaded here -->
             </div>
-            <div style="text-align: center; margin-top: 50px;">
-                <button class="btn btn-secondary" onclick="loadMoreProducts()" id="loadMoreBtn">
-                    <i class="fas fa-spinner"></i> Load More Products
-                </button>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be loaded here -->
             </div>
         </section>
 
@@ -2214,7 +2645,7 @@
                 category: "electronics",
                 price: 2386,
                 originalPrice: 2599,
-                image: "product_01.jpg",
+                image: "product_1.jpg",
                 badge: "hot",
                 rating: 4.8,
                 reviews: 209,
@@ -2260,39 +2691,41 @@
             },
             {
                 id: 2,
-                title: "Logitech G PRO X TKL Keyboard",
+                title: "iPhone 15 Pro Max 256GB",
                 category: "electronics",
-                price: 899,
-                originalPrice: 1099,
-                image: "product_02.jpg",
+                price: 5299,
+                originalPrice: 5799,
+                image: "product_2.jpg",
                 badge: "new",
-                rating: 4.7,
-                reviews: 128,
-                stock: 25,
-                tags: ["Gaming", "Mechanical", "Professional"],
-                description: "Professional-grade tenkeyless mechanical keyboard with GX Blue Clicky switches.",
-                longDescription: "The Logitech G PRO X TKL is built for competitive gamers who demand performance and reliability. The tournament-ready tenkeyless design saves space while maintaining essential functionality.",
+                rating: 4.9,
+                reviews: 432,
+                stock: 12,
+                tags: ["Smartphone", "Apple", "5G"],
+                description: "Titanium design with A17 Pro chip.",
+                longDescription: "The iPhone 15 Pro Max features aerospace-grade titanium design, making it the lightest Pro model ever. The A17 Pro chip enables groundbreaking performance and mobile gaming capabilities.",
                 specifications: {
-                    "Switch Type": "GX Blue Clicky (Hot-swappable)",
-                    "Lighting": "LIGHTSYNC RGB",
-                    "Keycaps": "Double-shot PBT",
-                    "Polling Rate": "1000Hz",
-                    "Anti-Ghosting": "Full N-key rollover"
+                    "Display": "6.7\" Super Retina XDR",
+                    "Chip": "A17 Pro",
+                    "Storage": "256GB",
+                    "Camera": "48MP Main + 12MP",
+                    "Battery": "29 hours video",
+                    "Weight": "221g",
+                    "Connectivity": "5G, Wi-Fi 6E"
                 },
                 features: [
-                    "Hot-swappable switches",
-                    "Tenkeyless design",
-                    "Durable aluminum construction",
-                    "Advanced RGB lighting",
-                    "Tournament ready"
+                    "Titanium design",
+                    "A17 Pro chip",
+                    "Action button",
+                    "USB 3",
+                    "Dynamic Island"
                 ],
                 reviewsList: [
                     {
                         id: 1,
-                        user: "Professional Gamer",
+                        user: "Mohammed A.",
                         rating: 5,
-                        date: "2024-01-12",
-                        comment: "Perfect for tournament play. The hot-swap feature is a game changer!",
+                        date: "2024-01-20",
+                        comment: "Best iPhone ever! The titanium feels amazing.",
                         verified: true
                     }
                 ]
@@ -2303,7 +2736,7 @@
                 category: "electronics",
                 price: 1299,
                 originalPrice: 1499,
-                image: "product_03.jpg",
+                image: "product_3.jpg",
                 badge: "trending",
                 rating: 4.6,
                 reviews: 197,
@@ -2342,7 +2775,7 @@
                 category: "electronics",
                 price: 1899,
                 originalPrice: 2199,
-                image: "product_04.jpg",
+                image: "product_4.jpg",
                 badge: "hot",
                 rating: 4.8,
                 reviews: 156,
@@ -2381,7 +2814,7 @@
                 category: "electronics",
                 price: 899,
                 originalPrice: 1099,
-                image: "product_05.jpg",
+                image: "product_5.jpg",
                 badge: "new",
                 rating: 4.7,
                 reviews: 203,
@@ -2410,7 +2843,7 @@
                 category: "electronics",
                 price: 1299,
                 originalPrice: 1599,
-                image: "./main/product_06.jpg",
+                image: "product_6.jpg",
                 badge: "hot",
                 rating: 4.8,
                 reviews: 312,
@@ -2439,7 +2872,7 @@
                 category: "electronics",
                 price: 899,
                 originalPrice: 1099,
-                image: "product_07.jpg",
+                image: "product_7.jpg",
                 badge: "new",
                 rating: 4.7,
                 reviews: 456,
@@ -2467,7 +2900,7 @@
                 category: "electronics",
                 price: 1299,
                 originalPrice: 1499,
-                image: "product_08.jpg",
+                image: "product_8.jpg",
                 badge: "trending",
                 rating: 4.6,
                 reviews: 189,
@@ -2496,7 +2929,7 @@
                 category: "electronics",
                 price: 3299,
                 originalPrice: 3799,
-                image: "product_09.jpg",
+                image: "product_9.jpg",
                 badge: "hot",
                 rating: 4.8,
                 reviews: 145,
@@ -2840,40 +3273,11 @@
             },
             {
                 id: 21,
-                title: "Apple iPhone 15 Pro Max",
-                category: "electronics",
-                price: 5299,
-                originalPrice: 5799,
-                image: "product_21.jpg",
-                badge: "hot",
-                rating: 4.8,
-                reviews: 432,
-                stock: 8,
-                tags: ["Smartphone", "Apple", "5G"],
-                description: "Titanium design with A17 Pro chip.",
-                specifications: {
-                    "Display": "6.7\" Super Retina XDR",
-                    "Chip": "A17 Pro",
-                    "Storage": "256GB",
-                    "Camera": "48MP Main + 12MP",
-                    "Battery": "29 hours video"
-                },
-                features: [
-                    "Titanium design",
-                    "A17 Pro chip",
-                    "Action button",
-                    "USB 3",
-                    "Dynamic Island"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 22,
                 title: "Samsung Galaxy S24 Ultra",
                 category: "electronics",
                 price: 4999,
                 originalPrice: 5499,
-                image: "product_22.jpg",
+                image: "product_21.jpg",
                 badge: "new",
                 rating: 4.8,
                 reviews: 289,
@@ -2897,12 +3301,12 @@
                 reviewsList: []
             },
             {
-                id: 23,
+                id: 22,
                 title: "Bose QuietComfort Ultra",
                 category: "electronics",
                 price: 3299,
                 originalPrice: 3799,
-                image: "product_23.jpg",
+                image: "product_22.jpg",
                 badge: "hot",
                 rating: 4.7,
                 reviews: 145,
@@ -2926,12 +3330,12 @@
                 reviewsList: []
             },
             {
-                id: 24,
+                id: 23,
                 title: "Canon EOS R6 Mark II",
                 category: "electronics",
                 price: 8999,
                 originalPrice: 9999,
-                image: "product_24.jpg",
+                image: "product_23.jpg",
                 badge: "new",
                 rating: 4.9,
                 reviews: 78,
@@ -2955,12 +3359,12 @@
                 reviewsList: []
             },
             {
-                id: 25,
+                id: 24,
                 title: "GoPro HERO12 Black",
                 category: "electronics",
                 price: 1699,
                 originalPrice: 1999,
-                image: "product_25.jpg",
+                image: "product_24.jpg",
                 badge: "trending",
                 rating: 4.6,
                 reviews: 189,
@@ -2984,12 +3388,12 @@
                 reviewsList: []
             },
             {
-                id: 26,
+                id: 25,
                 title: "PlayStation VR2",
                 category: "gaming",
                 price: 2199,
                 originalPrice: 2499,
-                image: "product_26.jpg",
+                image: "product_25.jpg",
                 badge: "hot",
                 rating: 4.7,
                 reviews: 134,
@@ -3013,12 +3417,12 @@
                 reviewsList: []
             },
             {
-                id: 27,
+                id: 26,
                 title: "Xbox Elite Wireless Controller 2",
                 category: "gaming",
                 price: 699,
                 originalPrice: 899,
-                image: "product_27.jpg",
+                image: "product_26.jpg",
                 badge: "trending",
                 rating: 4.6,
                 reviews: 278,
@@ -3042,12 +3446,12 @@
                 reviewsList: []
             },
             {
-                id: 28,
+                id: 27,
                 title: "Razer Blade 15 Gaming Laptop",
                 category: "electronics",
                 price: 7899,
                 originalPrice: 8899,
-                image: "product_28.jpg",
+                image: "product_27.jpg",
                 badge: "hot",
                 rating: 4.8,
                 reviews: 67,
@@ -3071,12 +3475,12 @@
                 reviewsList: []
             },
             {
-                id: 29,
+                id: 28,
                 title: "Alienware 34\" QD-OLED Monitor",
                 category: "electronics",
                 price: 4599,
                 originalPrice: 5299,
-                image: "product_29.jpg",
+                image: "product_28.jpg",
                 badge: "hot",
                 rating: 4.9,
                 reviews: 89,
@@ -3100,12 +3504,12 @@
                 reviewsList: []
             },
             {
-                id: 30,
+                id: 29,
                 title: "Secretlab Titan Evo Gaming Chair",
                 category: "gaming",
                 price: 1499,
                 originalPrice: 1799,
-                image: "product_30.jpg",
+                image: "product_29.jpg",
                 badge: "trending",
                 rating: 4.8,
                 reviews: 456,
@@ -3129,12 +3533,12 @@
                 reviewsList: []
             },
             {
-                id: 31,
+                id: 30,
                 title: "Samsung Bespoke Refrigerator",
                 category: "home",
                 price: 8999,
                 originalPrice: 10999,
-                image: "product_31.jpg",
+                image: "product_30.jpg",
                 badge: "hot",
                 rating: 4.7,
                 reviews: 45,
@@ -3158,12 +3562,12 @@
                 reviewsList: []
             },
             {
-                id: 32,
+                id: 31,
                 title: "KitchenAid Stand Mixer",
                 category: "home",
                 price: 2499,
                 originalPrice: 2999,
-                image: "product_32.jpg",
+                image: "product_31.jpg",
                 badge: "classic",
                 rating: 4.9,
                 reviews: 567,
@@ -3187,12 +3591,12 @@
                 reviewsList: []
             },
             {
-                id: 33,
+                id: 32,
                 title: "Breville Barista Touch",
                 category: "home",
                 price: 3299,
                 originalPrice: 3899,
-                image: "product_33.jpg",
+                image: "product_32.jpg",
                 badge: "premium",
                 rating: 4.8,
                 reviews: 189,
@@ -3216,12 +3620,12 @@
                 reviewsList: []
             },
             {
-                id: 34,
+                id: 33,
                 title: "Weber Spirit II E-310 Grill",
                 category: "home",
                 price: 1699,
                 originalPrice: 1999,
-                image: "product_34.jpg",
+                image: "product_33.jpg",
                 badge: "hot",
                 rating: 4.7,
                 reviews: 234,
@@ -3245,12 +3649,12 @@
                 reviewsList: []
             },
             {
-                id: 35,
+                id: 34,
                 title: "iRobot Roomba s9+",
                 category: "home",
                 price: 3299,
                 originalPrice: 3999,
-                image: "product_35.jpg",
+                image: "product_34.jpg",
                 badge: "premium",
                 rating: 4.7,
                 reviews: 167,
@@ -3274,12 +3678,12 @@
                 reviewsList: []
             },
             {
-                id: 36,
-                title: "Sony PlayStation 5 Console",
+                id: 35,
+                title: "PlayStation 5 Console",
                 category: "gaming",
                 price: 1999,
                 originalPrice: 2299,
-                image: "product_36.jpg",
+                image: "product_35.jpg",
                 badge: "hot",
                 rating: 4.9,
                 reviews: 789,
@@ -3303,12 +3707,12 @@
                 reviewsList: []
             },
             {
-                id: 37,
+                id: 36,
                 title: "NVIDIA GeForce RTX 4090",
                 category: "electronics",
                 price: 7899,
                 originalPrice: 8999,
-                image: "product_37.jpg",
+                image: "product_36.jpg",
                 badge: "hot",
                 rating: 4.8,
                 reviews: 89,
@@ -3332,12 +3736,12 @@
                 reviewsList: []
             },
             {
-                id: 38,
+                id: 37,
                 title: "Corsair K100 RGB Keyboard",
                 category: "electronics",
                 price: 1499,
                 originalPrice: 1799,
-                image: "product_38.jpg",
+                image: "product_37.jpg",
                 badge: "premium",
                 rating: 4.7,
                 reviews: 189,
@@ -3361,12 +3765,12 @@
                 reviewsList: []
             },
             {
-                id: 39,
+                id: 38,
                 title: "SteelSeries Arctis Nova Pro",
                 category: "electronics",
                 price: 1299,
                 originalPrice: 1499,
-                image: "product_39.jpg",
+                image: "product_38.jpg",
                 badge: "new",
                 rating: 4.8,
                 reviews: 145,
@@ -3390,12 +3794,12 @@
                 reviewsList: []
             },
             {
-                id: 40,
+                id: 39,
                 title: "Logitech MX Master 3S",
                 category: "electronics",
                 price: 499,
                 originalPrice: 699,
-                image: "product_40.jpg",
+                image: "product_39.jpg",
                 badge: "trending",
                 rating: 4.8,
                 reviews: 456,
@@ -3419,12 +3823,12 @@
                 reviewsList: []
             },
             {
-                id: 41,
+                id: 40,
                 title: "iPad Pro 12.9\" M2",
                 category: "electronics",
                 price: 4599,
                 originalPrice: 5299,
-                image: "product_41.jpg",
+                image: "product_40.jpg",
                 badge: "premium",
                 rating: 4.8,
                 reviews: 234,
@@ -3448,12 +3852,12 @@
                 reviewsList: []
             },
             {
-                id: 42,
+                id: 41,
                 title: "Microsoft Surface Laptop 5",
                 category: "electronics",
                 price: 4899,
                 originalPrice: 5499,
-                image: "product_42.jpg",
+                image: "product_41.jpg",
                 badge: "new",
                 rating: 4.7,
                 reviews: 167,
@@ -3477,12 +3881,12 @@
                 reviewsList: []
             },
             {
-                id: 43,
+                id: 42,
                 title: "Garmin Fenix 7X Solar",
                 category: "electronics",
                 price: 3999,
                 originalPrice: 4599,
-                image: "product_43.jpg",
+                image: "product_42.jpg",
                 badge: "premium",
                 rating: 4.8,
                 reviews: 189,
@@ -3506,12 +3910,12 @@
                 reviewsList: []
             },
             {
-                id: 44,
+                id: 43,
                 title: "Bose SoundLink Flex",
                 category: "electronics",
                 price: 299,
                 originalPrice: 399,
-                image: "product_44.jpg",
+                image: "product_43.jpg",
                 badge: "trending",
                 rating: 4.7,
                 reviews: 456,
@@ -3535,12 +3939,12 @@
                 reviewsList: []
             },
             {
-                id: 45,
+                id: 44,
                 title: "Philips Hue Starter Kit",
                 category: "home",
                 price: 899,
                 originalPrice: 1199,
-                image: "product_45.jpg",
+                image: "product_44.jpg",
                 badge: "smart",
                 rating: 4.7,
                 reviews: 289,
@@ -3564,12 +3968,12 @@
                 reviewsList: []
             },
             {
-                id: 46,
+                id: 45,
                 title: "Nike Air Force 1 '07",
                 category: "fashion",
                 price: 499,
                 originalPrice: 599,
-                image: "product_46.jpg",
+                image: "product_45.jpg",
                 badge: "classic",
                 rating: 4.8,
                 reviews: 1567,
@@ -3593,12 +3997,12 @@
                 reviewsList: []
             },
             {
-                id: 47,
+                id: 46,
                 title: "Ray-Ban Aviator Classic",
                 category: "fashion",
                 price: 899,
                 originalPrice: 1099,
-                image: "product_47.jpg",
+                image: "product_46.jpg",
                 badge: "iconic",
                 rating: 4.9,
                 reviews: 789,
@@ -3622,12 +4026,12 @@
                 reviewsList: []
             },
             {
-                id: 48,
+                id: 47,
                 title: "Rolex Submariner Date",
                 category: "fashion",
                 price: 38999,
                 originalPrice: 42999,
-                image: "product_48.jpg",
+                image: "product_47.jpg",
                 badge: "luxury",
                 rating: 4.9,
                 reviews: 45,
@@ -3651,12 +4055,12 @@
                 reviewsList: []
             },
             {
-                id: 49,
+                id: 48,
                 title: "North Face Nuptse Jacket",
                 category: "fashion",
                 price: 899,
                 originalPrice: 1199,
-                image: "product_49.jpg",
+                image: "product_48.jpg",
                 badge: "trending",
                 rating: 4.7,
                 reviews: 456,
@@ -3680,12 +4084,12 @@
                 reviewsList: []
             },
             {
-                id: 50,
+                id: 49,
                 title: "Louis Vuitton Neverfull MM",
                 category: "fashion",
                 price: 14999,
                 originalPrice: 16999,
-                image: "product_50.jpg",
+                image: "product_49.jpg",
                 badge: "luxury",
                 rating: 4.9,
                 reviews: 89,
@@ -3707,6 +4111,1495 @@
                     "Golden brass pieces"
                 ],
                 reviewsList: []
+            },
+            {
+                id: 50,
+                title: "Apple MacBook Pro 16\" M3 Max",
+                category: "electronics",
+                price: 12999,
+                originalPrice: 14999,
+                image: "product_50.jpg",
+                badge: "premium",
+                rating: 4.9,
+                reviews: 78,
+                stock: 5,
+                tags: ["Laptop", "Apple", "M3", "Professional"],
+                description: "Supercharged by M3 Max for extreme performance.",
+                specifications: {
+                    "Chip": "Apple M3 Max (16-core CPU, 40-core GPU)",
+                    "Memory": "64GB unified",
+                    "Storage": "1TB SSD",
+                    "Display": "16.2\" Liquid Retina XDR",
+                    "Battery": "Up to 22 hours",
+                    "Ports": "MagSafe 3, 3x Thunderbolt 4, HDMI, SDXC"
+                },
+                features: [
+                    "M3 Max chip for extreme performance",
+                    "Liquid Retina XDR display",
+                    "Up to 22-hour battery life",
+                    "Advanced thermal system",
+                    "1080p FaceTime HD camera"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 51,
+                title: "Sony Alpha 7 IV Mirrorless Camera",
+                category: "electronics",
+                price: 6999,
+                originalPrice: 7999,
+                image: "product_51.jpg",
+                badge: "new",
+                rating: 4.8,
+                reviews: 134,
+                stock: 12,
+                tags: ["Camera", "Mirrorless", "Professional"],
+                description: "Full-frame hybrid camera for creators.",
+                specifications: {
+                    "Sensor": "33MP full-frame Exmor R CMOS",
+                    "Processor": "BIONZ XR",
+                    "Video": "4K 60p 10-bit 4:2:2",
+                    "ISO": "100-51200 (expandable)",
+                    "Autofocus": "759 phase-detection points",
+                    "Stabilization": "5-axis in-body"
+                },
+                features: [
+                    "33MP full-frame sensor",
+                    "Real-time Tracking AF",
+                    "4K 60p video recording",
+                    "10fps continuous shooting",
+                    "Vari-angle touchscreen LCD"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 52,
+                title: "LG 34\" UltraWide Curved Monitor",
+                category: "electronics",
+                price: 2999,
+                originalPrice: 3599,
+                image: "product_52.jpg",
+                badge: "trending",
+                rating: 4.7,
+                reviews: 89,
+                stock: 15,
+                tags: ["Monitor", "Curved", "UltraWide"],
+                description: "UltraWide curved display for immersive experience.",
+                specifications: {
+                    "Size": "34 inches",
+                    "Resolution": "3440x1440 (UWQHD)",
+                    "Curvature": "1900R",
+                    "Refresh Rate": "144Hz",
+                    "Response Time": "1ms",
+                    "Panel": "Nano IPS",
+                    "HDR": "HDR10"
+                },
+                features: [
+                    "Nano IPS display",
+                    "144Hz refresh rate",
+                    "AMD FreeSync Premium",
+                    "Sphere Lighting 2.0",
+                    "Split Screen 2.0"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 53,
+                title: "Bose QuietComfort Ultra Earbuds",
+                category: "electronics",
+                price: 1999,
+                originalPrice: 2399,
+                image: "product_53.jpg",
+                badge: "new",
+                rating: 4.7,
+                reviews: 156,
+                stock: 25,
+                tags: ["Earbuds", "Noise Cancelling", "Wireless"],
+                description: "Premium earbuds with immersive audio.",
+                specifications: {
+                    "Noise Cancellation": "Adaptive",
+                    "Battery Life": "6 hours (24 with case)",
+                    "Water Resistance": "IPX4",
+                    "Connectivity": "Bluetooth 5.3",
+                    "Weight": "6.2g per earbud"
+                },
+                features: [
+                    "Immersive Audio technology",
+                    "CustomTune calibration",
+                    "Active Noise Cancellation",
+                    "Bose Fit Kit",
+                    "Quick charging"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 54,
+                title: "Dyson V12 Detect Slim Vacuum",
+                category: "home",
+                price: 1899,
+                originalPrice: 2299,
+                image: "product_54.jpg",
+                badge: "hot",
+                rating: 4.8,
+                reviews: 203,
+                stock: 18,
+                tags: ["Vacuum", "Cordless", "Smart"],
+                description: "Laser reveals hidden dust.",
+                specifications: {
+                    "Power": "150AW",
+                    "Battery": "60 minutes",
+                    "Weight": "2.2kg",
+                    "Bin Capacity": "0.35L",
+                    "Filtration": "Whole-machine HEPA"
+                },
+                features: [
+                    "Laser dust detection",
+                    "Piezo sensor technology",
+                    "LCD screen",
+                    "HEPA filtration",
+                    "9 attachments included"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 55,
+                title: "KitchenAid Artisan Stand Mixer",
+                category: "home",
+                price: 1899,
+                originalPrice: 2299,
+                image: "product_55.jpg",
+                badge: "classic",
+                rating: 4.9,
+                reviews: 456,
+                stock: 22,
+                tags: ["Mixer", "Kitchen", "Premium"],
+                description: "Iconic stand mixer in 26 colors.",
+                specifications: {
+                    "Power": "325W",
+                    "Capacity": "4.8L",
+                    "Speeds": "10",
+                    "Attachments": "Optional",
+                    "Weight": "13.2kg"
+                },
+                features: [
+                    "Planetary mixing action",
+                    "10-speed control",
+                    "All-metal construction",
+                    "Tilt-head design",
+                    "Over 15 attachment options"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 56,
+                title: "Apple Watch Ultra 2",
+                category: "electronics",
+                price: 3299,
+                originalPrice: 3799,
+                image: "product_56.jpg",
+                badge: "premium",
+                rating: 4.8,
+                reviews: 167,
+                stock: 14,
+                tags: ["Smartwatch", "Fitness", "Rugged"],
+                description: "Advanced adventure watch.",
+                specifications: {
+                    "Case": "49mm titanium",
+                    "Display": "Always-On Retina",
+                    "Battery": "36 hours (72 in low power)",
+                    "Water Resistance": "100m",
+                    "Sensors": "Depth gauge, temperature"
+                },
+                features: [
+                    "Dual-frequency GPS",
+                    "Action button",
+                    "86dB siren",
+                    "Depth app with gauge",
+                    "Trail and Waypoint features"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 57,
+                title: "Nintendo Switch 2",
+                category: "gaming",
+                price: 1999,
+                originalPrice: 2299,
+                image: "product_57.jpg",
+                badge: "new",
+                rating: 4.8,
+                reviews: 234,
+                stock: 8,
+                tags: ["Gaming", "Console", "Portable"],
+                description: "Next-gen Nintendo gaming experience.",
+                specifications: {
+                    "Display": "8-inch OLED",
+                    "Storage": "256GB",
+                    "Battery": "6-10 hours",
+                    "Resolution": "1080p handheld, 4K docked",
+                    "Processor": "NVIDIA custom Tegra"
+                },
+                features: [
+                    "4K gaming when docked",
+                    "Enhanced OLED display",
+                    "Backward compatibility",
+                    "Improved Joy-Con",
+                    "Better battery life"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 58,
+                title: "Razer Blade 18 Gaming Laptop",
+                category: "electronics",
+                price: 12999,
+                originalPrice: 14999,
+                image: "product_58.jpg",
+                badge: "premium",
+                rating: 4.9,
+                reviews: 45,
+                stock: 4,
+                tags: ["Gaming Laptop", "RTX", "Premium"],
+                description: "Ultimate 18-inch gaming laptop.",
+                specifications: {
+                    "Processor": "Intel Core i9-14900HX",
+                    "GPU": "NVIDIA RTX 4090",
+                    "RAM": "64GB DDR5",
+                    "Storage": "2TB SSD",
+                    "Display": "18\" 4K 144Hz Mini-LED"
+                },
+                features: [
+                    "CNC aluminum chassis",
+                    "Advanced vapor chamber cooling",
+                    "Per-key RGB Chroma",
+                    "THX Spatial Audio",
+                    "Windows 11 Pro"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 59,
+                title: "Samsung Galaxy Z Fold 5",
+                category: "electronics",
+                price: 6999,
+                originalPrice: 7999,
+                image: "product_59.jpg",
+                badge: "premium",
+                rating: 4.7,
+                reviews: 189,
+                stock: 9,
+                tags: ["Smartphone", "Foldable", "Premium"],
+                description: "Unfold your world.",
+                specifications: {
+                    "Main Display": "7.6\" Dynamic AMOLED 2X",
+                    "Cover Display": "6.2\" Super AMOLED",
+                    "Chipset": "Snapdragon 8 Gen 2",
+                    "RAM": "12GB",
+                    "Storage": "512GB",
+                    "Cameras": "50MP + 12MP + 10MP"
+                },
+                features: [
+                    "Foldable main display",
+                    "IPX8 water resistance",
+                    "S Pen Fold Edition support",
+                    "Under-display camera",
+                    "Multi-active window"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 60,
+                title: "Sonos Arc Soundbar",
+                category: "electronics",
+                price: 2999,
+                originalPrice: 3499,
+                image: "product_60.jpg",
+                badge: "hot",
+                rating: 4.8,
+                reviews: 178,
+                stock: 12,
+                tags: ["Soundbar", "Home Theater", "Dolby Atmos"],
+                description: "Premium Dolby Atmos soundbar.",
+                specifications: {
+                    "Channels": "5.0.2",
+                    "Drivers": "11 high-performance",
+                    "Connectivity": "HDMI eARC, WiFi, AirPlay 2",
+                    "Voice Control": "Alexa, Google Assistant",
+                    "Dimensions": "114 x 8.7 x 11.4 cm"
+                },
+                features: [
+                    "Dolby Atmos support",
+                    "Trueplay tuning technology",
+                    "Voice enhancement",
+                    "Night Sound mode",
+                    "Works with all Sonos speakers"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 61,
+                title: "Microsoft Surface Studio 2+",
+                category: "electronics",
+                price: 15999,
+                originalPrice: 17999,
+                image: "product_61.jpg",
+                badge: "premium",
+                rating: 4.8,
+                reviews: 67,
+                stock: 3,
+                tags: ["All-in-One", "Creative", "Professional"],
+                description: "Creative powerhouse in studio form.",
+                specifications: {
+                    "Display": "28\" PixelSense Touch (4500x3000)",
+                    "Processor": "Intel Core i7-11370H",
+                    "GPU": "NVIDIA RTX 3060",
+                    "RAM": "32GB",
+                    "Storage": "1TB SSD"
+                },
+                features: [
+                    "Zero Gravity hinge design",
+                    "PixelSense touch display",
+                    "Surface Dial integration",
+                    "108MP front-facing camera",
+                    "Windows 11 Pro"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 62,
+                title: "Garmin Epix Pro (Gen 2)",
+                category: "electronics",
+                price: 4999,
+                originalPrice: 5699,
+                image: "product_62.jpg",
+                badge: "premium",
+                rating: 4.9,
+                reviews: 89,
+                stock: 7,
+                tags: ["Smartwatch", "Outdoor", "AMOLED"],
+                description: "Premium outdoor smartwatch.",
+                specifications: {
+                    "Display": "1.4\" AMOLED (454x454)",
+                    "Battery": "Up to 31 days",
+                    "Sensors": "All + LED flashlight",
+                    "Water Rating": "10 ATM",
+                    "Memory": "32GB"
+                },
+                features: [
+                    "AMOLED display",
+                    "Multi-band GNSS",
+                    "LED flashlight",
+                    "Advanced training metrics",
+                    "TopoActive maps"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 63,
+                title: "Google Pixel 8 Pro",
+                category: "electronics",
+                price: 3999,
+                originalPrice: 4599,
+                image: "product_63.jpg",
+                badge: "new",
+                rating: 4.7,
+                reviews: 234,
+                stock: 15,
+                tags: ["Smartphone", "Android", "Camera"],
+                description: "The pro camera. Engineered by Google.",
+                specifications: {
+                    "Display": "6.7\" LTPO OLED (1344x2992)",
+                    "Chip": "Google Tensor G3",
+                    "RAM": "12GB",
+                    "Storage": "256GB",
+                    "Cameras": "50MP + 48MP + 48MP"
+                },
+                features: [
+                    "Pro-level camera system",
+                    "7 years of OS updates",
+                    "Face Unblur",
+                    "Magic Editor",
+                    "Best Take"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 64,
+                title: "ASUS ROG Swift OLED Monitor",
+                category: "electronics",
+                price: 3499,
+                originalPrice: 3999,
+                image: "product_64.jpg",
+                badge: "hot",
+                rating: 4.9,
+                reviews: 123,
+                stock: 8,
+                tags: ["Monitor", "OLED", "Gaming"],
+                description: "OLED gaming monitor with 240Hz.",
+                specifications: {
+                    "Size": "27 inches",
+                    "Resolution": "2560x1440",
+                    "Panel": "OLED",
+                    "Refresh Rate": "240Hz",
+                    "Response Time": "0.03ms",
+                    "HDR": "DisplayHDR True Black 400"
+                },
+                features: [
+                    "OLED technology",
+                    "240Hz refresh rate",
+                    "Custom heatsink",
+                    "Uniform brightness",
+                    "ASUS Smart KVM"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 65,
+                title: "Bang & Olufsen Beoplay H95",
+                category: "electronics",
+                price: 3999,
+                originalPrice: 4599,
+                image: "product_65.jpg",
+                badge: "luxury",
+                rating: 4.9,
+                reviews: 89,
+                stock: 6,
+                tags: ["Headphones", "Luxury", "Noise Cancelling"],
+                description: "Iconic sound. Unmatched comfort.",
+                specifications: {
+                    "Drivers": "40mm titanium",
+                    "Noise Cancellation": "Adaptive",
+                    "Battery": "38 hours",
+                    "Weight": "325g",
+                    "Case": "Aluminum travel case"
+                },
+                features: [
+                    "Adaptive Active Noise Cancellation",
+                    "8 microphones",
+                    "Aluminum travel case",
+                    "Magnetic ear cushions",
+                    "Touch interface"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 66,
+                title: "Herman Miller Aeron Chair",
+                category: "home",
+                price: 5999,
+                originalPrice: 6999,
+                image: "product_66.jpg",
+                badge: "premium",
+                rating: 4.9,
+                reviews: 567,
+                stock: 9,
+                tags: ["Office Chair", "Ergonomic", "Premium"],
+                description: "The original ergonomic chair.",
+                specifications: {
+                    "Material": "Pellicle suspension fabric",
+                    "Adjustments": "8Z Pellicle, PostureFit SL",
+                    "Weight Capacity": "159kg",
+                    "Warranty": "12 years",
+                    "Colors": "3 sizes, 3 colors"
+                },
+                features: [
+                    "Pellicle suspension material",
+                    "PostureFit SL support",
+                    "8Z Pellicle technology",
+                    "Fully adjustable",
+                    "12-year warranty"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 67,
+                title: "Breville Barista Express Impress",
+                category: "home",
+                price: 3999,
+                originalPrice: 4699,
+                image: "product_67.jpg",
+                badge: "premium",
+                rating: 4.8,
+                reviews: 145,
+                stock: 11,
+                tags: ["Espresso Machine", "Coffee", "Semi-Auto"],
+                description: "The smarter way to perfect espresso.",
+                specifications: {
+                    "Boiler": "ThermoJet heating system",
+                    "Pump": "Italian 15 bar",
+                    "Grinder": "Integrated conical burr",
+                    "Portafilter": "54mm professional",
+                    "Water Tank": "2L"
+                },
+                features: [
+                    "Impress puck system",
+                    "Auto Dose & Tamp",
+                    "ThermoJet heating",
+                    "Pre-infusion function",
+                    "PID temperature control"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 68,
+                title: "DJI Mavic 3 Pro Cine",
+                category: "electronics",
+                price: 9999,
+                originalPrice: 11999,
+                image: "product_68.jpg",
+                badge: "premium",
+                rating: 4.9,
+                reviews: 78,
+                stock: 4,
+                tags: ["Drone", "Professional", "Camera"],
+                description: "Professional aerial cinematography drone.",
+                specifications: {
+                    "Cameras": "Hasselblad 4/3 + dual tele",
+                    "Video": "Apple ProRes 422 HQ",
+                    "Flight Time": "43 minutes",
+                    "Transmission": "15km O3+",
+                    "Sensors": "Omnidirectional obstacle sensing"
+                },
+                features: [
+                    "Triple camera system",
+                    "Apple ProRes support",
+                    "43-minute flight time",
+                    "15km transmission",
+                    "Advanced RTH"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 69,
+                title: "LG 77\" OLED evo G3",
+                category: "electronics",
+                price: 11999,
+                originalPrice: 13999,
+                image: "product_69.jpg",
+                badge: "premium",
+                rating: 4.9,
+                reviews: 67,
+                stock: 5,
+                tags: ["TV", "OLED", "Gallery Design"],
+                description: "OLED evo with Brightness Booster Max.",
+                specifications: {
+                    "Size": "77 inches",
+                    "Technology": "OLED evo",
+                    "Processor": "α9 Gen6 AI Processor",
+                    "Brightness": "70% brighter",
+                    "HDR": "Dolby Vision IQ, HDR10 Pro"
+                },
+                features: [
+                    "OLED evo technology",
+                    "Brightness Booster Max",
+                    "Gallery Design",
+                    "α9 Gen6 AI Processor",
+                    "webOS 23"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 70,
+                title: "Apple iPad Pro 11\" M4",
+                category: "electronics",
+                price: 3999,
+                originalPrice: 4599,
+                image: "product_70.jpg",
+                badge: "new",
+                rating: 4.8,
+                reviews: 189,
+                stock: 12,
+                tags: ["Tablet", "Apple", "M4"],
+                description: "Out of this world. In your hands.",
+                specifications: {
+                    "Chip": "Apple M4",
+                    "Display": "11\" Liquid Retina XDR",
+                    "Storage": "256GB",
+                    "RAM": "8GB",
+                    "Camera": "12MP + LiDAR Scanner"
+                },
+                features: [
+                    "M4 chip with Neural Engine",
+                    "Liquid Retina XDR display",
+                    "ProMotion technology",
+                    "Thunderbolt 4",
+                    "5G cellular option"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 71,
+                title: "Sony WH-1000XM6",
+                category: "electronics",
+                price: 1499,
+                originalPrice: 1799,
+                image: "product_71.jpg",
+                badge: "new",
+                rating: 4.8,
+                reviews: 234,
+                stock: 18,
+                tags: ["Headphones", "Noise Cancelling", "Sony"],
+                description: "Industry-leading noise cancellation.",
+                specifications: {
+                    "Noise Cancellation": "Integrated Processor V2",
+                    "Battery": "40 hours with ANC",
+                    "Weight": "250g",
+                    "Connectivity": "Bluetooth 5.3, LDAC",
+                    "Voice Calls": "8 microphones"
+                },
+                features: [
+                    "Industry-leading ANC",
+                    "40-hour battery life",
+                    "Multi-point connection",
+                    "Speak-to-Chat",
+                    "360 Reality Audio"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 72,
+                title: "NVIDIA RTX 5090 Founders Edition",
+                category: "electronics",
+                price: 12999,
+                originalPrice: 14999,
+                image: "product_72.jpg",
+                badge: "premium",
+                rating: 4.9,
+                reviews: 45,
+                stock: 2,
+                tags: ["Graphics Card", "Gaming", "RTX"],
+                description: "Next-gen gaming performance.",
+                specifications: {
+                    "GPU": "NVIDIA Blackwell AD102",
+                    "CUDA Cores": "18432",
+                    "Memory": "24GB GDDR7",
+                    "Boost Clock": "2850 MHz",
+                    "TDP": "500W"
+                },
+                features: [
+                    "Blackwell architecture",
+                    "DLSS 4",
+                    "Ray Tracing 4",
+                    "AV1 encoding",
+                    "Power efficiency"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 73,
+                title: "Microsoft Xbox Series X Pro",
+                category: "gaming",
+                price: 2999,
+                originalPrice: 3499,
+                image: "product_73.jpg",
+                badge: "new",
+                rating: 4.9,
+                reviews: 89,
+                stock: 6,
+                tags: ["Gaming Console", "4K", "Xbox"],
+                description: "The most powerful Xbox ever.",
+                specifications: {
+                    "CPU": "AMD Zen 4, 12-core",
+                    "GPU": "20 TFLOPs",
+                    "Memory": "24GB GDDR6",
+                    "Storage": "2TB PCIe 5.0 SSD",
+                    "Output": "8K/120Hz, 4K/240Hz"
+                },
+                features: [
+                    "8K gaming capability",
+                    "240Hz support",
+                    "Quick Resume for 10+ games",
+                    "Xbox Velocity Architecture",
+                    "Backward compatibility"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 74,
+                title: "Rolex Daytona Platinum",
+                category: "fashion",
+                price: 89999,
+                originalPrice: 99999,
+                image: "product_74.jpg",
+                badge: "luxury",
+                rating: 5.0,
+                reviews: 23,
+                stock: 1,
+                tags: ["Watch", "Luxury", "Rolex"],
+                description: "Iconic chronograph in platinum.",
+                specifications: {
+                    "Material": "950 platinum",
+                    "Movement": "Caliber 4130 automatic",
+                    "Crystal": "Sapphire, cyclops",
+                    "Water Resistance": "100m",
+                    "Power Reserve": "72 hours"
+                },
+                features: [
+                    "950 platinum case and bracelet",
+                    "Cerachrom bezel",
+                    "Chronograph function",
+                    "Oysterlock clasp",
+                    "5-year warranty"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 75,
+                title: "Louis Vuitton Keepall 55",
+                category: "fashion",
+                price: 12999,
+                originalPrice: 14999,
+                image: "product_75.jpg",
+                badge: "luxury",
+                rating: 4.9,
+                reviews: 67,
+                stock: 4,
+                tags: ["Bag", "Travel", "Luxury"],
+                description: "Iconic travel bag.",
+                specifications: {
+                    "Material": "Monogram canvas",
+                    "Dimensions": "55x29x22cm",
+                    "Weight": "1.2kg",
+                    "Closure": "Padlock and key",
+                    "Straps": "Leather handles + shoulder strap"
+                },
+                features: [
+                    "Monogram canvas",
+                    "Natural cowhide leather",
+                    "Double zip closure",
+                    "Padlock and keys",
+                    "Shoulder strap included"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 76,
+                title: "Gucci GG Marmont Matelassé",
+                category: "fashion",
+                price: 8999,
+                originalPrice: 10999,
+                image: "product_76.jpg",
+                badge: "luxury",
+                rating: 4.8,
+                reviews: 145,
+                stock: 7,
+                tags: ["Bag", "Luxury", "Gucci"],
+                description: "Iconic GG Marmont bag.",
+                specifications: {
+                    "Material": "Matelassé leather",
+                    "Dimensions": "26x15x7cm",
+                    "Chain": "Antique gold-tone",
+                    "Closure": "Magnetic GG",
+                    "Weight": "0.8kg"
+                },
+                features: [
+                    "Matelassé chevron pattern",
+                    "Antique gold-tone chain",
+                    "Interlocking GG closure",
+                    "Leather lining",
+                    "Front and back compartments"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 77,
+                title: "Cartier Santos de Cartier",
+                category: "fashion",
+                price: 29999,
+                originalPrice: 34999,
+                image: "product_77.jpg",
+                badge: "luxury",
+                rating: 4.9,
+                reviews: 89,
+                stock: 3,
+                tags: ["Watch", "Luxury", "Cartier"],
+                description: "Iconic square watch.",
+                specifications: {
+                    "Case": "Steel and 18k yellow gold",
+                    "Movement": "Automatic",
+                    "Crystal": "Sapphire",
+                    "Water Resistance": "100m",
+                    "Bracelet": "Interchangeable"
+                },
+                features: [
+                    "Interchangeable bracelet system",
+                    "QuickSwitch system",
+                    "SmartLink adjustment",
+                    "1847 MC movement",
+                    "Square case design"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 78,
+                title: "Prada Re-Nylon Backpack",
+                category: "fashion",
+                price: 4999,
+                originalPrice: 5999,
+                image: "product_78.jpg",
+                badge: "luxury",
+                rating: 4.7,
+                reviews: 178,
+                stock: 9,
+                tags: ["Backpack", "Luxury", "Prada"],
+                description: "Sustainable luxury backpack.",
+                specifications: {
+                    "Material": "Re-Nylon (recycled)",
+                    "Dimensions": "32x46x16cm",
+                    "Weight": "0.9kg",
+                    "Compartments": "2 main + front pocket",
+                    "Straps": "Adjustable padded"
+                },
+                features: [
+                    "Re-Nylon sustainable material",
+                    "Triangle logo plaque",
+                    "Multiple compartments",
+                    "Padded laptop sleeve",
+                    "Adjustable shoulder straps"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 79,
+                title: "Tesla Model 3 Performance",
+                category: "automotive",
+                price: 189999,
+                originalPrice: 209999,
+                image: "product_79.jpg",
+                badge: "premium",
+                rating: 4.9,
+                reviews: 45,
+                stock: 3,
+                tags: ["Electric Car", "Tesla", "Performance"],
+                description: "Electric performance sedan.",
+                specifications: {
+                    "Range": "547km",
+                    "0-100km/h": "3.1 seconds",
+                    "Top Speed": "261km/h",
+                    "Power": "460kW dual motor",
+                    "Charging": "250kW Supercharging"
+                },
+                features: [
+                    "Dual Motor All-Wheel Drive",
+                    "Track Mode",
+                    "20\" Überturbine Wheels",
+                    "Performance Brakes",
+                    "Carbon fiber spoiler"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 80,
+                title: "Apple Vision Pro",
+                category: "electronics",
+                price: 14999,
+                originalPrice: 16999,
+                image: "product_80.jpg",
+                badge: "premium",
+                rating: 4.8,
+                reviews: 89,
+                stock: 5,
+                tags: ["Mixed Reality", "Apple", "Spatial Computing"],
+                description: "Welcome to spatial computing.",
+                specifications: {
+                    "Displays": "Micro-OLED 4K per eye",
+                    "Chip": "M2 + R1",
+                    "Storage": "256GB",
+                    "Sensors": "12 cameras, 5 sensors",
+                    "Audio": "Personalized Spatial Audio"
+                },
+                features: [
+                    "Spatial computing platform",
+                    "Eye tracking",
+                    "Hand gesture control",
+                    "Persona feature",
+                    "Spatial photos and videos"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 81,
+                title: "Samsung The Frame 2024",
+                category: "electronics",
+                price: 6999,
+                originalPrice: 7999,
+                image: "product_81.jpg",
+                badge: "hot",
+                rating: 4.7,
+                reviews: 234,
+                stock: 12,
+                tags: ["TV", "Art", "Lifestyle"],
+                description: "Art when you're not watching TV.",
+                specifications: {
+                    "Size": "75 inches",
+                    "Resolution": "4K QLED",
+                    "Art Mode": "Over 2000 artworks",
+                    "Matte Display": "Anti-glare",
+                    "Bezel": "Customizable"
+                },
+                features: [
+                    "Art Mode with motion sensor",
+                    "Matte display",
+                    "Customizable bezels",
+                    "Slim Fit wall mount",
+                    "Solar-powered remote"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 82,
+                title: "Peloton Bike+",
+                category: "fitness",
+                price: 8999,
+                originalPrice: 9999,
+                image: "product_82.jpg",
+                badge: "premium",
+                rating: 4.8,
+                reviews: 345,
+                stock: 8,
+                tags: ["Exercise Bike", "Fitness", "Smart"],
+                description: "The ultimate connected fitness experience.",
+                specifications: {
+                    "Screen": "23.8\" rotating touchscreen",
+                    "Resistance": "Auto-follow",
+                    "Sound": "Front-facing speakers",
+                    "Connectivity": "WiFi, Bluetooth, Apple GymKit",
+                    "Weight Capacity": "136kg"
+                },
+                features: [
+                    "Rotating 23.8\" screen",
+                    "Auto-follow resistance",
+                    "Apple GymKit integration",
+                    "Front-facing speakers",
+                    "All-access membership trial"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 83,
+                title: "Miele Complete C3 Cat & Dog",
+                category: "home",
+                price: 2999,
+                originalPrice: 3499,
+                image: "product_83.jpg",
+                badge: "premium",
+                rating: 4.9,
+                reviews: 189,
+                stock: 11,
+                tags: ["Vacuum", "Corded", "Premium"],
+                description: "German engineering for pet owners.",
+                specifications: {
+                    "Power": "1200W",
+                    "Filtration": "AirClean + HEPA",
+                    "Accessories": "7 included",
+                    "Cord Length": "10m",
+                    "Warranty": "7 years"
+                },
+                features: [
+                    "SEB 228 Electrobrush",
+                    "AirClean + HEPA filter",
+                    "Dustbag change indicator",
+                    "7 accessories included",
+                    "7-year warranty"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 84,
+                title: "Weber Genesis Smart Grill",
+                category: "home",
+                price: 4999,
+                originalPrice: 5999,
+                image: "product_84.jpg",
+                badge: "smart",
+                rating: 4.8,
+                reviews: 167,
+                stock: 7,
+                tags: ["Grill", "Smart", "Outdoor"],
+                description: "Smart grilling with WiFi.",
+                specifications: {
+                    "Cooking Area": "690 sq in",
+                    "Burners": "4 main + 1 side",
+                    "Smart Features": "Weber Connect",
+                    "Fuel": "Natural gas or propane",
+                    "Construction": "Stainless steel"
+                },
+                features: [
+                    "Weber Connect technology",
+                    "GS4 grilling system",
+                    "iGrill compatible",
+                    "Flavorizer bars",
+                    "Side burner"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 85,
+                title: "Bang & Olufsen Beosound Theatre",
+                category: "electronics",
+                price: 8999,
+                originalPrice: 9999,
+                image: "product_85.jpg",
+                badge: "luxury",
+                rating: 4.9,
+                reviews: 78,
+                stock: 4,
+                tags: ["Soundbar", "Luxury", "Dolby Atmos"],
+                description: "Cinematic sound redefined.",
+                specifications: {
+                    "Drivers": "12 custom-designed",
+                    "Channels": "7.1.4",
+                    "Power": "800W total",
+                    "Connectivity": "HDMI eARC, AirPlay 2, Chromecast",
+                    "Materials": "Aluminum, oak, wool"
+                },
+                features: [
+                    "Adaptive sound calibration",
+                    "Active Room Compensation",
+                    "Multi-room capability",
+                    "Premium materials",
+                    "Motorized fabric grille"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 86,
+                title: "Leica M11 Monochrom",
+                category: "electronics",
+                price: 12999,
+                originalPrice: 14999,
+                image: "product_86.jpg",
+                badge: "luxury",
+                rating: 5.0,
+                reviews: 34,
+                stock: 2,
+                tags: ["Camera", "Leica", "Monochrom"],
+                description: "The art of black and white.",
+                specifications: {
+                    "Sensor": "60MP full-frame BSI monochrome",
+                    "Processor": "Maestro III",
+                    "ISO": "125-200000",
+                    "Storage": "256GB internal + SD",
+                    "Viewfinder": "Optical rangefinder"
+                },
+                features: [
+                    "60MP monochrome sensor",
+                    "Triple Resolution Technology",
+                    "Maestro III processor",
+                    "256GB internal storage",
+                    "Optical rangefinder"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 87,
+                title: "Montblanc Meisterstück LeGrand",
+                category: "fashion",
+                price: 1999,
+                originalPrice: 2499,
+                image: "product_87.jpg",
+                badge: "luxury",
+                rating: 4.9,
+                reviews: 189,
+                stock: 9,
+                tags: ["Pen", "Luxury", "Writing"],
+                description: "The art of writing.",
+                specifications: {
+                    "Nib": "18k gold",
+                    "Filling System": "Piston",
+                    "Material": "Precious resin",
+                    "Trim": "Gold-plated",
+                    "Length": "146mm"
+                },
+                features: [
+                    "Handcrafted 18k gold nib",
+                    "Piston filling system",
+                    "Precious resin barrel",
+                    "Gold-plated trim",
+                    "Montblanc emblem"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 88,
+                title: "Vertu Signature Touch",
+                category: "electronics",
+                price: 29999,
+                originalPrice: 34999,
+                image: "product_88.jpg",
+                badge: "luxury",
+                rating: 4.8,
+                reviews: 45,
+                stock: 3,
+                tags: ["Smartphone", "Luxury", "Concierge"],
+                description: "The ultimate luxury smartphone.",
+                specifications: {
+                    "Display": "5.2\" Full HD",
+                    "Processor": "Snapdragon 865",
+                    "Storage": "512GB",
+                    "Materials": "Titanium, leather, sapphire",
+                    "Concierge": "24/7 red button service"
+                },
+                features: [
+                    "Handcrafted materials",
+                    "24/7 concierge service",
+                    "Sapphire crystal display",
+                    "Premium sound system",
+                    "Private network"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 89,
+                title: "TAG Heuer Carrera Plasma",
+                category: "fashion",
+                price: 49999,
+                originalPrice: 54999,
+                image: "product_89.jpg",
+                badge: "luxury",
+                rating: 4.9,
+                reviews: 23,
+                stock: 1,
+                tags: ["Watch", "Luxury", "Innovation"],
+                description: "Diamonds created in a laboratory.",
+                specifications: {
+                    "Case": "Aluminum + lab-grown diamonds",
+                    "Movement": "Calibre Heuer 02T tourbillon",
+                    "Crystal": "Sapphire",
+                    "Water Resistance": "100m",
+                    "Power Reserve": "65 hours"
+                },
+                features: [
+                    "Lab-grown diamonds",
+                    "Tourbillon movement",
+                    "Skeleton dial",
+                    "Ceramic bezel",
+                    "5-year warranty"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 90,
+                title: "Bowers & Wilkins 800 D4",
+                category: "electronics",
+                price: 59999,
+                originalPrice: 69999,
+                image: "product_90.jpg",
+                badge: "luxury",
+                rating: 5.0,
+                reviews: 34,
+                stock: 2,
+                tags: ["Speakers", "Hi-Fi", "Luxury"],
+                description: "Reference-class loudspeakers.",
+                specifications: {
+                    "Type": "Floor-standing",
+                    "Drivers": "Diamond dome tweeter, Continuum cone",
+                    "Frequency": "15Hz - 35kHz",
+                    "Power": "500W recommended",
+                    "Weight": "99kg each"
+                },
+                features: [
+                    "Diamond dome tweeter",
+                    "Continuum cone midrange",
+                    "Decoupled double dome",
+                    "Solid body tweeter housing",
+                    "Optimized matrix bracing"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 91,
+                title: "Sub-Zero 48\" Built-in Refrigerator",
+                category: "home",
+                price: 29999,
+                originalPrice: 34999,
+                image: "product_91.jpg",
+                badge: "luxury",
+                rating: 4.9,
+                reviews: 67,
+                stock: 4,
+                tags: ["Refrigerator", "Luxury", "Built-in"],
+                description: "Professional-grade refrigeration.",
+                specifications: {
+                    "Capacity": "48 cubic feet",
+                    "Doors": "4 French doors",
+                    "Technology": "Dual refrigeration",
+                    "Water Filtration": "Advanced",
+                    "Warranty": "12 years"
+                },
+                features: [
+                    "Dual refrigeration system",
+                    "Advanced air purification",
+                    "LED lighting",
+                    "Touch controls",
+                    "Stainless steel interior"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 92,
+                title: "Miele MasterCool Built-in Coffee",
+                category: "home",
+                price: 8999,
+                originalPrice: 10999,
+                image: "product_92.jpg",
+                badge: "luxury",
+                rating: 4.9,
+                reviews: 89,
+                stock: 6,
+                tags: ["Coffee Machine", "Built-in", "Luxury"],
+                description: "Professional coffee at home.",
+                specifications: {
+                    "Bean Capacity": "500g",
+                    "Water Tank": "2.5L",
+                    "Pressure": "15 bar",
+                    "Milk System": "Automatic",
+                    "Cleaning": "Automatic"
+                },
+                features: [
+                    "Bean to cup system",
+                    "Automatic milk system",
+                    "Touch display",
+                    "WiFi connectivity",
+                    "Automatic cleaning"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 93,
+                title: "Gaggenau 400 Series Oven",
+                category: "home",
+                price: 12999,
+                originalPrice: 14999,
+                image: "product_93.jpg",
+                badge: "luxury",
+                rating: 4.9,
+                reviews: 78,
+                stock: 5,
+                tags: ["Oven", "Built-in", "Luxury"],
+                description: "Professional cooking at home.",
+                specifications: {
+                    "Capacity": "67 liters",
+                    "Functions": "12 heating functions",
+                    "Temperature": "30-300°C",
+                    "Cleaning": "Pyrolytic",
+                    "Control": "Touch display"
+                },
+                features: [
+                    "Pyrolytic self-cleaning",
+                    "PerfectBake sensor",
+                    "Meat probe",
+                    "Touch display",
+                    "Cooling fan"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 94,
+                title: "Thermador Freedom Collection",
+                category: "home",
+                price: 19999,
+                originalPrice: 23999,
+                image: "product_94.jpg",
+                badge: "luxury",
+                rating: 4.9,
+                reviews: 56,
+                stock: 3,
+                tags: ["Cooktop", "Induction", "Luxury"],
+                description: "Cook anywhere induction.",
+                specifications: {
+                    "Size": "36 inches",
+                    "Zones": "Freedom zone",
+                    "Power": "3700W max",
+                    "Control": "Touch slider",
+                    "Safety": "Automatic shut-off"
+                },
+                features: [
+                    "Freedom induction zone",
+                    "Power Boost",
+                    "Touch slider controls",
+                    "Auto-sizing elements",
+                    "Pan detection"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 95,
+                title: "La Cornue Château Series",
+                category: "home",
+                price: 49999,
+                originalPrice: 59999,
+                image: "product_95.jpg",
+                badge: "luxury",
+                rating: 5.0,
+                reviews: 23,
+                stock: 2,
+                tags: ["Range", "Professional", "Luxury"],
+                description: "Handcrafted French range.",
+                specifications: {
+                    "Fuel": "Gas cooktop, electric oven",
+                    "Ovens": "2 (convection + steam)",
+                    "Burners": "5 including wok",
+                    "Materials": "Stainless steel, brass, copper",
+                    "Customization": "Full customization"
+                },
+                features: [
+                    "Handcrafted in France",
+                    "Dual fuel",
+                    "Steam oven",
+                    "Customizable colors",
+                    "Professional performance"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 96,
+                title: "Perlick Residential Bar System",
+                category: "home",
+                price: 15999,
+                originalPrice: 19999,
+                image: "product_96.jpg",
+                badge: "luxury",
+                rating: 4.9,
+                reviews: 45,
+                stock: 4,
+                tags: ["Bar", "Entertainment", "Luxury"],
+                description: "Professional bar at home.",
+                specifications: {
+                    "Components": "Undercounter fridge, ice maker, wine cooler",
+                    "Finish": "Stainless steel",
+                    "Capacity": "Multiple zones",
+                    "Controls": "Digital",
+                    "Lighting": "LED"
+                },
+                features: [
+                    "Commercial-grade components",
+                    "Stainless steel finish",
+                    "Digital controls",
+                    "LED lighting",
+                    "Custom configuration"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 97,
+                title: "Smeg 50s Style Refrigerator",
+                category: "home",
+                price: 8999,
+                originalPrice: 10999,
+                image: "product_97.jpg",
+                badge: "retro",
+                rating: 4.8,
+                reviews: 234,
+                stock: 8,
+                tags: ["Refrigerator", "Retro", "Design"],
+                description: "Iconic 50s style with modern technology.",
+                specifications: {
+                    "Capacity": "411 liters",
+                    "Color": "Pastel blue",
+                    "Energy Rating": "A++",
+                    "Features": "Fast freeze, holiday mode",
+                    "Interior": "LED lighting"
+                },
+                features: [
+                    "Iconic 50s design",
+                    "Pastel color options",
+                    "Energy efficient",
+                    "LED interior lighting",
+                    "Adjustable shelves"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 98,
+                title: "Dyson Airwrap Complete",
+                category: "beauty",
+                price: 2999,
+                originalPrice: 3499,
+                image: "product_98.jpg",
+                badge: "hot",
+                rating: 4.7,
+                reviews: 456,
+                stock: 15,
+                tags: ["Hair Styler", "Beauty", "Premium"],
+                description: "Style with air, not extreme heat.",
+                specifications: {
+                    "Attachments": "6 styling barrels",
+                    "Technology": "Coanda effect",
+                    "Heat Settings": "3",
+                    "Air Speed": "4",
+                    "Weight": "0.8kg"
+                },
+                features: [
+                    "Styles with air, not extreme heat",
+                    "Coanda effect technology",
+                    "6 styling attachments",
+                    "Heat control technology",
+                    "Magnetic attachments"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 99,
+                title: "Samsung 85\" QLED 4K Smart TV",
+                category: "electronics",
+                price: 8999,
+                originalPrice: 10999,
+                image: "product_99.jpg",
+                badge: "hot",
+                rating: 4.8,
+                reviews: 189,
+                stock: 6,
+                tags: ["TV", "QLED", "4K", "Smart"],
+                description: "Immerse yourself in cinematic 4K entertainment.",
+                specifications: {
+                    "Screen Size": "85 inches",
+                    "Resolution": "4K UHD (3840x2160)",
+                    "Display Technology": "QLED",
+                    "Smart Platform": "Tizen OS",
+                    "HDR": "HDR10+, HLG",
+                    "Refresh Rate": "120Hz",
+                    "Audio": "60W, 4.2.2CH",
+                    "Connectivity": "4x HDMI, 3x USB, WiFi 6"
+                },
+                features: [
+                    "Quantum Dot Technology",
+                    "Object Tracking Sound+",
+                    "Quantum Processor 4K",
+                    "Gaming Hub with Cloud Gaming",
+                    "Alexa & Google Assistant Built-in"
+                ],
+                reviewsList: []
+            },
+            {
+                id: 100,
+                title: "Apple iPhone 16 Pro 256GB",
+                category: "electronics",
+                price: 5699,
+                originalPrice: 6199,
+                image: "product_100.jpg",
+                badge: "new",
+                rating: 4.9,
+                reviews: 123,
+                stock: 10,
+                tags: ["Smartphone", "Apple", "5G"],
+                description: "Next-generation iPhone with A18 Pro chip.",
+                specifications: {
+                    "Display": "6.3\" Super Retina XDR",
+                    "Chip": "A18 Pro",
+                    "Storage": "256GB",
+                    "Camera": "48MP + 12MP + 12MP",
+                    "Battery": "28 hours video",
+                    "Features": "Always-On Display, Dynamic Island"
+                },
+                features: [
+                    "A18 Pro chip",
+                    "Titanium design",
+                    "Advanced camera system",
+                    "Action button",
+                    "USB-C 3.2"
+                ],
+                reviewsList: []
             }
         ];
 
@@ -3718,6 +5611,8 @@
                 this.wishlist = JSON.parse(localStorage.getItem('hik_wishlist')) || [];
                 this.currentUser = JSON.parse(localStorage.getItem('hik_currentUser')) || null;
                 this.orders = JSON.parse(localStorage.getItem('hik_orders')) || [];
+                this.comparison = JSON.parse(localStorage.getItem('hik_comparison')) || [];
+                this.recentViews = JSON.parse(localStorage.getItem('hik_recentViews')) || [];
                 this.init();
             }
             
@@ -3738,7 +5633,9 @@
                         role: "user",
                         createdAt: new Date().toISOString(),
                         orders: [1, 2],
-                        wishlist: [1, 3, 5]
+                        wishlist: [1, 3, 5],
+                        marketingEmails: true,
+                        smsNotifications: true
                     });
                 }
                 
@@ -3771,6 +5668,8 @@
                 localStorage.setItem('hik_wishlist', JSON.stringify(this.wishlist));
                 localStorage.setItem('hik_currentUser', JSON.stringify(this.currentUser));
                 localStorage.setItem('hik_orders', JSON.stringify(this.orders));
+                localStorage.setItem('hik_comparison', JSON.stringify(this.comparison));
+                localStorage.setItem('hik_recentViews', JSON.stringify(this.recentViews));
             }
             
             login(email, password) {
@@ -3803,7 +5702,9 @@
                     role: "user",
                     createdAt: new Date().toISOString(),
                     orders: [],
-                    wishlist: []
+                    wishlist: [],
+                    marketingEmails: true,
+                    smsNotifications: true
                 };
                 
                 this.users.push(newUser);
@@ -3905,15 +5806,57 @@
                 this.save();
                 return this.currentUser;
             }
+            
+            addToComparison(productId) {
+                const product = products.find(p => p.id === productId);
+                if (product && !this.comparison.some(p => p.id === productId) && this.comparison.length < 4) {
+                    this.comparison.push(product);
+                    this.save();
+                    return true;
+                }
+                return false;
+            }
+            
+            removeFromComparison(productId) {
+                this.comparison = this.comparison.filter(p => p.id !== productId);
+                this.save();
+            }
+            
+            clearComparison() {
+                this.comparison = [];
+                this.save();
+            }
+            
+            addRecentView(productId) {
+                const product = products.find(p => p.id === productId);
+                if (!product) return;
+                
+                this.recentViews = this.recentViews.filter(p => p.id !== productId);
+                this.recentViews.unshift(product);
+                
+                if (this.recentViews.length > 10) {
+                    this.recentViews = this.recentViews.slice(0, 10);
+                }
+                
+                this.save();
+            }
+            
+            getRecentViews() {
+                return this.recentViews.slice(0, 6);
+            }
         }
 
         // ========== GLOBAL VARIABLES ==========
         const db = new Database();
         let currentFilter = 'all';
         let currentProductId = null;
-        let displayedProducts = 12;
+        let currentView = 'grid';
+        let currentSort = 'featured';
+        let currentPage = 1;
+        let itemsPerPage = 12;
         let currentProfileTab = 'dashboard';
         let isSearching = false;
+        let maxPrice = 100000;
 
         // ========== UTILITY FUNCTIONS ==========
         function showNotification(message, isError = false) {
@@ -3943,6 +5886,12 @@
             }).format(price);
         }
 
+        function getStockIndicator(stock) {
+            if (stock > 10) return { class: 'in-stock', text: 'In Stock' };
+            if (stock > 0) return { class: 'low-stock', text: 'Low Stock' };
+            return { class: 'out-of-stock', text: 'Out of Stock' };
+        }
+
         // ========== PAGE NAVIGATION ==========
         function showMainContent(e) {
             if (e) {
@@ -3953,6 +5902,7 @@
             document.getElementById('productDetailPage').classList.remove('active');
             document.getElementById('profileSection').classList.remove('active');
             document.getElementById('mainContent').classList.remove('hidden');
+            document.getElementById('mobileMenu').classList.remove('active');
             
             updateCartUI();
             
@@ -3981,6 +5931,7 @@
             document.getElementById('mainContent').classList.add('hidden');
             document.getElementById('productDetailPage').classList.remove('active');
             document.getElementById('profileSection').classList.add('active');
+            document.getElementById('mobileMenu').classList.remove('active');
             
             renderProfile();
         }
@@ -3992,16 +5943,30 @@
             if (!product) return;
             
             currentProductId = productId;
+            db.addRecentView(productId);
             
             document.getElementById('mainContent').classList.add('hidden');
             document.getElementById('profileSection').classList.remove('active');
             document.getElementById('productDetailPage').classList.add('active');
+            document.getElementById('mobileMenu').classList.remove('active');
             
+            renderBreadcrumb(product);
             renderProductDetail(product);
             renderProductTabs(product);
             renderRecommendations(product);
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderBreadcrumb(product) {
+            const breadcrumb = document.getElementById('breadcrumb');
+            breadcrumb.innerHTML = `
+                <a href="#" onclick="showMainContent(event)">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="#" onclick="filterProducts('${product.category}'); showMainContent(event)">${product.category.charAt(0).toUpperCase() + product.category.slice(1)}</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>${product.title}</span>
+            `;
         }
 
         function showQuickView(productId, e) {
@@ -4043,8 +6008,8 @@
                                     <span style="font-weight: 700;">${product.rating}</span>
                                     <span style="color: var(--text-light);">(${product.reviews} reviews)</span>
                                 </div>
-                                <div style="color: var(--success);">
-                                    <i class="fas fa-check-circle"></i> In Stock: ${product.stock} units
+                                <div class="stock-indicator ${getStockIndicator(product.stock).class}">
+                                    ${getStockIndicator(product.stock).text}: ${product.stock} units
                                 </div>
                             </div>
                             
@@ -4075,89 +6040,200 @@
             const productsGrid = document.getElementById('productsGrid');
             let filteredProducts = products;
             
+            // Apply category filter
             if (currentFilter !== 'all' && !isSearching) {
-                filteredProducts = products.filter(product => product.category === currentFilter);
+                filteredProducts = filteredProducts.filter(product => product.category === currentFilter);
             }
             
-            const productsToShow = filteredProducts.slice(0, displayedProducts);
+            // Apply price filter
+            filteredProducts = filteredProducts.filter(product => product.price <= maxPrice);
+            
+            // Apply sorting
+            filteredProducts.sort((a, b) => {
+                switch(currentSort) {
+                    case 'price-low':
+                        return a.price - b.price;
+                    case 'price-high':
+                        return b.price - a.price;
+                    case 'rating':
+                        return b.rating - a.rating;
+                    case 'newest':
+                        return b.id - a.id;
+                    default: // featured
+                        return (b.rating * b.reviews) - (a.rating * a.reviews);
+                }
+            });
+            
+            // Calculate pagination
+            const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const productsToShow = filteredProducts.slice(startIndex, endIndex);
+            
+            // Clear grid
+            productsGrid.innerHTML = '';
             
             if (productsToShow.length === 0) {
                 productsGrid.innerHTML = `
                     <div style="text-align: center; padding: 60px 20px; color: var(--text-light); grid-column: 1 / -1;">
                         <i class="fas fa-search" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
                         <p style="font-size: 1.25rem; margin-bottom: 10px;">No products found</p>
-                        <p>Try different keywords or browse categories</p>
+                        <p>Try different filters or browse categories</p>
                     </div>
                 `;
-                document.getElementById('loadMoreBtn').style.display = 'none';
-                return;
-            }
-            
-            productsGrid.innerHTML = productsToShow.map(product => {
-                const discountPercent = product.originalPrice > product.price ? 
-                    Math.round((1 - product.price / product.originalPrice) * 100) : 0;
-                const isInWishlist = db.wishlist.some(p => p.id === product.id);
-                
-                return `
-                    <div class="product-card">
-                        ${product.badge ? `<div class="product-card-badge">${product.badge.toUpperCase()}</div>` : ''}
-                        <div class="product-image-container" onclick="showProductDetail(${product.id})">
-                            <img src="${product.image}" alt="${product.title}" class="product-card-image">
-                        </div>
-                        <div class="product-content">
-                            <h3 class="product-card-title" onclick="showProductDetail(${product.id})" style="cursor: pointer;">${product.title}</h3>
-                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                                <div style="display: flex; align-items: center; gap: 5px; color: var(--rating);">
-                                    <i class="fas fa-star"></i>
-                                    <span style="font-weight: 600;">${product.rating}</span>
-                                </div>
-                                <span style="color: var(--text-light); font-size: 0.875rem;">(${product.reviews} reviews)</span>
-                            </div>
-                            <div class="product-price">
-                                <span class="current-price">AED ${formatPrice(product.price)}</span>
-                                ${product.originalPrice > product.price ? `
-                                    <span class="original-price">AED ${formatPrice(product.originalPrice)}</span>
-                                    <span class="discount">${discountPercent}% OFF</span>
-                                ` : ''}
-                            </div>
-                            <div class="product-card-actions">
-                                <button class="add-to-cart" onclick="addToCart(${product.id}, event)">
-                                    <i class="fas fa-shopping-cart"></i> Add to Cart
-                                </button>
-                                <button class="add-to-wishlist" onclick="toggleWishlist(${product.id}, event)" style="${isInWishlist ? 'background: var(--gradient-accent); color: white;' : ''}">
-                                    <i class="fas fa-heart"></i>
-                                </button>
-                                <button class="add-to-wishlist" onclick="showQuickView(${product.id}, event)" title="Quick View">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            // Update load more button
-            const loadMoreBtn = document.getElementById('loadMoreBtn');
-            if (displayedProducts >= filteredProducts.length || isSearching) {
-                loadMoreBtn.style.display = 'none';
             } else {
-                loadMoreBtn.style.display = 'inline-flex';
+                productsToShow.forEach(product => {
+                    const productElement = createProductCard(product);
+                    productsGrid.appendChild(productElement);
+                });
             }
+            
+            // Update pagination
+            renderPagination(totalPages);
         }
 
-        function loadMoreProducts() {
-            displayedProducts += 12;
-            isSearching = false;
+        function createProductCard(product) {
+            const discountPercent = product.originalPrice > product.price ? 
+                Math.round((1 - product.price / product.originalPrice) * 100) : 0;
+            const isInWishlist = db.wishlist.some(p => p.id === product.id);
+            const isInComparison = db.comparison.some(p => p.id === product.id);
+            const stockIndicator = getStockIndicator(product.stock);
+            
+            const card = document.createElement('div');
+            card.className = `product-card ${currentView === 'list' ? 'list-view' : ''}`;
+            card.innerHTML = `
+                ${product.badge ? `<div class="product-card-badge">${product.badge.toUpperCase()}</div>` : ''}
+                <div class="product-image-container" onclick="showProductDetail(${product.id})">
+                    <img src="${product.image}" alt="${product.title}" class="product-card-image">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-card-title" onclick="showProductDetail(${product.id})" style="cursor: pointer;">${product.title}</h3>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <div style="display: flex; align-items: center; gap: 5px; color: var(--rating);">
+                            <i class="fas fa-star"></i>
+                            <span style="font-weight: 600;">${product.rating}</span>
+                        </div>
+                        <span style="color: var(--text-light); font-size: 0.875rem;">(${product.reviews} reviews)</span>
+                        <span class="stock-indicator ${stockIndicator.class}">${stockIndicator.text}</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">AED ${formatPrice(product.price)}</span>
+                        ${product.originalPrice > product.price ? `
+                            <span class="original-price">AED ${formatPrice(product.originalPrice)}</span>
+                            <span class="discount">${discountPercent}% OFF</span>
+                        ` : ''}
+                    </div>
+                    ${currentView === 'list' ? `
+                        <div style="margin: 15px 0; color: var(--text-light);">
+                            ${product.description}
+                        </div>
+                        <div class="product-tags">
+                            ${product.tags.map(tag => `<span class="product-tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="product-card-actions">
+                        <button class="add-to-cart" onclick="addToCart(${product.id}, event)">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="add-to-wishlist" onclick="toggleWishlist(${product.id}, event)" style="${isInWishlist ? 'background: var(--gradient-accent); color: white;' : ''}">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <button class="add-to-wishlist" onclick="showQuickView(${product.id}, event)" title="Quick View">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="add-to-wishlist" onclick="toggleComparison(${product.id}, event)" title="${isInComparison ? 'Remove from Comparison' : 'Add to Comparison'}" style="${isInComparison ? 'background: var(--warning); color: white;' : ''}">
+                            <i class="fas fa-balance-scale"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        function renderPagination(totalPages) {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            
+            if (totalPages <= 1) return;
+            
+            // Previous button
+            const prevButton = document.createElement('button');
+            prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevButton.disabled = currentPage === 1;
+            prevButton.onclick = () => changePage(currentPage - 1);
+            pagination.appendChild(prevButton);
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    const pageButton = document.createElement('button');
+                    pageButton.textContent = i;
+                    pageButton.className = i === currentPage ? 'active' : '';
+                    pageButton.onclick = () => changePage(i);
+                    pagination.appendChild(pageButton);
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.textContent = '...';
+                    ellipsis.style.padding = '0 8px';
+                    pagination.appendChild(ellipsis);
+                }
+            }
+            
+            // Next button
+            const nextButton = document.createElement('button');
+            nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextButton.disabled = currentPage === totalPages;
+            nextButton.onclick = () => changePage(currentPage + 1);
+            pagination.appendChild(nextButton);
+        }
+
+        function changePage(page) {
+            currentPage = page;
             renderProducts();
-            showNotification(`Loaded ${Math.min(displayedProducts, products.length)} products`);
+            window.scrollTo({ top: document.getElementById('products').offsetTop - 100, behavior: 'smooth' });
         }
 
         function filterProducts(filter) {
             currentFilter = filter;
-            displayedProducts = 12;
+            currentPage = 1;
             isSearching = false;
             renderProducts();
             document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showAllCategories() {
+            currentFilter = 'all';
+            currentPage = 1;
+            isSearching = false;
+            renderProducts();
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function sortProducts() {
+            const sortSelect = document.getElementById('sortSelect');
+            currentSort = sortSelect.value;
+            currentPage = 1;
+            renderProducts();
+        }
+
+        function filterByPrice() {
+            const priceSlider = document.getElementById('priceSlider');
+            maxPrice = parseInt(priceSlider.value);
+            document.getElementById('maxPrice').textContent = `AED ${formatPrice(maxPrice)}`;
+            currentPage = 1;
+            renderProducts();
+        }
+
+        function changeView(view) {
+            currentView = view;
+            const productsGrid = document.getElementById('productsGrid');
+            const viewButtons = document.querySelectorAll('.view-toggle button');
+            
+            productsGrid.className = `products-grid ${view}-view`;
+            viewButtons.forEach(btn => btn.classList.remove('active'));
+            viewButtons[view === 'grid' ? 0 : 1].classList.add('active');
+            
+            renderProducts();
         }
 
         // ========== ENHANCED PRODUCT DETAIL ==========
@@ -4166,6 +6242,8 @@
             const discountPercent = product.originalPrice > product.price ? 
                 Math.round((1 - product.price / product.originalPrice) * 100) : 0;
             const isInWishlist = db.wishlist.some(p => p.id === product.id);
+            const isInComparison = db.comparison.some(p => p.id === product.id);
+            const stockIndicator = getStockIndicator(product.stock);
             
             container.innerHTML = `
                 <div class="product-gallery">
@@ -4187,8 +6265,8 @@
                             <span style="font-weight: 700; font-size: 1.2rem;">${product.rating}</span>
                             <span style="color: var(--text-light);">(${product.reviews} reviews)</span>
                         </div>
-                        <div style="color: ${product.stock > 5 ? 'var(--success)' : 'var(--warning)'}; font-weight: 600;">
-                            <i class="fas fa-check-circle"></i> ${product.stock > 5 ? 'In Stock' : 'Low Stock'}: ${product.stock} units
+                        <div class="stock-indicator ${stockIndicator.class}">
+                            <i class="fas fa-${stockIndicator.class === 'in-stock' ? 'check' : 'exclamation'}-circle"></i> ${stockIndicator.text}: ${product.stock} units
                         </div>
                     </div>
                     
@@ -4219,6 +6297,9 @@
                         <button class="action-btn secondary" onclick="toggleWishlist(${product.id})">
                             <i class="fas fa-heart"></i> ${isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}
                         </button>
+                        <button class="action-btn secondary" onclick="toggleComparison(${product.id})">
+                            <i class="fas fa-balance-scale"></i> ${isInComparison ? 'Remove from Comparison' : 'Add to Comparison'}
+                        </button>
                         <button class="action-btn secondary" onclick="openWhatsApp()">
                             <i class="fab fa-whatsapp"></i> Quick Inquiry
                         </button>
@@ -4241,12 +6322,16 @@
                                 <div style="font-weight: 600;">2-Year Warranty</div>
                                 <div style="font-size: 0.875rem; color: var(--text-light);">Manufacturer warranty</div>
                             </div>
+                            <div style="text-align: center;">
+                                <div style="color: var(--primary); font-size: 1.5rem; margin-bottom: 5px;"><i class="fas fa-headset"></i></div>
+                                <div style="font-weight: 600;">24/7 Support</div>
+                                <div style="font-size: 0.875rem; color: var(--text-light);">Dedicated support</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             `;
             
-            // Initialize Fancybox
             Fancybox.bind("[data-fancybox]", {});
         }
 
@@ -4430,7 +6515,6 @@
             const user = db.currentUser;
             if (!user) return;
             
-            // Update profile header
             const profileHeader = document.getElementById('profileHeader');
             profileHeader.innerHTML = `
                 <div class="profile-avatar">${user.name.charAt(0).toUpperCase()}</div>
@@ -4445,12 +6529,10 @@
                 </div>
             `;
             
-            // Update stats
             document.getElementById('profilePoints').textContent = user.points;
             document.getElementById('profileOrders').textContent = user.orders ? user.orders.length : 0;
             document.getElementById('profileWishlist').textContent = db.wishlist.length;
             
-            // Load default tab
             switchProfileTab(currentProfileTab);
         }
 
@@ -4493,6 +6575,7 @@
         function renderDashboard() {
             const user = db.currentUser;
             const orders = db.getUserOrders();
+            const recentViews = db.getRecentViews();
             
             document.getElementById('profileContent').innerHTML = `
                 <h2 style="margin-bottom: 30px;">Dashboard</h2>
@@ -4509,6 +6592,10 @@
                     <div style="background: var(--gradient-success); color: white; padding: 25px; border-radius: var(--radius);">
                         <div style="font-size: 2rem; font-weight: 800; margin-bottom: 10px;">${db.wishlist.length}</div>
                         <div>Wishlist Items</div>
+                    </div>
+                    <div style="background: var(--gradient-warning); color: white; padding: 25px; border-radius: var(--radius);">
+                        <div style="font-size: 2rem; font-weight: 800; margin-bottom: 10px;">${db.comparison.length}</div>
+                        <div>Comparison Items</div>
                     </div>
                 </div>
                 
@@ -4537,6 +6624,43 @@
                             </button>
                         </div>
                     `}
+                </div>
+                
+                ${recentViews.length > 0 ? `
+                    <div style="margin-bottom: 40px;">
+                        <h3 style="margin-bottom: 20px;">Recently Viewed</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                            ${recentViews.map(product => `
+                                <div class="product-card" onclick="showProductDetail(${product.id})">
+                                    <div class="product-image-container">
+                                        <img src="${product.image}" alt="${product.title}" class="product-card-image">
+                                    </div>
+                                    <div class="product-content">
+                                        <h4 class="product-card-title">${product.title}</h4>
+                                        <div style="font-weight: 800; color: var(--primary);">AED ${formatPrice(product.price)}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+                
+                <div style="margin-top: 40px;">
+                    <h3 style="margin-bottom: 20px;">Quick Actions</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <button class="btn btn-secondary" onclick="switchProfileTab('addresses')">
+                            <i class="fas fa-map-marker-alt"></i> Update Address
+                        </button>
+                        <button class="btn btn-secondary" onclick="showComparisonModal()">
+                            <i class="fas fa-balance-scale"></i> View Comparison
+                        </button>
+                        <button class="btn btn-secondary" onclick="switchProfileTab('wishlist')">
+                            <i class="fas fa-heart"></i> View Wishlist
+                        </button>
+                        <button class="btn btn-secondary" onclick="showEditProfileModal()">
+                            <i class="fas fa-user-edit"></i> Edit Profile
+                        </button>
+                    </div>
                 </div>
             `;
         }
@@ -4575,6 +6699,15 @@
                                 </div>
                             `).join('')}
                         </div>
+                        
+                        <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="btn btn-secondary" onclick="trackOrder('${order.tracking}')">
+                                <i class="fas fa-truck"></i> Track Order
+                            </button>
+                            <button class="btn btn-secondary" onclick="reorder(${order.id})">
+                                <i class="fas fa-redo"></i> Reorder
+                            </button>
+                        </div>
                     </div>
                 `).join('') : `
                     <div style="text-align: center; padding: 60px 20px; color: var(--text-light);">
@@ -4586,6 +6719,25 @@
                     </div>
                 `}
             `;
+        }
+
+        function trackOrder(trackingNumber) {
+            showNotification(`Tracking your order ${trackingNumber}. Opening tracking page...`);
+            setTimeout(() => {
+                window.open(`https://track.dhl.com/?tracking=${trackingNumber}`, '_blank');
+            }, 1000);
+        }
+
+        function reorder(orderId) {
+            const order = db.orders.find(o => o.id === orderId);
+            if (order) {
+                order.items.forEach(item => {
+                    db.addToCart(item.id, item.quantity);
+                });
+                updateCartUI();
+                showNotification('All items from this order have been added to your cart');
+                showMainContent();
+            }
         }
 
         function renderWishlist() {
@@ -4657,6 +6809,20 @@
                         <i class="fas fa-edit"></i> Edit Address
                     </button>
                 </div>
+                
+                <div style="background: var(--bg-lighter); padding: 30px; border-radius: var(--radius);">
+                    <h3 style="margin-bottom: 20px;">Address Instructions</h3>
+                    <div style="color: var(--text-light); line-height: 1.8;">
+                        <p>For the best delivery experience:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Include building name and apartment number</li>
+                            <li>Add landmarks for easy location</li>
+                            <li>Specify floor number for high-rise buildings</li>
+                            <li>Include contact phone number for delivery</li>
+                            <li>Add any special delivery instructions</li>
+                        </ul>
+                    </div>
+                </div>
             `;
         }
 
@@ -4689,7 +6855,35 @@
                         <i class="fas fa-key"></i> Change Password
                     </button>
                 </div>
+                
+                <div style="background: var(--bg-lighter); padding: 30px; border-radius: var(--radius);">
+                    <h3 style="margin-bottom: 20px;">Preferences</h3>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" id="marketingEmails" ${user.marketingEmails !== false ? 'checked' : ''} onchange="updateMarketingPreference()">
+                            <span>Receive marketing emails and promotions</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" id="smsNotifications" ${user.smsNotifications === true ? 'checked' : ''} onchange="updateSmsPreference()">
+                            <span>Receive SMS order updates</span>
+                        </label>
+                    </div>
+                </div>
             `;
+        }
+
+        function updateMarketingPreference() {
+            const marketingEmails = document.getElementById('marketingEmails').checked;
+            db.updateUserProfile({ marketingEmails });
+            showNotification(marketingEmails ? 'Marketing emails enabled' : 'Marketing emails disabled');
+        }
+
+        function updateSmsPreference() {
+            const smsNotifications = document.getElementById('smsNotifications').checked;
+            db.updateUserProfile({ smsNotifications });
+            showNotification(smsNotifications ? 'SMS notifications enabled' : 'SMS notifications disabled');
         }
 
         function showEditProfileModal() {
@@ -4702,13 +6896,17 @@
                     <h2 style="margin-bottom: 30px; color: var(--text);">Edit Profile</h2>
                     
                     <form onsubmit="updateProfile(event)">
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Full Name</label>
-                            <input type="text" id="editName" value="${user.name}" required style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
+                        <div class="form-group">
+                            <input type="text" id="editName" value="${user.name}" required placeholder=" ">
+                            <label>Full Name</label>
                         </div>
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Phone Number</label>
-                            <input type="tel" id="editPhone" value="${user.phone || ''}" style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
+                        <div class="form-group">
+                            <input type="tel" id="editPhone" value="${user.phone || ''}" placeholder=" ">
+                            <label>Phone Number</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="editEmail" value="${user.email}" required placeholder=" ">
+                            <label>Email Address</label>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px;">
                             <i class="fas fa-save"></i> Save Changes
@@ -4723,8 +6921,15 @@
             e.preventDefault();
             const name = document.getElementById('editName').value.trim();
             const phone = document.getElementById('editPhone').value.trim();
+            const email = document.getElementById('editEmail').value.trim();
             
-            db.updateUserProfile({ name, phone });
+            const emailExists = db.users.some(u => u.email === email && u.id !== db.currentUser.id);
+            if (emailExists) {
+                showNotification('Email already exists', true);
+                return;
+            }
+            
+            db.updateUserProfile({ name, phone, email });
             closeModal();
             showNotification('Profile updated successfully');
             renderProfile();
@@ -4740,17 +6945,20 @@
                     <h2 style="margin-bottom: 30px; color: var(--text);">Edit Address</h2>
                     
                     <form onsubmit="updateAddress(event)">
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Address</label>
-                            <input type="text" id="editAddress" value="${user.address || ''}" required style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);" placeholder="Building, Street, Area">
+                        <div class="form-group">
+                            <input type="text" id="editAddress" value="${user.address || ''}" required placeholder=" ">
+                            <label>Address Line 1</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="editAddress2" value="${user.address2 || ''}" placeholder=" ">
+                            <label>Address Line 2 (Optional)</label>
                         </div>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-                            <div>
-                                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">City</label>
-                                <input type="text" id="editCity" value="${user.city || ''}" required style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
+                            <div class="form-group">
+                                <input type="text" id="editCity" value="${user.city || ''}" required placeholder=" ">
+                                <label>City</label>
                             </div>
-                            <div>
-                                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Emirate</label>
+                            <div class="form-group">
                                 <select id="editEmirate" style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
                                     <option value="Dubai" ${user.emirate === 'Dubai' ? 'selected' : ''}>Dubai</option>
                                     <option value="Abu Dhabi" ${user.emirate === 'Abu Dhabi' ? 'selected' : ''}>Abu Dhabi</option>
@@ -4763,12 +6971,12 @@
                             </div>
                         </div>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px;">
-                            <div>
-                                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Postal Code</label>
-                                <input type="text" id="editPostalCode" value="${user.postalCode || ''}" style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
+                            <div class="form-group">
+                                <input type="text" id="editPostalCode" value="${user.postalCode || ''}" placeholder=" ">
+                                <label>Postal Code</label>
                             </div>
                             <div>
-                                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Country</label>
+                                <div style="font-weight: 600; margin-bottom: 8px; color: var(--text);">Country</div>
                                 <input type="text" value="UAE" disabled style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius); background: var(--bg-lighter);">
                             </div>
                         </div>
@@ -4784,11 +6992,14 @@
         function updateAddress(e) {
             e.preventDefault();
             const address = document.getElementById('editAddress').value.trim();
+            const address2 = document.getElementById('editAddress2').value.trim();
             const city = document.getElementById('editCity').value.trim();
             const emirate = document.getElementById('editEmirate').value;
             const postalCode = document.getElementById('editPostalCode').value.trim();
             
-            db.updateUserProfile({ address, city, emirate, postalCode });
+            const fullAddress = address2 ? `${address}, ${address2}` : address;
+            
+            db.updateUserProfile({ address: fullAddress, address2, city, emirate, postalCode });
             closeModal();
             showNotification('Address updated successfully');
             renderProfile();
@@ -4803,17 +7014,17 @@
                     <h2 style="margin-bottom: 30px; color: var(--text);">Change Password</h2>
                     
                     <form onsubmit="changePassword(event)">
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Current Password</label>
-                            <input type="password" id="currentPassword" required style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
+                        <div class="form-group">
+                            <input type="password" id="currentPassword" required placeholder=" ">
+                            <label>Current Password</label>
                         </div>
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">New Password</label>
-                            <input type="password" id="newPassword" required style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
+                        <div class="form-group">
+                            <input type="password" id="newPassword" required placeholder=" ">
+                            <label>New Password</label>
                         </div>
-                        <div style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Confirm New Password</label>
-                            <input type="password" id="confirmPassword" required style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
+                        <div class="form-group">
+                            <input type="password" id="confirmPassword" required placeholder=" ">
+                            <label>Confirm New Password</label>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px;">
                             <i class="fas fa-key"></i> Change Password
@@ -4840,6 +7051,11 @@
                 return;
             }
             
+            if (newPassword.length < 6) {
+                showNotification('Password must be at least 6 characters', true);
+                return;
+            }
+            
             db.currentUser.password = newPassword;
             db.save();
             closeModal();
@@ -4850,11 +7066,13 @@
         function updateCartUI() {
             const cartCount = document.querySelector('.cart-count');
             const wishlistCount = document.querySelector('.wishlist-count');
+            const comparisonCount = document.querySelector('.comparison-count');
             const pointsValue = document.getElementById('pointsValue');
             const cartItems = document.getElementById('cartItems');
             
             cartCount.textContent = db.cart.reduce((total, item) => total + item.quantity, 0);
             wishlistCount.textContent = db.wishlist.length;
+            comparisonCount.textContent = db.comparison.length;
             
             if (db.currentUser) {
                 pointsValue.textContent = db.currentUser.points;
@@ -4912,6 +7130,7 @@
                 const subtotal = db.getCartTotal();
                 const shipping = subtotal > 50 ? 0 : 15;
                 const total = subtotal + shipping;
+                const pointsEarned = Math.floor(subtotal / 10);
                 
                 cartItems.innerHTML += `
                     <div style="margin-top: 40px; padding: 30px; background: var(--bg-lighter); border-radius: var(--radius);">
@@ -4927,7 +7146,7 @@
                             ${db.currentUser ? `
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div style="color: var(--text-light);">Reward Points</div>
-                                    <div style="color: var(--points); font-weight: 600;">+${Math.floor(subtotal / 10)} points</div>
+                                    <div style="color: var(--points); font-weight: 600;">+${pointsEarned} points</div>
                                 </div>
                             ` : ''}
                         </div>
@@ -4970,7 +7189,6 @@
             db.addToCart(productId);
             updateCartUI();
             
-            // Add confetti effect
             if (product.price > 1000) {
                 confetti({
                     particleCount: 100,
@@ -4985,8 +7203,10 @@
         function updateCartQuantity(productId, quantity) {
             if (quantity < 1) {
                 db.removeFromCart(productId);
+                showNotification('Item removed from cart');
             } else {
                 db.updateCartQuantity(productId, quantity);
+                showNotification('Cart quantity updated');
             }
             updateCartUI();
         }
@@ -5006,15 +7226,162 @@
             } else {
                 db.addToWishlist(productId);
                 showNotification('Added to wishlist');
+                
+                const heart = event?.target?.closest('button');
+                if (heart) {
+                    heart.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        heart.style.transform = 'scale(1)';
+                    }, 300);
+                }
             }
             
             updateCartUI();
             renderProducts();
             
-            // Update profile if on wishlist tab
             if (currentProfileTab === 'wishlist') {
                 renderWishlist();
             }
+        }
+
+        function toggleComparison(productId, event) {
+            if (event) event.stopPropagation();
+            
+            if (db.comparison.some(p => p.id === productId)) {
+                db.removeFromComparison(productId);
+                showNotification('Removed from comparison');
+            } else {
+                if (db.comparison.length >= 4) {
+                    showNotification('Maximum 4 products can be compared', true);
+                    return;
+                }
+                db.addToComparison(productId);
+                showNotification('Added to comparison');
+            }
+            
+            renderProducts();
+            updateCartUI();
+        }
+
+        function showComparisonModal() {
+            if (db.comparison.length < 2) {
+                showNotification('Add at least 2 products to compare', true);
+                return;
+            }
+            
+            const modal = document.getElementById('helpModal');
+            
+            const specsToShow = new Set();
+            db.comparison.forEach(product => {
+                Object.keys(product.specifications || {}).forEach(spec => {
+                    specsToShow.add(spec);
+                });
+            });
+            
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <button class="modal-close" onclick="closeModal()">&times;</button>
+                    <h2 style="margin-bottom: 30px; color: var(--text);">Product Comparison</h2>
+                    
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th style="padding: 15px; text-align: left; border-bottom: 2px solid var(--border); background: var(--bg-lighter);">Feature</th>
+                                    ${db.comparison.map(product => `
+                                        <th style="padding: 15px; text-align: center; border-bottom: 2px solid var(--border); background: var(--bg-lighter); min-width: 250px;">
+                                            <div style="max-width: 200px; margin: 0 auto;">
+                                                <img src="${product.image}" alt="${product.title}" style="width: 120px; height: 120px; object-fit: contain; margin-bottom: 10px; cursor: pointer;" onclick="showProductDetail(${product.id}); closeModal();">
+                                                <div style="font-weight: 600; margin-bottom: 5px; cursor: pointer;" onclick="showProductDetail(${product.id}); closeModal();">${product.title}</div>
+                                                <div style="color: var(--primary); font-weight: 700; margin-bottom: 5px;">AED ${formatPrice(product.price)}</div>
+                                                <div style="color: var(--rating); margin-bottom: 10px;">
+                                                    <i class="fas fa-star"></i> ${product.rating} (${product.reviews})
+                                                </div>
+                                                <div style="display: flex; gap: 5px; flex-wrap: wrap; justify-content: center;">
+                                                    <button onclick="addToCart(${product.id})" style="padding: 6px 12px; background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.75rem;">
+                                                        <i class="fas fa-cart-plus"></i> Add
+                                                    </button>
+                                                    <button onclick="toggleComparison(${product.id})" style="padding: 6px 12px; background: var(--error); color: white; border: none; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.75rem;">
+                                                        <i class="fas fa-times"></i> Remove
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    `).join('')}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid var(--border); font-weight: 600; background: var(--bg-lighter);">Category</td>
+                                    ${db.comparison.map(product => `
+                                        <td style="padding: 15px; text-align: center; border-bottom: 1px solid var(--border);">
+                                            ${product.category.charAt(0).toUpperCase() + product.category.slice(1)}
+                                        </td>
+                                    `).join('')}
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid var(--border); font-weight: 600; background: var(--bg-lighter);">Price</td>
+                                    ${db.comparison.map(product => {
+                                        const discountPercent = product.originalPrice > product.price ? 
+                                            Math.round((1 - product.price / product.originalPrice) * 100) : 0;
+                                        
+                                        return `
+                                            <td style="padding: 15px; text-align: center; border-bottom: 1px solid var(--border);">
+                                                <div style="color: var(--primary); font-weight: 700;">AED ${formatPrice(product.price)}</div>
+                                                ${product.originalPrice > product.price ? `
+                                                    <div style="color: var(--text-lighter); text-decoration: line-through; font-size: 0.875rem;">
+                                                        AED ${formatPrice(product.originalPrice)}
+                                                    </div>
+                                                    <div style="color: var(--accent); font-weight: 700; font-size: 0.875rem;">${discountPercent}% OFF</div>
+                                                ` : ''}
+                                            </td>
+                                        `;
+                                    }).join('')}
+                                </tr>
+                                ${Array.from(specsToShow).map(spec => `
+                                    <tr>
+                                        <td style="padding: 15px; border-bottom: 1px solid var(--border); font-weight: 600; background: var(--bg-lighter);">${spec}</td>
+                                        ${db.comparison.map(product => `
+                                            <td style="padding: 15px; text-align: center; border-bottom: 1px solid var(--border);">
+                                                ${product.specifications?.[spec] || 'N/A'}
+                                            </td>
+                                        `).join('')}
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div style="margin-top: 30px; display: flex; gap: 15px; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="closeModal()" style="flex: 1;">
+                            <i class="fas fa-times"></i> Close
+                        </button>
+                        <button class="btn btn-secondary" onclick="clearComparison()" style="flex: 1;">
+                            <i class="fas fa-trash"></i> Clear All
+                        </button>
+                        <button class="btn btn-accent" onclick="addAllToCartFromComparison()" style="flex: 1;">
+                            <i class="fas fa-cart-plus"></i> Add All to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+            modal.classList.add('active');
+        }
+
+        function addAllToCartFromComparison() {
+            db.comparison.forEach(product => {
+                db.addToCart(product.id);
+            });
+            showNotification('All comparison products added to cart');
+            updateCartUI();
+            closeModal();
+        }
+
+        function clearComparison() {
+            db.clearComparison();
+            showNotification('Comparison cleared');
+            updateCartUI();
+            closeModal();
         }
 
         // ========== AUTH MODAL FUNCTIONS ==========
@@ -5026,13 +7393,13 @@
                     <h2 style="margin-bottom: 30px; color: var(--text);">Welcome to HIK Store</h2>
                     
                     <form onsubmit="handleLogin(event)">
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Email</label>
-                            <input type="email" id="loginEmail" required style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
+                        <div class="form-group">
+                            <input type="email" id="loginEmail" required placeholder=" ">
+                            <label>Email</label>
                         </div>
-                        <div style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Password</label>
-                            <input type="password" id="loginPassword" required style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
+                        <div class="form-group">
+                            <input type="password" id="loginPassword" required placeholder=" ">
+                            <label>Password</label>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px;">
                             <i class="fas fa-sign-in-alt"></i> Login
@@ -5061,17 +7428,17 @@
                     <h2 style="margin-bottom: 30px; color: var(--text);">Create Account</h2>
                     
                     <form onsubmit="handleRegister(event)">
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Full Name</label>
-                            <input type="text" id="registerName" required style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
+                        <div class="form-group">
+                            <input type="text" id="registerName" required placeholder=" ">
+                            <label>Full Name</label>
                         </div>
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Email</label>
-                            <input type="email" id="registerEmail" required style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
+                        <div class="form-group">
+                            <input type="email" id="registerEmail" required placeholder=" ">
+                            <label>Email</label>
                         </div>
-                        <div style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Password</label>
-                            <input type="password" id="registerPassword" required style="width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: var(--radius);">
+                        <div class="form-group">
+                            <input type="password" id="registerPassword" required placeholder=" ">
+                            <label>Password</label>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px;">
                             <i class="fas fa-user-plus"></i> Register
@@ -5108,6 +7475,11 @@
             const name = document.getElementById('registerName').value.trim();
             const email = document.getElementById('registerEmail').value.trim();
             const password = document.getElementById('registerPassword').value;
+            
+            if (password.length < 6) {
+                showNotification('Password must be at least 6 characters', true);
+                return;
+            }
             
             const result = db.register(name, email, password);
             if (result.error) {
@@ -5147,6 +7519,7 @@
             const subtotal = db.getCartTotal();
             const shipping = subtotal > 50 ? 0 : 15;
             const total = subtotal + shipping;
+            const pointsEarned = Math.floor(subtotal / 10);
             
             modal.innerHTML = `
                 <div class="modal-content">
@@ -5192,11 +7565,33 @@
                                 <div>Total</div>
                                 <div>AED ${formatPrice(total)}</div>
                             </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 10px; color: var(--points); font-weight: 600;">
+                                <div>Reward Points Earned</div>
+                                <div>+${pointsEarned} points</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="margin-bottom: 20px; color: var(--text); font-size: 1.1rem;">Payment Method</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px;">
+                            <div style="border: 2px solid var(--border); padding: 15px; border-radius: var(--radius); cursor: pointer; text-align: center;" onclick="selectPayment('card')">
+                                <i class="fab fa-cc-visa" style="font-size: 24px; margin-bottom: 5px;"></i>
+                                <div style="font-size: 0.875rem;">Credit/Debit Card</div>
+                            </div>
+                            <div style="border: 2px solid var(--border); padding: 15px; border-radius: var(--radius); cursor: pointer; text-align: center;" onclick="selectPayment('apple')">
+                                <i class="fab fa-cc-apple-pay" style="font-size: 24px; margin-bottom: 5px;"></i>
+                                <div style="font-size: 0.875rem;">Apple Pay</div>
+                            </div>
+                            <div style="border: 2px solid var(--border); padding: 15px; border-radius: var(--radius); cursor: pointer; text-align: center;" onclick="selectPayment('cod')">
+                                <i class="fas fa-money-bill-wave" style="font-size: 24px; margin-bottom: 5px;"></i>
+                                <div style="font-size: 0.875rem;">Cash on Delivery</div>
+                            </div>
                         </div>
                     </div>
                     
                     <button class="btn btn-primary" onclick="completeOrder()" style="width: 100%; padding: 20px; font-size: 1.1rem;">
-                        <i class="fas fa-lock"></i> Complete Order & Pay
+                        <i class="fas fa-lock"></i> Complete Order
                     </button>
                     
                     <div style="margin-top: 20px; text-align: center;">
@@ -5209,18 +7604,41 @@
             modal.classList.add('active');
         }
 
+        function selectPayment(method) {
+            const paymentOptions = document.querySelectorAll('#checkoutModal [onclick^="selectPayment"]');
+            paymentOptions.forEach(option => {
+                option.style.borderColor = 'var(--border)';
+                option.style.background = 'var(--bg)';
+            });
+            
+            const selectedOption = document.querySelector(`[onclick="selectPayment('${method}')"]`);
+            if (selectedOption) {
+                selectedOption.style.borderColor = 'var(--primary)';
+                selectedOption.style.background = 'var(--primary-ultralight)';
+            }
+            
+            showNotification(`${method === 'cod' ? 'Cash on Delivery' : method === 'apple' ? 'Apple Pay' : 'Credit Card'} selected`);
+        }
+
         function completeOrder() {
             const order = db.createOrder();
             if (order) {
                 showNotification(`Order #${order.id} placed successfully! Tracking: ${order.tracking}`);
                 confetti({
-                    particleCount: 150,
-                    spread: 100,
+                    particleCount: 200,
+                    spread: 120,
                     origin: { y: 0.6 }
                 });
                 closeModal();
                 updateCartUI();
                 showMainContent();
+                
+                setTimeout(() => {
+                    if (confirm('Order placed successfully! View your order details?')) {
+                        showProfileSection();
+                        switchProfileTab('orders');
+                    }
+                }, 2000);
             }
         }
 
@@ -5242,7 +7660,9 @@
 
         function subscribeNewsletter() {
             const email = document.getElementById('newsletterEmail').value;
-            if (email && email.includes('@')) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email && emailRegex.test(email)) {
                 showNotification('Thank you for subscribing to our newsletter!');
                 document.getElementById('newsletterEmail').value = '';
                 
@@ -5317,144 +7737,12 @@
             setInterval(update, 1000);
         }
 
-        // ========== NEW FEATURE: Product Comparison ==========
-        let comparisonProducts = [];
-
-        function addToComparison(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-            
-            if (comparisonProducts.length >= 4) {
-                showNotification('Maximum 4 products can be compared', true);
-                return;
-            }
-            
-            if (!comparisonProducts.some(p => p.id === productId)) {
-                comparisonProducts.push(product);
-                showNotification(`${product.title} added to comparison`);
-                updateComparisonUI();
-            } else {
-                showNotification('Product already in comparison', true);
-            }
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('active');
         }
 
-        function updateComparisonUI() {
-            const comparisonBtn = document.querySelector('.comparison-icon');
-            if (!comparisonBtn) return;
-            
-            const count = comparisonProducts.length;
-            comparisonBtn.innerHTML = count > 0 ? 
-                `<i class="fas fa-balance-scale"></i><span class="comparison-count">${count}</span>` :
-                `<i class="fas fa-balance-scale"></i>`;
-        }
-
-        function showComparisonModal() {
-            if (comparisonProducts.length < 2) {
-                showNotification('Add at least 2 products to compare', true);
-                return;
-            }
-            
-            const modal = document.getElementById('helpModal');
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <button class="modal-close" onclick="closeModal()">&times;</button>
-                    <h2 style="margin-bottom: 30px; color: var(--text);">Product Comparison</h2>
-                    
-                    <div style="overflow-x: auto;">
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <thead>
-                                <tr>
-                                    <th style="padding: 15px; text-align: left; border-bottom: 2px solid var(--border);">Feature</th>
-                                    ${comparisonProducts.map(product => `
-                                        <th style="padding: 15px; text-align: center; border-bottom: 2px solid var(--border);">
-                                            <div style="max-width: 200px;">
-                                                <img src="${product.image}" alt="${product.title}" style="width: 100px; height: 100px; object-fit: contain; margin-bottom: 10px;">
-                                                <div style="font-weight: 600;">${product.title}</div>
-                                                <div style="color: var(--primary); font-weight: 700;">AED ${formatPrice(product.price)}</div>
-                                                <button onclick="removeFromComparison(${product.id})" style="margin-top: 10px; color: var(--error); cursor: pointer; padding: 5px 10px; border-radius: var(--radius); border: 1px solid var(--border);">
-                                                    <i class="fas fa-times"></i> Remove
-                                                </button>
-                                            </div>
-                                        </th>
-                                    `).join('')}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="padding: 15px; border-bottom: 1px solid var(--border); font-weight: 600;">Price</td>
-                                    ${comparisonProducts.map(product => `
-                                        <td style="padding: 15px; text-align: center; border-bottom: 1px solid var(--border);">
-                                            <div style="color: var(--primary); font-weight: 700;">AED ${formatPrice(product.price)}</div>
-                                            ${product.originalPrice > product.price ? `
-                                                <div style="color: var(--text-lighter); text-decoration: line-through; font-size: 0.875rem;">
-                                                    AED ${formatPrice(product.originalPrice)}
-                                                </div>
-                                            ` : ''}
-                                        </td>
-                                    `).join('')}
-                                </tr>
-                                <tr>
-                                    <td style="padding: 15px; border-bottom: 1px solid var(--border); font-weight: 600;">Rating</td>
-                                    ${comparisonProducts.map(product => `
-                                        <td style="padding: 15px; text-align: center; border-bottom: 1px solid var(--border);">
-                                            <div style="color: var(--rating);">
-                                                <i class="fas fa-star"></i> ${product.rating}
-                                            </div>
-                                            <div style="color: var(--text-light); font-size: 0.875rem;">(${product.reviews} reviews)</div>
-                                        </td>
-                                    `).join('')}
-                                </tr>
-                                <tr>
-                                    <td style="padding: 15px; border-bottom: 1px solid var(--border); font-weight: 600;">Category</td>
-                                    ${comparisonProducts.map(product => `
-                                        <td style="padding: 15px; text-align: center; border-bottom: 1px solid var(--border);">
-                                            ${product.category.charAt(0).toUpperCase() + product.category.slice(1)}
-                                        </td>
-                                    `).join('')}
-                                </tr>
-                                ${Object.keys(comparisonProducts[0].specifications).map(key => `
-                                    <tr>
-                                        <td style="padding: 15px; border-bottom: 1px solid var(--border); font-weight: 600;">${key}</td>
-                                        ${comparisonProducts.map(product => `
-                                            <td style="padding: 15px; text-align: center; border-bottom: 1px solid var(--border);">
-                                                ${product.specifications[key] || 'N/A'}
-                                            </td>
-                                        `).join('')}
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <div style="margin-top: 30px; display: flex; gap: 15px; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="closeModal()" style="flex: 1;">
-                            Close
-                        </button>
-                        <button class="btn btn-secondary" onclick="clearComparison()" style="flex: 1;">
-                            <i class="fas fa-trash"></i> Clear All
-                        </button>
-                    </div>
-                </div>
-            `;
-            modal.classList.add('active');
-        }
-
-        function removeFromComparison(productId) {
-            comparisonProducts = comparisonProducts.filter(p => p.id !== productId);
-            updateComparisonUI();
-            if (comparisonProducts.length >= 2) {
-                showComparisonModal();
-            } else {
-                closeModal();
-                showNotification('Product removed from comparison');
-            }
-        }
-
-        function clearComparison() {
-            comparisonProducts = [];
-            updateComparisonUI();
-            closeModal();
-            showNotification('Comparison cleared');
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('active');
         }
 
         // ========== INITIALIZATION ==========
@@ -5462,6 +7750,14 @@
             renderProducts();
             updateCartUI();
             updateCountdown();
+            
+            // Mobile menu
+            document.getElementById('mobileMenuBtn').addEventListener('click', openMobileMenu);
+            document.getElementById('mobileMenu').addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) {
+                    closeMobileMenu();
+                }
+            });
             
             // Scroll effects
             window.addEventListener('scroll', function() {
@@ -5495,6 +7791,8 @@
                     );
                     
                     const productsGrid = document.getElementById('productsGrid');
+                    productsGrid.innerHTML = '';
+                    
                     if (filtered.length === 0) {
                         productsGrid.innerHTML = `
                             <div style="text-align: center; padding: 60px 20px; color: var(--text-light); grid-column: 1 / -1;">
@@ -5504,46 +7802,16 @@
                             </div>
                         `;
                     } else {
-                        productsGrid.innerHTML = filtered.map(product => {
-                            const discountPercent = product.originalPrice > product.price ? 
-                                Math.round((1 - product.price / product.originalPrice) * 100) : 0;
-                            const isInWishlist = db.wishlist.some(p => p.id === product.id);
-                            
-                            return `
-                                <div class="product-card">
-                                    ${product.badge ? `<div class="product-card-badge">${product.badge.toUpperCase()}</div>` : ''}
-                                    <div class="product-image-container" onclick="showProductDetail(${product.id})">
-                                        <img src="${product.image}" alt="${product.title}" class="product-card-image">
-                                    </div>
-                                    <div class="product-content">
-                                        <h3 class="product-card-title" onclick="showProductDetail(${product.id})" style="cursor: pointer;">${product.title}</h3>
-                                        <div class="product-price">
-                                            <span class="current-price">AED ${formatPrice(product.price)}</span>
-                                            ${product.originalPrice > product.price ? `
-                                                <span class="original-price">AED ${formatPrice(product.originalPrice)}</span>
-                                                <span class="discount">${discountPercent}% OFF</span>
-                                            ` : ''}
-                                        </div>
-                                        <div class="product-card-actions">
-                                            <button class="add-to-cart" onclick="addToCart(${product.id}, event)">
-                                                <i class="fas fa-shopping-cart"></i> Add to Cart
-                                            </button>
-                                            <button class="add-to-wishlist" onclick="toggleWishlist(${product.id}, event)" style="${isInWishlist ? 'background: var(--gradient-accent); color: white;' : ''}">
-                                                <i class="fas fa-heart"></i>
-                                            </button>
-                                            <button class="add-to-wishlist" onclick="addToComparison(${product.id}, event)" title="Add to Comparison">
-                                                <i class="fas fa-balance-scale"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                        }).join('');
+                        filtered.forEach(product => {
+                            const productElement = createProductCard(product);
+                            productsGrid.appendChild(productElement);
+                        });
                     }
                     
-                    document.getElementById('loadMoreBtn').style.display = 'none';
+                    document.getElementById('pagination').innerHTML = '';
                 } else if (searchTerm.length === 0) {
                     isSearching = false;
+                    currentPage = 1;
                     renderProducts();
                 }
             });
@@ -5559,17 +7827,6 @@
                     }
                 }
             }, 1000);
-            
-            // Add comparison button to nav
-            const navActions = document.querySelector('.nav-actions');
-            const comparisonBtn = document.createElement('div');
-            comparisonBtn.className = 'points-display comparison-icon';
-            comparisonBtn.title = 'Product Comparison';
-            comparisonBtn.innerHTML = '<i class="fas fa-balance-scale"></i>';
-            comparisonBtn.onclick = showComparisonModal;
-            navActions.insertBefore(comparisonBtn, document.querySelector('.points-display'));
-            
-            updateComparisonUI();
         });
 
         // ========== EXPORT FUNCTIONS ==========
@@ -5578,7 +7835,10 @@
         window.showProductDetail = showProductDetail;
         window.showQuickView = showQuickView;
         window.filterProducts = filterProducts;
-        window.loadMoreProducts = loadMoreProducts;
+        window.showAllCategories = showAllCategories;
+        window.sortProducts = sortProducts;
+        window.filterByPrice = filterByPrice;
+        window.changeView = changeView;
         window.addToCart = addToCart;
         window.toggleWishlist = toggleWishlist;
         window.updateCartQuantity = updateCartQuantity;
@@ -5595,12 +7855,14 @@
         window.switchProductTab = switchProductTab;
         window.switchProfileTab = switchProfileTab;
         window.changeProductImage = changeProductImage;
-        window.addToComparison = addToComparison;
+        window.toggleComparison = toggleComparison;
         window.showComparisonModal = showComparisonModal;
-        window.removeFromComparison = removeFromComparison;
         window.clearComparison = clearComparison;
+        window.trackOrder = trackOrder;
+        window.reorder = reorder;
+        window.openMobileMenu = openMobileMenu;
+        window.closeMobileMenu = closeMobileMenu;
     </script>
 </body>
 </html>
-
 
