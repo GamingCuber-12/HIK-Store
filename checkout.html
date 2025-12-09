@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -975,15 +976,49 @@
 
     <script>
         // ===================== CONFIGURATION =====================
-        const CONFIG = {
-            SUPABASE_URL: 'https://your-project.supabase.co', // Replace with your Supabase URL
-            SUPABASE_KEY: 'your-anon-key', // Replace with your Supabase anon key
-            STRIPE_KEY: 'pk_test_your_key', // Optional: for Stripe payments
-            RECAPTCHA_KEY: '6LcPkZopAAAAAJB7O_nFz3QO3B2QbYq7K4sLk4jT', // Google reCAPTCHA v3
-            API_BASE: 'https://your-api.com', // Your backend API
-            FRAUD_API: 'https://api.fraud-detection.com', // Optional fraud detection
-        };
+       const CONFIG = {
+    SUPABASE_URL: 'https://bsrmuspemiwyoajaoczu.supabase.co', // YOUR actual URL
+    SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzcm11c3BlbWl3eW9hamFvY3p1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyNTY0MzIsImV4cCI6MjA4MDgzMjQzMn0.vCPvMWQDkFe4XGXWxBfV-r4JekNtdsO4izJnpqBYSZw', // YOUR anon key
+    RECAPTCHA_KEY: '6LcPkZopAAAAAJB7O_nFz3QO3B2QbYq7K4sLk4jT',
+    // Remove STRIPE_KEY if not using
+};
+
+// Remove the old saveOrderToDatabase function completely
+// Replace with this new version:
+async function saveOrderToDatabase(orderData) {
+    try {
+        // Call Edge Function instead of direct database
+        const response = await fetch(`${CONFIG.SUPABASE_URL}/functions/v1/process-order`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${CONFIG.SUPABASE_KEY}`
+            },
+            body: JSON.stringify(orderData)
+        });
         
+        const result = await response.json();
+        
+        if (!response.ok) {
+            console.error('Edge function error:', result);
+            throw new Error(result.error || 'Failed to process order');
+        }
+        
+        if (!result.success) {
+            throw new Error(result.error || 'Order processing failed');
+        }
+        
+        console.log('Order saved via Edge Function:', result.data);
+        return result;
+        
+    } catch (error) {
+        console.error('Order processing error:', error);
+        return {
+            success: false,
+            error: error.message || 'Network error. Please try again.'
+        };
+    }
+}        
         // ===================== GLOBAL STATE =====================
         let currentStep = 'info';
         let selectedPayment = null;
