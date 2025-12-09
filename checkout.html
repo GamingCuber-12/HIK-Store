@@ -1875,5 +1875,17 @@
     
     <!-- Confetti for celebration -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+
+
+    <script src="config.js"></script>
+<script>
+    // Use CONFIG from config.js
+    const supabase = window.supabase.createClient(
+        window.CONFIG.SUPABASE_URL, 
+        window.CONFIG.SUPABASE_KEY
+    );
+</script>
 </body>
+
 </html>
