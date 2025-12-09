@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +6,7 @@
     <title>Secure Checkout - HIK Store UAE</title>
     
     <!-- Security Libraries -->
-    <script src="https://www.google.com/recaptcha/api.js?render=6LcPkZopAAAAAJB7O_nFz3QO3B2QbYq7K4sLk4jT"></script>
+    <!-- REMOVED reCAPTCHA -->
     <script src="https://js.stripe.com/v3/"></script>
     
     <!-- Supabase Client -->
@@ -566,12 +565,6 @@
             border-bottom: none;
         }
         
-        .g-recaptcha {
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-        }
-        
         /* Fraud detection warning */
         .fraud-warning {
             background: linear-gradient(135deg, #FFE4E6 0%, #FECACA 100%);
@@ -869,8 +862,7 @@
                             <div class="error-message" id="termsError"></div>
                         </div>
                         
-                        <!-- reCAPTCHA -->
-                        <div class="g-recaptcha" id="recaptcha"></div>
+                        <!-- REMOVED reCAPTCHA DIV -->
                     </div>
                     
                     <div style="display: flex; gap: 15px;">
@@ -976,48 +968,12 @@
 
     <script>
         // ===================== CONFIGURATION =====================
-       const CONFIG = {
-    SUPABASE_URL: 'https://bsrmuspemiwyoajaoczu.supabase.co', // YOUR actual URL
-    SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzcm11c3BlbWl3eW9hamFvY3p1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyNTY0MzIsImV4cCI6MjA4MDgzMjQzMn0.vCPvMWQDkFe4XGXWxBfV-r4JekNtdsO4izJnpqBYSZw', // YOUR anon key
-    // Remove STRIPE_KEY if not using
-};
-
-// Remove the old saveOrderToDatabase function completely
-// Replace with this new version:
-async function saveOrderToDatabase(orderData) {
-    try {
-        // Call Edge Function instead of direct database
-        const response = await fetch(`${CONFIG.SUPABASE_URL}/functions/v1/process-order`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${CONFIG.SUPABASE_KEY}`
-            },
-            body: JSON.stringify(orderData)
-        });
-        
-        const result = await response.json();
-        
-        if (!response.ok) {
-            console.error('Edge function error:', result);
-            throw new Error(result.error || 'Failed to process order');
-        }
-        
-        if (!result.success) {
-            throw new Error(result.error || 'Order processing failed');
-        }
-        
-        console.log('Order saved via Edge Function:', result.data);
-        return result;
-        
-    } catch (error) {
-        console.error('Order processing error:', error);
-        return {
-            success: false,
-            error: error.message || 'Network error. Please try again.'
+        const CONFIG = {
+            SUPABASE_URL: 'https://bsrmuspemiwyoajaoczu.supabase.co',
+            SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzcm11c3BlbWl3eW9hamFvY3p1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyNTY0MzIsImV4cCI6MjA4MDgzMjQzMn0.vCPvMWQDkFe4XGXWxBfV-r4JekNtdsO4izJnpqBYSZw',
+            // No reCAPTCHA
         };
-    }
-}        
+        
         // ===================== GLOBAL STATE =====================
         let currentStep = 'info';
         let selectedPayment = null;
@@ -1033,10 +989,7 @@ async function saveOrderToDatabase(orderData) {
                 // Initialize Supabase
                 supabase = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
                 
-                // Initialize Stripe (optional)
-                if (CONFIG.STRIPE_KEY && CONFIG.STRIPE_KEY !== 'pk_test_your_key') {
-                    stripe = Stripe(CONFIG.STRIPE_KEY);
-                }
+                console.log('Supabase initialized:', !!supabase);
                 
                 // Load cart from localStorage or URL parameters
                 await loadCartData();
@@ -1044,22 +997,40 @@ async function saveOrderToDatabase(orderData) {
                 // Start cart expiration timer
                 startCartTimer();
                 
-                // Initialize Google reCAPTCHA
-                grecaptcha.ready(() => {
-                    grecaptcha.execute(CONFIG.RECAPTCHA_KEY, {action: 'checkout'});
-                });
-                
                 // Check for fraud indicators
                 checkFraudIndicators();
                 
                 // Load saved user data if available
                 loadSavedUserData();
                 
+                // Test connection
+                await testConnection();
+                
             } catch (error) {
                 console.error('Initialization error:', error);
                 showAlert('Failed to initialize checkout. Please refresh the page.', 'error');
             }
         });
+        
+        async function testConnection() {
+            try {
+                const { data, error } = await supabase
+                    .from('orders')
+                    .select('count', { count: 'exact', head: true });
+                
+                if (error) {
+                    console.error('Supabase connection test failed:', error);
+                    showAlert('Database connection failed. Check console.', 'error');
+                    return false;
+                }
+                
+                console.log('✅ Supabase connection successful');
+                return true;
+            } catch (error) {
+                console.error('Connection test error:', error);
+                return false;
+            }
+        }
         
         // ===================== CART FUNCTIONS =====================
         async function loadCartData() {
@@ -1414,9 +1385,6 @@ async function saveOrderToDatabase(orderData) {
                 btn.innerHTML = '<div class="loading-spinner"></div> Processing...';
                 btn.disabled = true;
                 
-                // Get reCAPTCHA token
-                const recaptchaToken = await grecaptcha.execute(CONFIG.RECAPTCHA_KEY, {action: 'submit_order'});
-                
                 // Prepare order data
                 saveStepData('payment');
                 const totals = calculateTotals();
@@ -1429,17 +1397,18 @@ async function saveOrderToDatabase(orderData) {
                         name: item.title,
                         price: item.price,
                         quantity: item.quantity,
-                        image: item.image
+                        image: item.image || 'default.jpg'
                     })),
                     totals: totals,
                     payment_method: selectedPayment,
-                    recaptcha_token: recaptchaToken,
                     user_agent: navigator.userAgent,
                     ip_address: await getClientIP(),
                     timestamp: new Date().toISOString()
                 };
                 
-                // Anti-fraud checks
+                console.log('Order payload:', orderPayload);
+                
+                // Anti-fraud checks (simplified without reCAPTCHA)
                 const fraudCheck = await checkForFraud(orderPayload);
                 if (!fraudCheck.allowed) {
                     showAlert(fraudCheck.message || 'Order could not be processed due to security checks.', 'error');
@@ -1449,18 +1418,8 @@ async function saveOrderToDatabase(orderData) {
                     return;
                 }
                 
-                // Process based on payment method
-                let orderResult;
-                if (selectedPayment === 'cod') {
-                    // Cash on Delivery - save to database
-                    orderResult = await saveOrderToDatabase(orderPayload);
-                } else if (selectedPayment === 'card') {
-                    // Card payment - process through Stripe
-                    orderResult = await processCardPayment(orderPayload);
-                } else {
-                    // Other payment methods
-                    orderResult = await saveOrderToDatabase(orderPayload);
-                }
+                // Save order to database
+                const orderResult = await saveOrderToDatabase(orderPayload);
                 
                 if (orderResult.success) {
                     // Success - show confirmation
@@ -1490,6 +1449,24 @@ async function saveOrderToDatabase(orderData) {
         
         async function saveOrderToDatabase(orderData) {
             try {
+                console.log('Saving order to Supabase...');
+                
+                // Generate tracking number
+                const trackingNumber = 'DX' + Math.random().toString(36).substr(2, 9).toUpperCase() + 'AE';
+                const orderNumber = 'HIK' + Math.random().toString(36).substr(2, 8).toUpperCase();
+                
+                // Prepare order items as JSONB
+                const orderItemsJson = orderData.items.map(item => ({
+                    product_id: item.product_id || item.id,
+                    product_name: item.name || item.title,
+                    product_price: item.price,
+                    quantity: item.quantity,
+                    product_image: item.image || 'default.jpg'
+                }));
+                
+                // Calculate points
+                const pointsEarned = Math.floor(orderData.totals.total / 10);
+                
                 // Save to Supabase
                 const { data, error } = await supabase
                     .from('orders')
@@ -1497,35 +1474,49 @@ async function saveOrderToDatabase(orderData) {
                         customer_email: orderData.customer.email,
                         customer_name: `${orderData.customer.firstName} ${orderData.customer.lastName}`,
                         customer_phone: orderData.customer.phone,
-                        shipping_address: orderData.shipping.address + (orderData.shipping.address2 ? `, ${orderData.shipping.address2}` : ''),
+                        shipping_address: orderData.shipping.address,
                         shipping_city: orderData.shipping.city,
                         shipping_emirate: orderData.shipping.emirate,
-                        shipping_postal_code: orderData.shipping.postalCode,
-                        shipping_country: orderData.shipping.country,
-                        order_items: orderData.items,
+                        shipping_postal_code: orderData.shipping.postalCode || '',
+                        shipping_country: orderData.shipping.country || 'UAE',
+                        delivery_instructions: orderData.shipping.instructions || '',
+                        
+                        order_items: orderItemsJson,
                         subtotal: orderData.totals.subtotal,
                         shipping_fee: orderData.totals.shipping,
+                        tax_amount: orderData.totals.tax || 0,
                         total_amount: orderData.totals.total,
+                        points_earned: pointsEarned,
+                        
                         payment_method: orderData.payment_method,
                         payment_status: orderData.payment_method === 'cod' ? 'pending' : 'paid',
                         order_status: 'processing',
-                        ip_address: orderData.ip_address,
-                        user_agent: orderData.user_agent,
-                        tracking_number: generateTrackingNumber(),
+                        
+                        tracking_number: trackingNumber,
                         courier_name: 'Aramex',
-                        points_earned: Math.floor(orderData.totals.total / 10)
+                        order_number: orderNumber,
+                        
+                        marketing_consent: orderData.customer.marketingConsent || false,
+                        
+                        ip_address: orderData.ip_address || '',
+                        user_agent: orderData.user_agent || ''
                     }])
                     .select()
                     .single();
                 
-                if (error) throw error;
+                if (error) {
+                    console.error('Supabase insert error:', error);
+                    throw error;
+                }
+                
+                console.log('✅ Order saved successfully:', data);
                 
                 return {
                     success: true,
                     data: {
                         order_id: data.id,
-                        order_number: `HIK${data.id.substring(0, 8).toUpperCase()}`,
-                        tracking_number: data.tracking_number,
+                        order_number: orderNumber,
+                        tracking_number: trackingNumber,
                         total: orderData.totals.total,
                         estimated_delivery: getEstimatedDeliveryDate(),
                         customer_email: orderData.customer.email
@@ -1536,45 +1527,14 @@ async function saveOrderToDatabase(orderData) {
                 console.error('Database error:', error);
                 return {
                     success: false,
-                    error: 'Failed to save order. Please try again.'
-                };
-            }
-        }
-        
-        async function processCardPayment(orderData) {
-            try {
-                // This is where you'd integrate with Stripe
-                // For now, we'll simulate success
-                
-                // First save order to database
-                const orderResult = await saveOrderToDatabase(orderData);
-                
-                if (!orderResult.success) {
-                    return orderResult;
-                }
-                
-                // Simulate Stripe payment
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                
-                return {
-                    success: true,
-                    data: {
-                        ...orderResult.data,
-                        payment_id: 'pay_' + Math.random().toString(36).substr(2, 10)
-                    }
-                };
-                
-            } catch (error) {
-                return {
-                    success: false,
-                    error: 'Payment processing failed'
+                    error: error.message || 'Failed to save order. Please try again.'
                 };
             }
         }
         
         // ===================== FRAUD DETECTION =====================
         async function checkForFraud(orderData) {
-            // Basic fraud detection rules
+            // Basic fraud detection rules (without reCAPTCHA)
             
             // Rule 1: Check if email is disposable
             const disposableDomains = ['tempmail.com', 'mailinator.com', '10minutemail.com'];
@@ -1597,9 +1557,6 @@ async function saveOrderToDatabase(orderData) {
                     message: 'Large order detected. Additional verification may be required.' 
                 };
             }
-            
-            // Rule 4: Geographic mismatch (optional)
-            // You can add IP geolocation checks here
             
             return { allowed: true };
         }
@@ -1635,24 +1592,12 @@ async function saveOrderToDatabase(orderData) {
         }
         
         function checkForVPN() {
-            // Simplified check - real implementation would use a service
-            const screenProps = [
-                navigator.hardwareConcurrency,
-                screen.colorDepth,
-                screen.width,
-                screen.height
-            ].join('');
-            
-            // Check for common VPN screen resolutions
-            const vpnResolutions = ['360640', '7681024', '800600'];
-            return vpnResolutions.some(res => screenProps.includes(res));
+            // Simplified check
+            return false; // Disabled for now
         }
         
         function checkTimezoneMismatch() {
-            // Check if timezone matches UAE
-            const uaeTimezones = ['Asia/Dubai', 'Asia/Muscat', 'Asia/Qatar'];
-            const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            return !uaeTimezones.includes(userTimezone);
+            return false; // Disabled for now
         }
         
         // ===================== UTILITY FUNCTIONS =====================
@@ -1776,7 +1721,7 @@ async function saveOrderToDatabase(orderData) {
                 </div>
                 <div class="detail-row">
                     <span>Estimated Delivery</span>
-                    <span>${orderData.estimated_delivery}</span>
+                    <span>${getEstimatedDeliveryDate()}</span>
                 </div>
                 <div class="detail-row">
                     <span>Confirmation Email</span>
@@ -1788,7 +1733,7 @@ async function saveOrderToDatabase(orderData) {
             clearInterval(timerInterval);
             
             // Save user data for future use
-            if (orderData.customer && document.getElementById('saveAddress').checked) {
+            if (orderData.customer_email && document.getElementById('saveAddress').checked) {
                 const userData = {
                     firstName: orderData.customer.firstName,
                     lastName: orderData.customer.lastName,
@@ -1802,27 +1747,19 @@ async function saveOrderToDatabase(orderData) {
             }
             
             // Show success animation
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
+            if (typeof confetti !== 'undefined') {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
         }
         
         async function sendConfirmationEmail(orderData) {
             try {
-                // Send email via Supabase or your email service
-                const emailPayload = {
-                    to: orderData.customer_email,
-                    subject: `Order Confirmation #${orderData.order_number}`,
-                    template: 'order-confirmation',
-                    data: orderData
-                };
-                
-                // You would typically call your email service here
-                // For now, we'll log it
-                console.log('Email would be sent:', emailPayload);
-                
+                console.log('📧 Email would be sent to:', orderData.customer_email);
+                // Email sending would be implemented here
             } catch (error) {
                 console.error('Failed to send email:', error);
             }
@@ -1859,35 +1796,6 @@ async function saveOrderToDatabase(orderData) {
             URL.revokeObjectURL(url);
         }
         
-        // ===================== SECURITY FUNCTIONS =====================
-        function sanitizeInput(input) {
-            return input
-                .replace(/[<>]/g, '') // Remove HTML tags
-                .trim()
-                .substring(0, 500); // Limit length
-        }
-        
-        // Rate limiting function
-        function setupRateLimiting() {
-            const key = 'order_attempts';
-            const now = Date.now();
-            const windowMs = 15 * 60 * 1000; // 15 minutes
-            const maxAttempts = 5;
-            
-            let attempts = JSON.parse(localStorage.getItem(key) || '[]');
-            
-            // Remove old attempts
-            attempts = attempts.filter(time => now - time < windowMs);
-            
-            if (attempts.length >= maxAttempts) {
-                throw new Error('Too many order attempts. Please try again later.');
-            }
-            
-            // Add new attempt
-            attempts.push(now);
-            localStorage.setItem(key, JSON.stringify(attempts));
-        }
-        
         // ===================== EXPORT FUNCTIONS =====================
         window.nextStep = nextStep;
         window.prevStep = prevStep;
@@ -1909,19 +1817,5 @@ async function saveOrderToDatabase(orderData) {
     
     <!-- Confetti for celebration -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-
-
-
-    <script src="config.js"></script>
-<script>
-    // Use CONFIG from config.js
-    const supabase = window.supabase.createClient(
-        window.CONFIG.SUPABASE_URL, 
-        window.CONFIG.SUPABASE_KEY
-    );
-</script>
 </body>
-
 </html>
-
-
