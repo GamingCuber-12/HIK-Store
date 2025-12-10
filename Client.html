@@ -7603,106 +7603,28 @@
         }
 
         // ========== CHECKOUT FUNCTIONS ==========
-        function openCheckout() {
-            if (db.cart.length === 0) {
-                showNotification('Your cart is empty', true);
-                return;
-            }
-            
-            if (!db.currentUser) {
-                showNotification('Please login to checkout', true);
-                showAuthModal();
-                return;
-            }
-            
-            const modal = document.getElementById('checkoutModal');
-            const subtotal = db.getCartTotal();
-            const shipping = subtotal > 50 ? 0 : 15;
-            const total = subtotal + shipping;
-            const pointsEarned = Math.floor(subtotal / 10);
-            
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <button class="modal-close" onclick="closeModal()">&times;</button>
-                    <h2 style="margin-bottom: 30px; color: var(--text);">Checkout</h2>
-                    
-                    <div style="margin-bottom: 30px;">
-                        <h3 style="margin-bottom: 20px; color: var(--text); font-size: 1.1rem;">Shipping Address</h3>
-                        <div style="background: var(--bg-lighter); padding: 20px; border-radius: var(--radius); margin-bottom: 20px;">
-                            <div style="font-weight: 600; margin-bottom: 5px;">${db.currentUser.name}</div>
-                            <div style="color: var(--text-light); line-height: 1.6;">
-                                ${db.currentUser.address || 'No address set'}<br>
-                                ${db.currentUser.city}${db.currentUser.emirate ? `, ${db.currentUser.emirate}` : ''}<br>
-                                ${db.currentUser.country}
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary" onclick="showEditAddressModal(); closeModal();" style="width: 100%;">
-                            <i class="fas fa-edit"></i> Edit Address
-                        </button>
-                    </div>
-                    
-                    <div style="margin-bottom: 30px;">
-                        <h3 style="margin-bottom: 20px; color: var(--text); font-size: 1.1rem;">Order Summary</h3>
-                        <div style="margin-bottom: 20px;">
-                            ${db.cart.map(item => `
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                    <div style="color: var(--text-light);">${item.title.substring(0, 30)}${item.title.length > 30 ? '...' : ''} × ${item.quantity}</div>
-                                    <div style="font-weight: 600;">AED ${formatPrice(item.price * item.quantity)}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                        
-                        <div style="border-top: 2px solid var(--border); padding-top: 20px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                <div style="color: var(--text-light);">Subtotal</div>
-                                <div style="font-weight: 600;">AED ${formatPrice(subtotal)}</div>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                <div style="color: var(--text-light);">Shipping</div>
-                                <div style="font-weight: 600;">${shipping === 0 ? 'FREE' : `AED ${formatPrice(shipping)}`}</div>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-top: 20px;">
-                                <div>Total</div>
-                                <div>AED ${formatPrice(total)}</div>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin-top: 10px; color: var(--points); font-weight: 600;">
-                                <div>Reward Points Earned</div>
-                                <div>+${pointsEarned} points</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-bottom: 30px;">
-                        <h3 style="margin-bottom: 20px; color: var(--text); font-size: 1.1rem;">Payment Method</h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px;">
-                            <div style="border: 2px solid var(--border); padding: 15px; border-radius: var(--radius); cursor: pointer; text-align: center;" onclick="selectPayment('card')">
-                                <i class="fab fa-cc-visa" style="font-size: 24px; margin-bottom: 5px;"></i>
-                                <div style="font-size: 0.875rem;">Credit/Debit Card</div>
-                            </div>
-                            <div style="border: 2px solid var(--border); padding: 15px; border-radius: var(--radius); cursor: pointer; text-align: center;" onclick="selectPayment('apple')">
-                                <i class="fab fa-cc-apple-pay" style="font-size: 24px; margin-bottom: 5px;"></i>
-                                <div style="font-size: 0.875rem;">Apple Pay</div>
-                            </div>
-                            <div style="border: 2px solid var(--border); padding: 15px; border-radius: var(--radius); cursor: pointer; text-align: center;" onclick="selectPayment('cod')">
-                                <i class="fas fa-money-bill-wave" style="font-size: 24px; margin-bottom: 5px;"></i>
-                                <div style="font-size: 0.875rem;">Cash on Delivery</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="btn btn-primary" onclick="completeOrder()" style="width: 100%; padding: 20px; font-size: 1.1rem;">
-                        <i class="fas fa-lock"></i> Complete Order
-                    </button>
-                    
-                    <div style="margin-top: 20px; text-align: center;">
-                        <p style="color: var(--text-light); font-size: 0.875rem;">
-                            <i class="fas fa-shield-alt"></i> Secure payment powered by Stripe
-                        </p>
-                    </div>
-                </div>
-            `;
-            modal.classList.add('active');
-        }
+        
+
+
+
+function openCheckout() {
+    if (db.cart.length === 0) {
+        showNotification('Your cart is empty', true);
+        return;
+    }
+    
+    if (!db.currentUser) {
+        showNotification('Please login to checkout', true);
+        showAuthModal();
+        return;
+    }
+    
+    // Redirect to the external checkout page
+    window.location.href = 'https://gamingcuber-12.github.io/HIK-Store/checkout.html';
+}
+
+
+
 
         function selectPayment(method) {
             const paymentOptions = document.querySelectorAll('#checkoutModal [onclick^="selectPayment"]');
@@ -7965,4 +7887,3 @@
     </script>
 </body>
 </html>
-
