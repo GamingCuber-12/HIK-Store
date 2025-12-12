@@ -1,8 +1,8 @@
-// netlify/functions/create-order.js - SIMPLIFIED (No dependencies)
+// netlify/functions/create-order.js - FIXED CORS VERSION
 exports.handler = async (event, context) => {
-    console.log('Function invoked:', new Date().toISOString());
+    console.log('🔧 Function called:', event.httpMethod);
     
-    // CORS headers
+    // Set CORS headers for ALL responses
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
@@ -10,50 +10,73 @@ exports.handler = async (event, context) => {
         'Content-Type': 'application/json'
     };
     
-    // Handle preflight OPTIONS request
+    // Handle preflight OPTIONS request - MUST RETURN 200
     if (event.httpMethod === 'OPTIONS') {
         return {
             statusCode: 200,
             headers,
-            body: JSON.stringify({ message: 'CORS preflight' })
+            body: JSON.stringify({ message: 'CORS preflight OK' })
         };
     }
     
-    // Only allow POST
+    // Only process POST requests
     if (event.httpMethod !== 'POST') {
         return {
             statusCode: 405,
             headers,
-            body: JSON.stringify({ error: 'Method not allowed' })
+            body: JSON.stringify({ 
+                success: false,
+                error: 'Method not allowed. Use POST.' 
+            })
         };
     }
     
     try {
-        // Get environment variables
-        const supabaseUrl = process.env.SUPABASE_URL;
-        const supabaseKey = process.env.SUPABASE_KEY;
-        
-        console.log('Environment check:', {
-            url: supabaseUrl ? 'Set' : 'Missing',
-            key: supabaseKey ? 'Set (hidden)' : 'Missing'
-        });
-        
-        if (!supabaseUrl || !supabaseKey) {
-            throw new Error('Missing Supabase environment variables');
-        }
+        console.log('📦 Processing order...');
         
         // Parse request body
         let orderData;
         try {
             orderData = JSON.parse(event.body);
-            console.log('Order received for:', orderData.customer_email);
+            console.log('📧 Order for:', orderData.customer_email);
         } catch (parseError) {
-            throw new Error('Invalid JSON in request body');
+            console.error('❌ JSON parse error:', parseError);
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({
+                    success: false,
+                    error: 'Invalid JSON data'
+                })
+            };
         }
         
         // Validate required fields
         if (!orderData.customer_email || !orderData.total_amount) {
-            throw new Error('Missing required fields: customer_email and total_amount');
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({
+                    success: false,
+                    error: 'Missing required fields: email and total amount'
+                })
+            };
+        }
+        
+        // Get environment variables
+        const supabaseUrl = process.env.SUPABASE_URL;
+        const supabaseKey = process.env.SUPABASE_KEY;
+        
+        if (!supabaseUrl || !supabaseKey) {
+            console.error('❌ Missing env vars');
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({
+                    success: false,
+                    error: 'Server configuration error'
+                })
+            };
         }
         
         // Generate order details
@@ -85,10 +108,10 @@ exports.handler = async (event, context) => {
             updated_at: new Date().toISOString()
         };
         
-        console.log('Saving order to Supabase:', orderNumber);
+        console.log('💾 Saving to Supabase...');
         
-        // Use native fetch to save to Supabase (no dependencies needed!)
-        const response = await fetch(`${supabaseUrl}/rest/v1/orders`, {
+        // Save to Supabase using fetch
+        const supabaseResponse = await fetch(`${supabaseUrl}/rest/v1/orders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -99,21 +122,22 @@ exports.handler = async (event, context) => {
             body: JSON.stringify([dbOrder])
         });
         
-        const responseText = await response.text();
+        const responseText = await supabaseResponse.text();
         
-        if (!response.ok) {
-            console.error('Supabase API error:', response.status, responseText);
-            throw new Error(`Supabase error: ${response.status} - ${responseText}`);
+        if (!supabaseResponse.ok) {
+            console.error('❌ Supabase error:', supabaseResponse.status, responseText);
+            return {
+                statusCode: supabaseResponse.status,
+                headers,
+                body: JSON.stringify({
+                    success: false,
+                    error: `Database error: ${supabaseResponse.status}`,
+                    details: responseText.substring(0, 200)
+                })
+            };
         }
         
-        let savedOrder;
-        try {
-            savedOrder = JSON.parse(responseText);
-        } catch (e) {
-            savedOrder = [{ id: 'unknown' }];
-        }
-        
-        console.log('Order saved successfully:', savedOrder[0]?.id);
+        console.log('✅ Order saved successfully:', orderNumber);
         
         return {
             statusCode: 200,
@@ -121,22 +145,22 @@ exports.handler = async (event, context) => {
             body: JSON.stringify({
                 success: true,
                 message: 'Order created successfully',
-                order_id: savedOrder[0]?.id,
                 order_number: orderNumber,
                 tracking_number: trackingNumber,
-                total_amount: orderData.total_amount
+                total_amount: orderData.total_amount,
+                customer_email: orderData.customer_email
             })
         };
         
     } catch (error) {
-        console.error('Function error:', error);
+        console.error('🔥 Function error:', error);
         
         return {
             statusCode: 500,
             headers,
             body: JSON.stringify({
                 success: false,
-                error: error.message || 'Internal server error'
+                error: 'Server error: ' + error.message
             })
         };
     }
