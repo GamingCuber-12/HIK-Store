@@ -1,89 +1,44 @@
-// netlify/functions/create-order.js - FIXED CORS VERSION
+// netlify/functions/create-order.js - NO DEPENDENCIES VERSION
 exports.handler = async (event, context) => {
-    console.log('🔧 Function called:', event.httpMethod);
-    
-    // Set CORS headers for ALL responses
+    // Set CORS headers
     const headers = {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
         'Content-Type': 'application/json'
     };
     
-    // Handle preflight OPTIONS request - MUST RETURN 200
+    // Handle OPTIONS request (CORS preflight)
     if (event.httpMethod === 'OPTIONS') {
-        return {
-            statusCode: 200,
-            headers,
-            body: JSON.stringify({ message: 'CORS preflight OK' })
-        };
+        return { statusCode: 200, headers, body: 'OK' };
     }
     
-    // Only process POST requests
+    // Only allow POST
     if (event.httpMethod !== 'POST') {
         return {
             statusCode: 405,
             headers,
-            body: JSON.stringify({ 
-                success: false,
-                error: 'Method not allowed. Use POST.' 
-            })
+            body: JSON.stringify({ error: 'Method not allowed' })
         };
     }
     
     try {
-        console.log('📦 Processing order...');
-        
-        // Parse request body
-        let orderData;
-        try {
-            orderData = JSON.parse(event.body);
-            console.log('📧 Order for:', orderData.customer_email);
-        } catch (parseError) {
-            console.error('❌ JSON parse error:', parseError);
-            return {
-                statusCode: 400,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    error: 'Invalid JSON data'
-                })
-            };
-        }
-        
-        // Validate required fields
-        if (!orderData.customer_email || !orderData.total_amount) {
-            return {
-                statusCode: 400,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    error: 'Missing required fields: email and total amount'
-                })
-            };
-        }
-        
         // Get environment variables
         const supabaseUrl = process.env.SUPABASE_URL;
         const supabaseKey = process.env.SUPABASE_KEY;
         
         if (!supabaseUrl || !supabaseKey) {
-            console.error('❌ Missing env vars');
-            return {
-                statusCode: 500,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    error: 'Server configuration error'
-                })
-            };
+            throw new Error('Server configuration error');
         }
+        
+        // Parse request
+        const orderData = JSON.parse(event.body);
         
         // Generate order details
         const orderNumber = 'HIK' + Date.now().toString(36).toUpperCase();
         const trackingNumber = 'DX' + Math.random().toString(36).substr(2, 9).toUpperCase() + 'AE';
         
-        // Prepare order for database
+        // Create order object
         const dbOrder = {
             order_number: orderNumber,
             tracking_number: trackingNumber,
@@ -104,63 +59,46 @@ exports.handler = async (event, context) => {
             payment_status: orderData.payment_method === 'cod' ? 'pending' : 'paid',
             order_status: 'processing',
             marketing_consent: orderData.marketing_consent || false,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
+            created_at: new Date().toISOString()
         };
         
-        console.log('💾 Saving to Supabase...');
-        
-        // Save to Supabase using fetch
-        const supabaseResponse = await fetch(`${supabaseUrl}/rest/v1/orders`, {
+        // Save to Supabase using native fetch (no dependencies!)
+        const response = await fetch(`${supabaseUrl}/rest/v1/orders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'apikey': supabaseKey,
                 'Authorization': `Bearer ${supabaseKey}`,
-                'Prefer': 'return=representation'
+                'Prefer': 'return=minimal'
             },
             body: JSON.stringify([dbOrder])
         });
         
-        const responseText = await supabaseResponse.text();
-        
-        if (!supabaseResponse.ok) {
-            console.error('❌ Supabase error:', supabaseResponse.status, responseText);
-            return {
-                statusCode: supabaseResponse.status,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    error: `Database error: ${supabaseResponse.status}`,
-                    details: responseText.substring(0, 200)
-                })
-            };
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Database error: ${response.status}`);
         }
         
-        console.log('✅ Order saved successfully:', orderNumber);
-        
+        // Success response
         return {
             statusCode: 200,
             headers,
             body: JSON.stringify({
                 success: true,
-                message: 'Order created successfully',
                 order_number: orderNumber,
                 tracking_number: trackingNumber,
-                total_amount: orderData.total_amount,
-                customer_email: orderData.customer_email
+                message: 'Order created successfully'
             })
         };
         
     } catch (error) {
-        console.error('🔥 Function error:', error);
-        
+        // Error response
         return {
             statusCode: 500,
             headers,
             body: JSON.stringify({
                 success: false,
-                error: 'Server error: ' + error.message
+                error: error.message || 'Server error'
             })
         };
     }
