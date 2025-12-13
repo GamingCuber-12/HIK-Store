@@ -2639,3070 +2639,1190 @@
     <script>
         // ========== ENHANCED PRODUCT DATABASE ==========
         const products = [
+    {
+        id: 1,
+        title: "Samsung Galaxy Tab A9+ 11\" Android Tablet",
+        category: "electronics",
+        price: 800,
+        originalPrice: 820,
+        image: "product_1.1.jpg",
+        image2: "product_1.2.jpg",
+        badge: "hot",
+        rating: 4.3,
+        reviews: 145,
+        stock: 15,
+        tags: ["Tablet", "Android", "Samsung", "Work & Study"],
+        description: "Affordable 11-inch Android tablet with Dolby Atmos for work and study.",
+        longDescription: "The Samsung Galaxy Tab A9+ features an 11-inch display with 90Hz refresh rate for smooth scrolling. Powered by Snapdragon 6 series processor with 4GB RAM and 64GB storage, it's perfect for multitasking between work and study. Dolby Atmos provides immersive audio experience.",
+        specifications: {
+            "Display": "11-inch, 90Hz refresh rate",
+            "Processor": "Snapdragon 6 Series",
+            "Memory": "4GB RAM + 64GB storage",
+            "OS": "Android with One UI",
+            "Audio": "Dolby Atmos Quad Speakers",
+            "Connectivity": "Wi-Fi, Bluetooth 5.2",
+            "Battery": "7040mAh",
+            "Dimensions": "257.1 x 168.7 x 6.9mm"
+        },
+        features: [
+            "11-inch display with 90Hz refresh rate",
+            "Dolby Atmos quad speakers",
+            "Multitasking with split-screen",
+            "Kid-friendly content with Kids Mode",
+            "Expandable storage up to 1TB"
+        ],
+        reviewsList: [
             {
                 id: 1,
-                title: "Meta Quest 3 512GB VR Headset",
-                category: "electronics",
-                price: 2386,
-                originalPrice: 2599,
-                image: "product_1.1.jpg",
-                image2: "product_1.2.jpg",
-                badge: "hot",
-                rating: 4.8,
-                reviews: 209,
-                stock: 8,
-                tags: ["VR", "Gaming", "Metaverse", "New"],
-                description: "Experience the next generation of virtual reality with the Meta Quest 3.",
-                longDescription: "The Meta Quest 3 represents a significant leap forward in standalone VR technology. With 30% higher resolution per eye than its predecessor, the Quest 3 delivers stunning visual clarity. The new Snapdragon XR2 Gen 2 processor provides twice the GPU performance, enabling more complex and immersive experiences.",
-                specifications: {
-                    "Display": "Dual 4K+ LCD panels @ 120Hz",
-                    "Processor": "Qualcomm Snapdragon XR2 Gen 2",
-                    "Storage": "512GB",
-                    "RAM": "8GB",
-                    "Battery Life": "2-3 hours",
-                    "Weight": "515g",
-                    "Connectivity": "Wi-Fi 6E, USB-C",
-                    "Tracking": "Inside-out 6DoF"
-                },
-                features: [
-                    "Mixed Reality capabilities",
-                    "30% higher resolution displays",
-                    "Twice the GPU performance",
-                    "Full-color passthrough",
-                    "Improved ergonomics"
-                ],
-                reviewsList: [
-                    {
-                        id: 1,
-                        user: "Ahmed K.",
-                        rating: 5,
-                        date: "2024-01-15",
-                        comment: "Absolutely mind-blowing! The mixed reality features work seamlessly.",
-                        verified: true
-                    },
-                    {
-                        id: 2,
-                        user: "Sarah M.",
-                        rating: 4,
-                        date: "2024-01-10",
-                        comment: "Great upgrade from Quest 2. Display is noticeably sharper.",
-                        verified: true
-                    }
-                ]
+                user: "Student123",
+                rating: 4,
+                date: "2024-02-15",
+                comment: "Great for online classes and note-taking.",
+                verified: true
             },
             {
                 id: 2,
-                title: "iPhone 15 Pro Max 256GB",
-                category: "electronics",
-                price: 5299,
-                originalPrice: 5799,
-                image: "product_2.1.jpg",
-                image2: "product_2.2.jpg",
-                badge: "new",
-                rating: 4.9,
-                reviews: 432,
-                stock: 12,
-                tags: ["Smartphone", "Apple", "5G"],
-                description: "Titanium design with A17 Pro chip.",
-                longDescription: "The iPhone 15 Pro Max features aerospace-grade titanium design, making it the lightest Pro model ever. The A17 Pro chip enables groundbreaking performance and mobile gaming capabilities.",
-                specifications: {
-                    "Display": "6.7\" Super Retina XDR",
-                    "Chip": "A17 Pro",
-                    "Storage": "256GB",
-                    "Camera": "48MP Main + 12MP",
-                    "Battery": "29 hours video",
-                    "Weight": "221g",
-                    "Connectivity": "5G, Wi-Fi 6E"
-                },
-                features: [
-                    "Titanium design",
-                    "A17 Pro chip",
-                    "Action button",
-                    "USB 3",
-                    "Dynamic Island"
-                ],
-                reviewsList: [
-                    {
-                        id: 1,
-                        user: "Mohammed A.",
-                        rating: 5,
-                        date: "2024-01-20",
-                        comment: "Best iPhone ever! The titanium feels amazing.",
-                        verified: true
-                    }
-                ]
-            },
-            {
-                id: 3,
-                title: "Razer BlackWidow V4 75% Keyboard",
-                category: "electronics",
-                price: 1299,
-                originalPrice: 1499,
-                image: "product_3.1.jpg",
-                image2: "product_3.2.jpg",
-                badge: "trending",
-                rating: 4.6,
-                reviews: 197,
-                stock: 18,
-                tags: ["Gaming", "Mechanical", "Compact"],
-                description: "75% form factor mechanical gaming keyboard with Razer Green switches.",
-                longDescription: "The Razer BlackWidow V4 75% offers the perfect balance between functionality and desk space savings. Featuring Razer's acclaimed mechanical switches for tactile feedback and durability.",
-                specifications: {
-                    "Switch Type": "Razer Green Mechanical",
-                    "Lighting": "Chroma RGB",
-                    "Keycaps": "Doubleshot ABS",
-                    "Polling Rate": "8000Hz",
-                    "Anti-Ghosting": "N-key rollover"
-                },
-                features: [
-                    "75% compact layout",
-                    "Multi-function control dial",
-                    "Doubleshot ABS keycaps",
-                    "Razer Chroma RGB",
-                    "8KHz polling rate"
-                ],
-                reviewsList: [
-                    {
-                        id: 1,
-                        user: "Alex C.",
-                        rating: 4,
-                        date: "2024-01-08",
-                        comment: "Great compact keyboard with all the features I need.",
-                        verified: true
-                    }
-                ]
-            },
-            {
-                id: 4,
-                title: "SteelSeries Apex Pro TKL Keyboard",
-                category: "electronics",
-                price: 1899,
-                originalPrice: 2199,
-                image: "product_4.1.jpg",
-                image2: "product_4.2.jpg",
-                badge: "hot",
-                rating: 4.8,
-                reviews: 156,
-                stock: 12,
-                tags: ["Premium", "Gaming", "Adjustable"],
-                description: "World's fastest mechanical gaming keyboard with adjustable actuation.",
-                longDescription: "The SteelSeries Apex Pro TKL features OmniPoint 2.0 switches with adjustable actuation from 0.4mm to 3.6mm. OLED Smart Display provides real-time game information.",
-                specifications: {
-                    "Switch Type": "OmniPoint 2.0 Adjustable",
-                    "Actuation Range": "0.4mm - 3.6mm",
-                    "Lighting": "Prism RGB",
-                    "Display": "OLED Smart Display",
-                    "Polling Rate": "1000Hz"
-                },
-                features: [
-                    "Adjustable actuation",
-                    "OLED Smart Display",
-                    "Aircraft-grade aluminum",
-                    "Magnetic wrist rest",
-                    "Per-key RGB"
-                ],
-                reviewsList: [
-                    {
-                        id: 1,
-                        user: "Pro Streamer",
-                        rating: 5,
-                        date: "2024-01-05",
-                        comment: "The adjustable switches are incredible.",
-                        verified: true
-                    }
-                ]
-            },
-            {
-                id: 5,
-                title: "Logitech G502 X Plus Wireless Mouse",
-                category: "electronics",
-                price: 899,
-                originalPrice: 1099,
-                image: "product_5.1.jpg",
-                image2: "product_5.2.jpg",
-                badge: "new",
-                rating: 4.7,
-                reviews: 203,
-                stock: 30,
-                tags: ["Wireless", "Gaming", "Ergonomic"],
-                description: "Advanced wireless gaming mouse with LIGHTSPEED technology.",
-                longDescription: "Experience precision gaming with the Logitech G502 X Plus. Featuring LIGHTSPEED wireless technology for ultra-fast response times.",
-                specifications: {
-                    "Sensor": "HERO 25K",
-                    "Connectivity": "LIGHTSPEED Wireless + Bluetooth",
-                    "Switches": "LIGHTFORCE Hybrid",
-                    "Battery Life": "120 hours",
-                    "DPI": "100-25,600"
-                },
-                features: [
-                    "LIGHTSPEED wireless",
-                    "Hybrid mechanical-optical switches",
-                    "Powerplay compatible",
-                    "Adjustable weight system"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 6,
-                title: "Sony WH-1000XM5 Headphones",
-                category: "electronics",
-                price: 1299,
-                originalPrice: 1599,
-                image: "product_6.1.jpg",
-                image2: "product_6.2.jpg",
-                badge: "hot",
-                rating: 4.8,
-                reviews: 312,
-                stock: 15,
-                tags: ["Noise Cancelling", "Wireless", "Premium"],
-                description: "Industry-leading noise cancellation with 30-hour battery life.",
-                specifications: {
-                    "Noise Cancellation": "Industry-leading",
-                    "Battery Life": "30 hours",
-                    "Connectivity": "Bluetooth 5.2",
-                    "Weight": "250g",
-                    "Charging": "USB-C"
-                },
-                features: [
-                    "Industry-leading noise cancellation",
-                    "30-hour battery life",
-                    "HD Voice calls",
-                    "Quick charging",
-                    "Multi-point connection"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 7,
-                title: "Apple AirPods Pro (2nd Gen)",
-                category: "electronics",
-                price: 899,
-                originalPrice: 1099,
-                image: "product_7.1.jpg",
-                image2: "product_7.2.jpg",
-                badge: "new",
-                rating: 4.7,
-                reviews: 456,
-                stock: 25,
-                tags: ["Wireless", "Apple", "Noise Cancelling"],
-                description: "Active Noise Cancellation and Adaptive Transparency.",
-                specifications: {
-                    "Battery Life": "6 hours (30 with case)",
-                    "Connectivity": "Bluetooth 5.3",
-                    "Charging": "MagSafe, Lightning",
-                    "Water Resistance": "IPX4"
-                },
-                features: [
-                    "Active Noise Cancellation",
-                    "Adaptive Transparency",
-                    "Personalized Spatial Audio",
-                    "MagSafe charging",
-                    "Find My integration"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 8,
-                title: "Samsung Galaxy Watch 6 Classic",
-                category: "electronics",
-                price: 1299,
-                originalPrice: 1499,
-                image: "product_8.1.jpg",
-                image2: "product_8.2.jpg",
-                badge: "trending",
-                rating: 4.6,
-                reviews: 189,
-                stock: 20,
-                tags: ["Smartwatch", "Health", "LTE"],
-                description: "Advanced health monitoring with rotating bezel.",
-                specifications: {
-                    "Display": "1.5\" Super AMOLED",
-                    "Battery": "425mAh",
-                    "Water Resistance": "5ATM + IP68",
-                    "Connectivity": "LTE, Bluetooth 5.3",
-                    "Sensors": "ECG, Blood Pressure"
-                },
-                features: [
-                    "Advanced health monitoring",
-                    "Rotating bezel",
-                    "LTE connectivity",
-                    "Sleep tracking",
-                    "Workout detection"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 9,
-                title: "DJI Mini 3 Pro Drone",
-                category: "electronics",
-                price: 3299,
-                originalPrice: 3799,
-                image: "product_9.1.jpg",
-                image2: "product_9.2.jpg",
-                badge: "hot",
-                rating: 4.8,
-                reviews: 145,
-                stock: 8,
-                tags: ["Drone", "Camera", "4K"],
-                description: "Ultra-lightweight drone with 4K HDR video.",
-                specifications: {
-                    "Weight": "<249g",
-                    "Camera": "48MP 1/1.3\" CMOS",
-                    "Video": "4K/60fps HDR",
-                    "Battery Life": "34 minutes",
-                    "Transmission": "12km"
-                },
-                features: [
-                    "Ultra-lightweight",
-                    "4K HDR video",
-                    "Tri-directional obstacle sensing",
-                    "MasterShots",
-                    "Vertical shooting"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 10,
-                title: "PlayStation 5 Digital Edition",
-                category: "gaming",
-                price: 1799,
-                originalPrice: 1999,
-                image: "product_10.1.jpg",
-                image2: "product_10.2.jpg",
-                badge: "hot",
-                rating: 4.9,
-                reviews: 567,
-                stock: 12,
-                tags: ["Gaming", "Console", "4K"],
-                description: "Next-gen gaming without disc drive.",
-                specifications: {
-                    "CPU": "AMD Zen 2, 8-core",
-                    "GPU": "10.28 TFLOPs",
-                    "Memory": "16GB GDDR6",
-                    "Storage": "825GB SSD",
-                    "Output": "4K/120Hz"
-                },
-                features: [
-                    "4K gaming at 120Hz",
-                    "Ray tracing",
-                    "3D Audio",
-                    "Ultra-fast SSD",
-                    "DualSense controller"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 11,
-                title: "Xbox Series X Console",
-                category: "gaming",
-                price: 1899,
-                originalPrice: 2099,
-                image: "product_11.1.jpg",
-                image2: "product_11.2.jpg",
-                badge: "hot",
-                rating: 4.8,
-                reviews: 432,
-                stock: 10,
-                tags: ["Gaming", "Console", "4K"],
-                description: "Most powerful Xbox console ever.",
-                specifications: {
-                    "CPU": "AMD Zen 2, 8-core",
-                    "GPU": "12 TFLOPs",
-                    "Memory": "16GB GDDR6",
-                    "Storage": "1TB SSD",
-                    "Output": "4K/120Hz"
-                },
-                features: [
-                    "4K gaming at 120Hz",
-                    "Ray tracing",
-                    "Quick Resume",
-                    "Xbox Game Pass",
-                    "Backward compatibility"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 12,
-                title: "Nintendo Switch OLED",
-                category: "gaming",
-                price: 1299,
-                originalPrice: 1499,
-                image: "product_12.1.jpg",
-                image2: "product_12.2.jpg",
-                badge: "trending",
-                rating: 4.7,
-                reviews: 289,
-                stock: 18,
-                tags: ["Gaming", "Portable", "OLED"],
-                description: "7-inch OLED screen for vibrant colors.",
-                specifications: {
-                    "Screen": "7-inch OLED",
-                    "Storage": "64GB",
-                    "Battery": "4.5-9 hours",
-                    "Resolution": "1280x720",
-                    "Connectivity": "Wi-Fi, Bluetooth"
-                },
-                features: [
-                    "7-inch OLED screen",
-                    "Enhanced audio",
-                    "64GB storage",
-                    "Wide adjustable stand",
-                    "Dock with LAN port"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 13,
-                title: "ASUS ROG Strix Gaming Laptop",
-                category: "electronics",
-                price: 5899,
-                originalPrice: 6599,
-                image: "product_13.1.jpg",
-                image2: "product_13.2.jpg",
-                badge: "hot",
-                rating: 4.7,
-                reviews: 98,
-                stock: 6,
-                tags: ["Gaming", "Laptop", "RTX"],
-                description: "Powerful gaming laptop with RTX 4070.",
-                specifications: {
-                    "Processor": "Intel i9-13980HX",
-                    "GPU": "NVIDIA RTX 4070",
-                    "RAM": "32GB DDR5",
-                    "Storage": "1TB SSD",
-                    "Display": "16\" QHD 240Hz"
-                },
-                features: [
-                    "NVIDIA RTX 4070",
-                    "Intel i9 processor",
-                    "240Hz QHD display",
-                    "Advanced cooling",
-                    "RGB keyboard"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 14,
-                title: "Apple MacBook Air M2",
-                category: "electronics",
-                price: 4399,
-                originalPrice: 4899,
-                image: "product_14.1.jpg",
-                image2: "product_14.2.jpg",
-                badge: "new",
-                rating: 4.8,
-                reviews: 267,
-                stock: 15,
-                tags: ["Laptop", "Apple", "M2"],
-                description: "Supercharged by M2 chip.",
-                specifications: {
-                    "Chip": "Apple M2",
-                    "Memory": "8GB unified",
-                    "Storage": "256GB SSD",
-                    "Display": "13.6\" Liquid Retina",
-                    "Battery": "18 hours"
-                },
-                features: [
-                    "M2 chip",
-                    "Liquid Retina display",
-                    "18-hour battery",
-                    "MagSafe charging",
-                    "1080p FaceTime HD camera"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 15,
-                title: "Samsung Odyssey G9 Monitor",
-                category: "electronics",
-                price: 3899,
-                originalPrice: 4599,
-                image: "product_15.1.jpg",
-                image2: "product_15.2.jpg",
-                badge: "hot",
-                rating: 4.7,
-                reviews: 134,
-                stock: 9,
-                tags: ["Monitor", "Curved", "Gaming"],
-                description: "49-inch super ultrawide gaming monitor.",
-                specifications: {
-                    "Size": "49-inch",
-                    "Resolution": "5120x1440",
-                    "Refresh Rate": "240Hz",
-                    "Response Time": "1ms",
-                    "Curvature": "1000R"
-                },
-                features: [
-                    "Dual QHD resolution",
-                    "240Hz refresh rate",
-                    "QLED technology",
-                    "HDR1000",
-                    "G-Sync Compatible"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 16,
-                title: "LG OLED C3 TV 65\"",
-                category: "home",
-                price: 6899,
-                originalPrice: 7899,
-                image: "product_16.1.jpg",
-                image2: "product_16.2.jpg",
-                badge: "hot",
-                rating: 4.9,
-                reviews: 89,
-                stock: 7,
-                tags: ["TV", "OLED", "4K"],
-                description: "Perfect black and infinite contrast.",
-                specifications: {
-                    "Size": "65-inch",
-                    "Resolution": "4K OLED",
-                    "Refresh Rate": "120Hz",
-                    "HDR": "Dolby Vision, HDR10",
-                    "Smart TV": "webOS 23"
-                },
-                features: [
-                    "Self-lit OLED pixels",
-                    "α9 Gen6 AI processor",
-                    "Dolby Vision & Atmos",
-                    "Game Optimizer",
-                    "Filmmaker Mode"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 17,
-                title: "Dyson V15 Detect Vacuum",
-                category: "home",
-                price: 2299,
-                originalPrice: 2699,
-                image: "product_17.1.jpg",
-                image2: "product_17.2.jpg",
-                badge: "new",
-                rating: 4.8,
-                reviews: 187,
-                stock: 14,
-                tags: ["Vacuum", "Cordless", "Smart"],
-                description: "Laser detects hidden dust.",
-                specifications: {
-                    "Power": "230AW",
-                    "Battery": "60 minutes",
-                    "Bin Capacity": "0.77L",
-                    "Weight": "3kg",
-                    "Filter": "Whole-machine HEPA"
-                },
-                features: [
-                    "Laser dust detection",
-                    "High torque cleaner head",
-                    "HEPA filtration",
-                    "LCD screen",
-                    "60-min runtime"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 18,
-                title: "Ninja Foodi Air Fryer",
-                category: "home",
-                price: 899,
-                originalPrice: 1099,
-                image: "product_18.1.jpg",
-                image2: "product_18.2.jpg",
-                badge: "trending",
-                rating: 4.6,
-                reviews: 245,
-                stock: 22,
-                tags: ["Kitchen", "Air Fryer", "Multi-cooker"],
-                description: "8-in-1 versatility for perfect meals.",
-                specifications: {
-                    "Capacity": "7.6L",
-                    "Functions": "8-in-1",
-                    "Power": "1760W",
-                    "Temperature": "40°C-240°C",
-                    "Dimensions": "35x35x35cm"
-                },
-                features: [
-                    "8-in-1 functionality",
-                    "7.6L capacity",
-                    "Smart Finish",
-                    "TenderCrisp technology",
-                    "Easy clean"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 19,
-                title: "Vitamix Professional Blender",
-                category: "home",
-                price: 2499,
-                originalPrice: 2999,
-                image: "product_19.1.jpg",
-                image2: "product_19.2.jpg",
-                badge: "hot",
-                rating: 4.9,
-                reviews: 167,
-                stock: 11,
-                tags: ["Kitchen", "Blender", "Professional"],
-                description: "Professional-grade blending performance.",
-                specifications: {
-                    "Motor": "2.2 peak HP",
-                    "Speed Control": "Variable, 10 speeds",
-                    "Container": "2L BPA-free",
-                    "Weight": "5.2kg",
-                    "Warranty": "7 years"
-                },
-                features: [
-                    "2.2 peak HP motor",
-                    "Variable speed control",
-                    "Self-cleaning",
-                    "Pulse feature",
-                    "7-year warranty"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 20,
-                title: "Nespresso Vertuo Plus",
-                category: "home",
-                price: 699,
-                originalPrice: 899,
-                image: "product_20.1.jpg",
-                image2: "product_20.2.jpg",
-                badge: "new",
-                rating: 4.7,
-                reviews: 312,
-                stock: 25,
-                tags: ["Coffee", "Machine", "Automatic"],
-                description: "One-touch brewing for perfect coffee.",
-                specifications: {
-                    "Capsule System": "Vertuo",
-                    "Brew Sizes": "5 (230ml max)",
-                    "Water Tank": "1.2L",
-                    "Power": "1350W",
-                    "Dimensions": "20x33x41cm"
-                },
-                features: [
-                    "Centrifusion technology",
-                    "One-touch operation",
-                    "Fast heat-up (15s)",
-                    "Automatic capsule ejection",
-                    "Energy saving mode"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 21,
-                title: "Samsung Galaxy S24 Ultra",
-                category: "electronics",
-                price: 4999,
-                originalPrice: 5499,
-                image: "product_21.1.jpg",
-                image2: "product_21.2.jpg",
-                badge: "new",
-                rating: 4.8,
-                reviews: 289,
-                stock: 12,
-                tags: ["Smartphone", "Android", "AI"],
-                description: "AI-powered smartphone with S Pen.",
-                specifications: {
-                    "Display": "6.8\" Dynamic AMOLED 2X",
-                    "Chip": "Snapdragon 8 Gen 3",
-                    "Storage": "512GB",
-                    "Camera": "200MP + 12MP + 10MP",
-                    "Battery": "5000mAh"
-                },
-                features: [
-                    "Built-in S Pen",
-                    "200MP camera",
-                    "Galaxy AI",
-                    "Titanium frame",
-                    "7 years updates"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 22,
-                title: "Bose QuietComfort Ultra",
-                category: "electronics",
-                price: 3299,
-                originalPrice: 3799,
-                image: "product_22.1.jpg",
-                image2: "product_22.2.jpg",
-                badge: "hot",
-                rating: 4.7,
-                reviews: 145,
-                stock: 10,
-                tags: ["Headphones", "Noise Cancelling", "Bose"],
-                description: "Immersive Audio with spatial sound.",
-                specifications: {
-                    "Noise Cancellation": "Adaptive",
-                    "Battery Life": "24 hours",
-                    "Connectivity": "Bluetooth 5.3",
-                    "Weight": "253g",
-                    "Audio": "CustomTune spatial"
-                },
-                features: [
-                    "Immersive Audio",
-                    "CustomTune technology",
-                    "24-hour battery",
-                    "Comfortable fit",
-                    "Touch controls"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 23,
-                title: "Canon EOS R6 Mark II",
-                category: "electronics",
-                price: 8999,
-                originalPrice: 9999,
-                image: "product_23.1.jpg",
-                image2: "product_23.2.jpg",
-                badge: "new",
-                rating: 4.9,
-                reviews: 78,
-                stock: 5,
-                tags: ["Camera", "Mirrorless", "Professional"],
-                description: "Full-frame mirrorless for creators.",
-                specifications: {
-                    "Sensor": "24.2MP full-frame CMOS",
-                    "Processor": "DIGIC X",
-                    "Video": "6K RAW, 4K/60p",
-                    "Burst": "40fps electronic",
-                    "Stabilization": "8-stop IBIS"
-                },
-                features: [
-                    "24.2MP full-frame",
-                    "40fps continuous",
-                    "6K RAW video",
-                    "Dual Pixel CMOS AF II",
-                    "8-stop IBIS"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 24,
-                title: "GoPro HERO12 Black",
-                category: "electronics",
-                price: 1699,
-                originalPrice: 1999,
-                image: "product_24.1.jpg",
-                image2: "product_24.2.jpg",
-                badge: "trending",
-                rating: 4.6,
-                reviews: 189,
-                stock: 15,
-                tags: ["Action Camera", "4K", "Waterproof"],
-                description: "Professional performance in any condition.",
-                specifications: {
-                    "Video": "5.3K/60fps, 4K/120fps",
-                    "Photo": "27MP",
-                    "Battery": "Enduro, 2x longer",
-                    "Waterproof": "10m without housing",
-                    "Stabilization": "HyperSmooth 6.0"
-                },
-                features: [
-                    "5.3K video",
-                    "HyperSmooth 6.0",
-                    "HDR video + photo",
-                    "Wireless audio",
-                    "Timecode sync"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 25,
-                title: "PlayStation VR2",
-                category: "gaming",
-                price: 2199,
-                originalPrice: 2499,
-                image: "product_25.1.jpg",
-                image2: "product_25.2.jpg",
-                badge: "hot",
-                rating: 4.7,
-                reviews: 134,
-                stock: 9,
-                tags: ["VR", "Gaming", "PlayStation"],
-                description: "Next-generation virtual reality.",
-                specifications: {
-                    "Display": "OLED, 2000x2040 per eye",
-                    "Field of View": "110°",
-                    "Tracking": "Inside-out",
-                    "Audio": "3D Tempest",
-                    "Features": "Eye tracking, haptics"
-                },
-                features: [
-                    "4K HDR display",
-                    "Eye tracking",
-                    "Headset feedback",
-                    "3D Audio",
-                    "Sense controllers"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 26,
-                title: "Xbox Elite Wireless Controller 2",
-                category: "gaming",
-                price: 699,
-                originalPrice: 899,
-                image: "product_26.1.jpg",
-                image2: "product_26.2.jpg",
-                badge: "trending",
-                rating: 4.6,
-                reviews: 278,
-                stock: 20,
-                tags: ["Controller", "Gaming", "Customizable"],
-                description: "Customizable pro controller.",
-                specifications: {
-                    "Battery": "Up to 40 hours",
-                    "Buttons": "Remappable",
-                    "Thumbsticks": "Interchangeable",
-                    "Triggers": "Adjustable",
-                    "Profiles": "3 onboard"
-                },
-                features: [
-                    "Adjustable tension sticks",
-                    "Shorter hair trigger locks",
-                    "Wrap-around rubber grip",
-                    "40-hour battery",
-                    "Bluetooth"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 27,
-                title: "Razer Blade 15 Gaming Laptop",
-                category: "electronics",
-                price: 7899,
-                originalPrice: 8899,
-                image: "product_27.1.jpg",
-                image2: "product_27.2.jpg",
-                badge: "hot",
-                rating: 4.8,
-                reviews: 67,
-                stock: 6,
-                tags: ["Gaming Laptop", "Premium", "RTX"],
-                description: "Ultra-thin gaming powerhouse.",
-                specifications: {
-                    "Processor": "Intel i9-13950HX",
-                    "GPU": "NVIDIA RTX 4070",
-                    "RAM": "32GB DDR5",
-                    "Storage": "1TB SSD",
-                    "Display": "15.6\" QHD 240Hz"
-                },
-                features: [
-                    "CNC aluminum unibody",
-                    "Vapor chamber cooling",
-                    "Per-key RGB",
-                    "THX Spatial Audio",
-                    "Windows 11 Pro"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 28,
-                title: "Alienware 34\" QD-OLED Monitor",
-                category: "electronics",
-                price: 4599,
-                originalPrice: 5299,
-                image: "product_28.1.jpg",
-                image2: "product_28.2.jpg",
-                badge: "hot",
-                rating: 4.9,
-                reviews: 89,
-                stock: 7,
-                tags: ["Monitor", "OLED", "Curved"],
-                description: "Ultrawide QD-OLED gaming monitor.",
-                specifications: {
-                    "Size": "34-inch",
-                    "Resolution": "3440x1440",
-                    "Refresh Rate": "175Hz",
-                    "Response Time": "0.1ms",
-                    "HDR": "DisplayHDR 400 True Black"
-                },
-                features: [
-                    "QD-OLED technology",
-                    "175Hz refresh rate",
-                    "0.1ms response",
-                    "InfinityEdge design",
-                    "AlienFX RGB"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 29,
-                title: "Secretlab Titan Evo Gaming Chair",
-                category: "gaming",
-                price: 1499,
-                originalPrice: 1799,
-                image: "product_29.1.jpg",
-                image2: "product_29.2.jpg",
-                badge: "trending",
-                rating: 4.8,
-                reviews: 456,
-                stock: 14,
-                tags: ["Gaming Chair", "Ergonomic", "Premium"],
-                description: "Premium ergonomic gaming chair.",
-                specifications: {
-                    "Material": "Prime 2.0 PU leather",
-                    "Weight Capacity": "180kg",
-                    "Adjustments": "4D armrests",
-                    "Recline": "165°",
-                    "Warranty": "5 years"
-                },
-                features: [
-                    "Cold-cure foam",
-                    "4D armrests",
-                    "165° recline",
-                    "Magnetic memory foam pillow",
-                    "5-year warranty"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 30,
-                title: "Samsung Bespoke Refrigerator",
-                category: "home",
-                price: 8999,
-                originalPrice: 10999,
-                image: "product_30.1.jpg",
-                image2: "product_30.2.jpg",
-                badge: "hot",
-                rating: 4.7,
-                reviews: 45,
-                stock: 4,
-                tags: ["Refrigerator", "Smart", "Customizable"],
-                description: "Customizable smart refrigerator.",
-                specifications: {
-                    "Capacity": "615L",
-                    "Doors": "4 French doors",
-                    "Smart Features": "Family Hub",
-                    "Energy Rating": "A+++",
-                    "Warranty": "10 years compressor"
-                },
-                features: [
-                    "Customizable panels",
-                    "Family Hub screen",
-                    "Twin Cooling Plus",
-                    "Beverage Center",
-                    "SpaceMax technology"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 31,
-                title: "KitchenAid Stand Mixer",
-                category: "home",
-                price: 2499,
-                originalPrice: 2999,
-                image: "product_31.1.jpg",
-                image2: "product_31.2.jpg",
-                badge: "classic",
-                rating: 4.9,
-                reviews: 567,
-                stock: 18,
-                tags: ["Mixer", "Kitchen", "Professional"],
-                description: "Iconic stand mixer for serious bakers.",
-                specifications: {
-                    "Power": "450W",
-                    "Capacity": "5.7L",
-                    "Speed": "10 speeds",
-                    "Attachments": "Optional",
-                    "Color Options": "25+"
-                },
-                features: [
-                    "Planetary mixing action",
-                    "10-speed control",
-                    "All-metal construction",
-                    "Tilt-head design",
-                    "Accessory hub"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 32,
-                title: "Breville Barista Touch",
-                category: "home",
-                price: 3299,
-                originalPrice: 3899,
-                image: "product_32.1.jpg",
-                image2: "product_32.2.jpg",
-                badge: "premium",
-                rating: 4.8,
-                reviews: 189,
-                stock: 9,
-                tags: ["Espresso", "Coffee", "Automatic"],
-                description: "Automatic espresso machine with touch screen.",
-                specifications: {
-                    "Boiler": "ThermoJet",
-                    "Pump Pressure": "15 bar",
-                    "Grinder": "Integrated conical",
-                    "Milk System": "Auto steam wand",
-                    "Display": "Touch screen"
-                },
-                features: [
-                    "Touch screen interface",
-                    "Auto steam wand",
-                    "Integrated grinder",
-                    "Pre-infusion",
-                    "PID temperature control"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 33,
-                title: "Weber Spirit II E-310 Grill",
-                category: "home",
-                price: 1699,
-                originalPrice: 1999,
-                image: "product_33.1.jpg",
-                image2: "product_33.2.jpg",
-                badge: "hot",
-                rating: 4.7,
-                reviews: 234,
-                stock: 12,
-                tags: ["Grill", "Barbecue", "Gas"],
-                description: "3-burner gas grill with GS4.",
-                specifications: {
-                    "Burners": "3 stainless steel",
-                    "Cooking Area": "529 sq in",
-                    "Fuel": "Propane",
-                    "Ignition": "Electronic",
-                    "Warranty": "10 years"
-                },
-                features: [
-                    "GS4 grilling system",
-                    "Flavorizer bars",
-                    "iGrill compatible",
-                    "Open cart design",
-                    "Tool hooks"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 34,
-                title: "iRobot Roomba s9+",
-                category: "home",
-                price: 3299,
-                originalPrice: 3999,
-                image: "product_34.1.jpg",
-                image2: "product_34.2.jpg",
-                badge: "premium",
-                rating: 4.7,
-                reviews: 167,
-                stock: 8,
-                tags: ["Robot Vacuum", "Smart", "Self-Emptying"],
-                description: "Most powerful Roomba with self-emptying.",
-                specifications: {
-                    "Suction": "40x more power",
-                    "Navigation": "PerfectEdge",
-                    "Self-Emptying": "Yes, 60 days",
-                    "Mapping": "Smart mapping",
-                    "Battery": "90 minutes"
-                },
-                features: [
-                    "PerfectEdge technology",
-                    "Self-emptying base",
-                    "40x suction power",
-                    "Smart mapping",
-                    "Voice control"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 35,
-                title: "PlayStation 5 Console",
-                category: "gaming",
-                price: 1999,
-                originalPrice: 2299,
-                image: "product_35.1.jpg",
-                image2: "product_35.2.jpg",
-                badge: "hot",
-                rating: 4.9,
-                reviews: 789,
-                stock: 6,
-                tags: ["Gaming", "Console", "4K"],
-                description: "Next-gen gaming with disc drive.",
-                specifications: {
-                    "CPU": "AMD Zen 2, 8-core",
-                    "GPU": "10.28 TFLOPs",
-                    "Memory": "16GB GDDR6",
-                    "Storage": "825GB SSD",
-                    "Optical Drive": "4K UHD Blu-ray"
-                },
-                features: [
-                    "4K gaming at 120Hz",
-                    "Ray tracing",
-                    "3D Audio",
-                    "Ultra-fast SSD",
-                    "DualSense controller"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 36,
-                title: "NVIDIA GeForce RTX 4090",
-                category: "electronics",
-                price: 7899,
-                originalPrice: 8999,
-                image: "product_36.1.jpg",
-                image2: "product_36.2.jpg",
-                badge: "hot",
-                rating: 4.8,
-                reviews: 89,
-                stock: 3,
-                tags: ["Graphics Card", "Gaming", "RTX"],
-                description: "Ultimate gaming graphics card.",
-                specifications: {
-                    "GPU": "NVIDIA Ada Lovelace",
-                    "CUDA Cores": "16384",
-                    "Memory": "24GB GDDR6X",
-                    "Boost Clock": "2520 MHz",
-                    "Power": "450W"
-                },
-                features: [
-                    "DLSS 3",
-                    "Ray tracing",
-                    "4th gen Tensor Cores",
-                    "AV1 encoding",
-                    "3rd gen RT Cores"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 37,
-                title: "Corsair K100 RGB Keyboard",
-                category: "electronics",
-                price: 1499,
-                originalPrice: 1799,
-                image: "product_37.1.jpg",
-                image2: "product_37.2.jpg",
-                badge: "premium",
-                rating: 4.7,
-                reviews: 189,
-                stock: 15,
-                tags: ["Keyboard", "Gaming", "Mechanical"],
-                description: "Ultimate mechanical gaming keyboard.",
-                specifications: {
-                    "Switch": "OPX optical-mechanical",
-                    "Polling Rate": "4000Hz",
-                    "Media": "6 dedicated keys",
-                    "Wrist Rest": "Magnetic plush",
-                    "Lighting": "Per-key RGB"
-                },
-                features: [
-                    "OPX optical switches",
-                    "4000Hz polling",
-                    "Elgato Stream Deck",
-                    "Dynamic RGB",
-                    "Aluminum frame"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 38,
-                title: "SteelSeries Arctis Nova Pro",
-                category: "electronics",
-                price: 1299,
-                originalPrice: 1499,
-                image: "product_38.1.jpg",
-                image2: "product_38.2.jpg",
-                badge: "new",
-                rating: 4.8,
-                reviews: 145,
-                stock: 12,
-                tags: ["Headset", "Gaming", "Wireless"],
-                description: "Premium gaming headset with hot-swap batteries.",
-                specifications: {
-                    "Driver": "High-density neodymium",
-                    "Frequency": "10-40000 Hz",
-                    "Microphone": "ClearCast Gen 2",
-                    "Connectivity": "Wireless + Bluetooth",
-                    "Battery": "Hot-swap dual"
-                },
-                features: [
-                    "Hot-swap batteries",
-                    "Active Noise Cancellation",
-                    "360° Spatial Audio",
-                    "Dual wireless",
-                    "GameDAC"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 39,
-                title: "Logitech MX Master 3S",
-                category: "electronics",
-                price: 499,
-                originalPrice: 699,
-                image: "product_39.1.jpg",
-                image2: "product_39.2.jpg",
-                badge: "trending",
-                rating: 4.8,
-                reviews: 456,
-                stock: 25,
-                tags: ["Mouse", "Wireless", "Productivity"],
-                description: "Advanced wireless mouse for creators.",
-                specifications: {
-                    "Sensor": "Darkfield 8000 DPI",
-                    "Connectivity": "USB-C, Bluetooth",
-                    "Battery": "70 days",
-                    "Scroll Wheel": "Magspeed",
-                    "Buttons": "7 programmable"
-                },
-                features: [
-                    "8K DPI sensor",
-                    "Silent clicks",
-                    "Magspeed scrolling",
-                    "Flow cross-computer",
-                    "70-day battery"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 40,
-                title: "iPad Pro 12.9\" M2",
-                category: "electronics",
-                price: 4599,
-                originalPrice: 5299,
-                image: "product_40.1.jpg",
-                image2: "product_40.2.jpg",
-                badge: "premium",
-                rating: 4.8,
-                reviews: 234,
-                stock: 10,
-                tags: ["Tablet", "Apple", "M2"],
-                description: "Pro performance in a tablet.",
-                specifications: {
-                    "Chip": "Apple M2",
-                    "Display": "12.9\" Liquid Retina XDR",
-                    "Storage": "256GB",
-                    "Camera": "12MP + 10MP",
-                    "Battery": "All-day"
-                },
-                features: [
-                    "M2 chip",
-                    "Liquid Retina XDR",
-                    "ProMotion",
-                    "Thunderbolt 4",
-                    "5G cellular"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 41,
-                title: "Microsoft Surface Laptop 5",
-                category: "electronics",
-                price: 4899,
-                originalPrice: 5499,
-                image: "product_41.1.jpg",
-                image2: "product_41.2.jpg",
-                badge: "new",
-                rating: 4.7,
-                reviews: 167,
-                stock: 12,
-                tags: ["Laptop", "Windows", "Premium"],
-                description: "Sleek Windows laptop with premium design.",
-                specifications: {
-                    "Processor": "Intel i7-1255U",
-                    "RAM": "16GB LPDDR5x",
-                    "Storage": "512GB SSD",
-                    "Display": "13.5\" PixelSense",
-                    "Battery": "18 hours"
-                },
-                features: [
-                    "PixelSense touchscreen",
-                    "Intel Evo platform",
-                    "Omnisonic speakers",
-                    "Alcantara keyboard",
-                    "Windows 11"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 42,
-                title: "Garmin Fenix 7X Solar",
-                category: "electronics",
-                price: 3999,
-                originalPrice: 4599,
-                image: "product_42.1.jpg",
-                image2: "product_42.2.jpg",
-                badge: "premium",
-                rating: 4.8,
-                reviews: 189,
-                stock: 8,
-                tags: ["Smartwatch", "Fitness", "Solar"],
-                description: "Multisport GPS watch with solar charging.",
-                specifications: {
-                    "Display": "1.4\" sunlight-visible",
-                    "Battery": "37 days smartwatch",
-                    "Sensors": "All + solar",
-                    "Water Rating": "10 ATM",
-                    "Connectivity": "Bluetooth, Wi-Fi"
-                },
-                features: [
-                    "Solar charging",
-                    "Multi-band GNSS",
-                    "Advanced training metrics",
-                    "Topo maps",
-                    "Music storage"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 43,
-                title: "Bose SoundLink Flex",
-                category: "electronics",
-                price: 299,
-                originalPrice: 399,
-                image: "product_43.1.jpg",
-                image2: "product_43.2.jpg",
-                badge: "trending",
-                rating: 4.7,
-                reviews: 456,
-                stock: 30,
-                tags: ["Speaker", "Bluetooth", "Portable"],
-                description: "Portable Bluetooth speaker with PositionIQ.",
-                specifications: {
-                    "Battery": "12 hours",
-                    "Connectivity": "Bluetooth 4.2",
-                    "Waterproof": "IP67",
-                    "Weight": "0.6kg",
-                    "Charging": "USB-C"
-                },
-                features: [
-                    "PositionIQ technology",
-                    "IP67 waterproof",
-                    "12-hour battery",
-                    "Party mode",
-                    "Built-in mic"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 44,
-                title: "Philips Hue Starter Kit",
-                category: "home",
-                price: 899,
-                originalPrice: 1199,
-                image: "product_44.1.jpg",
-                image2: "product_44.2.jpg",
-                badge: "smart",
-                rating: 4.7,
-                reviews: 289,
-                stock: 18,
-                tags: ["Smart Home", "Lighting", "Wi-Fi"],
-                description: "Smart lighting system with voice control.",
-                specifications: {
-                    "Bulbs": "3 color A19",
-                    "Bridge": "Included",
-                    "Connectivity": "Zigbee + Wi-Fi",
-                    "Colors": "16 million",
-                    "Compatibility": "Alexa, Google, Apple"
-                },
-                features: [
-                    "16 million colors",
-                    "Voice control",
-                    "Automations",
-                    "Away mode",
-                    "Entertainment area"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 45,
-                title: "Nike Air Force 1 '07",
-                category: "fashion",
-                price: 499,
-                originalPrice: 599,
-                image: "product_45.1.jpg",
-                image2: "product_45.2.jpg",
-                badge: "classic",
-                rating: 4.8,
-                reviews: 1567,
-                stock: 45,
-                tags: ["Shoes", "Nike", "Classic"],
-                description: "Iconic sneaker with timeless design.",
-                specifications: {
-                    "Material": "Leather upper",
-                    "Sole": "Rubber cupsole",
-                    "Closure": "Lace-up",
-                    "Cushioning": "Air-Sole unit",
-                    "Style": "Low-top"
-                },
-                features: [
-                    "Leather upper",
-                    "Perforations for breathability",
-                    "Foam midsole",
-                    "Pivot circle outsole",
-                    "Classic AF1 style"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 46,
-                title: "Ray-Ban Aviator Classic",
-                category: "fashion",
-                price: 899,
-                originalPrice: 1099,
-                image: "product_46.1.jpg",
-                image2: "product_46.2.jpg",
-                badge: "iconic",
-                rating: 4.9,
-                reviews: 789,
-                stock: 25,
-                tags: ["Sunglasses", "Ray-Ban", "Classic"],
-                description: "Iconic aviator sunglasses.",
-                specifications: {
-                    "Lens": "G-15 glass",
-                    "Frame": "Metal",
-                    "Lens Width": "58mm",
-                    "Bridge": "14mm",
-                    "Temple": "140mm"
-                },
-                features: [
-                    "G-15 glass lenses",
-                    "Metal frame",
-                    "Classic aviator shape",
-                    "UV protection",
-                    "Includes case"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 47,
-                title: "Rolex Submariner Date",
-                category: "fashion",
-                price: 38999,
-                originalPrice: 42999,
-                image: "product_47.1.jpg",
-                image2: "product_47.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 45,
-                stock: 2,
-                tags: ["Watch", "Luxury", "Rolex"],
-                description: "Iconic diving watch with date.",
-                specifications: {
-                    "Movement": "Automatic",
-                    "Case": "41mm Oystersteel",
-                    "Bezel": "Cerachrom",
-                    "Water Resistance": "300m",
-                    "Power Reserve": "70 hours"
-                },
-                features: [
-                    "Oystersteel construction",
-                    "Cerachrom bezel",
-                    "Chromalight display",
-                    "Triplock winding crown",
-                    "5-year warranty"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 48,
-                title: "North Face Nuptse Jacket",
-                category: "fashion",
-                price: 899,
-                originalPrice: 1199,
-                image: "product_48.1.jpg",
-                image2: "product_48.2.jpg",
-                badge: "trending",
-                rating: 4.7,
-                reviews: 456,
-                stock: 28,
-                tags: ["Jacket", "Winter", "Outdoor"],
-                description: "Iconic puffer jacket for cold weather.",
-                specifications: {
-                    "Fill": "700-fill down",
-                    "Shell": "Durable water-repellent",
-                    "Weight": "Medium",
-                    "Fit": "Regular",
-                    "Pockets": "2 hand, 1 chest"
-                },
-                features: [
-                    "700-fill down insulation",
-                    "DWR finish",
-                    "Quilted construction",
-                    "Elastic cuffs",
-                    "Packable"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 49,
-                title: "Louis Vuitton Neverfull MM",
-                category: "fashion",
-                price: 14999,
-                originalPrice: 16999,
-                image: "product_49.1.jpg",
-                image2: "product_49.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 89,
-                stock: 3,
-                tags: ["Bag", "Luxury", "Louis Vuitton"],
-                description: "Iconic tote bag with pouch.",
-                specifications: {
-                    "Material": "Monogram canvas",
-                    "Lining": "Textile",
-                    "Dimensions": "32x29x17cm",
-                    "Handle": "Leather",
-                    "Weight": "0.5kg"
-                },
-                features: [
-                    "Monogram canvas",
-                    "Natural cowhide leather",
-                    "Adjustable side straps",
-                    "Detachable pouch",
-                    "Golden brass pieces"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 50,
-                title: "Apple MacBook Pro 16\" M3 Max",
-                category: "electronics",
-                price: 12999,
-                originalPrice: 14999,
-                image: "product_50.1.jpg",
-                image2: "product_50.2.jpg",
-                badge: "premium",
-                rating: 4.9,
-                reviews: 78,
-                stock: 5,
-                tags: ["Laptop", "Apple", "M3", "Professional"],
-                description: "Supercharged by M3 Max for extreme performance.",
-                specifications: {
-                    "Chip": "Apple M3 Max (16-core CPU, 40-core GPU)",
-                    "Memory": "64GB unified",
-                    "Storage": "1TB SSD",
-                    "Display": "16.2\" Liquid Retina XDR",
-                    "Battery": "Up to 22 hours",
-                    "Ports": "MagSafe 3, 3x Thunderbolt 4, HDMI, SDXC"
-                },
-                features: [
-                    "M3 Max chip for extreme performance",
-                    "Liquid Retina XDR display",
-                    "Up to 22-hour battery life",
-                    "Advanced thermal system",
-                    "1080p FaceTime HD camera"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 51,
-                title: "Sony Alpha 7 IV Mirrorless Camera",
-                category: "electronics",
-                price: 6999,
-                originalPrice: 7999,
-                image: "product_51.1.jpg",
-                image2: "product_51.2.jpg",
-                badge: "new",
-                rating: 4.8,
-                reviews: 134,
-                stock: 12,
-                tags: ["Camera", "Mirrorless", "Professional"],
-                description: "Full-frame hybrid camera for creators.",
-                specifications: {
-                    "Sensor": "33MP full-frame Exmor R CMOS",
-                    "Processor": "BIONZ XR",
-                    "Video": "4K 60p 10-bit 4:2:2",
-                    "ISO": "100-51200 (expandable)",
-                    "Autofocus": "759 phase-detection points",
-                    "Stabilization": "5-axis in-body"
-                },
-                features: [
-                    "33MP full-frame sensor",
-                    "Real-time Tracking AF",
-                    "4K 60p video recording",
-                    "10fps continuous shooting",
-                    "Vari-angle touchscreen LCD"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 52,
-                title: "LG 34\" UltraWide Curved Monitor",
-                category: "electronics",
-                price: 2999,
-                originalPrice: 3599,
-                image: "product_52.1.jpg",
-                image2: "product_52.2.jpg",
-                badge: "trending",
-                rating: 4.7,
-                reviews: 89,
-                stock: 15,
-                tags: ["Monitor", "Curved", "UltraWide"],
-                description: "UltraWide curved display for immersive experience.",
-                specifications: {
-                    "Size": "34 inches",
-                    "Resolution": "3440x1440 (UWQHD)",
-                    "Curvature": "1900R",
-                    "Refresh Rate": "144Hz",
-                    "Response Time": "1ms",
-                    "Panel": "Nano IPS",
-                    "HDR": "HDR10"
-                },
-                features: [
-                    "Nano IPS display",
-                    "144Hz refresh rate",
-                    "AMD FreeSync Premium",
-                    "Sphere Lighting 2.0",
-                    "Split Screen 2.0"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 53,
-                title: "Bose QuietComfort Ultra Earbuds",
-                category: "electronics",
-                price: 1999,
-                originalPrice: 2399,
-                image: "product_53.1.jpg",
-                image2: "product_53.2.jpg",
-                badge: "new",
-                rating: 4.7,
-                reviews: 156,
-                stock: 25,
-                tags: ["Earbuds", "Noise Cancelling", "Wireless"],
-                description: "Premium earbuds with immersive audio.",
-                specifications: {
-                    "Noise Cancellation": "Adaptive",
-                    "Battery Life": "6 hours (24 with case)",
-                    "Water Resistance": "IPX4",
-                    "Connectivity": "Bluetooth 5.3",
-                    "Weight": "6.2g per earbud"
-                },
-                features: [
-                    "Immersive Audio technology",
-                    "CustomTune calibration",
-                    "Active Noise Cancellation",
-                    "Bose Fit Kit",
-                    "Quick charging"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 54,
-                title: "Dyson V12 Detect Slim Vacuum",
-                category: "home",
-                price: 1899,
-                originalPrice: 2299,
-                image: "product_54.1.jpg",
-                image2: "product_54.2.jpg",
-                badge: "hot",
-                rating: 4.8,
-                reviews: 203,
-                stock: 18,
-                tags: ["Vacuum", "Cordless", "Smart"],
-                description: "Laser reveals hidden dust.",
-                specifications: {
-                    "Power": "150AW",
-                    "Battery": "60 minutes",
-                    "Weight": "2.2kg",
-                    "Bin Capacity": "0.35L",
-                    "Filtration": "Whole-machine HEPA"
-                },
-                features: [
-                    "Laser dust detection",
-                    "Piezo sensor technology",
-                    "LCD screen",
-                    "HEPA filtration",
-                    "9 attachments included"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 55,
-                title: "KitchenAid Artisan Stand Mixer",
-                category: "home",
-                price: 1899,
-                originalPrice: 2299,
-                image: "product_55.1.jpg",
-                image2: "product_55.2.jpg",
-                badge: "classic",
-                rating: 4.9,
-                reviews: 456,
-                stock: 22,
-                tags: ["Mixer", "Kitchen", "Premium"],
-                description: "Iconic stand mixer in 26 colors.",
-                specifications: {
-                    "Power": "325W",
-                    "Capacity": "4.8L",
-                    "Speeds": "10",
-                    "Attachments": "Optional",
-                    "Weight": "13.2kg"
-                },
-                features: [
-                    "Planetary mixing action",
-                    "10-speed control",
-                    "All-metal construction",
-                    "Tilt-head design",
-                    "Over 15 attachment options"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 56,
-                title: "Apple Watch Ultra 2",
-                category: "electronics",
-                price: 3299,
-                originalPrice: 3799,
-                image: "product_56.1.jpg",
-                image2: "product_56.2.jpg",
-                badge: "premium",
-                rating: 4.8,
-                reviews: 167,
-                stock: 14,
-                tags: ["Smartwatch", "Fitness", "Rugged"],
-                description: "Advanced adventure watch.",
-                specifications: {
-                    "Case": "49mm titanium",
-                    "Display": "Always-On Retina",
-                    "Battery": "36 hours (72 in low power)",
-                    "Water Resistance": "100m",
-                    "Sensors": "Depth gauge, temperature"
-                },
-                features: [
-                    "Dual-frequency GPS",
-                    "Action button",
-                    "86dB siren",
-                    "Depth app with gauge",
-                    "Trail and Waypoint features"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 57,
-                title: "Nintendo Switch 2",
-                category: "gaming",
-                price: 1999,
-                originalPrice: 2299,
-                image: "product_57.1.jpg",
-                image2: "product_57.2.jpg",
-                badge: "new",
-                rating: 4.8,
-                reviews: 234,
-                stock: 8,
-                tags: ["Gaming", "Console", "Portable"],
-                description: "Next-gen Nintendo gaming experience.",
-                specifications: {
-                    "Display": "8-inch OLED",
-                    "Storage": "256GB",
-                    "Battery": "6-10 hours",
-                    "Resolution": "1080p handheld, 4K docked",
-                    "Processor": "NVIDIA custom Tegra"
-                },
-                features: [
-                    "4K gaming when docked",
-                    "Enhanced OLED display",
-                    "Backward compatibility",
-                    "Improved Joy-Con",
-                    "Better battery life"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 58,
-                title: "Razer Blade 18 Gaming Laptop",
-                category: "electronics",
-                price: 12999,
-                originalPrice: 14999,
-                image: "product_58.1.jpg",
-                image2: "product_58.2.jpg",
-                badge: "premium",
-                rating: 4.9,
-                reviews: 45,
-                stock: 4,
-                tags: ["Gaming Laptop", "RTX", "Premium"],
-                description: "Ultimate 18-inch gaming laptop.",
-                specifications: {
-                    "Processor": "Intel Core i9-14900HX",
-                    "GPU": "NVIDIA RTX 4090",
-                    "RAM": "64GB DDR5",
-                    "Storage": "2TB SSD",
-                    "Display": "18\" 4K 144Hz Mini-LED"
-                },
-                features: [
-                    "CNC aluminum chassis",
-                    "Advanced vapor chamber cooling",
-                    "Per-key RGB Chroma",
-                    "THX Spatial Audio",
-                    "Windows 11 Pro"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 59,
-                title: "Samsung Galaxy Z Fold 5",
-                category: "electronics",
-                price: 6999,
-                originalPrice: 7999,
-                image: "product_59.1.jpg",
-                image2: "product_59.2.jpg",
-                badge: "premium",
-                rating: 4.7,
-                reviews: 189,
-                stock: 9,
-                tags: ["Smartphone", "Foldable", "Premium"],
-                description: "Unfold your world.",
-                specifications: {
-                    "Main Display": "7.6\" Dynamic AMOLED 2X",
-                    "Cover Display": "6.2\" Super AMOLED",
-                    "Chipset": "Snapdragon 8 Gen 2",
-                    "RAM": "12GB",
-                    "Storage": "512GB",
-                    "Cameras": "50MP + 12MP + 10MP"
-                },
-                features: [
-                    "Foldable main display",
-                    "IPX8 water resistance",
-                    "S Pen Fold Edition support",
-                    "Under-display camera",
-                    "Multi-active window"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 60,
-                title: "Sonos Arc Soundbar",
-                category: "electronics",
-                price: 2999,
-                originalPrice: 3499,
-                image: "product_60.1.jpg",
-                image2: "product_60.2.jpg",
-                badge: "hot",
-                rating: 4.8,
-                reviews: 178,
-                stock: 12,
-                tags: ["Soundbar", "Home Theater", "Dolby Atmos"],
-                description: "Premium Dolby Atmos soundbar.",
-                specifications: {
-                    "Channels": "5.0.2",
-                    "Drivers": "11 high-performance",
-                    "Connectivity": "HDMI eARC, WiFi, AirPlay 2",
-                    "Voice Control": "Alexa, Google Assistant",
-                    "Dimensions": "114 x 8.7 x 11.4 cm"
-                },
-                features: [
-                    "Dolby Atmos support",
-                    "Trueplay tuning technology",
-                    "Voice enhancement",
-                    "Night Sound mode",
-                    "Works with all Sonos speakers"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 61,
-                title: "Microsoft Surface Studio 2+",
-                category: "electronics",
-                price: 15999,
-                originalPrice: 17999,
-                image: "product_61.1.jpg",
-                image2: "product_61.2.jpg",
-                badge: "premium",
-                rating: 4.8,
-                reviews: 67,
-                stock: 3,
-                tags: ["All-in-One", "Creative", "Professional"],
-                description: "Creative powerhouse in studio form.",
-                specifications: {
-                    "Display": "28\" PixelSense Touch (4500x3000)",
-                    "Processor": "Intel Core i7-11370H",
-                    "GPU": "NVIDIA RTX 3060",
-                    "RAM": "32GB",
-                    "Storage": "1TB SSD"
-                },
-                features: [
-                    "Zero Gravity hinge design",
-                    "PixelSense touch display",
-                    "Surface Dial integration",
-                    "108MP front-facing camera",
-                    "Windows 11 Pro"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 62,
-                title: "Garmin Epix Pro (Gen 2)",
-                category: "electronics",
-                price: 4999,
-                originalPrice: 5699,
-                image: "product_62.1.jpg",
-                image2: "product_62.2.jpg",
-                badge: "premium",
-                rating: 4.9,
-                reviews: 89,
-                stock: 7,
-                tags: ["Smartwatch", "Outdoor", "AMOLED"],
-                description: "Premium outdoor smartwatch.",
-                specifications: {
-                    "Display": "1.4\" AMOLED (454x454)",
-                    "Battery": "Up to 31 days",
-                    "Sensors": "All + LED flashlight",
-                    "Water Rating": "10 ATM",
-                    "Memory": "32GB"
-                },
-                features: [
-                    "AMOLED display",
-                    "Multi-band GNSS",
-                    "LED flashlight",
-                    "Advanced training metrics",
-                    "TopoActive maps"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 63,
-                title: "Google Pixel 8 Pro",
-                category: "electronics",
-                price: 3999,
-                originalPrice: 4599,
-                image: "product_63.1.jpg",
-                image2: "product_63.2.jpg",
-                badge: "new",
-                rating: 4.7,
-                reviews: 234,
-                stock: 15,
-                tags: ["Smartphone", "Android", "Camera"],
-                description: "The pro camera. Engineered by Google.",
-                specifications: {
-                    "Display": "6.7\" LTPO OLED (1344x2992)",
-                    "Chip": "Google Tensor G3",
-                    "RAM": "12GB",
-                    "Storage": "256GB",
-                    "Cameras": "50MP + 48MP + 48MP"
-                },
-                features: [
-                    "Pro-level camera system",
-                    "7 years of OS updates",
-                    "Face Unblur",
-                    "Magic Editor",
-                    "Best Take"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 64,
-                title: "ASUS ROG Swift OLED Monitor",
-                category: "electronics",
-                price: 3499,
-                originalPrice: 3999,
-                image: "product_64.1.jpg",
-                image2: "product_64.2.jpg",
-                badge: "hot",
-                rating: 4.9,
-                reviews: 123,
-                stock: 8,
-                tags: ["Monitor", "OLED", "Gaming"],
-                description: "OLED gaming monitor with 240Hz.",
-                specifications: {
-                    "Size": "27 inches",
-                    "Resolution": "2560x1440",
-                    "Panel": "OLED",
-                    "Refresh Rate": "240Hz",
-                    "Response Time": "0.03ms",
-                    "HDR": "DisplayHDR True Black 400"
-                },
-                features: [
-                    "OLED technology",
-                    "240Hz refresh rate",
-                    "Custom heatsink",
-                    "Uniform brightness",
-                    "ASUS Smart KVM"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 65,
-                title: "Bang & Olufsen Beoplay H95",
-                category: "electronics",
-                price: 3999,
-                originalPrice: 4599,
-                image: "product_65.1.jpg",
-                image2: "product_65.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 89,
-                stock: 6,
-                tags: ["Headphones", "Luxury", "Noise Cancelling"],
-                description: "Iconic sound. Unmatched comfort.",
-                specifications: {
-                    "Drivers": "40mm titanium",
-                    "Noise Cancellation": "Adaptive",
-                    "Battery": "38 hours",
-                    "Weight": "325g",
-                    "Case": "Aluminum travel case"
-                },
-                features: [
-                    "Adaptive Active Noise Cancellation",
-                    "8 microphones",
-                    "Aluminum travel case",
-                    "Magnetic ear cushions",
-                    "Touch interface"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 66,
-                title: "Herman Miller Aeron Chair",
-                category: "home",
-                price: 5999,
-                originalPrice: 6999,
-                image: "product_66.1.jpg",
-                image2: "product_66.2.jpg",
-                badge: "premium",
-                rating: 4.9,
-                reviews: 567,
-                stock: 9,
-                tags: ["Office Chair", "Ergonomic", "Premium"],
-                description: "The original ergonomic chair.",
-                specifications: {
-                    "Material": "Pellicle suspension fabric",
-                    "Adjustments": "8Z Pellicle, PostureFit SL",
-                    "Weight Capacity": "159kg",
-                    "Warranty": "12 years",
-                    "Colors": "3 sizes, 3 colors"
-                },
-                features: [
-                    "Pellicle suspension material",
-                    "PostureFit SL support",
-                    "8Z Pellicle technology",
-                    "Fully adjustable",
-                    "12-year warranty"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 67,
-                title: "Breville Barista Express Impress",
-                category: "home",
-                price: 3999,
-                originalPrice: 4699,
-                image: "product_67.1.jpg",
-                image2: "product_67.2.jpg",
-                badge: "premium",
-                rating: 4.8,
-                reviews: 145,
-                stock: 11,
-                tags: ["Espresso Machine", "Coffee", "Semi-Auto"],
-                description: "The smarter way to perfect espresso.",
-                specifications: {
-                    "Boiler": "ThermoJet heating system",
-                    "Pump": "Italian 15 bar",
-                    "Grinder": "Integrated conical burr",
-                    "Portafilter": "54mm professional",
-                    "Water Tank": "2L"
-                },
-                features: [
-                    "Impress puck system",
-                    "Auto Dose & Tamp",
-                    "ThermoJet heating",
-                    "Pre-infusion function",
-                    "PID temperature control"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 68,
-                title: "DJI Mavic 3 Pro Cine",
-                category: "electronics",
-                price: 9999,
-                originalPrice: 11999,
-                image: "product_68.1.jpg",
-                image2: "product_68.2.jpg",
-                badge: "premium",
-                rating: 4.9,
-                reviews: 78,
-                stock: 4,
-                tags: ["Drone", "Professional", "Camera"],
-                description: "Professional aerial cinematography drone.",
-                specifications: {
-                    "Cameras": "Hasselblad 4/3 + dual tele",
-                    "Video": "Apple ProRes 422 HQ",
-                    "Flight Time": "43 minutes",
-                    "Transmission": "15km O3+",
-                    "Sensors": "Omnidirectional obstacle sensing"
-                },
-                features: [
-                    "Triple camera system",
-                    "Apple ProRes support",
-                    "43-minute flight time",
-                    "15km transmission",
-                    "Advanced RTH"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 69,
-                title: "LG 77\" OLED evo G3",
-                category: "electronics",
-                price: 11999,
-                originalPrice: 13999,
-                image: "product_69.1.jpg",
-                image2: "product_69.2.jpg",
-                badge: "premium",
-                rating: 4.9,
-                reviews: 67,
-                stock: 5,
-                tags: ["TV", "OLED", "Gallery Design"],
-                description: "OLED evo with Brightness Booster Max.",
-                specifications: {
-                    "Size": "77 inches",
-                    "Technology": "OLED evo",
-                    "Processor": "α9 Gen6 AI Processor",
-                    "Brightness": "70% brighter",
-                    "HDR": "Dolby Vision IQ, HDR10 Pro"
-                },
-                features: [
-                    "OLED evo technology",
-                    "Brightness Booster Max",
-                    "Gallery Design",
-                    "α9 Gen6 AI Processor",
-                    "webOS 23"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 70,
-                title: "Apple iPad Pro 11\" M4",
-                category: "electronics",
-                price: 3999,
-                originalPrice: 4599,
-                image: "product_70.1.jpg",
-                image2: "product_70.2.jpg",
-                badge: "new",
-                rating: 4.8,
-                reviews: 189,
-                stock: 12,
-                tags: ["Tablet", "Apple", "M4"],
-                description: "Out of this world. In your hands.",
-                specifications: {
-                    "Chip": "Apple M4",
-                    "Display": "11\" Liquid Retina XDR",
-                    "Storage": "256GB",
-                    "RAM": "8GB",
-                    "Camera": "12MP + LiDAR Scanner"
-                },
-                features: [
-                    "M4 chip with Neural Engine",
-                    "Liquid Retina XDR display",
-                    "ProMotion technology",
-                    "Thunderbolt 4",
-                    "5G cellular option"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 71,
-                title: "Sony WH-1000XM6",
-                category: "electronics",
-                price: 1499,
-                originalPrice: 1799,
-                image: "product_71.1.jpg",
-                image2: "product_71.2.jpg",
-                badge: "new",
-                rating: 4.8,
-                reviews: 234,
-                stock: 18,
-                tags: ["Headphones", "Noise Cancelling", "Sony"],
-                description: "Industry-leading noise cancellation.",
-                specifications: {
-                    "Noise Cancellation": "Integrated Processor V2",
-                    "Battery": "40 hours with ANC",
-                    "Weight": "250g",
-                    "Connectivity": "Bluetooth 5.3, LDAC",
-                    "Voice Calls": "8 microphones"
-                },
-                features: [
-                    "Industry-leading ANC",
-                    "40-hour battery life",
-                    "Multi-point connection",
-                    "Speak-to-Chat",
-                    "360 Reality Audio"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 72,
-                title: "NVIDIA RTX 5090 Founders Edition",
-                category: "electronics",
-                price: 12999,
-                originalPrice: 14999,
-                image: "product_72.1.jpg",
-                image2: "product_72.2.jpg",
-                badge: "premium",
-                rating: 4.9,
-                reviews: 45,
-                stock: 2,
-                tags: ["Graphics Card", "Gaming", "RTX"],
-                description: "Next-gen gaming performance.",
-                specifications: {
-                    "GPU": "NVIDIA Blackwell AD102",
-                    "CUDA Cores": "18432",
-                    "Memory": "24GB GDDR7",
-                    "Boost Clock": "2850 MHz",
-                    "TDP": "500W"
-                },
-                features: [
-                    "Blackwell architecture",
-                    "DLSS 4",
-                    "Ray Tracing 4",
-                    "AV1 encoding",
-                    "Power efficiency"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 73,
-                title: "Microsoft Xbox Series X Pro",
-                category: "gaming",
-                price: 2999,
-                originalPrice: 3499,
-                image: "product_73.1.jpg",
-                image2: "product_73.2.jpg",
-                badge: "new",
-                rating: 4.9,
-                reviews: 89,
-                stock: 6,
-                tags: ["Gaming Console", "4K", "Xbox"],
-                description: "The most powerful Xbox ever.",
-                specifications: {
-                    "CPU": "AMD Zen 4, 12-core",
-                    "GPU": "20 TFLOPs",
-                    "Memory": "24GB GDDR6",
-                    "Storage": "2TB PCIe 5.0 SSD",
-                    "Output": "8K/120Hz, 4K/240Hz"
-                },
-                features: [
-                    "8K gaming capability",
-                    "240Hz support",
-                    "Quick Resume for 10+ games",
-                    "Xbox Velocity Architecture",
-                    "Backward compatibility"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 74,
-                title: "Rolex Daytona Platinum",
-                category: "fashion",
-                price: 89999,
-                originalPrice: 99999,
-                image: "product_74.1.jpg",
-                image2: "product_74.2.jpg",
-                badge: "luxury",
-                rating: 5.0,
-                reviews: 23,
-                stock: 1,
-                tags: ["Watch", "Luxury", "Rolex"],
-                description: "Iconic chronograph in platinum.",
-                specifications: {
-                    "Material": "950 platinum",
-                    "Movement": "Caliber 4130 automatic",
-                    "Crystal": "Sapphire, cyclops",
-                    "Water Resistance": "100m",
-                    "Power Reserve": "72 hours"
-                },
-                features: [
-                    "950 platinum case and bracelet",
-                    "Cerachrom bezel",
-                    "Chronograph function",
-                    "Oysterlock clasp",
-                    "5-year warranty"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 75,
-                title: "Louis Vuitton Keepall 55",
-                category: "fashion",
-                price: 12999,
-                originalPrice: 14999,
-                image: "product_75.1.jpg",
-                image2: "product_75.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 67,
-                stock: 4,
-                tags: ["Bag", "Travel", "Luxury"],
-                description: "Iconic travel bag.",
-                specifications: {
-                    "Material": "Monogram canvas",
-                    "Dimensions": "55x29x22cm",
-                    "Weight": "1.2kg",
-                    "Closure": "Padlock and key",
-                    "Straps": "Leather handles + shoulder strap"
-                },
-                features: [
-                    "Monogram canvas",
-                    "Natural cowhide leather",
-                    "Double zip closure",
-                    "Padlock and keys",
-                    "Shoulder strap included"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 76,
-                title: "Gucci GG Marmont Matelassé",
-                category: "fashion",
-                price: 8999,
-                originalPrice: 10999,
-                image: "product_76.1.jpg",
-                image2: "product_76.2.jpg",
-                badge: "luxury",
-                rating: 4.8,
-                reviews: 145,
-                stock: 7,
-                tags: ["Bag", "Luxury", "Gucci"],
-                description: "Iconic GG Marmont bag.",
-                specifications: {
-                    "Material": "Matelassé leather",
-                    "Dimensions": "26x15x7cm",
-                    "Chain": "Antique gold-tone",
-                    "Closure": "Magnetic GG",
-                    "Weight": "0.8kg"
-                },
-                features: [
-                    "Matelassé chevron pattern",
-                    "Antique gold-tone chain",
-                    "Interlocking GG closure",
-                    "Leather lining",
-                    "Front and back compartments"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 77,
-                title: "Cartier Santos de Cartier",
-                category: "fashion",
-                price: 29999,
-                originalPrice: 34999,
-                image: "product_77.1.jpg",
-                image2: "product_77.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 89,
-                stock: 3,
-                tags: ["Watch", "Luxury", "Cartier"],
-                description: "Iconic square watch.",
-                specifications: {
-                    "Case": "Steel and 18k yellow gold",
-                    "Movement": "Automatic",
-                    "Crystal": "Sapphire",
-                    "Water Resistance": "100m",
-                    "Bracelet": "Interchangeable"
-                },
-                features: [
-                    "Interchangeable bracelet system",
-                    "QuickSwitch system",
-                    "SmartLink adjustment",
-                    "1847 MC movement",
-                    "Square case design"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 78,
-                title: "Prada Re-Nylon Backpack",
-                category: "fashion",
-                price: 4999,
-                originalPrice: 5999,
-                image: "product_78.1.jpg",
-                image2: "product_78.2.jpg",
-                badge: "luxury",
-                rating: 4.7,
-                reviews: 178,
-                stock: 9,
-                tags: ["Backpack", "Luxury", "Prada"],
-                description: "Sustainable luxury backpack.",
-                specifications: {
-                    "Material": "Re-Nylon (recycled)",
-                    "Dimensions": "32x46x16cm",
-                    "Weight": "0.9kg",
-                    "Compartments": "2 main + front pocket",
-                    "Straps": "Adjustable padded"
-                },
-                features: [
-                    "Re-Nylon sustainable material",
-                    "Triangle logo plaque",
-                    "Multiple compartments",
-                    "Padded laptop sleeve",
-                    "Adjustable shoulder straps"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 79,
-                title: "Tesla Model 3 Performance",
-                category: "automotive",
-                price: 189999,
-                originalPrice: 209999,
-                image: "product_79.1.jpg",
-                image2: "product_79.2.jpg",
-                badge: "premium",
-                rating: 4.9,
-                reviews: 45,
-                stock: 3,
-                tags: ["Electric Car", "Tesla", "Performance"],
-                description: "Electric performance sedan.",
-                specifications: {
-                    "Range": "547km",
-                    "0-100km/h": "3.1 seconds",
-                    "Top Speed": "261km/h",
-                    "Power": "460kW dual motor",
-                    "Charging": "250kW Supercharging"
-                },
-                features: [
-                    "Dual Motor All-Wheel Drive",
-                    "Track Mode",
-                    "20\" Überturbine Wheels",
-                    "Performance Brakes",
-                    "Carbon fiber spoiler"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 80,
-                title: "Apple Vision Pro",
-                category: "electronics",
-                price: 14999,
-                originalPrice: 16999,
-                image: "product_80.1.jpg",
-                image2: "product_80.2.jpg",
-                badge: "premium",
-                rating: 4.8,
-                reviews: 89,
-                stock: 5,
-                tags: ["Mixed Reality", "Apple", "Spatial Computing"],
-                description: "Welcome to spatial computing.",
-                specifications: {
-                    "Displays": "Micro-OLED 4K per eye",
-                    "Chip": "M2 + R1",
-                    "Storage": "256GB",
-                    "Sensors": "12 cameras, 5 sensors",
-                    "Audio": "Personalized Spatial Audio"
-                },
-                features: [
-                    "Spatial computing platform",
-                    "Eye tracking",
-                    "Hand gesture control",
-                    "Persona feature",
-                    "Spatial photos and videos"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 81,
-                title: "Samsung The Frame 2024",
-                category: "electronics",
-                price: 6999,
-                originalPrice: 7999,
-                image: "product_81.1.jpg",
-                image2: "product_81.2.jpg",
-                badge: "hot",
-                rating: 4.7,
-                reviews: 234,
-                stock: 12,
-                tags: ["TV", "Art", "Lifestyle"],
-                description: "Art when you're not watching TV.",
-                specifications: {
-                    "Size": "75 inches",
-                    "Resolution": "4K QLED",
-                    "Art Mode": "Over 2000 artworks",
-                    "Matte Display": "Anti-glare",
-                    "Bezel": "Customizable"
-                },
-                features: [
-                    "Art Mode with motion sensor",
-                    "Matte display",
-                    "Customizable bezels",
-                    "Slim Fit wall mount",
-                    "Solar-powered remote"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 82,
-                title: "Peloton Bike+",
-                category: "fitness",
-                price: 8999,
-                originalPrice: 9999,
-                image: "product_82.1.jpg",
-                image2: "product_82.2.jpg",
-                badge: "premium",
-                rating: 4.8,
-                reviews: 345,
-                stock: 8,
-                tags: ["Exercise Bike", "Fitness", "Smart"],
-                description: "The ultimate connected fitness experience.",
-                specifications: {
-                    "Screen": "23.8\" rotating touchscreen",
-                    "Resistance": "Auto-follow",
-                    "Sound": "Front-facing speakers",
-                    "Connectivity": "WiFi, Bluetooth, Apple GymKit",
-                    "Weight Capacity": "136kg"
-                },
-                features: [
-                    "Rotating 23.8\" screen",
-                    "Auto-follow resistance",
-                    "Apple GymKit integration",
-                    "Front-facing speakers",
-                    "All-access membership trial"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 83,
-                title: "Miele Complete C3 Cat & Dog",
-                category: "home",
-                price: 2999,
-                originalPrice: 3499,
-                image: "product_83.1.jpg",
-                image2: "product_83.2.jpg",
-                badge: "premium",
-                rating: 4.9,
-                reviews: 189,
-                stock: 11,
-                tags: ["Vacuum", "Corded", "Premium"],
-                description: "German engineering for pet owners.",
-                specifications: {
-                    "Power": "1200W",
-                    "Filtration": "AirClean + HEPA",
-                    "Accessories": "7 included",
-                    "Cord Length": "10m",
-                    "Warranty": "7 years"
-                },
-                features: [
-                    "SEB 228 Electrobrush",
-                    "AirClean + HEPA filter",
-                    "Dustbag change indicator",
-                    "7 accessories included",
-                    "7-year warranty"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 84,
-                title: "Weber Genesis Smart Grill",
-                category: "home",
-                price: 4999,
-                originalPrice: 5999,
-                image: "product_84.1.jpg",
-                image2: "product_84.2.jpg",
-                badge: "smart",
-                rating: 4.8,
-                reviews: 167,
-                stock: 7,
-                tags: ["Grill", "Smart", "Outdoor"],
-                description: "Smart grilling with WiFi.",
-                specifications: {
-                    "Cooking Area": "690 sq in",
-                    "Burners": "4 main + 1 side",
-                    "Smart Features": "Weber Connect",
-                    "Fuel": "Natural gas or propane",
-                    "Construction": "Stainless steel"
-                },
-                features: [
-                    "Weber Connect technology",
-                    "GS4 grilling system",
-                    "iGrill compatible",
-                    "Flavorizer bars",
-                    "Side burner"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 85,
-                title: "Bang & Olufsen Beosound Theatre",
-                category: "electronics",
-                price: 8999,
-                originalPrice: 9999,
-                image: "product_85.1.jpg",
-                image2: "product_85.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 78,
-                stock: 4,
-                tags: ["Soundbar", "Luxury", "Dolby Atmos"],
-                description: "Cinematic sound redefined.",
-                specifications: {
-                    "Drivers": "12 custom-designed",
-                    "Channels": "7.1.4",
-                    "Power": "800W total",
-                    "Connectivity": "HDMI eARC, AirPlay 2, Chromecast",
-                    "Materials": "Aluminum, oak, wool"
-                },
-                features: [
-                    "Adaptive sound calibration",
-                    "Active Room Compensation",
-                    "Multi-room capability",
-                    "Premium materials",
-                    "Motorized fabric grille"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 86,
-                title: "Leica M11 Monochrom",
-                category: "electronics",
-                price: 12999,
-                originalPrice: 14999,
-                image: "product_86.1.jpg",
-                image2: "product_86.2.jpg",
-                badge: "luxury",
-                rating: 5.0,
-                reviews: 34,
-                stock: 2,
-                tags: ["Camera", "Leica", "Monochrom"],
-                description: "The art of black and white.",
-                specifications: {
-                    "Sensor": "60MP full-frame BSI monochrome",
-                    "Processor": "Maestro III",
-                    "ISO": "125-200000",
-                    "Storage": "256GB internal + SD",
-                    "Viewfinder": "Optical rangefinder"
-                },
-                features: [
-                    "60MP monochrome sensor",
-                    "Triple Resolution Technology",
-                    "Maestro III processor",
-                    "256GB internal storage",
-                    "Optical rangefinder"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 87,
-                title: "Montblanc Meisterstück LeGrand",
-                category: "fashion",
-                price: 1999,
-                originalPrice: 2499,
-                image: "product_87.1.jpg",
-                image2: "product_87.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 189,
-                stock: 9,
-                tags: ["Pen", "Luxury", "Writing"],
-                description: "The art of writing.",
-                specifications: {
-                    "Nib": "18k gold",
-                    "Filling System": "Piston",
-                    "Material": "Precious resin",
-                    "Trim": "Gold-plated",
-                    "Length": "146mm"
-                },
-                features: [
-                    "Handcrafted 18k gold nib",
-                    "Piston filling system",
-                    "Precious resin barrel",
-                    "Gold-plated trim",
-                    "Montblanc emblem"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 88,
-                title: "Vertu Signature Touch",
-                category: "electronics",
-                price: 29999,
-                originalPrice: 34999,
-                image: "product_88.1.jpg",
-                image2: "product_88.2.jpg",
-                badge: "luxury",
-                rating: 4.8,
-                reviews: 45,
-                stock: 3,
-                tags: ["Smartphone", "Luxury", "Concierge"],
-                description: "The ultimate luxury smartphone.",
-                specifications: {
-                    "Display": "5.2\" Full HD",
-                    "Processor": "Snapdragon 865",
-                    "Storage": "512GB",
-                    "Materials": "Titanium, leather, sapphire",
-                    "Concierge": "24/7 red button service"
-                },
-                features: [
-                    "Handcrafted materials",
-                    "24/7 concierge service",
-                    "Sapphire crystal display",
-                    "Premium sound system",
-                    "Private network"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 89,
-                title: "TAG Heuer Carrera Plasma",
-                category: "fashion",
-                price: 49999,
-                originalPrice: 54999,
-                image: "product_89.1.jpg",
-                image2: "product_89.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 23,
-                stock: 1,
-                tags: ["Watch", "Luxury", "Innovation"],
-                description: "Diamonds created in a laboratory.",
-                specifications: {
-                    "Case": "Aluminum + lab-grown diamonds",
-                    "Movement": "Calibre Heuer 02T tourbillon",
-                    "Crystal": "Sapphire",
-                    "Water Resistance": "100m",
-                    "Power Reserve": "65 hours"
-                },
-                features: [
-                    "Lab-grown diamonds",
-                    "Tourbillon movement",
-                    "Skeleton dial",
-                    "Ceramic bezel",
-                    "5-year warranty"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 90,
-                title: "Bowers & Wilkins 800 D4",
-                category: "electronics",
-                price: 59999,
-                originalPrice: 69999,
-                image: "product_90.1.jpg",
-                image2: "product_90.2.jpg",
-                badge: "luxury",
-                rating: 5.0,
-                reviews: 34,
-                stock: 2,
-                tags: ["Speakers", "Hi-Fi", "Luxury"],
-                description: "Reference-class loudspeakers.",
-                specifications: {
-                    "Type": "Floor-standing",
-                    "Drivers": "Diamond dome tweeter, Continuum cone",
-                    "Frequency": "15Hz - 35kHz",
-                    "Power": "500W recommended",
-                    "Weight": "99kg each"
-                },
-                features: [
-                    "Diamond dome tweeter",
-                    "Continuum cone midrange",
-                    "Decoupled double dome",
-                    "Solid body tweeter housing",
-                    "Optimized matrix bracing"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 91,
-                title: "Sub-Zero 48\" Built-in Refrigerator",
-                category: "home",
-                price: 29999,
-                originalPrice: 34999,
-                image: "product_91.1.jpg",
-                image2: "product_91.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 67,
-                stock: 4,
-                tags: ["Refrigerator", "Luxury", "Built-in"],
-                description: "Professional-grade refrigeration.",
-                specifications: {
-                    "Capacity": "48 cubic feet",
-                    "Doors": "4 French doors",
-                    "Technology": "Dual refrigeration",
-                    "Water Filtration": "Advanced",
-                    "Warranty": "12 years"
-                },
-                features: [
-                    "Dual refrigeration system",
-                    "Advanced air purification",
-                    "LED lighting",
-                    "Touch controls",
-                    "Stainless steel interior"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 92,
-                title: "Miele MasterCool Built-in Coffee",
-                category: "home",
-                price: 8999,
-                originalPrice: 10999,
-                image: "product_92.1.jpg",
-                image2: "product_92.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 89,
-                stock: 6,
-                tags: ["Coffee Machine", "Built-in", "Luxury"],
-                description: "Professional coffee at home.",
-                specifications: {
-                    "Bean Capacity": "500g",
-                    "Water Tank": "2.5L",
-                    "Pressure": "15 bar",
-                    "Milk System": "Automatic",
-                    "Cleaning": "Automatic"
-                },
-                features: [
-                    "Bean to cup system",
-                    "Automatic milk system",
-                    "Touch display",
-                    "WiFi connectivity",
-                    "Automatic cleaning"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 93,
-                title: "Gaggenau 400 Series Oven",
-                category: "home",
-                price: 12999,
-                originalPrice: 14999,
-                image: "product_93.1.jpg",
-                image2: "product_93.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 78,
-                stock: 5,
-                tags: ["Oven", "Built-in", "Luxury"],
-                description: "Professional cooking at home.",
-                specifications: {
-                    "Capacity": "67 liters",
-                    "Functions": "12 heating functions",
-                    "Temperature": "30-300°C",
-                    "Cleaning": "Pyrolytic",
-                    "Control": "Touch display"
-                },
-                features: [
-                    "Pyrolytic self-cleaning",
-                    "PerfectBake sensor",
-                    "Meat probe",
-                    "Touch display",
-                    "Cooling fan"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 94,
-                title: "Thermador Freedom Collection",
-                category: "home",
-                price: 19999,
-                originalPrice: 23999,
-                image: "product_94.1.jpg",
-                image2: "product_94.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 56,
-                stock: 3,
-                tags: ["Cooktop", "Induction", "Luxury"],
-                description: "Cook anywhere induction.",
-                specifications: {
-                    "Size": "36 inches",
-                    "Zones": "Freedom zone",
-                    "Power": "3700W max",
-                    "Control": "Touch slider",
-                    "Safety": "Automatic shut-off"
-                },
-                features: [
-                    "Freedom induction zone",
-                    "Power Boost",
-                    "Touch slider controls",
-                    "Auto-sizing elements",
-                    "Pan detection"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 95,
-                title: "La Cornue Château Series",
-                category: "home",
-                price: 49999,
-                originalPrice: 59999,
-                image: "product_95.1.jpg",
-                image2: "product_95.2.jpg",
-                badge: "luxury",
-                rating: 5.0,
-                reviews: 23,
-                stock: 2,
-                tags: ["Range", "Professional", "Luxury"],
-                description: "Handcrafted French range.",
-                specifications: {
-                    "Fuel": "Gas cooktop, electric oven",
-                    "Ovens": "2 (convection + steam)",
-                    "Burners": "5 including wok",
-                    "Materials": "Stainless steel, brass, copper",
-                    "Customization": "Full customization"
-                },
-                features: [
-                    "Handcrafted in France",
-                    "Dual fuel",
-                    "Steam oven",
-                    "Customizable colors",
-                    "Professional performance"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 96,
-                title: "Perlick Residential Bar System",
-                category: "home",
-                price: 15999,
-                originalPrice: 19999,
-                image: "product_96.1.jpg",
-                image2: "product_96.2.jpg",
-                badge: "luxury",
-                rating: 4.9,
-                reviews: 45,
-                stock: 4,
-                tags: ["Bar", "Entertainment", "Luxury"],
-                description: "Professional bar at home.",
-                specifications: {
-                    "Components": "Undercounter fridge, ice maker, wine cooler",
-                    "Finish": "Stainless steel",
-                    "Capacity": "Multiple zones",
-                    "Controls": "Digital",
-                    "Lighting": "LED"
-                },
-                features: [
-                    "Commercial-grade components",
-                    "Stainless steel finish",
-                    "Digital controls",
-                    "LED lighting",
-                    "Custom configuration"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 97,
-                title: "Smeg 50s Style Refrigerator",
-                category: "home",
-                price: 8999,
-                originalPrice: 10999,
-                image: "product_97.1.jpg",
-                image2: "product_97.2.jpg",
-                badge: "retro",
-                rating: 4.8,
-                reviews: 234,
-                stock: 8,
-                tags: ["Refrigerator", "Retro", "Design"],
-                description: "Iconic 50s style with modern technology.",
-                specifications: {
-                    "Capacity": "411 liters",
-                    "Color": "Pastel blue",
-                    "Energy Rating": "A++",
-                    "Features": "Fast freeze, holiday mode",
-                    "Interior": "LED lighting"
-                },
-                features: [
-                    "Iconic 50s design",
-                    "Pastel color options",
-                    "Energy efficient",
-                    "LED interior lighting",
-                    "Adjustable shelves"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 98,
-                title: "Dyson Airwrap Complete",
-                category: "beauty",
-                price: 2999,
-                originalPrice: 3499,
-                image: "product_98.1.jpg",
-                image2: "product_98.2.jpg",
-                badge: "hot",
-                rating: 4.7,
-                reviews: 456,
-                stock: 15,
-                tags: ["Hair Styler", "Beauty", "Premium"],
-                description: "Style with air, not extreme heat.",
-                specifications: {
-                    "Attachments": "6 styling barrels",
-                    "Technology": "Coanda effect",
-                    "Heat Settings": "3",
-                    "Air Speed": "4",
-                    "Weight": "0.8kg"
-                },
-                features: [
-                    "Styles with air, not extreme heat",
-                    "Coanda effect technology",
-                    "6 styling attachments",
-                    "Heat control technology",
-                    "Magnetic attachments"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 99,
-                title: "Samsung 85\" QLED 4K Smart TV",
-                category: "electronics",
-                price: 8999,
-                originalPrice: 10999,
-                image: "product_99.1.jpg",
-                image2: "product_99.2.jpg",
-                badge: "hot",
-                rating: 4.8,
-                reviews: 189,
-                stock: 6,
-                tags: ["TV", "QLED", "4K", "Smart"],
-                description: "Immerse yourself in cinematic 4K entertainment.",
-                specifications: {
-                    "Screen Size": "85 inches",
-                    "Resolution": "4K UHD (3840x2160)",
-                    "Display Technology": "QLED",
-                    "Smart Platform": "Tizen OS",
-                    "HDR": "HDR10+, HLG",
-                    "Refresh Rate": "120Hz",
-                    "Audio": "60W, 4.2.2CH",
-                    "Connectivity": "4x HDMI, 3x USB, WiFi 6"
-                },
-                features: [
-                    "Quantum Dot Technology",
-                    "Object Tracking Sound+",
-                    "Quantum Processor 4K",
-                    "Gaming Hub with Cloud Gaming",
-                    "Alexa & Google Assistant Built-in"
-                ],
-                reviewsList: []
-            },
-            {
-                id: 100,
-                title: "Apple iPhone 16 Pro 256GB",
-                category: "electronics",
-                price: 5699,
-                originalPrice: 6199,
-                image: "product_100.1.jpg",
-                image2: "product_100.2.jpg",
-                badge: "new",
-                rating: 4.9,
-                reviews: 123,
-                stock: 10,
-                tags: ["Smartphone", "Apple", "5G"],
-                description: "Next-generation iPhone with A18 Pro chip.",
-                specifications: {
-                    "Display": "6.3\" Super Retina XDR",
-                    "Chip": "A18 Pro",
-                    "Storage": "256GB",
-                    "Camera": "48MP + 12MP + 12MP",
-                    "Battery": "28 hours video",
-                    "Features": "Always-On Display, Dynamic Island"
-                },
-                features: [
-                    "A18 Pro chip",
-                    "Titanium design",
-                    "Advanced camera system",
-                    "Action button",
-                    "USB-C 3.2"
-                ],
-                reviewsList: []
+                user: "WorkingPro",
+                rating: 5,
+                date: "2024-02-10",
+                comment: "Perfect balance of performance and price.",
+                verified: true
             }
-        ];
-
+        ]
+    },
+    {
+        id: 2,
+        title: "Funny Cartoon Cute Cat Stickers (50-Pack)",
+        category: "stationery",
+        price: 12,
+        originalPrice: 15,
+        image: "product_2.1.jpg",
+        image2: "product_2.2.jpg",
+        badge: "trending",
+        rating: 4.7,
+        reviews: 89,
+        stock: 50,
+        tags: ["Stickers", "Cute", "Decorative", "Fun"],
+        description: "50-piece set of adorable cartoon cat stickers for various surfaces.",
+        longDescription: "This 50-piece sticker set features cute cartoon cat designs that are perfect for decorating laptops, phones, bicycles, luggage, and more. Made from durable vinyl material that resists water and fading.",
+        specifications: {
+            "Quantity": "50 pieces",
+            "Material": "Waterproof vinyl",
+            "Size": "Various sizes 2-5cm",
+            "Type": "Removable stickers",
+            "Surface": "Multiple surfaces compatible"
+        },
+        features: [
+            "50 different cat designs",
+            "Waterproof and fade-resistant",
+            "Easy to apply and remove",
+            "Perfect for personalization",
+            "Great gift for cat lovers"
+        ],
+        reviewsList: [
+            {
+                id: 1,
+                user: "CatLover99",
+                rating: 5,
+                date: "2024-02-18",
+                comment: "So cute! Stuck them all over my laptop.",
+                verified: true
+            }
+        ]
+    },
+    {
+        id: 3,
+        title: "Matte Magnetic Case for iPhone (Magsafe)",
+        category: "electronics",
+        price: 25,
+        originalPrice: 35,
+        image: "product_3.1.jpg",
+        image2: "product_3.2.jpg",
+        badge: "new",
+        rating: 4.5,
+        reviews: 234,
+        stock: 40,
+        tags: ["Phone Case", "iPhone", "Magsafe", "Shockproof"],
+        description: "Premium matte transparent magnetic case compatible with Magsafe.",
+        longDescription: "This premium matte transparent case features built-in magnets for Magsafe compatibility, allowing for perfect alignment with wireless chargers. The shockproof design provides military-grade protection while maintaining a slim profile.",
+        specifications: {
+            "Compatibility": "iPhone 12-16 Pro/Max models",
+            "Material": "Premium TPU + PC",
+            "Magsafe": "Built-in magnet array",
+            "Protection": "Military-grade drop protection",
+            "Features": "Wireless charging compatible"
+        },
+        features: [
+            "Perfect Magsafe alignment",
+            "Matte anti-fingerprint finish",
+            "Shockproof and scratch-resistant",
+            "Transparent design shows phone color",
+            "Raised edges for screen protection"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 4,
+        title: "Large Non-Slip Mouse Pad (Office/Gaming)",
+        category: "office",
+        price: 18,
+        originalPrice: 25,
+        image: "product_4.1.jpg",
+        image2: "product_4.2.jpg",
+        badge: "best seller",
+        rating: 4.6,
+        reviews: 167,
+        stock: 35,
+        tags: ["Mouse Pad", "Office", "Gaming", "Non-Slip"],
+        description: "Extra-large mouse pad with non-slip rubber base for work and gaming.",
+        longDescription: "This oversized mouse pad provides ample space for both mouse movement and keyboard placement. The non-slip rubber base keeps it firmly in place, while the smooth surface ensures precise cursor control for gaming and work tasks.",
+        specifications: {
+            "Size": "800x300x3mm",
+            "Material": "High-density fabric + rubber base",
+            "Surface": "Smooth tracking surface",
+            "Base": "Non-slip rubber",
+            "Care": "Machine washable"
+        },
+        features: [
+            "Extra-large size (80x30cm)",
+            "Non-slip rubber base",
+            "Smooth tracking surface",
+            "Machine washable",
+            "Water-resistant coating"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 5,
+        title: "Razer Deathadder Viper Wired Gaming Mouse",
+        category: "electronics",
+        price: 45,
+        originalPrice: 60,
+        image: "product_5.1.jpg",
+        image2: "product_5.2.jpg",
+        badge: "hot",
+        rating: 4.8,
+        reviews: 321,
+        stock: 20,
+        tags: ["Gaming Mouse", "Wired", "Esports", "Razer"],
+        description: "Wired gaming mouse with 6400 DPI for esports and competitive gaming.",
+        longDescription: "The Razer Deathadder Viper features a 6400 DPI optical sensor for precise tracking and quick response times. Designed for esports, it offers ergonomic comfort for long gaming sessions with durable mechanical switches rated for 50 million clicks.",
+        specifications: {
+            "Sensor": "Optical, 6400 DPI",
+            "Polling Rate": "1000Hz",
+            "Buttons": "5 programmable",
+            "Cable": "Braided, 2.1m",
+            "Weight": "96g",
+            "Switches": "Mechanical (50M clicks)"
+        },
+        features: [
+            "6400 DPI optical sensor",
+            "Ergonomic right-handed design",
+            "Mechanical switches",
+            "Razer Chroma RGB lighting",
+            "On-board memory for profiles"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 6,
+        title: "3D Printed LED Moon Lamp Night Light",
+        category: "home",
+        price: 35,
+        originalPrice: 50,
+        image: "product_6.1.jpg",
+        image2: "product_6.2.jpg",
+        badge: "trending",
+        rating: 4.7,
+        reviews: 189,
+        stock: 25,
+        tags: ["Night Light", "Decoration", "LED", "Moon Lamp"],
+        description: "3D printed rechargeable LED moon lamp with touch controls.",
+        longDescription: "This realistic 3D printed moon lamp features accurate lunar surface details based on NASA imagery. With rechargeable battery and touch controls, it offers 16 color options and adjustable brightness levels. Perfect for bedroom decoration or as a unique gift.",
+        specifications: {
+            "Diameter": "15cm (6 inches)",
+            "Light Source": "LED",
+            "Colors": "16 color options",
+            "Power": "Rechargeable 2000mAh battery",
+            "Control": "Touch sensor",
+            "Material": "3D printed PLA"
+        },
+        features: [
+            "NASA imagery accuracy",
+            "Touch control with 16 colors",
+            "Adjustable brightness",
+            "Rechargeable battery (8-10 hours)",
+            "Warm white to colorful lighting"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 7,
+        title: "Oneodio Pro 30 Studio DJ Headphones",
+        category: "electronics",
+        price: 55,
+        originalPrice: 80,
+        image: "product_7.1.jpg",
+        image2: "product_7.2.jpg",
+        badge: "new",
+        rating: 4.4,
+        reviews: 278,
+        stock: 30,
+        tags: ["Headphones", "Studio", "DJ", "Foldable"],
+        description: "Professional studio DJ headphones with microphone and foldable design.",
+        longDescription: "The Oneodio Pro 30 features 50mm drivers for studio-quality sound reproduction. The over-ear design provides excellent noise isolation, while the built-in microphone and foldable construction make it versatile for both professional and gaming use.",
+        specifications: {
+            "Driver": "50mm dynamic",
+            "Frequency": "20Hz-20kHz",
+            "Impedance": "32Ω",
+            "Microphone": "Built-in with volume control",
+            "Cable": "Detachable 3.5mm",
+            "Foldable": "Yes"
+        },
+        features: [
+            "Studio monitor sound quality",
+            "Built-in microphone with controls",
+            "Foldable for portability",
+            "Comfortable memory foam ear pads",
+            "Dual 3.5mm inputs for daisy chaining"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 8,
+        title: "Smartwatch with Heart Rate Monitor (Y68)",
+        category: "electronics",
+        price: 40,
+        originalPrice: 60,
+        image: "product_8.1.jpg",
+        image2: "product_8.2.jpg",
+        badge: "best seller",
+        rating: 4.2,
+        reviews: 456,
+        stock: 45,
+        tags: ["Smartwatch", "Fitness", "Health", "Tracker"],
+        description: "Unisex smartwatch with heart rate monitoring and fitness tracking.",
+        longDescription: "The Y68 smartwatch offers comprehensive health monitoring including heart rate, sleep tracking, and multiple sports modes. With music control, notifications, and long battery life, it's a versatile companion for daily activities and workouts.",
+        specifications: {
+            "Display": "1.69\" IPS touchscreen",
+            "Battery": "210mAh (7-10 days)",
+            "Sensors": "Heart rate, sleep, pedometer",
+            "Waterproof": "IP68",
+            "Connectivity": "Bluetooth 5.0",
+            "Compatibility": "iOS & Android"
+        },
+        features: [
+            "24/7 heart rate monitoring",
+            "Sleep tracking and analysis",
+            "Multiple sports modes",
+            "Smart notifications",
+            "Music and camera control"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 9,
+        title: "RGB LED Strip Lights (APP Controlled)",
+        category: "home",
+        price: 25,
+        originalPrice: 40,
+        image: "product_9.1.jpg",
+        image2: "product_9.2.jpg",
+        badge: "hot",
+        rating: 4.5,
+        reviews: 389,
+        stock: 50,
+        tags: ["LED Lights", "Smart Home", "RGB", "Room Decor"],
+        description: "APP-controlled RGB LED strip lights with multiple lighting effects.",
+        longDescription: "These flexible LED strip lights feature 16 million colors and multiple dynamic effects controllable via smartphone app. With voice control compatibility (Alexa/Google Assistant) and timing functions, they're perfect for bedroom decoration and ambiance creation.",
+        specifications: {
+            "Length": "5m (16.4ft)",
+            "LEDs": "300 LEDs (60/m)",
+            "Colors": "16 million RGB",
+            "Control": "APP + Remote + Voice",
+            "Power": "24W, USB or DC",
+            "Connectivity": "2.4GHz WiFi"
+        },
+        features: [
+            "APP control with scheduling",
+            "Voice control (Alexa/Google)",
+            "Multiple dynamic effects",
+            "Music sync mode",
+            "Timer and memory functions"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 10,
+        title: "50 kg Handheld Luggage Scale",
+        category: "travel",
+        price: 15,
+        originalPrice: 25,
+        image: "product_10.1.jpg",
+        image2: "product_10.2.jpg",
+        badge: "travel essential",
+        rating: 4.6,
+        reviews: 234,
+        stock: 60,
+        tags: ["Luggage Scale", "Travel", "Digital", "Portable"],
+        description: "Digital handheld luggage scale with 50kg capacity for travel.",
+        longDescription: "This compact digital luggage scale features a 50kg (110lb) capacity with high accuracy (±0.1kg). The backlit LCD display shows weight in kg/lb, and the auto-off function conserves battery. Perfect for avoiding overweight baggage fees.",
+        specifications: {
+            "Capacity": "50kg / 110lb",
+            "Accuracy": "±0.1kg / 0.2lb",
+            "Units": "kg/lb switchable",
+            "Power": "2x AAA batteries",
+            "Display": "Backlit LCD",
+            "Hook": "Stainless steel"
+        },
+        features: [
+            "High accuracy (±0.1kg)",
+            "Backlit LCD display",
+            "Auto-zero and auto-off",
+            "Compact and lightweight",
+            "Tare function for bag weight"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 11,
+        title: "Universal Stylus for Android/iOS Tablets",
+        category: "electronics",
+        price: 12,
+        originalPrice: 20,
+        image: "product_11.1.jpg",
+        image2: "product_11.2.jpg",
+        badge: "new",
+        rating: 4.3,
+        reviews: 167,
+        stock: 40,
+        tags: ["Stylus", "Tablet", "Universal", "Screen Pen"],
+        description: "Universal capacitive stylus compatible with all touchscreen devices.",
+        longDescription: "This universal stylus features a fine 1.5mm tip for precise writing and drawing on any capacitive touchscreen. Compatible with iPad, Android tablets, Samsung, Huawei, and Xiaomi devices. The pen-like design ensures comfortable use.",
+        specifications: {
+            "Tip": "1.5mm fine conductive fiber",
+            "Compatibility": "All capacitive screens",
+            "Battery": "No battery required",
+            "Design": "Pen-style with pocket clip",
+            "Length": "14.5cm"
+        },
+        features: [
+            "Universal compatibility",
+            "Fine 1.5mm tip for precision",
+            "No battery or pairing needed",
+            "Palm rejection technology",
+            "Pocket clip for portability"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 12,
+        title: "8-in-1 USB-C Hub with SD Card Reader",
+        category: "electronics",
+        price: 30,
+        originalPrice: 45,
+        image: "product_12.1.jpg",
+        image2: "product_12.2.jpg",
+        badge: "hot",
+        rating: 4.5,
+        reviews: 278,
+        stock: 35,
+        tags: ["USB Hub", "Adapter", "Docking Station", "Multi-port"],
+        description: "8-in-1 USB-C hub with multiple ports for laptop expansion.",
+        longDescription: "Expand your laptop's connectivity with this 8-in-1 USB-C hub featuring USB 3.0 ports, HDMI output, SD/microSD card readers, and a 3.5mm audio jack. Perfect for connecting multiple peripherals to modern laptops with limited ports.",
+        specifications: {
+            "Ports": "3x USB 3.0, HDMI, USB-C PD, SD/TF, Audio",
+            "HDMI": "4K@30Hz",
+            "USB 3.0": "5Gbps data transfer",
+            "Card Reader": "SD/TF up to 2TB",
+            "Power": "100W PD pass-through"
+        },
+        features: [
+            "HDMI 4K output",
+            "Fast data transfer (5Gbps)",
+            "100W power delivery",
+            "Plug and play, no drivers",
+            "Compact aluminum design"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 13,
+        title: "Women's Toiletry & Makeup Travel Bag",
+        category: "beauty",
+        price: 28,
+        originalPrice: 40,
+        image: "product_13.1.jpg",
+        image2: "product_13.2.jpg",
+        badge: "travel essential",
+        rating: 4.7,
+        reviews: 189,
+        stock: 30,
+        tags: ["Makeup Bag", "Travel", "Organizer", "Waterproof"],
+        description: "Luxury toiletry bag with multiple compartments for travel organization.",
+        longDescription: "This premium toiletry bag features water-resistant interior lining and multiple compartments for organized storage of makeup, skincare, and travel essentials. The luxurious design includes a sturdy zipper and convenient hanging hook.",
+        specifications: {
+            "Material": "Water-resistant polyester",
+            "Size": "23x15x15cm",
+            "Compartments": "Main + multiple pockets",
+            "Features": "Hanging hook, waterproof lining",
+            "Color": "Various luxury colors"
+        },
+        features: [
+            "Water-resistant interior lining",
+            "Multiple compartments for organization",
+            "Hanging hook for convenience",
+            "Sturdy zipper with puller",
+            "Easy to clean"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 14,
+        title: "58mm Mini Bluetooth Thermal Printer",
+        category: "electronics",
+        price: 45,
+        originalPrice: 65,
+        image: "product_14.1.jpg",
+        image2: "product_14.2.jpg",
+        badge: "new",
+        rating: 4.4,
+        reviews: 156,
+        stock: 25,
+        tags: ["Printer", "Thermal", "Bluetooth", "Portable"],
+        description: "Portable thermal printer for memos, labels, and stickers.",
+        longDescription: "This compact thermal printer connects via Bluetooth to iOS and Android devices, allowing you to print memos, labels, shopping lists, and more. No ink required - uses thermal paper for clean, instant printing anywhere.",
+        specifications: {
+            "Print Technology": "Thermal",
+            "Paper Width": "57-58mm",
+            "Connectivity": "Bluetooth 5.0",
+            "Battery": "1000mAh rechargeable",
+            "App": "Custom app for iOS/Android"
+        },
+        features: [
+            "No ink required (thermal printing)",
+            "Bluetooth connectivity",
+            "Portable and rechargeable",
+            "Customizable templates",
+            "Memo, label, and list printing"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 15,
+        title: "GAMINJA R36S Handheld Game Console",
+        category: "gaming",
+        price: 65,
+        originalPrice: 90,
+        image: "product_15.1.jpg",
+        image2: "product_15.2.jpg",
+        badge: "hot",
+        rating: 4.6,
+        reviews: 89,
+        stock: 20,
+        tags: ["Game Console", "Handheld", "Retro", "Portable"],
+        description: "Handheld retro game console with 3.5-inch IPS screen and 64GB memory.",
+        longDescription: "The GAMINJA R36S features a 3.5-inch IPS display with 640x480 resolution and comes with 64GB built-in storage preloaded with classic games. The portable design makes it perfect for gaming on the go.",
+        specifications: {
+            "Display": "3.5\" IPS (640x480)",
+            "Storage": "64GB built-in",
+            "Games": "Preloaded classic games",
+            "Battery": "3000mAh rechargeable",
+            "Connectivity": "USB-C, TF card slot"
+        },
+        features: [
+            "3.5-inch IPS display",
+            "64GB storage with classic games",
+            "Portable handheld design",
+            "Rechargeable battery",
+            "Supports external storage"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 16,
+        title: "Lint-Free Microfiber Cleaning Cloths",
+        category: "home",
+        price: 15,
+        originalPrice: 25,
+        image: "product_16.1.jpg",
+        image2: "product_16.2.jpg",
+        badge: "best seller",
+        rating: 4.8,
+        reviews: 456,
+        stock: 100,
+        tags: ["Cleaning", "Microfiber", "Reusable", "High Absorbency"],
+        description: "Premium microfiber cleaning cloths for streak-free cleaning.",
+        longDescription: "These lint-free microfiber cloths feature high absorbency and streak-free cleaning for various surfaces including car windows, glasses, screens, and household items. Reusable and machine washable for eco-friendly cleaning.",
+        specifications: {
+            "Material": "Premium microfiber",
+            "Size": "30x30cm",
+            "Pack": "10 pieces",
+            "Features": "Lint-free, high absorbency",
+            "Care": "Machine washable"
+        },
+        features: [
+            "Streak-free cleaning",
+            "High absorbency",
+            "Lint-free material",
+            "Reusable and washable",
+            "Safe for all surfaces"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 17,
+        title: "Magic Cleaning Sponge (Double-Sided)",
+        category: "home",
+        price: 8,
+        originalPrice: 15,
+        image: "product_17.1.jpg",
+        image2: "product_17.2.jpg",
+        badge: "trending",
+        rating: 4.5,
+        reviews: 278,
+        stock: 50,
+        tags: ["Cleaning", "Sponge", "Kitchen", "Grease Cleaner"],
+        description: "Double-sided sponge for tough grease and rust cleaning.",
+        longDescription: "This double-sided magic sponge features a highly absorbent side for general cleaning and a rust-cutting abrasive side for tough stains. Perfect for kitchen grease, bathroom stains, and various household cleaning tasks.",
+        specifications: {
+            "Material": "Melamine foam + abrasive",
+            "Size": "10x6x2cm",
+            "Type": "Double-sided",
+            "Use": "Kitchen, bathroom, household"
+        },
+        features: [
+            "Double-sided design",
+            "Absorbs grease and stains",
+            "Rust and stain removal",
+            "Long-lasting",
+            "Chemical-free cleaning"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 18,
+        title: "Akko MonsGeek FUN60 Mechanical Keyboard",
+        category: "electronics",
+        price: 85,
+        originalPrice: 120,
+        image: "product_18.1.jpg",
+        image2: "product_18.2.jpg",
+        badge: "new",
+        rating: 4.7,
+        reviews: 134,
+        stock: 25,
+        tags: ["Mechanical Keyboard", "Gaming", "Custom", "RGB"],
+        description: "60% mechanical keyboard with magnetic switches and ARGB lighting.",
+        longDescription: "The Akko MonsGeek FUN60 features hot-swappable magnetic switches, 60% compact layout, and per-key ARGB lighting. With 0.01mm response time and 8KHz polling rate, it's designed for gaming and typing enthusiasts.",
+        specifications: {
+            "Layout": "60% compact",
+            "Switches": "Hot-swappable magnetic",
+            "Polling Rate": "8000Hz",
+            "Response": "0.01ms",
+            "Lighting": "Per-key ARGB",
+            "Material": "Aluminum frame"
+        },
+        features: [
+            "Hot-swappable magnetic switches",
+            "60% space-saving layout",
+            "Per-key ARGB lighting",
+            "8KHz polling rate",
+            "Customizable via software"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 19,
+        title: "Magnetic Car Phone Holder (Suction Cup)",
+        category: "automotive",
+        price: 18,
+        originalPrice: 30,
+        image: "product_19.1.jpg",
+        image2: "product_19.2.jpg",
+        badge: "best seller",
+        rating: 4.6,
+        reviews: 389,
+        stock: 40,
+        tags: ["Car Accessory", "Phone Holder", "Magnetic", "Suction"],
+        description: "Foldable vacuum adsorption magnetic phone holder for cars.",
+        longDescription: "This car phone holder features strong vacuum suction cup for windshield or dashboard mounting and powerful magnets for secure phone attachment. The foldable design makes it portable and easy to store.",
+        specifications: {
+            "Mounting": "Vacuum suction + dashboard pad",
+            "Magnet": "Strong N52 magnets",
+            "Adjustment": "360° rotation",
+            "Compatibility": "All phones with/without case",
+            "Foldable": "Yes"
+        },
+        features: [
+            "Strong vacuum suction",
+            "Powerful magnetic hold",
+            "360° adjustable viewing angle",
+            "One-hand operation",
+            "Foldable for portability"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 20,
+        title: "T&G TG117 Portable Bluetooth Speaker",
+        category: "electronics",
+        price: 35,
+        originalPrice: 50,
+        image: "product_20.1.jpg",
+        image2: "product_20.2.jpg",
+        badge: "trending",
+        rating: 4.4,
+        reviews: 234,
+        stock: 30,
+        tags: ["Bluetooth Speaker", "Portable", "Outdoor", "FM Radio"],
+        description: "Portable Bluetooth speaker with FM radio and hands-free calling.",
+        longDescription: "The T&G TG117 offers wireless Bluetooth connectivity, FM radio, TF card playback, and hands-free calling. With 10W output and rechargeable battery, it's perfect for outdoor activities, parties, and home use.",
+        specifications: {
+            "Power": "10W RMS",
+            "Battery": "2000mAh (8-10 hours)",
+            "Connectivity": "Bluetooth 5.0, AUX, TF, USB",
+            "Features": "FM radio, hands-free calling",
+            "Waterproof": "IPX5"
+        },
+        features: [
+            "Bluetooth 5.0 with 15m range",
+            "FM radio with memory presets",
+            "Hands-free calling",
+            "TF card and USB playback",
+            "IPX5 water resistance"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 21,
+        title: "Baseus 10000mAh PD Power Bank",
+        category: "electronics",
+        price: 30,
+        originalPrice: 45,
+        image: "product_21.1.jpg",
+        image2: "product_21.2.jpg",
+        badge: "hot",
+        rating: 4.7,
+        reviews: 567,
+        stock: 35,
+        tags: ["Power Bank", "Portable Charger", "Fast Charging", "PD"],
+        description: "10000mAh power bank with 22.5W PD fast charging for multiple devices.",
+        longDescription: "This compact power bank features 22.5W Power Delivery fast charging for quick device charging. With multiple output ports and smart safety features, it can charge phones, tablets, and other USB devices.",
+        specifications: {
+            "Capacity": "10000mAh",
+            "Output": "22.5W PD + 18W QC",
+            "Ports": "USB-C + USB-A",
+            "Input": "USB-C 18W",
+            "Weight": "220g",
+            "Safety": "Multiple protections"
+        },
+        features: [
+            "22.5W Power Delivery fast charging",
+            "Compact and portable design",
+            "Multiple device charging",
+            "Smart safety protection",
+            "LED power indicator"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 22,
+        title: "12-Color Matte Lip Liner Set",
+        category: "beauty",
+        price: 25,
+        originalPrice: 40,
+        image: "product_22.1.jpg",
+        image2: "product_22.2.jpg",
+        badge: "new",
+        rating: 4.6,
+        reviews: 189,
+        stock: 40,
+        tags: ["Makeup", "Lip Liner", "Matte", "Waterproof"],
+        description: "Professional 12-color dual-ended lip liner and lipstick set.",
+        longDescription: "This professional lip liner set includes 12 matte colors with dual-ended design (liner on one end, lipstick on the other). Features high color payoff, waterproof formula, and long-lasting wear for all-day perfection.",
+        specifications: {
+            "Colors": "12 matte shades",
+            "Design": "Dual-ended (liner + lipstick)",
+            "Finish": "Matte",
+            "Longevity": "Waterproof, sweatproof",
+            "Skin Safe": "Hypoallergenic"
+        },
+        features: [
+            "12 versatile matte shades",
+            "Dual-ended for convenience",
+            "Long-lasting waterproof formula",
+            "High color payoff",
+            "Precision application"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 23,
+        title: "Ourlife MTR40 5K Action Camera",
+        category: "electronics",
+        price: 120,
+        originalPrice: 180,
+        image: "product_23.1.jpg",
+        image2: "product_23.2.jpg",
+        badge: "hot",
+        rating: 4.5,
+        reviews: 156,
+        stock: 20,
+        tags: ["Action Camera", "Waterproof", "Sports", "5K"],
+        description: "5K action camera with waterproof housing and WiFi connectivity.",
+        longDescription: "The Ourlife MTR40 captures 5K video and 20MP photos with a 170° wide-angle lens. With 2.0-inch touchscreen, WiFi connectivity, EIS stabilization, and waterproof up to 30m, it's perfect for sports and adventure recording.",
+        specifications: {
+            "Video": "5K@30fps, 4K@60fps",
+            "Photo": "20MP",
+            "Screen": "2.0\" IPS touchscreen",
+            "Waterproof": "30m with housing",
+            "Features": "WiFi, EIS, 5x zoom"
+        },
+        features: [
+            "5K video recording",
+            "2.0-inch touchscreen",
+            "Electronic Image Stabilization",
+            "WiFi remote control via app",
+            "Waterproof up to 30m"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 24,
+        title: "UR Sugar Silver Gel Nail Polish",
+        category: "beauty",
+        price: 15,
+        originalPrice: 25,
+        image: "product_24.1.jpg",
+        image2: "product_24.2.jpg",
+        badge: "trending",
+        rating: 4.7,
+        reviews: 278,
+        stock: 50,
+        tags: ["Nail Polish", "Gel", "Sparkle", "UV Gel"],
+        description: "Silver reflective glitter gel nail polish with sparkle effect.",
+        longDescription: "This semi-permanent UV gel nail polish features silver reflective glitter particles for a dazzling sparkle effect. Soak-off formula with high shine finish that lasts for weeks with proper application and curing.",
+        specifications: {
+            "Color": "Silver reflective glitter",
+            "Type": "Semi-permanent UV gel",
+            "Size": "15ml bottle",
+            "Finish": "High shine sparkle",
+            "Curing": "UV/LED lamp required"
+        },
+        features: [
+            "Silver reflective glitter particles",
+            "High shine sparkle effect",
+            "Semi-permanent, soak-off formula",
+            "Long-lasting wear",
+            "Professional salon results"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 25,
+        title: "Mixed Beige Hair Clips (20-Pack)",
+        category: "fashion",
+        price: 10,
+        originalPrice: 18,
+        image: "product_25.1.jpg",
+        image2: "product_25.2.jpg",
+        badge: "new",
+        rating: 4.6,
+        reviews: 189,
+        stock: 60,
+        tags: ["Hair Accessories", "Clips", "Beige", "Cute"],
+        description: "20-piece set of small mixed beige hair clips for everyday styling.",
+        longDescription: "This set includes 20 small beige hair clips in various designs, perfect for everyday use, special occasions, or as travel gifts. The neutral beige color complements all hair colors and styles.",
+        specifications: {
+            "Quantity": "20 pieces",
+            "Color": "Mixed beige tones",
+            "Size": "Small (3-5cm)",
+            "Material": "Metal with enamel/coating",
+            "Types": "Various designs included"
+        },
+        features: [
+            "20 different beige clips",
+            "Versatile for all hair types",
+            "Perfect for everyday use",
+            "Great gift packaging",
+            "Neutral color matches everything"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 26,
+        title: "Solar-Powered Outdoor Garden Lights",
+        category: "home",
+        price: 35,
+        originalPrice: 55,
+        image: "product_26.1.jpg",
+        image2: "product_26.2.jpg",
+        badge: "hot",
+        rating: 4.5,
+        reviews: 234,
+        stock: 30,
+        tags: ["Garden Lights", "Solar", "Outdoor", "Waterproof"],
+        description: "Solar-powered outdoor wall lights for garden decoration.",
+        longDescription: "These energy-efficient solar garden lights automatically turn on at dusk and off at dawn. With waterproof design and LED lighting, they're perfect for illuminating pathways, gardens, and outdoor spaces without electricity.",
+        specifications: {
+            "Power": "Solar panel + battery",
+            "Runtime": "8-10 hours (full charge)",
+            "LEDs": "Warm white LEDs",
+            "Waterproof": "IP65",
+            "Material": "Plastic + stainless steel"
+        },
+        features: [
+            "Solar powered, no electricity needed",
+            "Auto on/off at dusk/dawn",
+            "Waterproof IP65 rating",
+            "Easy installation",
+            "Energy saving LED technology"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 27,
+        title: "Small Bag Sealing Machine",
+        category: "home",
+        price: 25,
+        originalPrice: 40,
+        image: "product_27.1.jpg",
+        image2: "product_27.2.jpg",
+        badge: "kitchen essential",
+        rating: 4.4,
+        reviews: 167,
+        stock: 25,
+        tags: ["Sealer", "Kitchen", "Food Storage", "Plastic Bags"],
+        description: "Portable thermal bag sealer for food storage and freshness.",
+        longDescription: "This compact bag sealer uses thermal technology to seal plastic bags for food storage, keeping contents fresh and protected. Battery-powered for portability, it's perfect for kitchen, travel, and organization.",
+        specifications: {
+            "Power": "Battery operated (AA)",
+            "Seal Width": "Up to 30cm bags",
+            "Heat Time": "3-5 seconds",
+            "Weight": "150g",
+            "Includes": "Sealer + cutter"
+        },
+        features: [
+            "Portable and battery operated",
+            "Seals plastic bags for freshness",
+            "Built-in bag cutter",
+            "Easy to use",
+            "Saves food and reduces waste"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 28,
+        title: "Portable Mini Car Vacuum Cleaner",
+        category: "automotive",
+        price: 40,
+        originalPrice: 60,
+        image: "product_28.1.jpg",
+        image2: "product_28.2.jpg",
+        badge: "hot",
+        rating: 4.3,
+        reviews: 278,
+        stock: 35,
+        tags: ["Car Vacuum", "Portable", "Cordless", "Cleaner"],
+        description: "Cordless mini vacuum cleaner for car and household use.",
+        longDescription: "This portable vacuum cleaner features strong suction for car interiors, furniture, and small household spaces. With rechargeable battery and multiple attachments, it's versatile for various cleaning tasks.",
+        specifications: {
+            "Power": "100W motor",
+            "Battery": "2000mAh lithium (30 min)",
+            "Suction": "8KPa strong suction",
+            "Filter": "Washable HEPA",
+            "Attachments": "Brush, crevice, extension"
+        },
+        features: [
+            "Cordless and portable",
+            "Strong suction for car cleaning",
+            "Multiple attachments included",
+            "HEPA filter for dust",
+            "Rechargeable battery"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 29,
+        title: "Double-Sided Transparent Nano Tape",
+        category: "home",
+        price: 8,
+        originalPrice: 15,
+        image: "product_29.1.jpg",
+        image2: "product_29.2.jpg",
+        badge: "best seller",
+        rating: 4.7,
+        reviews: 456,
+        stock: 80,
+        tags: ["Tape", "Double-Sided", "Transparent", "Reusable"],
+        description: "Transparent double-sided tape that's waterproof and reusable.",
+        longDescription: "This nano tape features strong adhesive on both sides, transparency when applied, and waterproof properties. Heat resistant and reusable, it's perfect for home improvement, crafts, and various mounting applications.",
+        specifications: {
+            "Size": "Roll (2cm x 3m)",
+            "Color": "Transparent",
+            "Adhesive": "Strong double-sided",
+            "Features": "Waterproof, heat resistant",
+            "Reusable": "Yes"
+        },
+        features: [
+            "Double-sided strong adhesive",
+            "Transparent when applied",
+            "Waterproof and heat resistant",
+            "Reusable",
+            "No residue when removed"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 30,
+        title: "B7000 Phone Repair Glue",
+        category: "electronics",
+        price: 12,
+        originalPrice: 20,
+        image: "product_30.1.jpg",
+        image2: "product_30.2.jpg",
+        badge: "repair essential",
+        rating: 4.6,
+        reviews: 389,
+        stock: 50,
+        tags: ["Repair", "Glue", "Adhesive", "Phone Repair"],
+        description: "Professional adhesive for phone screen, battery cover, and frame repair.",
+        longDescription: "B7000 adhesive is specifically formulated for electronics repair, offering strong bonding for phone screens, battery covers, and frames. Flexible, waterproof, and transparent when cured. Available in multiple sizes.",
+        specifications: {
+            "Type": "Flexible electronics adhesive",
+            "Curing Time": "24 hours full cure",
+            "Color": "Transparent when cured",
+            "Sizes": "15ml, 25ml, 50ml, 110ml",
+            "Features": "Waterproof, flexible"
+        },
+        features: [
+            "Specifically for electronics repair",
+            "Flexible and waterproof",
+            "Transparent when cured",
+            "Easy to apply with needle tip",
+            "Removable with heat"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 31,
+        title: "Zeblaze Btalk Plus Smartwatch",
+        category: "electronics",
+        price: 65,
+        originalPrice: 90,
+        image: "product_31.1.jpg",
+        image2: "product_31.2.jpg",
+        badge: "new",
+        rating: 4.4,
+        reviews: 167,
+        stock: 30,
+        tags: ["Smartwatch", "Fitness", "Voice Calling", "Health"],
+        description: "Smartwatch with voice calling and 2.03-inch HD color screen.",
+        longDescription: "The Zeblaze Btalk Plus features Bluetooth calling, 2.03-inch HD display, and comprehensive health monitoring including heart rate, blood oxygen, and sleep tracking. With multiple sports modes and app notifications.",
+        specifications: {
+            "Display": "2.03\" IPS HD",
+            "Calling": "Bluetooth voice calls",
+            "Battery": "280mAh (7 days)",
+            "Sensors": "HR, SpO2, sleep, activity",
+            "Waterproof": "IP68"
+        },
+        features: [
+            "Bluetooth voice calling",
+            "2.03-inch HD color display",
+            "24/7 health monitoring",
+            "Multiple sports modes",
+            "Smart notifications"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 32,
+        title: "Black Hair Bands (50-Pack)",
+        category: "fashion",
+        price: 12,
+        originalPrice: 20,
+        image: "product_32.1.jpg",
+        image2: "product_32.2.jpg",
+        badge: "best seller",
+        rating: 4.8,
+        reviews: 456,
+        stock: 70,
+        tags: ["Hair Bands", "Elastic", "Ponytail", "Accessories"],
+        description: "50-piece pack of black elastic hair bands for women and girls.",
+        longDescription: "This 50-piece set features high elasticity black hair bands that are gentle on hair. Perfect for ponytails, buns, and various hairstyles. Durable and stretch-resistant for long-lasting use.",
+        specifications: {
+            "Quantity": "50 pieces",
+            "Color": "Black",
+            "Material": "High elasticity rubber",
+            "Diameter": "Approx 5cm (stretched)",
+            "Type": "Simple elastic bands"
+        },
+        features: [
+            "50 hair bands in one pack",
+            "High elasticity, gentle on hair",
+            "No-snag design",
+            "Durable and long-lasting",
+            "Perfect for daily use"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 33,
+        title: "PU Leather Folding Makeup Mirror",
+        category: "beauty",
+        price: 20,
+        originalPrice: 35,
+        image: "product_33.1.jpg",
+        image2: "product_33.2.jpg",
+        badge: "new",
+        rating: 4.5,
+        reviews: 189,
+        stock: 40,
+        tags: ["Makeup Mirror", "Portable", "Compact", "PU Leather"],
+        description: "Solid color desktop makeup mirror with PU leather cover.",
+        longDescription: "This foldable makeup mirror features a PU leather exterior and compact design perfect for students, travel, or desktop use. The simple, elegant design includes protective cover and stands at optimal viewing angle.",
+        specifications: {
+            "Size": "15x10cm (folded)",
+            "Material": "PU leather + glass mirror",
+            "Design": "Foldable with stand",
+            "Mirror": "Clear glass, no distortion",
+            "Color": "Solid colors available"
+        },
+        features: [
+            "PU leather protective cover",
+            "Foldable and portable",
+            "Compact for travel",
+            "Stable stand design",
+            "Elegant solid colors"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 34,
+        title: "4-Pack Tempered Glass iPhone Screen Protector",
+        category: "electronics",
+        price: 15,
+        originalPrice: 25,
+        image: "product_34.1.jpg",
+        image2: "product_34.2.jpg",
+        badge: "best seller",
+        rating: 4.7,
+        reviews: 567,
+        stock: 60,
+        tags: ["Screen Protector", "iPhone", "Tempered Glass", "Protective"],
+        description: "4-pack tempered glass screen protectors for various iPhone models.",
+        longDescription: "High-quality tempered glass screen protectors with 9H hardness for maximum scratch and impact protection. Easy installation with alignment frame, oleophobic coating resists fingerprints, and maintains touch sensitivity.",
+        specifications: {
+            "Pack": "4 pieces",
+            "Compatibility": "iPhone 7-16 models",
+            "Material": "9H tempered glass",
+            "Thickness": "0.33mm",
+            "Features": "Oleophobic, anti-fingerprint"
+        },
+        features: [
+            "9H hardness tempered glass",
+            "Easy installation frame",
+            "Oleophobic coating",
+            "Bubble-free application",
+            "Maintains touch sensitivity"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 35,
+        title: "Lip Plumping & Care Gloss",
+        category: "beauty",
+        price: 18,
+        originalPrice: 30,
+        image: "product_35.1.jpg",
+        image2: "product_35.2.jpg",
+        badge: "trending",
+        rating: 4.4,
+        reviews: 234,
+        stock: 45,
+        tags: ["Lip Gloss", "Lip Care", "Plumping", "Exfoliating"],
+        description: "Original lip gloss with plumping effect and exfoliating care.",
+        longDescription: "This lip gloss combines plumping effect with exfoliating care for soft, smooth lips. The pink gloss oil provides shine while ingredients work to hydrate, plump, and gently exfoliate for perfect lips.",
+        specifications: {
+            "Type": "Plumping lip gloss",
+            "Effect": "Temporary plumping + exfoliating",
+            "Color": "Pink gloss",
+            "Size": "10ml tube",
+            "Features": "Hydrating, smoothing"
+        },
+        features: [
+            "Temporary lip plumping effect",
+            "Exfoliating and smoothing",
+            "Hydrating formula",
+            "Pink glossy finish",
+            "Moisturizing care"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 36,
+        title: "Star-Shaped Hair Clips for Kids (20-Pack)",
+        category: "fashion",
+        price: 12,
+        originalPrice: 20,
+        image: "product_36.1.jpg",
+        image2: "product_36.2.jpg",
+        badge: "new",
+        rating: 4.6,
+        reviews: 189,
+        stock: 50,
+        tags: ["Hair Clips", "Kids", "Colorful", "Star Shape"],
+        description: "20 colorful BB star-shaped hair clips for girls and children.",
+        longDescription: "This colorful set includes 20 star-shaped hair clips in various bright colors, perfect for children's hair decoration. The cute designs add fun to hairstyles for parties, school, or daily wear.",
+        specifications: {
+            "Quantity": "20 pieces",
+            "Design": "Star-shaped, colorful",
+            "Size": "Small (3-4cm)",
+            "Material": "Metal with enamel coating",
+            "Age": "Children 3+ years"
+        },
+        features: [
+            "20 colorful star-shaped clips",
+            "Perfect for children's hair",
+            "Bright, fun colors",
+            "Secure grip",
+            "Cute decorative accessory"
+        ],
+        reviewsList: []
+    },
+    {
+        id: 37,
+        title: "Colored Nylon Hair Ties (50-Pack)",
+        category: "fashion",
+        price: 10,
+        originalPrice: 18,
+        image: "product_37.1.jpg",
+        image2: "product_37.2.jpg",
+        badge: "best seller",
+        rating: 4.7,
+        reviews: 345,
+        stock: 80,
+        tags: ["Hair Ties", "Nylon", "Elastic", "Ponytail"],
+        description: "50 basic colored nylon hair ties for girls and babies.",
+        longDescription: "This 50-piece set features basic colored nylon hair ties that are gentle on hair and perfect for ponytails, braids, and various hairstyles. The soft material prevents breakage and is comfortable for all-day wear.",
+        specifications: {
+            "Quantity": "50 pieces",
+            "Material": "Soft nylon",
+            "Colors": "Assorted basic colors",
+            "Diameter": "Approx 5cm",
+            "Type": "Simple elastic hair ties"
+        },
+        features: [
+            "50 hair ties in assorted colors",
+            "Soft nylon, gentle on hair",
+            "No-snag design",
+            "Perfect for daily hairstyles",
+            "Great value pack"
+        ],
+        reviewsList: []
+    }
+];
         // ========== ENHANCED DATABASE CLASS ==========
         class Database {
             constructor() {
