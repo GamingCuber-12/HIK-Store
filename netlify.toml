@@ -1,16 +1,11 @@
 [build]
   publish = "."
-  functions = "netlify/functions"
+  command = "echo 'No build required for static site'"
 
 [[redirects]]
-  from = "/checkout"
-  to = "/checkout.html"
-  status = 200
-
-[[redirects]]
-  from = "/"
-  to = "/client.html"
+  from = "/*"
+  to = "/index.html"
   status = 200
 
 [functions]
-  node_bundle = true
+  directory = "none"
