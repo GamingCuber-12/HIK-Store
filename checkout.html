@@ -957,11 +957,40 @@
     <!-- ===================== JAVASCRIPT ===================== -->
     <script>
         // ===================== GLOBAL STATE =====================
-        let currentStep = 'info';
-        let selectedPayment = null;
-        let cartData = [];
-        let timerInterval;
-        let orderId = '';
+// ===================== GLOBAL STATE =====================
+let currentStep = 'info';
+let selectedPayment = null;
+let orderData = {};
+let cartData = [];
+let timerInterval;
+
+// ===================== TEST DATA - REMOVE LATER =====================
+// This creates fake cart data for testing when localStorage is empty
+function loadTestCartData() {
+    return [
+        {
+            id: 'test-1',
+            title: 'Wireless Bluetooth Headphones Pro',
+            price: 299.99,
+            image: 'product_3.1.jpg',
+            quantity: 1
+        },
+        {
+            id: 'test-2',
+            title: 'Smart Watch Series 8',
+            price: 499.99,
+            image: 'product_10.1.jpg',
+            quantity: 2
+        },
+        {
+            id: 'test-3',
+            title: 'Portable Bluetooth Speaker',
+            price: 199.99,
+            image: 'product_12.1.jpg',
+            quantity: 1
+        }
+    ];
+}
         
         // ===================== INITIALIZATION =====================
         document.addEventListener('DOMContentLoaded', async () => {
@@ -989,32 +1018,46 @@
         
         // ===================== CART FUNCTIONS =====================
         async function loadCartData() {
-            try {
-                // Get from localStorage
-                const saved = localStorage.getItem('hik_cart');
-                cartData = saved ? JSON.parse(saved) : [];
-                
-                if (cartData.length === 0) {
-                    showAlert('Your cart is empty. Please add items before checkout.', 'error');
-                    setTimeout(() => {
-                        window.location.href = 'client.html';
-                    }, 2000);
-                    return;
-                }
-                
-                // Update UI
-                renderOrderItems();
-                calculateTotals();
-                
-                // Prepare hidden fields
-                document.getElementById('order-items-input').value = JSON.stringify(cartData);
-                
-            } catch (error) {
-                console.error('Error loading cart:', error);
-                showAlert('Error loading cart data. Please try again.', 'error');
-            }
+    try {
+        console.log('🛒 Loading cart data...');
+        
+        // Try to get from localStorage first
+        const saved = localStorage.getItem('hik_cart');
+        cartData = saved ? JSON.parse(saved) : [];
+        
+        // DEBUG: Log what we found
+        console.log('LocalStorage cart data:', cartData);
+        console.log('Cart length:', cartData.length);
+        
+        // If no real data, use test data
+        if (cartData.length === 0) {
+            console.log('⚠️ No cart data found in localStorage, using test data');
+            cartData = loadTestCartData();
+            
+            // Show test mode warning
+            showAlert('🛒 TEST MODE: Using demo cart data. When client.html is fixed, this will show real products.', 'info');
+            
+            // Don't redirect to client.html in test mode
+            // Just show the test products
+        } else {
+            console.log('✅ Found real cart data');
+            showAlert('Cart loaded successfully!', 'success');
         }
         
+        // Update UI with whatever data we have
+        renderOrderItems();
+        calculateTotals();
+        
+    } catch (error) {
+        console.error('❌ Error loading cart:', error);
+        showAlert('Error loading cart data. Using test data instead.', 'error');
+        
+        // Fallback to test data
+        cartData = loadTestCartData();
+        renderOrderItems();
+        calculateTotals();
+    }
+}        
         function renderOrderItems() {
             const container = document.getElementById('orderItems');
             if (!container) return;
