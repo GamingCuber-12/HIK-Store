@@ -1,108 +1,108 @@
-// config.js - ENCRYPTED CONFIGURATION LOADER
-// NO SECRETS IN CODE - Encrypted at rest, decrypted at runtime
+// config.js - ENHANCED ENCRYPTED CONFIG
+// DO NOT PUT REAL SECRETS HERE - Only placeholders
+// GitHub Actions will replace these during deployment
 
 (function() {
     'use strict';
     
     console.log('🔐 Loading encrypted configuration...');
     
-    // Environment detection with multiple checks
-    const isLocal = (
-        window.location.hostname === 'localhost' ||
-        window.location.hostname === '127.0.0.1' ||
-        window.location.protocol === 'file:' ||
-        window.location.port === '3000' ||
-        window.location.port === '8080'
-    );
-    
-    const isStaging = window.location.hostname.includes('staging');
-    const isProduction = !isLocal && !isStaging;
-    
-    // Runtime config - will be populated by server or encrypted data
-    window.SUPABASE_CONFIG = {
-        URL: null,
-        ANON_KEY: null,
-        PAYPAL_CLIENT_ID: null,
-        ENCRYPTION_KEY: null,
-        ENV: isProduction ? 'production' : isLocal ? 'local' : 'staging'
-    };
-    
-    // Function to load encrypted config
-    function loadEncryptedConfig() {
-        // Method 1: Try to fetch from secure endpoint
-        if (isProduction) {
-            fetch('/api/config')
-                .then(res => {
-                    if (!res.ok) throw new Error('Config fetch failed');
-                    return res.json();
-                })
-                .then(data => {
-                    // Decrypt data (simplified - real implementation would use Web Crypto API)
-                    try {
-                        const decrypted = atob(data.encrypted);
-                        const config = JSON.parse(decrypted);
-                        Object.assign(window.SUPABASE_CONFIG, config);
-                        console.log('✅ Config loaded from secure endpoint');
-                    } catch (e) {
-                        console.warn('⚠️ Using fallback config');
-                        loadFallbackConfig();
-                    }
-                })
-                .catch(() => {
-                    loadFallbackConfig();
-                });
-        } else {
-            // Local development - use environment-specific configs
-            loadFallbackConfig();
+    // ========== SECRET DECRYPTION ==========
+    function decryptConfig() {
+        const config = {
+            URL: "%%ENCRYPTED_SUPABASE_URL%%",
+            ANON_KEY: "%%ENCRYPTED_SUPABASE_KEY%%",
+            PAYPAL_CLIENT_ID: "%%ENCRYPTED_PAYPAL_CLIENT_ID%%",
+            ENV: 'production',
+            VERSION: '2.0'
+        };
+        
+        console.log('🔍 Checking GitHub Actions injection...');
+        
+        // Check if placeholders were replaced
+        const hasPlaceholders = 
+            config.URL.includes('%%ENCRYPTED_') ||
+            config.ANON_KEY.includes('%%ENCRYPTED_');
+        
+        if (hasPlaceholders) {
+            console.error('❌ GITHUB ACTIONS FAILED: Placeholders not replaced!');
+            console.error('This means GitHub Actions did not inject your secrets.');
+            console.error('Check: 1) GitHub Secrets are set 2) Actions workflow 3) Action logs');
+            
+            window.SUPABASE_CONFIG = {
+                URL: null,
+                ANON_KEY: null,
+                FALLBACK_MODE: true,
+                ERROR: 'GitHub Actions failed to inject secrets',
+                ENV: 'production'
+            };
+            return;
+        }
+        
+        // Try to decode base64
+        try {
+            console.log('🔓 Decoding base64 secrets...');
+            
+            const decodedURL = atob(config.URL);
+            const decodedKey = atob(config.ANON_KEY);
+            
+            // Validate decoded values
+            if (!decodedURL.startsWith('https://') || !decodedURL.includes('.supabase.co')) {
+                throw new Error('Invalid Supabase URL after decoding');
+            }
+            
+            if (!decodedKey.startsWith('eyJ')) {
+                throw new Error('Invalid JWT format after decoding');
+            }
+            
+            window.SUPABASE_CONFIG = {
+                URL: decodedURL,
+                ANON_KEY: decodedKey,
+                PAYPAL_CLIENT_ID: config.PAYPAL_CLIENT_ID && !config.PAYPAL_CLIENT_ID.includes('%%') ? atob(config.PAYPAL_CLIENT_ID) : null,
+                ENV: 'production',
+                FALLBACK_MODE: false,
+                DECODED_SUCCESS: true
+            };
+            
+            console.log('✅ Secrets decrypted successfully!');
+            console.log('🔗 URL valid:', window.SUPABASE_CONFIG.URL.startsWith('https://'));
+            console.log('🔑 Key valid:', window.SUPABASE_CONFIG.ANON_KEY.length > 50);
+            
+        } catch (error) {
+            console.error('❌ Decryption failed:', error.message);
+            console.error('Config URL (first 50 chars):', config.URL.substring(0, 50));
+            console.error('Config Key (first 20 chars):', config.ANON_KEY.substring(0, 20));
+            
+            window.SUPABASE_CONFIG = {
+                URL: null,
+                ANON_KEY: null,
+                FALLBACK_MODE: true,
+                ERROR: 'Decryption failed: ' + error.message,
+                ENV: 'production',
+                RAW_URL: config.URL.substring(0, 50) + '...',
+                RAW_KEY: config.ANON_KEY.substring(0, 20) + '...'
+            };
         }
     }
     
-    function loadFallbackConfig() {
-        // For GitHub Pages, config will be injected by GitHub Actions
-        // This is a placeholder that gets replaced during build
-        const injectedConfig = {
-            URL: "%%ENCRYPTED_SUPABASE_URL%%",
-            ANON_KEY: "%%ENCRYPTED_SUPABASE_KEY%%",
-            PAYPAL_CLIENT_ID: "%%ENCRYPTED_PAYPAL_CLIENT_ID%%"
-        };
-        
-        // Decode base64 encrypted values
-        Object.keys(injectedConfig).forEach(key => {
-            if (injectedConfig[key].startsWith('%%') && injectedConfig[key].endsWith('%%')) {
-                // Still has placeholders - use empty values
-                window.SUPABASE_CONFIG[key] = '';
-            } else {
-                try {
-                    // Try to decode base64
-                    window.SUPABASE_CONFIG[key] = atob(injectedConfig[key]);
-                } catch (e) {
-                    window.SUPABASE_CONFIG[key] = injectedConfig[key];
-                }
-            }
-        });
-    }
-    
     // Initialize
-    setTimeout(loadEncryptedConfig, 100);
+    decryptConfig();
     
-    // Public method to verify config
-    window.verifyConfig = function() {
+    // Debug function
+    window.debugConfig = function() {
         const config = window.SUPABASE_CONFIG;
-        const isValid = (
-            config.URL && 
-            config.URL.startsWith('https://') &&
-            config.ANON_KEY &&
-            config.ANON_KEY.length > 20 &&
-            (config.ENV === 'production' ? config.PAYPAL_CLIENT_ID : true)
-        );
-        
         return {
-            isValid,
+            urlPresent: !!config.URL,
+            urlValid: config.URL ? config.URL.startsWith('https://') && config.URL.includes('.supabase.co') : false,
+            keyPresent: !!config.ANON_KEY,
+            keyValid: config.ANON_KEY ? config.ANON_KEY.startsWith('eyJ') && config.ANON_KEY.length > 50 : false,
+            fallbackMode: config.FALLBACK_MODE || false,
+            error: config.ERROR || 'None',
             env: config.ENV,
-            hasSupabase: !!config.URL,
-            hasPayPal: !!config.PAYPAL_CLIENT_ID,
-            isEncrypted: true
+            decoded: config.DECODED_SUCCESS || false
         };
     };
+    
+    console.log('📊 Config status:', window.debugConfig());
     
 })();
