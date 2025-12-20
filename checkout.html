@@ -1605,45 +1605,76 @@
             }
         ];
         
-        // ===================== SECURITY FUNCTIONS =====================
-        function validateSupabaseConfig() {
-            if (!window.SUPABASE_CONFIG) {
-                console.error('❌ Supabase config not loaded');
-                showAlert('System configuration error. Please contact support.', 'error');
-                return false;
-            }
-            
-            const { URL, ANON_KEY, PAYPAL_CLIENT_ID } = window.SUPABASE_CONFIG;
-            
-            // Check for placeholders (should be replaced by GitHub Actions)
-            if (!URL || URL.includes('%%') || !ANON_KEY || ANON_KEY.includes('%%')) {
-                console.warn('⚠️ Config not properly initialized');
-                
-                // Set fallback mode
-                window.SUPABASE_CONFIG.FALLBACK_MODE = true;
-                return false;
-            }
-            
-            // Validate Supabase URL format
-            if (!URL.startsWith('https://') || !URL.includes('supabase')) {
-                console.error('❌ Invalid Supabase URL format');
-                return false;
-            }
-            
-            // Validate Supabase key format (JWT-like)
-            if (!ANON_KEY || ANON_KEY.length < 20 || !ANON_KEY.startsWith('ey')) {
-                console.error('❌ Invalid Supabase key format');
-                return false;
-            }
-            
-            // Validate PayPal config if in production
-            if (window.SUPABASE_CONFIG.ENV === 'production' && (!PAYPAL_CLIENT_ID || PAYPAL_CLIENT_ID.includes('%%'))) {
-                console.warn('⚠️ PayPal client ID not configured');
-            }
-            
-            console.log('✅ Security config validated');
+// ===================== SECURITY FUNCTIONS =====================
+function validateSupabaseConfig() {
+    console.log('🔍 Validating Supabase configuration...');
+    
+    // Check if config exists at all
+    if (!window.SUPABASE_CONFIG) {
+        console.error('❌ Supabase config object not found');
+        showAlert('System configuration not loaded. Using offline mode.', 'warning');
+        return false;
+    }
+    
+    const config = window.SUPABASE_CONFIG;
+    
+    // Check if we have the new debug function
+    if (window.debugConfig) {
+        const debug = window.debugConfig();
+        console.log('📊 Config debug info:', debug);
+        
+        if (debug.valid === '✅ Valid' && debug.fallback === '❌ No') {
+            console.log('✅ Config is valid (via debug function)');
             return true;
         }
+    }
+    
+    // NEW VALIDATION LOGIC
+    if (config.FALLBACK_MODE === true || config.VALID === false) {
+        console.warn('⚠️ Config is in fallback mode or invalid');
+        console.log('Config details:', {
+            fallback: config.FALLBACK_MODE,
+            valid: config.VALID,
+            error: config.ERROR,
+            source: config.SOURCE
+        });
+        
+        showAlert('Running in secure offline mode. Orders will be saved locally.', 'info');
+        return false;
+    }
+    
+    // Check if we have valid credentials
+    if (config.URL && config.ANON_KEY) {
+        // Quick validation
+        const isValid = (
+            config.URL.startsWith('https://') &&
+            config.ANON_KEY.startsWith('eyJ') &&
+            config.ANON_KEY.length > 50
+        );
+        
+        if (isValid) {
+            console.log('✅ Supabase config validated successfully');
+            return true;
+        } else {
+            console.warn('⚠️ Config exists but validation failed:', {
+                urlStartsHttps: config.URL.startsWith('https://'),
+                keyStartsWithJWT: config.ANON_KEY.startsWith('eyJ'),
+                keyLength: config.ANON_KEY.length
+            });
+        }
+    }
+    
+    // If we get here, config is not usable
+    console.warn('⚠️ Using fallback mode - Supabase not properly configured');
+    
+    // Ensure fallback mode is set
+    window.SUPABASE_CONFIG.FALLBACK_MODE = true;
+    if (!window.SUPABASE_CONFIG.ERROR) {
+        window.SUPABASE_CONFIG.ERROR = 'Configuration incomplete';
+    }
+    
+    return false;
+}
         
         // ===================== PAYPAL INTEGRATION =====================
         function initializePayPal() {
@@ -1821,83 +1852,82 @@
             }
         }
         
-        // ===================== INITIALIZATION =====================
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🛍️ Secure Checkout Initializing...');
-            
-            try {
-                // Wait for config to load
-                await new Promise(resolve => setTimeout(resolve, 500));
-                
-                // Validate security config
-                const configValid = validateSupabaseConfig();
-                
-                if (configValid && window.SUPABASE_CONFIG.URL && window.SUPABASE_CONFIG.ANON_KEY) {
-                    // Initialize Supabase with encrypted config
-                    supabaseClient = window.supabase.createClient(
-                        window.SUPABASE_CONFIG.URL,
-                        window.SUPABASE_CONFIG.ANON_KEY,
-                        {
-                            auth: {
-                                persistSession: false,
-                                autoRefreshToken: false,
-                                detectSessionInUrl: false
-                            },
-                            global: {
-                                headers: {
-                                    'X-Client-Info': 'hik-store-uae-checkout'
-                                }
-                            }
-                        }
-                    );
-                    
-                    // Test connection
-                    const { error } = await supabaseClient
-                        .from('orders')
-                        .select('count')
-                        .limit(1);
-                    
-                    if (error) {
-                        console.warn('⚠️ Supabase connection test failed:', error.message);
-                        window.SUPABASE_CONFIG.FALLBACK_MODE = true;
-                    } else {
-                        console.log('✅ Supabase connected successfully');
-                    }
+// ===================== INITIALIZATION =====================
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log('🛍️ Secure Checkout Initializing...');
+    
+    try {
+        // Wait for config system to fully load
+        await new Promise(resolve => {
+            const checkConfig = () => {
+                if (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.LOADED !== undefined) {
+                    resolve();
                 } else {
-                    console.warn('⚠️ Using fallback mode - Supabase not configured');
-                    window.SUPABASE_CONFIG.FALLBACK_MODE = true;
+                    setTimeout(checkConfig, 100);
                 }
-                
-                // Setup demo cart
-                initializeDemoCart();
-                
-                // Load cart data
-                await loadCartData();
-                
-                // Generate order ID
-                orderId = generateOrderId();
-                console.log('📝 Order ID:', orderId);
-                
-                // Start cart timer
-                startCartTimer();
-                
-                // Auto-fill test data for demo
-                autoFillTestData();
-                
-                // Update cart count
-                updateCartCount();
-                
-                // Show welcome message
-                showAlert('🎉 Welcome to secure checkout! Try the checkout process now.', 'info');
-                
-                console.log('🚀 Secure checkout ready!');
-                
-            } catch (error) {
-                console.error('❌ Initialization error:', error);
-                showAlert('Checkout loaded with demo products. Working in secure offline mode.', 'info');
-            }
+            };
+            checkConfig();
         });
         
+        console.log('📊 Config loaded:', {
+            source: window.SUPABASE_CONFIG.SOURCE,
+            loaded: window.SUPABASE_CONFIG.LOADED,
+            hasDebug: !!window.debugConfig
+        });
+        
+        // Validate the config
+        const configValid = validateSupabaseConfig();
+        
+        // Initialize Supabase if config is valid
+        if (configValid && window.SUPABASE_CONFIG.URL && window.SUPABASE_CONFIG.ANON_KEY) {
+            console.log('🔗 Initializing Supabase connection...');
+            supabaseClient = await initializeSupabaseWithRetry();
+        } else {
+            console.log('⚠️ Using fallback mode (no Supabase connection)');
+            window.SUPABASE_CONFIG.FALLBACK_MODE = true;
+            supabaseClient = null;
+        }
+        
+        // Setup demo cart
+        initializeDemoCart();
+        
+        // Load cart data
+        await loadCartData();
+        
+        // Generate order ID
+        orderId = generateOrderId();
+        console.log('📝 Order ID:', orderId);
+        
+        // Start cart timer
+        startCartTimer();
+        
+        // Auto-fill test data for demo
+        autoFillTestData();
+        
+        // Update cart count
+        updateCartCount();
+        
+        // Show appropriate message
+        if (window.SUPABASE_CONFIG.FALLBACK_MODE) {
+            showAlert('🔒 Secure offline mode: Your order will be saved locally and encrypted.', 'info');
+        } else if (supabaseClient) {
+            showAlert('✅ Connected to secure database! Ready for checkout.', 'success');
+        } else {
+            showAlert('⚠️ Working in offline mode. Your data is still encrypted locally.', 'warning');
+        }
+        
+        console.log('🚀 Checkout ready!', {
+            supabase: !!supabaseClient,
+            fallback: window.SUPABASE_CONFIG.FALLBACK_MODE,
+            configSource: window.SUPABASE_CONFIG.SOURCE
+        });
+        
+    } catch (error) {
+        console.error('❌ Initialization error:', error);
+        showAlert('Checkout loaded with full offline security.', 'info');
+        window.SUPABASE_CONFIG.FALLBACK_MODE = true;
+    }
+});      
         // ===================== CART FUNCTIONS =====================
         function initializeDemoCart() {
             const savedCart = localStorage.getItem('hik_cart');
