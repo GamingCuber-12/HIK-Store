@@ -8,47 +8,23 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write  # For pushing to the gh-pages branch
       pages: write
       id-token: write
-    
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-    
-    - name: Create Secure Config File
-      run: |
-        # Create a minimal config.js with secure variables
-        echo '// This file is generated during deployment' > config.js
-        echo '// Supabase configuration is securely injected' >> config.js
-        echo 'window.SUPABASE_CONFIG = {' >> config.js
-        echo '  URL: "'"${{ secrets.SUPABASE_URL }}"'",' >> config.js
-        echo '  ANON_KEY: "'"${{ secrets.SUPABASE_ANON_KEY }}"'"' >> config.js
-        echo '};' >> config.js
-        
-        # Create a safe checkout.html without exposed keys
-        sed -i '/window.SUPABASE_CONFIG/d' checkout.html
-        sed -i 's|<script>.*</script>||g' checkout.html
-        echo '<script src="config.js"></script>' >> temp.html
-        cat checkout.html | grep -v 'SUPABASE_CONFIG' > temp2.html
-        mv temp2.html checkout.html
-    
-    - name: Setup Pages
-      uses: actions/configure-pages@v3
-    
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v2
-      with:
-        path: .
-    
-    - name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v3
 
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4  # Updated from v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3  # Use this action for GitHub Pages
+        with:
+          path: '.'
+          # Note: No config.js is created here for security
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4  # Updated from v3
         
