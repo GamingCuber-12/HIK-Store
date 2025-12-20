@@ -1,41 +1,107 @@
-name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages with Secure Config
 
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-# 👇 SET PERMISSIONS FOR THE ENTIRE WORKFLOW
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# 👇 ADD A CONCURRENCY CONTROL
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: "pages-${{ github.ref }}"
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  security-check:
     runs-on: ubuntu-latest
-    
-    # 👇 THIS IS WHAT'S MISSING - ADD THE ENVIRONMENT
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Security Scan for Exposed Secrets
+        run: |
+          echo "🔍 Scanning for exposed secrets..."
+          if grep -r "supabase\.co" . --include="*.js" --include="*.html" | grep -v "%%SUPABASE_URL%%"; then
+            echo "❌ ERROR: Hardcoded Supabase URL found!"
+            exit 1
+          fi
+          if grep -r "eyJ" . --include="*.js" --include="*.html" --include="*.json"; then
+            echo "❌ ERROR: JWT token found in code!"
+            exit 1
+          fi
+          echo "✅ No hardcoded secrets found"
+
+  build:
+    runs-on: ubuntu-latest
+    needs: security-check
+    environment: production
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
     
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
+        
+      - name: Validate Secrets Exist
+        run: |
+          if [ -z "${{ secrets.SUPABASE_URL }}" ]; then
+            echo "❌ SUPABASE_URL secret is missing!"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SUPABASE_ANON_KEY }}" ]; then
+            echo "❌ SUPABASE_ANON_KEY secret is missing!"
+            exit 1
+          fi
+          echo "✅ Secrets are properly configured"
+          
+      - name: Inject Secrets into Config (SECURE)
+        run: |
+          # Create a temporary config file
+          TEMP_CONFIG=$(mktemp)
+          
+          # Securely replace placeholders using envsubst
+          export SUPABASE_URL="${{ secrets.SUPABASE_URL }}"
+          export SUPABASE_ANON_KEY="${{ secrets.SUPABASE_ANON_KEY }}"
+          
+          envsubst '${SUPABASE_URL},${SUPABASE_ANON_KEY}' < config.js > "${TEMP_CONFIG}"
+          
+          # Validate the replacement worked
+          if grep -q "%%SUPABASE_URL%%" "${TEMP_CONFIG}" || grep -q "%%SUPABASE_ANON_KEY%%" "${TEMP_CONFIG}"; then
+            echo "❌ ERROR: Placeholders not replaced!"
+            exit 1
+          fi
+          
+          # Mask keys in logs
+          echo "✅ Config processed. Final URL starts with: ${SUPABASE_URL:0:20}..."
+          echo "Key length: ${#SUPABASE_ANON_KEY} chars"
+          
+          # Replace original config
+          mv "${TEMP_CONFIG}" config.js
+          
+          # Remove any backup files
+          rm -f "${TEMP_CONFIG}"
+          
       - name: Setup Pages
         uses: actions/configure-pages@v4
-
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
