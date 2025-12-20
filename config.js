@@ -1,88 +1,48 @@
-// config.js - SIMPLIFIED VERSION
-// Placeholders will be replaced by GitHub Actions
+// config.js - SIMPLE VERSION FOR DIRECT INJECTION
+console.log('🚀 Loading configuration...');
 
-(function() {
-    'use strict';
+// These values will be injected by GitHub Actions
+window.SUPABASE_CONFIG = {
+    URL: "",  // Will be filled by GitHub Actions
+    ANON_KEY: "",  // Will be filled by GitHub Actions
+    PAYPAL_CLIENT_ID: "",  // Will be filled by GitHub Actions
+    ENV: 'production',
+    DEBUG: true
+};
+
+console.log('✅ Config object created');
+console.log('📊 Current config:', {
+    url: window.SUPABASE_CONFIG.URL || 'Not set',
+    key: window.SUPABASE_CONFIG.ANON_KEY ? 'Set (' + window.SUPABASE_CONFIG.ANON_KEY.length + ' chars)' : 'Not set',
+    env: window.SUPABASE_CONFIG.ENV
+});
+
+// Validation function
+window.validateConfig = function() {
+    const config = window.SUPABASE_CONFIG;
+    const isValid = config.URL && 
+                   config.URL.startsWith('https://') && 
+                   config.ANON_KEY && 
+                   config.ANON_KEY.startsWith('eyJ');
     
-    console.log('🔐 Loading configuration...');
-    
-    // THESE WILL BE REPLACED BY GITHUB ACTIONS:
-    const ENCRYPTED_URL = "%%ENCRYPTED_SUPABASE_URL%%";
-    const ENCRYPTED_KEY = "%%ENCRYPTED_SUPABASE_KEY%%";
-    const ENCRYPTED_PAYPAL = "%%ENCRYPTED_PAYPAL_CLIENT_ID%%";
-    
-    console.log('🔍 Checking injection status...');
-    
-    // Check if placeholders were replaced
-    if (ENCRYPTED_URL.includes('%%ENCRYPTED_') || ENCRYPTED_KEY.includes('%%ENCRYPTED_')) {
-        console.error('❌ GITHUB ACTIONS ERROR: Placeholders not replaced!');
-        console.error('This means the deployment failed to inject secrets.');
-        
-        window.SUPABASE_CONFIG = {
-            URL: null,
-            ANON_KEY: null,
-            FALLBACK_MODE: true,
-            ERROR: 'GitHub Actions failed - placeholders still present',
-            ENV: 'production'
-        };
-        
-        console.log('📊 Fallback mode activated');
-        return;
+    if (!isValid) {
+        console.warn('⚠️ Config validation failed');
+        config.FALLBACK_MODE = true;
+    } else {
+        config.FALLBACK_MODE = false;
+        console.log('✅ Config validated successfully');
     }
     
-    // Try to decode
-    try {
-        console.log('🔓 Decoding base64...');
-        
-        const decodedURL = atob(ENCRYPTED_URL);
-        const decodedKey = atob(ENCRYPTED_KEY);
-        
-        // Basic validation
-        if (!decodedURL.startsWith('https://')) {
-            throw new Error('Decoded URL does not start with https://');
-        }
-        
-        if (!decodedKey.startsWith('eyJ')) {
-            throw new Error('Decoded key is not a valid JWT');
-        }
-        
-        window.SUPABASE_CONFIG = {
-            URL: decodedURL,
-            ANON_KEY: decodedKey,
-            PAYPAL_CLIENT_ID: ENCRYPTED_PAYPAL && !ENCRYPTED_PAYPAL.includes('%%') ? atob(ENCRYPTED_PAYPAL) : null,
-            ENV: 'production',
-            FALLBACK_MODE: false,
-            DECODED: true
-        };
-        
-        console.log('✅ Secrets decoded successfully!');
-        console.log('🔗 URL valid:', decodedURL.startsWith('https://'));
-        console.log('🔑 Key format:', decodedKey.startsWith('eyJ') ? 'JWT ✓' : 'Invalid');
-        
-    } catch (error) {
-        console.error('❌ Decryption failed:', error.message);
-        
-        window.SUPABASE_CONFIG = {
-            URL: null,
-            ANON_KEY: null,
-            FALLBACK_MODE: true,
-            ERROR: 'Decryption failed: ' + error.message,
-            ENV: 'production'
-        };
-    }
-    
-    // Debug function
-    window.checkConfig = function() {
-        const config = window.SUPABASE_CONFIG;
-        return {
-            urlPresent: !!config.URL,
-            keyPresent: !!config.ANON_KEY,
-            fallback: config.FALLBACK_MODE,
-            decoded: config.DECODED || false,
-            error: config.ERROR || 'None'
-        };
+    return {
+        valid: isValid,
+        fallback: config.FALLBACK_MODE,
+        url: config.URL ? 'Present' : 'Missing',
+        key: config.ANON_KEY ? 'Present' : 'Missing'
     };
-    
-    console.log('📊 Config loaded:', window.checkConfig());
-    
-})();
+};
+
+// Auto-validate after a short delay
+setTimeout(() => {
+    console.log('🔍 Auto-validating config...');
+    window.validateConfig();
+}, 100);
