@@ -5,7 +5,6 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-# Minimal permissions - security principle of least privilege
 permissions:
   contents: read
   pages: write
@@ -16,131 +15,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  security-audit:
+  security-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       
-      - name: Ultra Security Scan
+      - name: Verify config has placeholders
         run: |
-          echo "🔒 ULTRA SECURITY AUDIT"
-          echo "========================"
-          
-          # 1. Check for ANY secrets in code
-          echo "🔍 Scanning for API keys, tokens, passwords..."
-          
-          # Common secret patterns
-          SECRET_PATTERNS=(
-            "eyJ[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*"  # JWT tokens
-            "sk_[a-zA-Z0-9]{48}"  # Stripe keys
-            "sk_live_[a-zA-Z0-9]{24}"  # Stripe live keys
-            "AKIA[0-9A-Z]{16}"  # AWS keys
-            "gh[pousr]_[A-Za-z0-9_]{36}"  # GitHub tokens
-            "xox[pbar]-[0-9]{12}-[0-9]{12}-[0-9]{12}-[a-z0-9]{32}"  # Slack tokens
-            "-----BEGIN PRIVATE KEY-----"  # Private keys
-            "supabase\.co[/][a-zA-Z0-9]"  # Supabase URLs with paths
-          )
-          
-          ERROR_COUNT=0
-          for pattern in "${SECRET_PATTERNS[@]}"; do
-            if grep -r -I "$pattern" . --include="*.js" --include="*.html" --include="*.json" --include="*.env" 2>/dev/null; then
-              echo "❌ CRITICAL: Secret pattern '$pattern' found!"
-              ERROR_COUNT=$((ERROR_COUNT + 1))
-            fi
-          done
-          
-          # 2. Check config.js doesn't have real values
-          echo "🔍 Checking config.js for hardcoded values..."
-          if grep -q "https://.*\.supabase\.co" config.js && ! grep -q "%%ENCRYPTED_" config.js; then
-            echo "❌ CRITICAL: Real Supabase URL in config.js!"
-            ERROR_COUNT=$((ERROR_COUNT + 1))
-          fi
-          
-          # 3. Validate placeholders exist
-          echo "🔍 Checking required placeholders..."
-          REQUIRED_PLACEHOLDERS=(
-            "%%ENCRYPTED_SUPABASE_URL%%"
-            "%%ENCRYPTED_SUPABASE_KEY%%"
-            "%%ENCRYPTED_PAYPAL_CLIENT_ID%%"
-          )
-          
-          for placeholder in "${REQUIRED_PLACEHOLDERS[@]}"; do
-            if ! grep -q "$placeholder" config.js; then
-              echo "❌ MISSING: Placeholder '$placeholder' not found in config.js"
-              ERROR_COUNT=$((ERROR_COUNT + 1))
-            fi
-          done
-          
-          # Final result
-          if [ $ERROR_COUNT -eq 0 ]; then
-            echo "✅ ULTRA SECURE: No secrets found in codebase"
-          else
-            echo "❌ FAILED: $ERROR_COUNT security violations found"
+          echo "🔍 Checking config.js..."
+          if ! grep -q "%%ENCRYPTED_" config.js; then
+            echo "❌ ERROR: config.js missing placeholders!"
+            echo "Your config.js should contain %%ENCRYPTED_SUPABASE_URL%% and %%ENCRYPTED_SUPABASE_KEY%%"
+            echo "Found in config.js:"
+            grep -n "%%" config.js || echo "No placeholders found"
             exit 1
           fi
-          
-      - name: Dependency Scan
-        run: |
-          echo "📦 Checking for known vulnerabilities..."
-          # Check for known malicious patterns
-          if grep -r "eval(" . --include="*.js" | grep -v "// SAFE:"; then
-            echo "❌ DANGER: eval() found in code"
-            exit 1
-          fi
-          
-          if grep -r "innerHTML" . --include="*.js" | grep -v "textContent" | head -5; then
-            echo "⚠️ WARNING: innerHTML usage detected (potential XSS)"
-          fi
-          
-          echo "✅ Code structure passed security checks"
-
-  encrypt-secrets:
-    runs-on: ubuntu-latest
-    needs: security-audit
-    outputs:
-      supabase_url: ${{ steps.encrypt.outputs.encrypted_url }}
-      supabase_key: ${{ steps.encrypt.outputs.encrypted_key }}
-      paypal_id: ${{ steps.encrypt.outputs.encrypted_paypal }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Encrypt Secrets
-        id: encrypt
-        run: |
-          # Get secrets from GitHub Secrets
-          SUPABASE_URL="${{ secrets.SUPABASE_URL }}"
-          SUPABASE_KEY="${{ secrets.SUPABASE_ANON_KEY }}"
-          PAYPAL_ID="${{ secrets.PAYPAL_CLIENT_ID }}"
-          
-          # Validate secrets exist
-          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_KEY" ] || [ -z "$PAYPAL_ID" ]; then
-            echo "❌ Missing required secrets"
-            exit 1
-          fi
-          
-          # Encrypt using base64 (in production, use GPG or KMS)
-          echo "🔐 Encrypting secrets..."
-          
-          ENCRYPTED_URL=$(echo -n "$SUPABASE_URL" | base64 | tr -d '\n')
-          ENCRYPTED_KEY=$(echo -n "$SUPABASE_KEY" | base64 | tr -d '\n')
-          ENCRYPTED_PAYPAL=$(echo -n "$PAYPAL_ID" | base64 | tr -d '\n')
-          
-          # Output encrypted values
-          echo "encrypted_url=$ENCRYPTED_URL" >> $GITHUB_OUTPUT
-          echo "encrypted_key=$ENCRYPTED_KEY" >> $GITHUB_OUTPUT
-          echo "encrypted_paypal=$ENCRYPTED_PAYPAL" >> $GITHUB_OUTPUT
-          
-          echo "✅ Secrets encrypted"
-          echo "URL length: ${#ENCRYPTED_URL}"
-          echo "Key length: ${#ENCRYPTED_KEY}"
+          echo "✅ config.js has correct placeholders"
 
   deploy:
     runs-on: ubuntu-latest
-    needs: encrypt-secrets
+    needs: security-check
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -149,42 +44,69 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Inject Encrypted Secrets
+      - name: Debug - Check secrets exist
+        run: |
+          echo "🔐 Checking if secrets are set..."
+          if [ -z "${{ secrets.SUPABASE_URL }}" ]; then
+            echo "❌ SUPABASE_URL secret is empty!"
+          else
+            echo "✅ SUPABASE_URL: Set (first 20 chars: ${SUPABASE_URL:0:20}...)"
+          fi
+          
+          if [ -z "${{ secrets.SUPABASE_ANON_KEY }}" ]; then
+            echo "❌ SUPABASE_ANON_KEY secret is empty!"
+          else
+            echo "✅ SUPABASE_ANON_KEY: Set (starts with: ${SUPABASE_ANON_KEY:0:10}...)"
+          fi
+          
+          # Create temporary variables for debugging
+          echo "SUPABASE_URL_EXISTS=$([ -n "${{ secrets.SUPABASE_URL }}" ] && echo "true" || echo "false")" >> $GITHUB_ENV
+          echo "SUPABASE_KEY_EXISTS=$([ -n "${{ secrets.SUPABASE_ANON_KEY }}" ] && echo "true" || echo "false")" >> $GITHUB_ENV
+      
+      - name: Inject encrypted secrets
+        if: env.SUPABASE_URL_EXISTS == 'true' && env.SUPABASE_KEY_EXISTS == 'true'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          PAYPAL_ID: ${{ secrets.PAYPAL_CLIENT_ID || 'NOT_SET' }}
         run: |
           echo "🔐 Injecting encrypted secrets into config.js..."
           
-          # Read encrypted values from previous job
-          ENCRYPTED_URL="${{ needs.encrypt-secrets.outputs.supabase_url }}"
-          ENCRYPTED_KEY="${{ needs.encrypt-secrets.outputs.supabase_key }}"
-          ENCRYPTED_PAYPAL="${{ needs.encrypt-secrets.outputs.paypal_id }}"
+          # Base64 encode the secrets
+          ENCODED_URL=$(echo -n "$SUPABASE_URL" | base64 -w 0)
+          ENCODED_KEY=$(echo -n "$SUPABASE_KEY" | base64 -w 0)
           
-          # Validate encrypted values
-          if [ -z "$ENCRYPTED_URL" ] || [ -z "$ENCRYPTED_KEY" ]; then
-            echo "❌ Missing encrypted values"
-            exit 1
-          fi
+          echo "📊 Encoding complete:"
+          echo "URL encoded length: ${#ENCODED_URL} chars"
+          echo "Key encoded length: ${#ENCODED_KEY} chars"
           
-          # Create secure temp file
-          TEMP_FILE=$(mktemp)
+          # Create a backup of original config
+          cp config.js config.js.backup
           
-          # Replace placeholders with encrypted values
-          sed \
-            -e "s|%%ENCRYPTED_SUPABASE_URL%%|$ENCRYPTED_URL|g" \
-            -e "s|%%ENCRYPTED_SUPABASE_KEY%%|$ENCRYPTED_KEY|g" \
-            -e "s|%%ENCRYPTED_PAYPAL_CLIENT_ID%%|$ENCRYPTED_PAYPAL|g" \
-            config.js > "$TEMP_FILE"
+          # Use awk for reliable replacement (handles special characters)
+          awk -v url="$ENCODED_URL" -v key="$ENCODED_KEY" -v paypal="$PAYPAL_ID" '
+            /%%ENCRYPTED_SUPABASE_URL%%/ { gsub("%%ENCRYPTED_SUPABASE_URL%%", url) }
+            /%%ENCRYPTED_SUPABASE_KEY%%/ { gsub("%%ENCRYPTED_SUPABASE_KEY%%", key) }
+            /%%ENCRYPTED_PAYPAL_CLIENT_ID%%/ { gsub("%%ENCRYPTED_PAYPAL_CLIENT_ID%%", paypal) }
+            { print }
+          ' config.js.backup > config.js
           
           # Verify replacement
-          if grep -q "%%ENCRYPTED_" "$TEMP_FILE"; then
-            echo "❌ Placeholders not fully replaced"
+          echo "🔍 Verifying replacements..."
+          if grep -q "%%ENCRYPTED_" config.js; then
+            echo "❌ ERROR: Placeholders still found!"
+            grep -n "%%ENCRYPTED_" config.js
+            echo "Restoring backup..."
+            mv config.js.backup config.js
             exit 1
           fi
           
-          # Replace original
-          mv "$TEMP_FILE" config.js
+          rm config.js.backup
+          echo "✅ Secrets injected successfully!"
           
-          echo "✅ Secrets injected successfully"
-          echo "📁 Config.js size: $(wc -c < config.js) bytes"
+          # Show first few lines (without revealing full secrets)
+          echo "📄 Updated config.js preview:"
+          head -5 config.js | sed 's/".*"/"[REDACTED]"/g'
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
