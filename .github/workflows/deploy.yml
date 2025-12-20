@@ -1,0 +1,35 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    
+    - name: Create Secure Config File
+      run: |
+        # Create config.js with your Supabase keys
+        cat > config.js << 'EOF'
+        window.SUPABASE_CONFIG = {
+          URL: "${{ secrets.SUPABASE_URL }}",
+          ANON_KEY: "${{ secrets.SUPABASE_ANON_KEY }}"
+        };
+        EOF
+        
+        # Verify the file was created
+        echo "Config.js created successfully"
+        head -c 100 config.js
+    
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: .
