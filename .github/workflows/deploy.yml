@@ -1,0 +1,82 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: DEBUG - Show what we have
+        run: |
+          echo "📂 Files in repo:"
+          ls -la
+          echo ""
+          echo "🔍 Current config.js:"
+          cat config.js || echo "No config.js"
+      
+      - name: CREATE NEW config.js with secrets
+        run: |
+          # DELETE old config.js and create NEW one
+          rm -f config.js
+          
+          cat > config.js << 'CONFIG'
+// config.js - CREATED BY GITHUB ACTIONS
+console.log('🚀 GitHub Actions injected this config');
+
+// SECRETS ARE INJECTED BELOW 👇
+window.SUPABASE_CONFIG = {
+  URL: "${{ secrets.SUPABASE_URL }}",
+  ANON_KEY: "${{ secrets.SUPABASE_ANON_KEY }}",
+  PAYPAL_CLIENT_ID: "${{ secrets.PAYPAL_CLIENT_ID || '' }}",
+  ENV: 'production',
+  INJECTED: true,
+  BUILD_ID: "${{ github.run_id }}"
+};
+
+console.log('✅ Config created by GitHub Actions');
+console.log('Has URL:', !!window.SUPABASE_CONFIG.URL);
+console.log('Has Key:', !!window.SUPABASE_CONFIG.ANON_KEY);
+
+// Check if secrets were actually injected
+if (!window.SUPABASE_CONFIG.URL || window.SUPABASE_CONFIG.URL === "") {
+  console.error('❌ SUPABASE_URL WAS NOT INJECTED!');
+  window.SUPABASE_CONFIG.FALLBACK_MODE = true;
+  window.SUPABASE_CONFIG.ERROR = 'GitHub Secrets missing';
+} else if (!window.SUPABASE_CONFIG.ANON_KEY || window.SUPABASE_CONFIG.ANON_KEY === "") {
+  console.error('❌ SUPABASE_ANON_KEY WAS NOT INJECTED!');
+  window.SUPABASE_CONFIG.FALLBACK_MODE = true;
+  window.SUPABASE_CONFIG.ERROR = 'GitHub Secrets missing';
+} else {
+  console.log('✅ All secrets injected successfully');
+  window.SUPABASE_CONFIG.FALLBACK_MODE = false;
+}
+CONFIG
+
+          echo "📄 config.js created:"
+          echo "File size: $(wc -l < config.js) lines"
+          echo "First 3 lines:"
+          head -3 config.js
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
