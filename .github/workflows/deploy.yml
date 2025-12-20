@@ -4,27 +4,38 @@ on:
   push:
     branches: [ main ]
 
+# 👇 SET PERMISSIONS FOR THE ENTIRE WORKFLOW
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 👇 ADD A CONCURRENCY CONTROL
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write  # For pushing to the gh-pages branch
-      pages: write
-      id-token: write
-
+    
+    # 👇 THIS IS WHAT'S MISSING - ADD THE ENVIRONMENT
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4  # Updated from v3
+        uses: actions/configure-pages@v4
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3  # Use this action for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
-          # Note: No config.js is created here for security
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4  # Updated from v3
-        
+        id: deployment
+        uses: actions/deploy-pages@v4
