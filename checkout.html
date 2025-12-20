@@ -1078,7 +1078,7 @@
         }
         
         .fraud-warning:before {
-            content: '⚠️';
+            content: ⚠️';
             position: absolute;
             top: 10px;
             right: 10px;
@@ -1526,6 +1526,49 @@
 
     <!-- ===================== JAVASCRIPT ===================== -->
     <script>
+
+
+// ===================== SECURE CONFIG HANDLING =====================
+function validateSupabaseConfig() {
+    if (!window.SUPABASE_CONFIG) {
+        console.error('❌ Supabase config not loaded');
+        showAlert('System configuration error. Please contact support.', 'error');
+        return false;
+    }
+    
+    const { URL, ANON_KEY } = window.SUPABASE_CONFIG;
+    
+    // Check if config still has placeholders (means GitHub Actions failed)
+    if (URL.includes('%%') || ANON_KEY.includes('%%')) {
+        console.warn(⚠️ Config placeholders detected - GitHub Actions may have failed');
+        
+        // Fallback: Use localStorage or session-based temp storage
+        // OR disable Supabase features gracefully
+        window.SUPABASE_CONFIG = {
+            URL: null,
+            ANON_KEY: null,
+            FALLBACK_MODE: true
+        };
+        
+        showAlert('Running in offline mode. Orders will be saved locally and synced later.', 'info');
+        return false;
+    }
+    
+    // Validate URL format
+    if (!URL || !URL.startsWith('https://') || !URL.includes('.supabase.co')) {
+        console.error('❌ Invalid Supabase URL format');
+        return false;
+    }
+    
+    // Validate key format (Supabase anon keys are JWT-like)
+    if (!ANON_KEY || ANON_KEY.length < 20) {
+        console.error('❌ Invalid Supabase key format');
+        return false;
+    }
+    
+    console.log('✅ Supabase config validated successfully');
+    return true;
+}
         // ===================== GLOBAL STATE =====================
         let currentStep = 'info';
         let selectedPayment = null;
