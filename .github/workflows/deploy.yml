@@ -15,27 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  security-check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Verify config has placeholders
-        run: |
-          echo "🔍 Checking config.js..."
-          if ! grep -q "%%ENCRYPTED_" config.js; then
-            echo "❌ ERROR: config.js missing placeholders!"
-            echo "Your config.js should contain %%ENCRYPTED_SUPABASE_URL%% and %%ENCRYPTED_SUPABASE_KEY%%"
-            echo "Found in config.js:"
-            grep -n "%%" config.js || echo "No placeholders found"
-            exit 1
-          fi
-          echo "✅ config.js has correct placeholders"
-
   deploy:
     runs-on: ubuntu-latest
-    needs: security-check
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -44,69 +25,91 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Debug - Check secrets exist
+      - name: Debug - Show secret status
         run: |
-          echo "🔐 Checking if secrets are set..."
-          if [ -z "${{ secrets.SUPABASE_URL }}" ]; then
-            echo "❌ SUPABASE_URL secret is empty!"
-          else
-            echo "✅ SUPABASE_URL: Set (first 20 chars: ${SUPABASE_URL:0:20}...)"
-          fi
-          
-          if [ -z "${{ secrets.SUPABASE_ANON_KEY }}" ]; then
-            echo "❌ SUPABASE_ANON_KEY secret is empty!"
-          else
-            echo "✅ SUPABASE_ANON_KEY: Set (starts with: ${SUPABASE_ANON_KEY:0:10}...)"
-          fi
-          
-          # Create temporary variables for debugging
-          echo "SUPABASE_URL_EXISTS=$([ -n "${{ secrets.SUPABASE_URL }}" ] && echo "true" || echo "false")" >> $GITHUB_ENV
-          echo "SUPABASE_KEY_EXISTS=$([ -n "${{ secrets.SUPABASE_ANON_KEY }}" ] && echo "true" || echo "false")" >> $GITHUB_ENV
+          echo "🔐 Checking secrets..."
+          echo "SUPABASE_URL exists: ${{ secrets.SUPABASE_URL != '' }}"
+          echo "SUPABASE_ANON_KEY exists: ${{ secrets.SUPABASE_ANON_KEY != '' }}"
+          echo "SUPABASE_URL starts with: ${{ secrets.SUPABASE_URL != '' && secrets.SUPABASE_URL[:20] }}..."
+          echo "SUPABASE_ANON_KEY starts with: ${{ secrets.SUPABASE_ANON_KEY != '' && secrets.SUPABASE_ANON_KEY[:10] }}..."
       
-      - name: Inject encrypted secrets
-        if: env.SUPABASE_URL_EXISTS == 'true' && env.SUPABASE_KEY_EXISTS == 'true'
+      - name: Create Python script for safe replacement
+        run: |
+          cat > replace_secrets.py << 'EOF'
+          import base64
+          import os
+          import sys
+          
+          # Read secrets from environment
+          supabase_url = os.environ.get('SUPABASE_URL', '')
+          supabase_key = os.environ.get('SUPABASE_KEY', '')
+          paypal_id = os.environ.get('PAYPAL_ID', 'NOT_SET')
+          
+          print(f"🔐 Secrets received:")
+          print(f"URL length: {len(supabase_url)}")
+          print(f"Key length: {len(supabase_key)}")
+          print(f"URL starts with: {supabase_url[:30]}...")
+          print(f"Key starts with: {supabase_key[:20]}...")
+          
+          # Encode to base64
+          encoded_url = base64.b64encode(supabase_url.encode()).decode()
+          encoded_key = base64.b64encode(supabase_key.encode()).decode()
+          encoded_paypal = base64.b64encode(paypal_id.encode()).decode() if paypal_id != 'NOT_SET' else 'NOT_SET'
+          
+          print(f"📊 Encoded sizes:")
+          print(f"URL: {len(encoded_url)} chars")
+          print(f"Key: {len(encoded_key)} chars")
+          
+          # Read config.js
+          with open('config.js', 'r') as f:
+              content = f.read()
+          
+          # Replace placeholders
+          new_content = content.replace('%%ENCRYPTED_SUPABASE_URL%%', encoded_url)
+          new_content = new_content.replace('%%ENCRYPTED_SUPABASE_KEY%%', encoded_key)
+          new_content = new_content.replace('%%ENCRYPTED_PAYPAL_CLIENT_ID%%', encoded_paypal)
+          
+          # Check if replacement worked
+          if '%%ENCRYPTED_' in new_content:
+              print("❌ ERROR: Some placeholders not replaced!")
+              for line in new_content.split('\n'):
+                  if '%%ENCRYPTED_' in line:
+                      print(f"Line: {line.strip()}")
+              sys.exit(1)
+          
+          # Write back
+          with open('config.js', 'w') as f:
+              f.write(new_content)
+          
+          print("✅ Secrets injected successfully!")
+          print("📄 First 3 lines of updated config.js:")
+          print(new_content.split('\n')[0:3])
+          EOF
+      
+      - name: Run Python replacement script
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           PAYPAL_ID: ${{ secrets.PAYPAL_CLIENT_ID || 'NOT_SET' }}
         run: |
-          echo "🔐 Injecting encrypted secrets into config.js..."
+          python3 replace_secrets.py
+      
+      - name: Verify config.js
+        run: |
+          echo "🔍 Verifying config.js..."
+          echo "File size: $(wc -l < config.js) lines"
+          echo "Checking for placeholders..."
           
-          # Base64 encode the secrets
-          ENCODED_URL=$(echo -n "$SUPABASE_URL" | base64 -w 0)
-          ENCODED_KEY=$(echo -n "$SUPABASE_KEY" | base64 -w 0)
-          
-          echo "📊 Encoding complete:"
-          echo "URL encoded length: ${#ENCODED_URL} chars"
-          echo "Key encoded length: ${#ENCODED_KEY} chars"
-          
-          # Create a backup of original config
-          cp config.js config.js.backup
-          
-          # Use awk for reliable replacement (handles special characters)
-          awk -v url="$ENCODED_URL" -v key="$ENCODED_KEY" -v paypal="$PAYPAL_ID" '
-            /%%ENCRYPTED_SUPABASE_URL%%/ { gsub("%%ENCRYPTED_SUPABASE_URL%%", url) }
-            /%%ENCRYPTED_SUPABASE_KEY%%/ { gsub("%%ENCRYPTED_SUPABASE_KEY%%", key) }
-            /%%ENCRYPTED_PAYPAL_CLIENT_ID%%/ { gsub("%%ENCRYPTED_PAYPAL_CLIENT_ID%%", paypal) }
-            { print }
-          ' config.js.backup > config.js
-          
-          # Verify replacement
-          echo "🔍 Verifying replacements..."
           if grep -q "%%ENCRYPTED_" config.js; then
-            echo "❌ ERROR: Placeholders still found!"
+            echo "❌ ERROR: Placeholders found in config.js!"
+            echo "Lines with placeholders:"
             grep -n "%%ENCRYPTED_" config.js
-            echo "Restoring backup..."
-            mv config.js.backup config.js
             exit 1
           fi
           
-          rm config.js.backup
-          echo "✅ Secrets injected successfully!"
-          
-          # Show first few lines (without revealing full secrets)
-          echo "📄 Updated config.js preview:"
-          head -5 config.js | sed 's/".*"/"[REDACTED]"/g'
+          echo "✅ config.js is clean (no placeholders)"
+          echo "📄 Sample of config.js (first 5 lines, secrets hidden):"
+          head -5 config.js | sed 's/"[^"]*"/"[SECRET_HIDDEN]"/g'
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
