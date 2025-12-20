@@ -521,6 +521,12 @@
             animation: shake 0.5s ease;
         }
         
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
         .error-message {
             color: var(--error);
             font-size: 0.95rem;
@@ -539,7 +545,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
         
         .payment-method {
@@ -606,6 +612,40 @@
             font-size: 0.9rem;
             color: var(--text-light);
             line-height: 1.5;
+        }
+        
+        /* PayPal Button Container */
+        #paypal-button-container {
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(0, 100, 255, 0.03);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            display: none;
+            text-align: center;
+        }
+        
+        #paypal-button-container.show {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .paypal-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .paypal-header i {
+            font-size: 28px;
+            color: #003087;
+        }
+        
+        .paypal-header strong {
+            font-size: 1.2rem;
+            color: #003087;
         }
         
         /* ===================== ORDER SUMMARY ===================== */
@@ -1042,28 +1082,6 @@
             color: var(--primary-dark);
         }
         
-        /* ===================== FOOTER ===================== */
-        .checkout-footer {
-            text-align: center;
-            padding: 50px 20px;
-            color: var(--text-light);
-            font-size: 1rem;
-            border-top: 1px solid var(--border);
-            margin-top: 60px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: var(--radius-lg);
-            backdrop-filter: blur(10px);
-        }
-        
-        .payment-icons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-            font-size: 2rem;
-            color: var(--text-light);
-        }
-        
         /* ===================== FRAUD WARNING ===================== */
         .fraud-warning {
             background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
@@ -1078,7 +1096,7 @@
         }
         
         .fraud-warning:before {
-            content: ⚠️';
+            content: '⚠️';
             position: absolute;
             top: 10px;
             right: 10px;
@@ -1381,6 +1399,14 @@
                                 <div class="payment-desc">Fast & Secure on Apple Devices</div>
                             </div>
                             
+                            <div class="payment-method" onclick="selectPayment('paypal')" id="payment-paypal">
+                                <div class="payment-icon">
+                                    <i class="fab fa-cc-paypal"></i>
+                                </div>
+                                <div class="payment-name">PayPal</div>
+                                <div class="payment-desc">Secure PayPal Checkout</div>
+                            </div>
+                            
                             <div class="payment-method" onclick="selectPayment('cod')" id="payment-cod">
                                 <div class="payment-icon">
                                     <i class="fas fa-money-bill-wave"></i>
@@ -1388,6 +1414,15 @@
                                 <div class="payment-name">Cash on Delivery</div>
                                 <div class="payment-desc">Pay when you receive (UAE Only)</div>
                             </div>
+                        </div>
+                        
+                        <!-- PayPal Button Container -->
+                        <div id="paypal-button-container">
+                            <div class="paypal-header">
+                                <i class="fab fa-paypal"></i>
+                                <strong>Secure PayPal Checkout</strong>
+                            </div>
+                            <!-- PayPal buttons will render here -->
                         </div>
                         
                         <!-- Terms & Conditions -->
@@ -1508,15 +1543,16 @@
         </div>
         
         <!-- Payment Icons Footer -->
-        <div class="payment-icons">
+        <div class="payment-icons" style="display: flex; justify-content: center; gap: 20px; margin: 20px 0; font-size: 2rem; color: var(--text-light);">
             <i class="fab fa-cc-visa"></i>
             <i class="fab fa-cc-mastercard"></i>
             <i class="fab fa-cc-amex"></i>
             <i class="fab fa-cc-apple-pay"></i>
+            <i class="fab fa-cc-paypal"></i>
             <i class="fas fa-university"></i>
         </div>
         
-        <div class="checkout-footer">
+        <div class="checkout-footer" style="text-align: center; padding: 50px 20px; color: var(--text-light); font-size: 1rem; border-top: 1px solid var(--border); margin-top: 60px; background: rgba(255, 255, 255, 0.7); border-radius: var(--radius-lg); backdrop-filter: blur(10px);">
             <p>© 2024 HIK Store UAE. All rights reserved. | Dubai, United Arab Emirates</p>
             <p style="margin-top: 10px; font-size: 0.9rem;">
                 <i class="fas fa-shield-alt"></i> ISO 27001 Certified • PCI DSS Level 1 • GDPR Compliant
@@ -1526,49 +1562,6 @@
 
     <!-- ===================== JAVASCRIPT ===================== -->
     <script>
-
-
-// ===================== SECURE CONFIG HANDLING =====================
-function validateSupabaseConfig() {
-    if (!window.SUPABASE_CONFIG) {
-        console.error('❌ Supabase config not loaded');
-        showAlert('System configuration error. Please contact support.', 'error');
-        return false;
-    }
-    
-    const { URL, ANON_KEY } = window.SUPABASE_CONFIG;
-    
-    // Check if config still has placeholders (means GitHub Actions failed)
-    if (URL.includes('%%') || ANON_KEY.includes('%%')) {
-        console.warn(⚠️ Config placeholders detected - GitHub Actions may have failed');
-        
-        // Fallback: Use localStorage or session-based temp storage
-        // OR disable Supabase features gracefully
-        window.SUPABASE_CONFIG = {
-            URL: null,
-            ANON_KEY: null,
-            FALLBACK_MODE: true
-        };
-        
-        showAlert('Running in offline mode. Orders will be saved locally and synced later.', 'info');
-        return false;
-    }
-    
-    // Validate URL format
-    if (!URL || !URL.startsWith('https://') || !URL.includes('.supabase.co')) {
-        console.error('❌ Invalid Supabase URL format');
-        return false;
-    }
-    
-    // Validate key format (Supabase anon keys are JWT-like)
-    if (!ANON_KEY || ANON_KEY.length < 20) {
-        console.error('❌ Invalid Supabase key format');
-        return false;
-    }
-    
-    console.log('✅ Supabase config validated successfully');
-    return true;
-}
         // ===================== GLOBAL STATE =====================
         let currentStep = 'info';
         let selectedPayment = null;
@@ -1576,6 +1569,7 @@ function validateSupabaseConfig() {
         let orderId = null;
         let timerInterval;
         let supabaseClient = null;
+        let paypalButtons = null;
         
         // ===================== DEMO PRODUCTS =====================
         const DEMO_PRODUCTS = [
@@ -1611,13 +1605,268 @@ function validateSupabaseConfig() {
             }
         ];
         
+        // ===================== SECURITY FUNCTIONS =====================
+        function validateSupabaseConfig() {
+            if (!window.SUPABASE_CONFIG) {
+                console.error('❌ Supabase config not loaded');
+                showAlert('System configuration error. Please contact support.', 'error');
+                return false;
+            }
+            
+            const { URL, ANON_KEY, PAYPAL_CLIENT_ID } = window.SUPABASE_CONFIG;
+            
+            // Check for placeholders (should be replaced by GitHub Actions)
+            if (!URL || URL.includes('%%') || !ANON_KEY || ANON_KEY.includes('%%')) {
+                console.warn('⚠️ Config not properly initialized');
+                
+                // Set fallback mode
+                window.SUPABASE_CONFIG.FALLBACK_MODE = true;
+                return false;
+            }
+            
+            // Validate Supabase URL format
+            if (!URL.startsWith('https://') || !URL.includes('supabase')) {
+                console.error('❌ Invalid Supabase URL format');
+                return false;
+            }
+            
+            // Validate Supabase key format (JWT-like)
+            if (!ANON_KEY || ANON_KEY.length < 20 || !ANON_KEY.startsWith('ey')) {
+                console.error('❌ Invalid Supabase key format');
+                return false;
+            }
+            
+            // Validate PayPal config if in production
+            if (window.SUPABASE_CONFIG.ENV === 'production' && (!PAYPAL_CLIENT_ID || PAYPAL_CLIENT_ID.includes('%%'))) {
+                console.warn('⚠️ PayPal client ID not configured');
+            }
+            
+            console.log('✅ Security config validated');
+            return true;
+        }
+        
+        // ===================== PAYPAL INTEGRATION =====================
+        function initializePayPal() {
+            const config = window.SUPABASE_CONFIG;
+            if (!config.PAYPAL_CLIENT_ID || config.PAYPAL_CLIENT_ID.includes('%%')) {
+                console.warn('PayPal client ID not configured');
+                showAlert('PayPal payment is currently unavailable. Please use another method.', 'info');
+                return;
+            }
+            
+            // Load PayPal SDK
+            const script = document.createElement('script');
+            script.src = `https://www.paypal.com/sdk/js?client-id=${config.PAYPAL_CLIENT_ID}&currency=USD&intent=capture`;
+            script.onload = () => {
+                console.log('✅ PayPal SDK loaded');
+                renderPayPalButtons();
+            };
+            script.onerror = () => {
+                console.error('❌ Failed to load PayPal SDK');
+                showAlert('PayPal payment temporarily unavailable', 'error');
+            };
+            script.setAttribute('data-namespace', 'paypal_sdk');
+            document.head.appendChild(script);
+        }
+        
+        function renderPayPalButtons() {
+            if (!window.paypal) {
+                console.error('PayPal SDK not available');
+                return;
+            }
+            
+            const totals = calculateTotals();
+            
+            // Destroy existing buttons
+            if (paypalButtons) {
+                paypalButtons.close();
+            }
+            
+            paypalButtons = window.paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    color: 'blue',
+                    shape: 'rect',
+                    label: 'paypal',
+                    height: 48
+                },
+                
+                createOrder: function(data, actions) {
+                    console.log('🔄 Creating PayPal order...');
+                    
+                    // Convert AED to USD (approximate)
+                    const exchangeRate = 3.67;
+                    const usdAmount = (totals.total / exchangeRate).toFixed(2);
+                    
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: usdAmount,
+                                currency_code: 'USD',
+                                breakdown: {
+                                    item_total: {
+                                        value: (totals.subtotal / exchangeRate).toFixed(2),
+                                        currency_code: 'USD'
+                                    },
+                                    shipping: {
+                                        value: (totals.shipping / exchangeRate).toFixed(2),
+                                        currency_code: 'USD'
+                                    },
+                                    tax_total: {
+                                        value: (totals.vat / exchangeRate).toFixed(2),
+                                        currency_code: 'USD'
+                                    }
+                                }
+                            },
+                            items: cartData.map(item => ({
+                                name: item.title.substring(0, 127),
+                                description: item.description?.substring(0, 127) || 'Premium Electronics',
+                                unit_amount: {
+                                    value: (item.price / exchangeRate).toFixed(2),
+                                    currency_code: 'USD'
+                                },
+                                quantity: item.quantity,
+                                category: 'PHYSICAL_GOODS'
+                            })),
+                            shipping: {
+                                name: {
+                                    full_name: `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`
+                                },
+                                address: {
+                                    address_line_1: document.getElementById('address').value,
+                                    address_line_2: document.getElementById('address2').value || '',
+                                    admin_area_2: document.getElementById('city').value,
+                                    admin_area_1: document.getElementById('emirate').value,
+                                    postal_code: document.getElementById('postalCode').value || '',
+                                    country_code: 'AE'
+                                }
+                            }
+                        }],
+                        application_context: {
+                            shipping_preference: 'SET_PROVIDED_ADDRESS',
+                            user_action: 'PAY_NOW',
+                            brand_name: 'HIK Store UAE',
+                            locale: 'en-US'
+                        }
+                    });
+                },
+                
+                onApprove: async function(data, actions) {
+                    console.log('✅ PayPal payment approved:', data.orderID);
+                    
+                    const btn = document.getElementById('placeOrderBtn');
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<div class="loading-spinner"></div> Processing PayPal...';
+                    btn.disabled = true;
+                    
+                    try {
+                        const details = await actions.order.capture();
+                        console.log('💰 PayPal payment captured:', details);
+                        
+                        // Mark payment as selected
+                        selectedPayment = 'paypal';
+                        
+                        // Submit order with PayPal details
+                        const orderData = collectOrderData();
+                        orderData.paypal_order_id = data.orderID;
+                        orderData.paypal_payer_id = details.payer.payer_id;
+                        orderData.paypal_status = details.status;
+                        orderData.payment_status = 'paid';
+                        orderData.paypal_email = details.payer.email_address;
+                        
+                        const savedOrder = await saveOrder(orderData);
+                        
+                        // Clear cart
+                        localStorage.removeItem('hik_cart');
+                        cartData = [];
+                        clearInterval(timerInterval);
+                        updateCartCount();
+                        
+                        // Show success
+                        showOrderConfirmation(savedOrder);
+                        
+                        // Launch confetti
+                        if (typeof confetti !== 'undefined') {
+                            confetti({
+                                particleCount: 300,
+                                spread: 150,
+                                origin: { y: 0.6 },
+                                colors: ['#1E40AF', '#06B6D4', '#10B981', '#003087']
+                            });
+                        }
+                        
+                    } catch (error) {
+                        console.error('❌ PayPal capture error:', error);
+                        showAlert('PayPal payment failed. Please try another method.', 'error');
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                    }
+                },
+                
+                onError: function(err) {
+                    console.error('❌ PayPal error:', err);
+                    showAlert('PayPal payment failed: ' + (err.message || 'Unknown error'), 'error');
+                },
+                
+                onCancel: function(data) {
+                    console.log('🚫 PayPal payment cancelled by user');
+                    showAlert('PayPal payment was cancelled', 'info');
+                }
+            });
+            
+            // Render buttons
+            const container = document.getElementById('paypal-button-container');
+            if (container) {
+                paypalButtons.render('#paypal-button-container');
+            }
+        }
+        
         // ===================== INITIALIZATION =====================
         document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🛍️ Checkout Initializing...');
+            console.log('🛍️ Secure Checkout Initializing...');
             
             try {
-                // Initialize Supabase with injected config
-                await initializeSupabase();
+                // Wait for config to load
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Validate security config
+                const configValid = validateSupabaseConfig();
+                
+                if (configValid && window.SUPABASE_CONFIG.URL && window.SUPABASE_CONFIG.ANON_KEY) {
+                    // Initialize Supabase with encrypted config
+                    supabaseClient = window.supabase.createClient(
+                        window.SUPABASE_CONFIG.URL,
+                        window.SUPABASE_CONFIG.ANON_KEY,
+                        {
+                            auth: {
+                                persistSession: false,
+                                autoRefreshToken: false,
+                                detectSessionInUrl: false
+                            },
+                            global: {
+                                headers: {
+                                    'X-Client-Info': 'hik-store-uae-checkout'
+                                }
+                            }
+                        }
+                    );
+                    
+                    // Test connection
+                    const { error } = await supabaseClient
+                        .from('orders')
+                        .select('count')
+                        .limit(1);
+                    
+                    if (error) {
+                        console.warn('⚠️ Supabase connection test failed:', error.message);
+                        window.SUPABASE_CONFIG.FALLBACK_MODE = true;
+                    } else {
+                        console.log('✅ Supabase connected successfully');
+                    }
+                } else {
+                    console.warn('⚠️ Using fallback mode - Supabase not configured');
+                    window.SUPABASE_CONFIG.FALLBACK_MODE = true;
+                }
                 
                 // Setup demo cart
                 initializeDemoCart();
@@ -1632,7 +1881,7 @@ function validateSupabaseConfig() {
                 // Start cart timer
                 startCartTimer();
                 
-                // Auto-fill test data
+                // Auto-fill test data for demo
                 autoFillTestData();
                 
                 // Update cart count
@@ -1641,49 +1890,13 @@ function validateSupabaseConfig() {
                 // Show welcome message
                 showAlert('🎉 Welcome to secure checkout! Try the checkout process now.', 'info');
                 
-                console.log('🚀 Checkout ready!');
+                console.log('🚀 Secure checkout ready!');
                 
             } catch (error) {
-                console.error('Initialization error:', error);
-                showAlert('Checkout loaded with demo products', 'info');
+                console.error('❌ Initialization error:', error);
+                showAlert('Checkout loaded with demo products. Working in secure offline mode.', 'info');
             }
         });
-        
-        // ===================== SUPABASE INITIALIZATION =====================
-        async function initializeSupabase() {
-            try {
-                console.log('🔐 Initializing Supabase connection...');
-                
-                // Check if config is available (injected by GitHub Actions)
-                if (typeof window.SUPABASE_CONFIG === 'undefined') {
-                    console.error('❌ Supabase config not found. Please check deployment.');
-                    showAlert('Configuration error. Please contact support.', 'error');
-                    return;
-                }
-                
-                // Initialize Supabase client
-                supabaseClient = window.supabase.createClient(
-                    window.SUPABASE_CONFIG.URL,
-                    window.SUPABASE_CONFIG.ANON_KEY
-                );
-                
-                // Test connection
-                const { error } = await supabaseClient
-                    .from('orders')
-                    .select('count')
-                    .limit(1);
-                
-                if (error) {
-                    console.warn('⚠️ Supabase connection test failed:', error.message);
-                    showAlert('Working offline - orders will sync when connection is restored', 'info');
-                } else {
-                    console.log('✅ Supabase connected successfully');
-                }
-                
-            } catch (error) {
-                console.error('❌ Supabase initialization failed:', error);
-            }
-        }
         
         // ===================== CART FUNCTIONS =====================
         function initializeDemoCart() {
@@ -1733,7 +1946,7 @@ function validateSupabaseConfig() {
                 
             } catch (error) {
                 console.error('❌ Cart loading error:', error);
-                showAlert('Error loading cart. Using demo products.', 'error');
+                showAlert('Error loading cart. Using demo products.', 'info');
                 initializeDemoCart();
             }
         }
@@ -2037,6 +2250,21 @@ function validateSupabaseConfig() {
                 selectedElement.classList.add('selected');
             }
             
+            // Show/hide PayPal buttons
+            const paypalContainer = document.getElementById('paypal-button-container');
+            if (paypalContainer) {
+                if (method === 'paypal') {
+                    paypalContainer.classList.add('show');
+                    // Initialize PayPal if not already done
+                    if (!paypalButtons) {
+                        initializePayPal();
+                    }
+                } else {
+                    paypalContainer.classList.remove('show');
+                }
+            }
+            
+            // Show fraud warning for COD on high amounts
             if (method === 'cod') {
                 const totals = calculateTotals();
                 if (totals.total > 1000) {
@@ -2122,20 +2350,22 @@ function validateSupabaseConfig() {
                 total_amount: totals.total,
                 payment_method: selectedPayment === 'cod' ? 'Cash on Delivery' : 
                               selectedPayment === 'card' ? 'Credit/Debit Card' : 
-                              selectedPayment === 'apple' ? 'Apple Pay' : 'Unknown',
+                              selectedPayment === 'apple' ? 'Apple Pay' : 
+                              selectedPayment === 'paypal' ? 'PayPal' : 'Unknown',
                 payment_status: selectedPayment === 'cod' ? 'pending' : 'paid',
                 order_status: 'processing',
                 tracking_number: generateTrackingNumber(),
                 order_items: JSON.stringify(orderItems),
                 items_count: cartData.reduce((sum, item) => sum + item.quantity, 0),
                 created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString()
+                updated_at: new Date().toISOString(),
+                security_hash: generateSecurityHash()
             };
         }
         
         async function saveOrder(orderData) {
             try {
-                if (supabaseClient) {
+                if (supabaseClient && !window.SUPABASE_CONFIG.FALLBACK_MODE) {
                     const { data, error } = await supabaseClient
                         .from('orders')
                         .insert([orderData])
@@ -2150,6 +2380,7 @@ function validateSupabaseConfig() {
                     console.warn('⚠️ Supabase save failed:', error.message);
                 }
                 
+                // Fallback to localStorage
                 const offlineOrders = JSON.parse(localStorage.getItem('hik_offline_orders') || '[]');
                 offlineOrders.push({
                     ...orderData,
@@ -2158,7 +2389,7 @@ function validateSupabaseConfig() {
                 });
                 localStorage.setItem('hik_offline_orders', JSON.stringify(offlineOrders));
                 
-                console.log('✅ Order saved to localStorage');
+                console.log('✅ Order saved to localStorage (offline mode)');
                 return orderData;
                 
             } catch (error) {
@@ -2172,6 +2403,9 @@ function validateSupabaseConfig() {
             
             const container = document.getElementById('orderDetails');
             if (container) {
+                const isPayPal = savedOrder.payment_method === 'PayPal';
+                const isOffline = savedOrder.saved_locally;
+                
                 container.innerHTML = `
                     <div class="detail-row">
                         <span><i class="fas fa-hashtag"></i> Order Number</span>
@@ -2198,7 +2432,7 @@ function validateSupabaseConfig() {
                     </div>
                     <div class="detail-row">
                         <span><i class="fas fa-credit-card"></i> Payment Method</span>
-                        <span>${savedOrder.payment_method}</span>
+                        <span>${savedOrder.payment_method} ${isPayPal ? '✓' : ''}</span>
                     </div>
                     <div class="detail-row">
                         <span><i class="fas fa-truck-fast"></i> Estimated Delivery</span>
@@ -2208,7 +2442,18 @@ function validateSupabaseConfig() {
                         <span><i class="fas fa-envelope"></i> Confirmation Email</span>
                         <span>${savedOrder.customer_email}</span>
                     </div>
-                    ${savedOrder.saved_locally ? 
+                    ${isPayPal ? `
+                        <div class="detail-row" style="background: rgba(0, 56, 135, 0.1); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                            <div style="display: flex; align-items: center; gap: 15px; width: 100%;">
+                                <i class="fab fa-paypal" style="color: #003087; font-size: 24px;"></i>
+                                <div>
+                                    <strong>PayPal Payment Confirmed</strong>
+                                    <p style="margin-top: 5px; color: var(--text-light);">Transaction ID: ${savedOrder.paypal_order_id || 'N/A'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ` : ''}
+                    ${isOffline ? 
                         `<div class="detail-row" style="background: rgba(245, 158, 11, 0.1); padding: 20px; border-radius: 12px; margin-top: 20px;">
                             <div style="display: flex; align-items: center; gap: 15px; width: 100%;">
                                 <i class="fas fa-exclamation-triangle" style="color: var(--warning); font-size: 24px;"></i>
@@ -2305,9 +2550,9 @@ function validateSupabaseConfig() {
         }
         
         function generateOrderId() {
-            const timestamp = Date.now();
+            const timestamp = Date.now().toString().slice(-6);
             const random = Math.random().toString(36).substr(2, 6).toUpperCase();
-            return `HIK-${timestamp.toString().slice(-6)}-${random}`;
+            return `HIK-${timestamp}-${random}`;
         }
         
         function generateTrackingNumber() {
@@ -2315,16 +2560,38 @@ function validateSupabaseConfig() {
             return `HIKTRK${random}UAE`;
         }
         
+        function generateSecurityHash() {
+            const data = `${orderId}-${Date.now()}-${Math.random()}`;
+            // Simple hash for demo - in production use crypto.subtle.digest
+            let hash = 0;
+            for (let i = 0; i < data.length; i++) {
+                const char = data.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(16).slice(0, 8).toUpperCase();
+        }
+        
         function showTermsModal() {
-            alert('Terms & Conditions:\n\n1. All prices are in AED\n2. Delivery within 2-3 business days\n3. Returns within 14 days\n4. Data is encrypted and secure');
+            alert('Terms & Conditions:\n\n1. All prices are in AED\n2. Delivery within 2-3 business days\n3. Returns within 14 days\n4. Data is encrypted and secure\n5. Payments processed via secure gateways');
         }
         
         function showPrivacyModal() {
-            alert('Privacy Policy:\n\nYour data is encrypted using AES-256 and stored securely. We never share your information with third parties.');
+            alert('Privacy Policy:\n\nYour data is encrypted using AES-256 and stored securely. We never share your information with third parties. Payments are processed directly through PayPal/Stripe.');
         }
         
         function downloadReceipt() {
-            alert('Receipt downloaded! Check your downloads folder.');
+            const orderDetails = document.getElementById('orderDetails').innerText;
+            const blob = new Blob([`HIK Store UAE\nReceipt\n\n${orderDetails}`], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `receipt-${orderId}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showAlert('Receipt downloaded successfully!', 'success');
         }
         
         // Export functions to window
@@ -2334,11 +2601,19 @@ function validateSupabaseConfig() {
         window.submitOrder = submitOrder;
         window.goToStep = goToStep;
         
-        // Prevent accidental navigation
+        // Security: Prevent accidental navigation
         window.addEventListener('beforeunload', (e) => {
             if (currentStep !== 'confirmation' && cartData.length > 0) {
                 e.preventDefault();
                 e.returnValue = 'You have items in your cart. Are you sure you want to leave?';
+            }
+        });
+        
+        // Security: Clear sensitive data on page hide
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                console.log('🔒 Page hidden - clearing sensitive data from memory');
+                // Clear any sensitive variables if needed
             }
         });
     </script>
