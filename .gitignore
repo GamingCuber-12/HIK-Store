@@ -3,3 +3,14 @@ config.js
 node_modules/
 *.log
 .DS_Store
+# Secrets and configs
+.env
+.env.local
+.env.production
+.env.development
+config.local.js
+*.secret.js
+
+# Runtime
+node_modules/
+supabase/
