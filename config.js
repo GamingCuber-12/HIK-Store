@@ -1,48 +1,29 @@
-// config.js - SIMPLE VERSION FOR DIRECT INJECTION
-console.log('🚀 Loading configuration...');
+// config.js - MAIN CONFIG FILE
+// This will be OVERWRITTEN by GitHub Actions
 
-// These values will be injected by GitHub Actions
+console.log('⚙️ Loading config.js...');
+
+// This is a TEMPORARY placeholder
+// GitHub Actions will REPLACE this entire file
 window.SUPABASE_CONFIG = {
-    URL: "",  // Will be filled by GitHub Actions
-    ANON_KEY: "",  // Will be filled by GitHub Actions
-    PAYPAL_CLIENT_ID: "",  // Will be filled by GitHub Actions
-    ENV: 'production',
-    DEBUG: true
+  URL: "",
+  ANON_KEY: "",
+  PAYPAL_CLIENT_ID: "",
+  ENV: 'development',
+  INJECTED: false,
+  ERROR: 'Waiting for GitHub Actions to inject secrets'
 };
 
-console.log('✅ Config object created');
-console.log('📊 Current config:', {
-    url: window.SUPABASE_CONFIG.URL || 'Not set',
-    key: window.SUPABASE_CONFIG.ANON_KEY ? 'Set (' + window.SUPABASE_CONFIG.ANON_KEY.length + ' chars)' : 'Not set',
-    env: window.SUPABASE_CONFIG.ENV
-});
+console.log('⚠️ Config not yet injected by GitHub Actions');
+console.log('This file will be replaced during deployment');
 
-// Validation function
-window.validateConfig = function() {
-    const config = window.SUPABASE_CONFIG;
-    const isValid = config.URL && 
-                   config.URL.startsWith('https://') && 
-                   config.ANON_KEY && 
-                   config.ANON_KEY.startsWith('eyJ');
-    
-    if (!isValid) {
-        console.warn('⚠️ Config validation failed');
-        config.FALLBACK_MODE = true;
-    } else {
-        config.FALLBACK_MODE = false;
-        console.log('✅ Config validated successfully');
-    }
-    
-    return {
-        valid: isValid,
-        fallback: config.FALLBACK_MODE,
-        url: config.URL ? 'Present' : 'Missing',
-        key: config.ANON_KEY ? 'Present' : 'Missing'
-    };
+// Debug function
+window.showConfig = function() {
+  alert(
+    'Supabase Config:\n\n' +
+    'URL: ' + (window.SUPABASE_CONFIG.URL || 'NOT SET') + '\n' +
+    'Key: ' + (window.SUPABASE_CONFIG.ANON_KEY ? 'SET (' + window.SUPABASE_CONFIG.ANON_KEY.length + ' chars)' : 'NOT SET') + '\n' +
+    'Injected: ' + (window.SUPABASE_CONFIG.INJECTED ? 'YES ✅' : 'NO ⚠️') + '\n' +
+    'Error: ' + (window.SUPABASE_CONFIG.ERROR || 'None')
+  );
 };
-
-// Auto-validate after a short delay
-setTimeout(() => {
-    console.log('🔍 Auto-validating config...');
-    window.validateConfig();
-}, 100);
