@@ -1,1 +1,2034 @@
-hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIK Store UAE | Secure Checkout</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://getform.io">
+    
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --primary: #0d3b66;
+            --primary-dark: #08233a;
+            --primary-light: #1d6ca8;
+            --accent: #3b9ae1;
+            --accent-light: #6bb9f0;
+            --success: #10b981;
+            --success-light: #34d399;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --bg: #f0f7ff;
+            --card: #ffffff;
+            --border: #d1e3ff;
+            --text: #0f172a;
+            --text-light: #475569;
+            --shadow: 0 10px 25px rgba(13, 59, 102, 0.08);
+            --shadow-lg: 0 20px 40px rgba(13, 59, 102, 0.12);
+            --radius: 16px;
+            --radius-lg: 24px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            --gradient-success: linear-gradient(135deg, var(--success) 0%, #3b9ae1 100%);
+        }
+        
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--accent-light) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated background elements */
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* ========== CHECKOUT CONTAINER ========== */
+        .checkout-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        @media (max-width: 1024px) {
+            .checkout-wrapper {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+        }
+        
+        /* ========== FORM SECTION ========== */
+        .form-container {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            border: 1px solid rgba(13, 59, 102, 0.1);
+            position: relative;
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+        
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(13, 59, 102, 0.15);
+        }
+        
+        .form-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 70%
+            );
+            animation: shine 3s infinite linear;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .store-brand {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .store-logo {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .store-info h1 {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, #e0f2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .store-info p {
+            opacity: 0.9;
+            font-weight: 500;
+            color: #c5e6ff;
+        }
+        
+        /* Security badge in header */
+        .security-header-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 2;
+            animation: slideInRight 0.6s ease-out 0.3s backwards;
+        }
+        
+        /* ========== PROGRESS STEPS ========== */
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 0 40px;
+            position: relative;
+        }
+        
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 60px;
+            right: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--border), #e2f1ff);
+            z-index: 1;
+            border-radius: 2px;
+        }
+        
+        .progress-fill {
+            position: absolute;
+            top: 20px;
+            left: 60px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+            z-index: 2;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 3;
+            flex: 1;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .step:hover:not(.active) .step-number {
+            transform: scale(1.1);
+            border-color: var(--accent);
+        }
+        
+        .step-number {
+            width: 44px;
+            height: 44px;
+            background: var(--card);
+            border: 3px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-weight: 800;
+            color: var(--text-light);
+            transition: var(--transition);
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(13, 59, 102, 0.08);
+        }
+        
+        .step.active .step-number {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(13, 59, 102, 0.3);
+            animation: bounce 0.6s ease;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: scale(1.1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .step-label {
+            font-weight: 700;
+            color: var(--text-light);
+            font-size: 14px;
+            transition: var(--transition);
+        }
+        
+        .step.active .step-label {
+            color: var(--primary);
+            text-shadow: 0 1px 1px rgba(13, 59, 102, 0.1);
+        }
+        
+        /* ========== FORM SECTIONS ========== */
+        .form-sections {
+            padding: 40px;
+        }
+        
+        .form-section {
+            display: none;
+            animation: slideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px) perspective(500px) rotateX(-5deg); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) perspective(500px) rotateX(0); 
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .section-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+        
+        .section-title i {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 24px;
+        }
+        
+        /* ========== FORM CONTROLS ========== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-label.required::after {
+            content: " *";
+            color: var(--error);
+            font-weight: 900;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 18px 20px;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 16px;
+            color: var(--text);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(59, 154, 225, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .form-input:focus + .input-icon {
+            transform: translateY(-50%) scale(1.2);
+            color: var(--accent);
+        }
+        
+        .input-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-light);
+            transition: var(--transition);
+        }
+        
+        select.form-input {
+            appearance: none;
+            padding-right: 50px;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%230d3b66' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 16px;
+        }
+        
+        /* ========== PAYMENT METHODS ========== */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .payment-method {
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .payment-method::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            transition: var(--transition);
+        }
+        
+        .payment-method:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .payment-method:hover::before {
+            background: var(--gradient-primary);
+        }
+        
+        .payment-method.selected {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(59, 154, 225, 0.05) 0%, rgba(13, 59, 102, 0.05) 100%);
+            position: relative;
+            animation: selectPayment 0.4s ease;
+        }
+        
+        .payment-method.selected::before {
+            background: var(--gradient-primary);
+        }
+        
+        @keyframes selectPayment {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .payment-method.selected::after {
+            content: '✓';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--gradient-primary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 14px;
+            box-shadow: 0 4px 8px rgba(13, 59, 102, 0.3);
+            animation: checkPop 0.3s ease;
+        }
+        
+        @keyframes checkPop {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .payment-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .payment-name {
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .payment-desc {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+        
+        /* ========== ORDER SUMMARY ========== */
+        .order-summary {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            border: 1px solid rgba(13, 59, 102, 0.1);
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+        
+        .order-summary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(13, 59, 102, 0.15);
+        }
+        
+        .summary-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .summary-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+        
+        .summary-header h2 {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, #e0f2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .summary-content {
+            padding: 30px;
+        }
+        
+        .product-list {
+            margin-bottom: 25px;
+        }
+        
+        .product-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        
+        .product-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .product-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: var(--bg);
+            padding: 10px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        
+        .product-item:hover .product-image {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(13, 59, 102, 0.1);
+        }
+        
+        .product-details {
+            flex: 1;
+        }
+        
+        .product-title {
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .product-price {
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 18px;
+        }
+        
+        .product-quantity {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .totals {
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .totals::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--gradient-primary);
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #d1e3ff;
+            font-size: 15px;
+        }
+        
+        .total-row:last-child {
+            border-bottom: none;
+            font-weight: 900;
+            font-size: 22px;
+            color: var(--primary);
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 2px solid var(--border);
+            animation: totalPulse 2s infinite;
+        }
+        
+        @keyframes totalPulse {
+            0%, 100% { color: var(--primary); }
+            50% { color: var(--accent); }
+        }
+        
+        .security-badge {
+            background: linear-gradient(135deg, rgba(13, 59, 102, 0.05) 0%, rgba(59, 154, 225, 0.05) 100%);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 25px;
+            border: 1px solid rgba(59, 154, 225, 0.2);
+            transition: var(--transition);
+        }
+        
+        .security-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(13, 59, 102, 0.1);
+        }
+        
+        .security-badge i {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        /* ========== BUTTONS ========== */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border: none;
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::after {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 8px 20px rgba(13, 59, 102, 0.2);
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(13, 59, 102, 0.3);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(13, 59, 102, 0.05);
+            transform: translateY(-3px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .loader {
+            width: 22px;
+            height: 22px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ========== SUCCESS MESSAGE ========== */
+        .success-message {
+            display: none;
+            background: white;
+            color: var(--text);
+            padding: 40px;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-top: 30px;
+            animation: slideIn 0.5s ease-out;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .success-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gradient-success);
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+        
+        .success-message.show {
+            display: block;
+            animation: successSlideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes successSlideIn {
+            0% { opacity: 0; transform: translateY(50px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            display: inline-block;
+            position: relative;
+            animation: successPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .success-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 154, 225, 0.1) 100%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        .success-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: var(--success);
+            border-right-color: var(--success);
+            animation: circleExpand 0.8s 0.3s ease-out forwards;
+        }
+        
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 3;
+            stroke: white;
+            stroke-miterlimit: 10;
+            margin: 0 auto;
+            box-shadow: inset 0 0 0 var(--success);
+            animation: fillCheckmark 0.4s ease-in-out 0.4s forwards, scaleCheckmark 0.3s ease-in-out 0.9s both;
+        }
+        
+        .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 3;
+            stroke-miterlimit: 10;
+            stroke: var(--success);
+            fill: none;
+            animation: strokeCheckmark 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        
+        .checkmark-check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: strokeCheckmark 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+        
+        @keyframes strokeCheckmark {
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        @keyframes fillCheckmark {
+            100% { box-shadow: inset 0 0 0 40px var(--success); }
+        }
+        
+        @keyframes scaleCheckmark {
+            0%, 100% { transform: none; }
+            50% { transform: scale3d(1.1, 1.1, 1); }
+        }
+        
+        @keyframes successPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes circleExpand {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+        }
+        
+        .order-id {
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            margin: 25px 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            border: 1px solid var(--border);
+            letter-spacing: 1px;
+            animation: orderIdPulse 2s infinite;
+        }
+        
+        @keyframes orderIdPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(13, 59, 102, 0.1); }
+            50% { box-shadow: 0 0 0 10px rgba(13, 59, 102, 0); }
+        }
+        
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #25D366 0%, #1da851 100%);
+            color: white;
+            text-decoration: none;
+            padding: 18px 35px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-weight: 800;
+            font-size: 16px;
+            transition: var(--transition);
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .whatsapp-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .whatsapp-btn:hover::after {
+            left: 100%;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+        }
+        
+        /* ========== ERROR STATES ========== */
+        .error-message {
+            color: var(--error);
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+            padding-left: 5px;
+            font-weight: 500;
+            animation: shakeError 0.5s ease;
+        }
+        
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .form-input.error {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.05);
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* ========== ADDITIONAL POLISH ========== */
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+        
+        .order-summary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+        
+        /* Floating particles effect */
+        .floating-particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-20px) translateX(10px) rotate(90deg); }
+            50% { transform: translateY(-10px) translateX(20px) rotate(180deg); }
+            75% { transform: translateY(-30px) translateX(-10px) rotate(270deg); }
+        }
+        
+        /* ========== ACCESSIBILITY ========== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* ========== SECURITY INDICATORS ========== */
+        .security-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(16, 185, 129, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .security-indicator i {
+            color: var(--success);
+            font-size: 20px;
+        }
+        
+        .security-indicator span {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background elements -->
+    <div id="bg-elements"></div>
+    
+    <!-- Floating particles for visual effect -->
+    <div id="particles"></div>
+    
+    <div class="checkout-wrapper">
+        <!-- Main Form Container -->
+        <div class="form-container">
+            <!-- Header -->
+            <div class="form-header">
+                <div class="security-header-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Secure SSL</span>
+                </div>
+                <div class="store-brand">
+                    <div class="store-logo">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="store-info">
+                        <h1>HIK Store UAE</h1>
+                        <p>Premium Electronics • Secure Checkout</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="progress-fill" id="progressFill"></div>
+                <div class="step active" data-step="1" onclick="goToStep(1)">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Information</div>
+                </div>
+                <div class="step" data-step="2" onclick="goToStep(2)">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Shipping</div>
+                </div>
+                <div class="step" data-step="3" onclick="goToStep(3)">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Confirmation</div>
+                </div>
+            </div>
+            
+            <!-- Form Sections -->
+            <div class="form-sections">
+                <!-- GETFORM INTEGRATION FORM -->
+                <form id="checkoutForm" action="https://getform.io/f/bkkeyxpb" method="POST" autocomplete="on">
+                    <!-- Anti-spam honeypot field -->
+                    <input type="hidden" name="_gotcha" style="display:none !important">
+                    
+                    <!-- Step 1: Personal Information -->
+                    <div class="form-section active" id="step-1">
+                        <h2 class="section-title">
+                            <i class="fas fa-user-circle"></i>
+                            Personal Information
+                        </h2>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label required" for="firstName">
+                                    <i class="fas fa-user"></i>
+                                    First Name
+                                </label>
+                                <div class="input-wrapper">
+                                    <input type="text" class="form-input" id="firstName" name="firstName" placeholder="John" required autocomplete="given-name">
+                                    <i class="fas fa-user input-icon"></i>
+                                </div>
+                                <div class="error-message" id="firstNameError"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label required" for="lastName">
+                                    <i class="fas fa-user"></i>
+                                    Last Name
+                                </label>
+                                <div class="input-wrapper">
+                                    <input type="text" class="form-input" id="lastName" name="lastName" placeholder="Doe" required autocomplete="family-name">
+                                    <i class="fas fa-user input-icon"></i>
+                                </div>
+                                <div class="error-message" id="lastNameError"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label required" for="email">
+                                    <i class="fas fa-envelope"></i>
+                                    Email Address
+                                </label>
+                                <div class="input-wrapper">
+                                    <input type="email" class="form-input" id="email" name="email" placeholder="john@example.com" required autocomplete="email">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                </div>
+                                <div class="error-message" id="emailError"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label required" for="phone">
+                                    <i class="fas fa-phone"></i>
+                                    Phone Number
+                                </label>
+                                <div style="display: flex; gap: 10px;">
+                                    <select class="form-input" id="countryCode" name="countryCode" style="flex: 0 0 140px;" required autocomplete="tel-country-code">
+                                        <option value="+971">🇦🇪 +971 (UAE)</option>
+                                        <option value="+966">🇸🇦 +966 (KSA)</option>
+                                        <option value="+974">🇶🇦 +974 (Qatar)</option>
+                                        <option value="+968">🇴🇲 +968 (Oman)</option>
+                                    </select>
+                                    <div class="input-wrapper" style="flex: 1;">
+                                        <input type="tel" class="form-input" id="phone" name="phone" placeholder="501234567" required autocomplete="tel-national">
+                                        <i class="fas fa-mobile-alt input-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="error-message" id="phoneError"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="security-indicator">
+                            <i class="fas fa-lock"></i>
+                            <span>Your personal information is encrypted and secure</span>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+                                Continue to Shipping
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Shipping Address -->
+                    <div class="form-section" id="step-2">
+                        <h2 class="section-title">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Shipping Address
+                        </h2>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="address">
+                                <i class="fas fa-home"></i>
+                                Full Address
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="text" class="form-input" id="address" name="address" placeholder="Dubai Marina, Tower 1, Office 1501" required autocomplete="street-address">
+                                <i class="fas fa-map-pin input-icon"></i>
+                            </div>
+                            <div class="error-message" id="addressError"></div>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label required" for="city">
+                                    <i class="fas fa-city"></i>
+                                    City
+                                </label>
+                                <div class="input-wrapper">
+                                    <input type="text" class="form-input" id="city" name="city" placeholder="Dubai" required autocomplete="address-level2">
+                                    <i class="fas fa-building input-icon"></i>
+                                </div>
+                                <div class="error-message" id="cityError"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label required" for="emirate">
+                                    <i class="fas fa-flag"></i>
+                                    Emirate
+                                </label>
+                                <div class="input-wrapper">
+                                    <select class="form-input" id="emirate" name="emirate" required autocomplete="address-level1">
+                                        <option value="">Select Emirate</option>
+                                        <option>Dubai</option>
+                                        <option>Abu Dhabi</option>
+                                        <option>Sharjah</option>
+                                        <option>Ajman</option>
+                                        <option>Ras Al Khaimah</option>
+                                        <option>Fujairah</option>
+                                        <option>Umm Al Quwain</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down input-icon"></i>
+                                </div>
+                                <div class="error-message" id="emirateError"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="deliveryInstructions">
+                                <i class="fas fa-clipboard"></i>
+                                Delivery Instructions
+                            </label>
+                            <textarea class="form-input" id="deliveryInstructions" name="deliveryInstructions" rows="3" placeholder="Leave at reception, call before delivery, etc."></textarea>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep(1)">
+                                <i class="fas fa-arrow-left"></i>
+                                Back
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">
+                                Continue to Payment
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Payment Method -->
+                    <div class="form-section" id="step-3">
+                        <h2 class="section-title">
+                            <i class="fas fa-credit-card"></i>
+                            Payment Method
+                        </h2>
+                        
+                        <div class="payment-methods">
+                            <div class="payment-method" onclick="selectPayment('cod')" id="payment-cod" role="button" tabindex="0" aria-label="Cash on Delivery payment method">
+                                <div class="payment-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <div class="payment-name">Cash on Delivery</div>
+                                <div class="payment-desc">Pay when you receive your order</div>
+                                <input type="radio" name="paymentMethod" value="Cash on Delivery" style="display: none;" required>
+                            </div>
+                            
+                            <div class="payment-method" onclick="selectPayment('card')" id="payment-card" role="button" tabindex="0" aria-label="Credit or Debit Card payment method">
+                                <div class="payment-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="payment-name">Credit/Debit Card</div>
+                                <div class="payment-desc">Visa, MasterCard, AMEX</div>
+                                <input type="radio" name="paymentMethod" value="Credit/Debit Card" style="display: none;">
+                            </div>
+                            
+                            <div class="payment-method" onclick="selectPayment('apple')" id="payment-apple" role="button" tabindex="0" aria-label="Apple Pay payment method">
+                                <div class="payment-icon">
+                                    <i class="fab fa-cc-apple-pay"></i>
+                                </div>
+                                <div class="payment-name">Apple Pay</div>
+                                <div class="payment-desc">Secure payment on Apple devices</div>
+                                <input type="radio" name="paymentMethod" value="Apple Pay" style="display: none;">
+                            </div>
+                            
+                            <div class="payment-method" onclick="selectPayment('paypal')" id="payment-paypal" role="button" tabindex="0" aria-label="PayPal payment method">
+                                <div class="payment-icon">
+                                    <i class="fab fa-cc-paypal"></i>
+                                </div>
+                                <div class="payment-name">PayPal</div>
+                                <div class="payment-desc">Fast & secure online payment</div>
+                                <input type="radio" name="paymentMethod" value="PayPal" style="display: none;">
+                            </div>
+                        </div>
+                        
+                        <!-- Terms Agreement -->
+                        <div class="form-group" style="margin-top: 30px;">
+                            <div style="display: flex; align-items: flex-start; gap: 15px; padding: 20px; background: var(--bg); border-radius: 12px;">
+                                <input type="checkbox" id="termsAgreement" name="termsAgreed" required style="margin-top: 3px;">
+                                <label for="termsAgreement" style="color: var(--text); font-size: 15px; line-height: 1.5;">
+                                    I agree to the <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 700;">Terms & Conditions</a> and confirm that all information provided is accurate. I understand that my data is processed securely in compliance with UAE regulations.
+                                </label>
+                            </div>
+                            <div class="error-message" id="termsError"></div>
+                        </div>
+                        
+                        <div class="security-indicator">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>All payments are processed with bank-level encryption</span>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep(2)">
+                                <i class="fas fa-arrow-left"></i>
+                                Back
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                                <i class="fas fa-lock"></i>
+                                Place Secure Order
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Getform Hidden Fields -->
+                    <input type="hidden" name="_subject" value="🛒 NEW ORDER - HIK Store UAE">
+                    <input type="hidden" name="order_total" value="AED 1,467">
+                    <input type="hidden" name="order_id" id="hiddenOrderId">
+                    <input type="hidden" name="customer_name" id="hiddenFullName">
+                    <input type="hidden" name="customer_phone" id="hiddenFullPhone">
+                    <input type="hidden" name="shipping_address" id="hiddenFullAddress">
+                    <input type="hidden" name="_replyto" id="hiddenEmail">
+                </form>
+                
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage" aria-live="polite">
+                    <div class="success-icon">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" aria-hidden="true">
+                            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                    </div>
+                    <h2 style="font-size: 28px; margin-bottom: 10px; color: var(--primary);">Order Confirmed! 🎉</h2>
+                    <p style="color: var(--text-light); font-size: 16px; max-width: 400px; margin: 0 auto;">Thank you for your purchase. Your order has been received and is being processed.</p>
+                    
+                    <div class="order-id" id="displayOrderId">ORDER-123456</div>
+                    
+                    <p style="margin: 20px 0; color: var(--text-light); opacity: 0.9; font-size: 15px;">
+                        A confirmation email has been sent to your inbox with all order details.
+                    </p>
+                    
+                    <a href="https://wa.me/971501234567" class="whatsapp-btn" target="_blank" id="whatsappLink" rel="noopener">
+                        <i class="fab fa-whatsapp"></i>
+                        Chat on WhatsApp
+                    </a>
+                    
+                    <p style="margin-top: 25px; font-size: 14px; color: var(--text-light); opacity: 0.8;">
+                        Delivery: 2-3 business days within UAE
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Order Summary Sidebar -->
+        <div class="order-summary">
+            <div class="summary-header">
+                <h2>Order Summary</h2>
+                <p style="opacity: 0.9;">Review your items</p>
+            </div>
+            
+            <div class="summary-content">
+                <div class="product-list">
+                    <div class="product-item">
+                        <img src="https://images.unsplash.com/photo-1590658360335-7a4d5670c20a?w=200&h=200&fit=crop" 
+                             alt="Wireless Earbuds" class="product-image">
+                        <div class="product-details">
+                            <div class="product-title">Wireless Earbuds Pro</div>
+                            <div class="product-price">AED 299</div>
+                            <div class="product-quantity">Quantity: 1</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-item">
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=200&h=200&fit=crop" 
+                             alt="Smart Watch" class="product-image">
+                        <div class="product-details">
+                            <div class="product-title">Smart Watch Series 8</div>
+                            <div class="product-price">AED 899</div>
+                            <div class="product-quantity">Quantity: 1</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-item">
+                        <img src="https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=200&h=200&fit=crop" 
+                             alt="Gaming Keyboard" class="product-image">
+                        <div class="product-details">
+                            <div class="product-title">Gaming Keyboard RGB</div>
+                            <div class="product-price">AED 199</div>
+                            <div class="product-quantity">Quantity: 1</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="totals">
+                    <div class="total-row">
+                        <span>Subtotal</span>
+                        <span>AED 1,397</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Shipping</span>
+                        <span>FREE</span>
+                    </div>
+                    <div class="total-row">
+                        <span>VAT (5%)</span>
+                        <span>AED 70</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Total</span>
+                        <span>AED 1,467</span>
+                    </div>
+                </div>
+                
+                <div class="security-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <p style="font-weight: 700; margin-bottom: 5px; color: var(--primary);">Secure Checkout</p>
+                    <p style="font-size: 14px; color: var(--text-light);">
+                        End-to-end encrypted • PCI DSS Compliant • UAE Data Protected
+                    </p>
+                </div>
+                
+                <!-- Security Indicators -->
+                <div class="security-indicator">
+                    <i class="fas fa-clock"></i>
+                    <span>Secure session expires in <span id="sessionTimer">14:59</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Current step tracking
+        let currentStep = 1;
+        let selectedPayment = null;
+        let sessionTime = 15 * 60; // 15 minutes in seconds
+        
+        // Generate a random order ID
+        function generateOrderId() {
+            const timestamp = Date.now().toString().slice(-6);
+            const random = Math.floor(100 + Math.random() * 900);
+            return `HIK-${timestamp}${random}`;
+        }
+        
+        // Create animated background elements
+        function createBackgroundElements() {
+            const container = document.getElementById('bg-elements');
+            const elementCount = 8;
+            
+            for (let i = 0; i < elementCount; i++) {
+                const element = document.createElement('div');
+                element.classList.add('bg-element');
+                
+                const size = Math.random() * 300 + 100;
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.top = `${Math.random() * 100}%`;
+                
+                const opacity = Math.random() * 0.03 + 0.01;
+                element.style.opacity = opacity;
+                
+                const duration = Math.random() * 60 + 40;
+                element.style.animation = `float ${duration}s infinite linear`;
+                
+                container.appendChild(element);
+            }
+        }
+        
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('floating-particle');
+                
+                const size = Math.random() * 6 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                const opacity = Math.random() * 0.4 + 0.1;
+                particle.style.opacity = opacity;
+                
+                const duration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Update progress bar
+        function updateProgressBar() {
+            const progressFill = document.getElementById('progressFill');
+            const width = ((currentStep - 1) / 3) * 100;
+            progressFill.style.width = `${width}%`;
+        }
+        
+        // Next step navigation
+        function nextStep(step) {
+            if (!validateStep(currentStep)) {
+                return;
+            }
+            
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+            
+            currentStep = step;
+            
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+            
+            updateHiddenFields();
+            updateProgressBar();
+            
+            // Smooth scroll to top of form
+            document.querySelector('.form-sections').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }
+        
+        // Previous step navigation
+        function prevStep(step) {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+            
+            currentStep = step;
+            
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+            
+            updateProgressBar();
+            
+            // Smooth scroll to top of form
+            document.querySelector('.form-sections').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }
+        
+        // Go to specific step
+        function goToStep(step) {
+            if (step < currentStep && step >= 1) {
+                prevStep(step);
+            } else if (step > currentStep && step <= 3) {
+                // Only allow going forward if current step is valid
+                if (validateStep(currentStep)) {
+                    nextStep(step);
+                }
+            }
+        }
+        
+        // Select payment method
+        function selectPayment(method) {
+            selectedPayment = method;
+            
+            // Remove selected class from all payment methods
+            document.querySelectorAll('.payment-method').forEach(pm => {
+                pm.classList.remove('selected');
+                pm.querySelector('input[type="radio"]').checked = false;
+            });
+            
+            // Add selected class to chosen payment method
+            const selectedElement = document.getElementById(`payment-${method}`);
+            selectedElement.classList.add('selected');
+            selectedElement.querySelector('input[type="radio"]').checked = true;
+            
+            // Update terms checkbox requirement based on payment method
+            const termsCheckbox = document.getElementById('termsAgreement');
+            termsCheckbox.required = true;
+            
+            // Clear any terms error
+            document.getElementById('termsError').style.display = 'none';
+        }
+        
+        // Validate current step
+        function validateStep(step) {
+            let isValid = true;
+            
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.querySelectorAll('.form-input.error').forEach(el => {
+                el.classList.remove('error');
+            });
+            
+            if (step === 1) {
+                // Validate personal information
+                const firstName = document.querySelector('input[name="firstName"]');
+                const lastName = document.querySelector('input[name="lastName"]');
+                const email = document.querySelector('input[name="email"]');
+                const phone = document.querySelector('input[name="phone"]');
+                
+                if (!firstName.value.trim()) {
+                    showError(firstName, 'firstNameError', 'First name is required');
+                    isValid = false;
+                }
+                
+                if (!lastName.value.trim()) {
+                    showError(lastName, 'lastNameError', 'Last name is required');
+                    isValid = false;
+                }
+                
+                if (!email.value.trim()) {
+                    showError(email, 'emailError', 'Email is required');
+                    isValid = false;
+                } else if (!isValidEmail(email.value)) {
+                    showError(email, 'emailError', 'Please enter a valid email');
+                    isValid = false;
+                }
+                
+                if (!phone.value.trim()) {
+                    showError(phone, 'phoneError', 'Phone number is required');
+                    isValid = false;
+                } else if (!isValidPhone(phone.value)) {
+                    showError(phone, 'phoneError', 'Please enter a valid phone number (7-15 digits)');
+                    isValid = false;
+                }
+            } else if (step === 2) {
+                // Validate shipping address
+                const address = document.querySelector('input[name="address"]');
+                const city = document.querySelector('input[name="city"]');
+                const emirate = document.querySelector('select[name="emirate"]');
+                
+                if (!address.value.trim()) {
+                    showError(address, 'addressError', 'Address is required');
+                    isValid = false;
+                }
+                
+                if (!city.value.trim()) {
+                    showError(city, 'cityError', 'City is required');
+                    isValid = false;
+                }
+                
+                if (!emirate.value.trim()) {
+                    showError(emirate, 'emirateError', 'Emirate is required');
+                    isValid = false;
+                }
+            } else if (step === 3) {
+                // Validate payment and terms
+                if (!selectedPayment) {
+                    document.getElementById('termsError').textContent = 'Please select a payment method';
+                    document.getElementById('termsError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                const termsCheckbox = document.getElementById('termsAgreement');
+                if (!termsCheckbox.checked) {
+                    document.getElementById('termsError').textContent = 'You must agree to the terms & conditions';
+                    document.getElementById('termsError').style.display = 'block';
+                    isValid = false;
+                }
+            }
+            
+            return isValid;
+        }
+        
+        // Show error message
+        function showError(inputElement, errorId, message) {
+            inputElement.classList.add('error');
+            const errorElement = document.getElementById(errorId);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            
+            // Scroll to error
+            errorElement.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+        }
+        
+        // Email validation
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        
+        // Phone validation
+        function isValidPhone(phone) {
+            return /^[0-9]{7,15}$/.test(phone);
+        }
+        
+        // Update hidden fields before submission
+        function updateHiddenFields() {
+            const firstName = document.querySelector('input[name="firstName"]').value;
+            const lastName = document.querySelector('input[name="lastName"]').value;
+            const email = document.querySelector('input[name="email"]').value;
+            const countryCode = document.querySelector('select[name="countryCode"]').value;
+            const phone = document.querySelector('input[name="phone"]').value;
+            const address = document.querySelector('input[name="address"]').value;
+            const city = document.querySelector('input[name="city"]').value;
+            const emirate = document.querySelector('select[name="emirate"]').value;
+            
+            // Generate order ID
+            const orderId = generateOrderId();
+            
+            // Update hidden fields
+            document.getElementById('hiddenOrderId').value = orderId;
+            document.getElementById('hiddenFullName').value = `${firstName} ${lastName}`;
+            document.getElementById('hiddenFullPhone').value = `${countryCode} ${phone}`;
+            document.getElementById('hiddenFullAddress').value = `${address}, ${city}, ${emirate}`;
+            document.getElementById('hiddenEmail').value = email;
+        }
+        
+        // Session timer
+        function updateSessionTimer() {
+            const timerElement = document.getElementById('sessionTimer');
+            
+            if (sessionTime <= 0) {
+                timerElement.textContent = 'Expired';
+                timerElement.style.color = 'var(--error)';
+                return;
+            }
+            
+            const minutes = Math.floor(sessionTime / 60);
+            const seconds = sessionTime % 60;
+            
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Change color when less than 5 minutes remaining
+            if (sessionTime < 300) {
+                timerElement.style.color = 'var(--warning)';
+            }
+            
+            if (sessionTime < 60) {
+                timerElement.style.color = 'var(--error)';
+            }
+            
+            sessionTime--;
+        }
+        
+        // Form submission
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate step 3 before submission
+            if (!validateStep(3)) {
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="loader"></div> Processing...';
+            submitBtn.disabled = true;
+            
+            // Update hidden fields one more time
+            updateHiddenFields();
+            
+            // Generate WhatsApp link
+            const orderId = document.getElementById('hiddenOrderId').value;
+            const customerName = document.getElementById('hiddenFullName').value;
+            const whatsappLink = `https://wa.me/971501234567?text=Order%20Confirmation:%20${orderId}%20-%20${encodeURIComponent(customerName)}`;
+            document.getElementById('whatsappLink').href = whatsappLink;
+            
+            // Set the display order ID
+            document.getElementById('displayOrderId').textContent = orderId;
+            
+            // Simulate form submission delay
+            setTimeout(() => {
+                // Submit the form to Getform
+                const formData = new FormData(this);
+                
+                // Add timestamp to form data
+                formData.append('timestamp', new Date().toISOString());
+                
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                })
+                .then(() => {
+                    // Hide form and show success message
+                    document.getElementById('checkoutForm').style.display = 'none';
+                    document.getElementById('successMessage').classList.add('show');
+                    
+                    // Update progress step
+                    document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+                    document.querySelector('.step[data-step="4"]').classList.add('active');
+                    updateProgressBar();
+                    
+                    // Create confetti effect on success
+                    createConfetti();
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error submitting your order. Please try again.');
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                });
+            }, 1500);
+        });
+        
+        // Create confetti effect
+        function createConfetti() {
+            const confettiCount = 100;
+            const container = document.querySelector('.form-sections');
+            const colors = ['#10b981', '#0d3b66', '#3b9ae1', '#6bb9f0', '#f59e0b', '#8b5cf6'];
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'absolute';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confetti.style.top = '50%';
+                confetti.style.left = '50%';
+                confetti.style.opacity = '0';
+                confetti.style.zIndex = '9999';
+                
+                container.appendChild(confetti);
+                
+                // Animate confetti
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 40 + Math.random() * 30;
+                const x = Math.cos(angle) * velocity;
+                const y = Math.sin(angle) * velocity;
+                
+                const animation = confetti.animate([
+                    { 
+                        transform: `translate(0, 0) rotate(0deg)`, 
+                        opacity: 1 
+                    },
+                    { 
+                        transform: `translate(${x}px, ${y}px) rotate(${360 * (Math.random() > 0.5 ? 1 : -1)}deg)`, 
+                        opacity: 0 
+                    }
+                ], {
+                    duration: 1000 + Math.random() * 500,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                });
+                
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial order ID
+            const orderId = generateOrderId();
+            document.getElementById('hiddenOrderId').value = orderId;
+            
+            // Create background elements and particles
+            createBackgroundElements();
+            createParticles();
+            
+            // Initialize progress bar
+            updateProgressBar();
+            
+            // Auto-select first payment method
+            selectPayment('cod');
+            
+            // Start session timer
+            setInterval(updateSessionTimer, 1000);
+            
+            // Add input validation on blur
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value.trim() && this.hasAttribute('required')) {
+                        this.classList.remove('error');
+                        const errorId = this.name + 'Error';
+                        const errorElement = document.getElementById(errorId);
+                        if (errorElement) {
+                            errorElement.style.display = 'none';
+                        }
+                    }
+                });
+                
+                // Add enter key support for moving between inputs
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        const form = e.target.form;
+                        const index = Array.prototype.indexOf.call(form, e.target);
+                        if (form.elements[index + 1]) {
+                            form.elements[index + 1].focus();
+                        }
+                    }
+                });
+            });
+            
+            // Add keyboard navigation for payment methods
+            document.querySelectorAll('.payment-method').forEach(payment => {
+                payment.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const method = this.id.split('-')[1];
+                        selectPayment(method);
+                    }
+                });
+            });
+            
+            // Add secure session storage for form data
+            window.addEventListener('beforeunload', function() {
+                if (currentStep > 1) {
+                    // Save form data to sessionStorage
+                    const formData = {};
+                    document.querySelectorAll('.form-input').forEach(input => {
+                        if (input.value.trim()) {
+                            formData[input.name] = input.value;
+                        }
+                    });
+                    
+                    // Save payment method
+                    if (selectedPayment) {
+                        formData.paymentMethod = selectedPayment;
+                    }
+                    
+                    // Save current step
+                    formData.currentStep = currentStep;
+                    
+                    sessionStorage.setItem('hikStoreCheckout', JSON.stringify(formData));
+                }
+            });
+            
+            // Load saved form data
+            const savedData = sessionStorage.getItem('hikStoreCheckout');
+            if (savedData) {
+                try {
+                    const formData = JSON.parse(savedData);
+                    
+                    // Restore form values
+                    Object.keys(formData).forEach(key => {
+                        if (key !== 'currentStep' && key !== 'paymentMethod') {
+                            const input = document.querySelector(`[name="${key}"]`);
+                            if (input) {
+                                input.value = formData[key];
+                            }
+                        }
+                    });
+                    
+                    // Restore payment method
+                    if (formData.paymentMethod) {
+                        selectPayment(formData.paymentMethod);
+                    }
+                    
+                    // Restore step
+                    if (formData.currentStep && formData.currentStep > 1) {
+                        setTimeout(() => {
+                            if (confirm('We found a previously saved checkout. Would you like to continue where you left off?')) {
+                                goToStep(formData.currentStep);
+                            }
+                        }, 1000);
+                    }
+                } catch (e) {
+                    console.error('Error loading saved data:', e);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
